@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import AnimatedButtonWrapper from "./AnimatedButtonWrapper";
+
 function ForgetPinForm({ car, onCloseModal, sharedData }) {
   return (
     <div className="bg-white rounded-lg  h-[600px] w-full min-w-[600px] max-w-[600px]">

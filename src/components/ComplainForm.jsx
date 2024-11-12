@@ -32,6 +32,7 @@ function ComplainForm({ onCloseModal }) {
       detailsRef.current.removeAttribute("open");
     }
   };
+
   return (
     <div className="min-w-[350px] lg:min-w-[450px] max-w-[440px]">
       <div className="px-[30px] py-[20px] rounded-t-lg relative border-b border-[#eaebf2]">

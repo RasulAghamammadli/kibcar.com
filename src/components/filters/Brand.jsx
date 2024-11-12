@@ -70,6 +70,19 @@ function Brand() {
     getBrands();
   }, []);
 
+  // outside close
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (detailsRef.current && !detailsRef.current.contains(event.target)) {
+        closeDropdown();
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="h-full">
       <details
@@ -79,24 +92,34 @@ function Brand() {
         onClick={handleDetailsClick}
       >
         <summary
-          className={`flex items-center justify-between w-full h-full px-[10px] bg-white border rounded-lg btn shadow-input hover:bg-white hover:!border-[#8F93AD] ${
-            isOpen ? "border-[#8F93AD]" : "border-gray-300"
+          className={`flex items-center justify-between w-full h-full px-[10px] bg-white border rounded-lg btn shadow-none hover:bg-white ${
+            isOpen
+              ? "border-[#8F93AD] hover:!border-[#8F93AD]"
+              : "border-gray-300"
           }`}
         >
           <div className="max-w-[80%]">
-            {brandName && (
-              <p className="font-primary mb-1 text-[12px] opacity-70 text-secondary text-start">
-                Brand
-              </p>
-            )}
             <input
               ref={inputRef}
+              id="brand"
               type="text"
               value={searchTerm}
               onChange={handleInputChange}
               placeholder={brandName || "Brand"}
-              className="font-primary text-[14px] font-normal w-full bg-transparent border-none focus:outline-none"
+              className={`font-primary text-[15px] font-normal w-full bg-transparent border-none focus:outline-none text-start overflow-hidden whitespace-nowrap overflow-ellipsis ${
+                searchTerm ? "mt-[9px]" : ""
+              }`}
             />
+            <label
+              htmlFor="brand"
+              className={`${
+                searchTerm
+                  ? "absolute cursor-pointer font-normal left-0 top-[8px] pl-[0.6rem] pr-[0.1rem] text-[12px] leading-3 transition-all w-full text-start peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-focus:top-[8px]  peer-focus:text-[12px] peer-focus:leading-3 font-primary text-secondary"
+                  : "hidden"
+              } `}
+            >
+              Brand
+            </label>
           </div>
           <img
             src={chivronBottom}
@@ -106,10 +129,12 @@ function Brand() {
             }`}
           />
         </summary>
-        <ul className="p-2 z-[1] shadow menu dropdown-content bg-base-100 flex flex-col flex-nowrap justify-start w-full mt-1 rounded-lg max-h-[210px] overflow-y-auto">
+        <ul className="p-2 px-0 z-[1] shadow menu dropdown-content bg-base-100 flex flex-col flex-nowrap justify-start w-full mt-0.5 rounded-lg max-h-[210px] overflow-y-auto">
           {filteredBrands.map((brand) => (
             <li key={brand.id} onClick={() => handleSelection(brand)}>
-              <a>{brand.name}</a>
+              <a className="rounded-none px-[10px] text-primary">
+                {brand.name}
+              </a>
             </li>
           ))}
         </ul>

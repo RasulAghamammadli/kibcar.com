@@ -85,6 +85,12 @@ html {
   border-color: #c9171d;
 }
 
+label {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 favourite-sec input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -293,6 +299,10 @@ body {
 
 .animated-button.btn-loading-state {
   opacity: 0.3; /* 30% opacity on click */
+}
+
+.animated-button.btn-loading-state p {
+  opacity: 0;
 }
 
 .animated-button:hover {

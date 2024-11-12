@@ -9,28 +9,7 @@ import { FaHeart } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
 
 function Nav() {
-  const [hover, setHover] = useState(false);
   const [showNav, setShowNav] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > lastScrollY) {
-        // Scrolling down
-        setShowNav(false);
-      } else {
-        // Scrolling up
-        setShowNav(true);
-      }
-      setLastScrollY(window.scrollY);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [lastScrollY]);
 
   return (
     <>
@@ -110,10 +89,10 @@ function Nav() {
               <div className="flex nav-links items-center flex-1 justify-end md:space-x-[30px]">
                 <Link
                   to={"/new-advertisement"}
-                  className="flex items-center space-x-[4px]  py-[11px] px-[10px] rounded-[8px] bg-green hover:scale-105 transition-all duration-300"
+                  className="flex items-center space-x-[4px]  py-[11px] px-[10px] rounded-[8px] bg-green hover:bg-[#85c01f] transition-all duration-300"
                 >
                   <img src={newLogo} alt="add-Announcement" />
-                  <p className="font-primary text-[14px] font-medium leading-[18px] text-white ">
+                  <p className="font-primary text-[14px] font-medium leading-[18px] text-white">
                     New Announcement
                   </p>
                 </Link>

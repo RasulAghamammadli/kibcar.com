@@ -9,15 +9,16 @@ function Type() {
   };
   useEffect(() => setSelectedType("all"), []);
   const options = ["all", "new", "drove"];
+
   return (
     <div className="flex justify-between border border-gray-300 rounded-lg h-full">
       {options.map((option) => (
         <label
           key={option}
-          className={`first:rounded-l-lg  even:border-r-[#6B6B6B] last:rounded-r-lg py-[15px] px-[20px] cursor-pointer flex flex-1 justify-center items-center ${
+          className={`first:rounded-l-md  even:border-x-[1px] even:border-gray-300 last:rounded-r-md py-[15px] px-[20px] cursor-pointer flex flex-1 justify-center items-center transition-all duration-100 ${
             selectedType === option
               ? "bg-red text-white"
-              : "bg-white text-secondary "
+              : "bg-white text-secondary"
           }`}
           onClick={() => handleChange(option)}
         >

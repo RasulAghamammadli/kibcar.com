@@ -1061,7 +1061,7 @@ function NewAdvertisement() {
                           For accident or spare parts
                         </h3>
                         <p className="pt-1 text-[14px] font-primary text-secondary">
-                          In need of repair or in general disrepair..
+                          In need of repair or in general disrepair.
                         </p>
                       </label>
                     </div>
@@ -1308,7 +1308,7 @@ function NewAdvertisement() {
                   <div className="flex items-center ml-0 gap-x-2">
                     <input
                       className="w-4 h-4 accent-red"
-                      id="seatNum8"
+                      id="seatVal"
                       type="radio"
                       name="seatNum"
                       value="0"
@@ -1328,8 +1328,8 @@ function NewAdvertisement() {
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal min-w-[165px] max-w-[165px]"></label>
-                <div className="md:max-w-[452px] w-full space-x-5 flex">
-                  <div className="mt-[2px] ">
+                <div className="md:max-w-[452px] w-full space-x-5 flex items-center">
+                  <div className="mt-[4px] cursor-pointer">
                     <label className="custom-checkbox">
                       <input
                         checked={formData.credit}
@@ -1343,7 +1343,7 @@ function NewAdvertisement() {
                   </div>
                   <div>
                     <label htmlFor="credit">
-                      <h3 className="font-primary text-[14px] font-normal text-primary ">
+                      <h3 className="font-primary cursor-pointer text-[14px] font-normal text-primary ">
                         With credit
                       </h3>
                     </label>
@@ -1352,8 +1352,8 @@ function NewAdvertisement() {
               </div>
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal min-w-[165px] max-w-[165px] "></label>
-                <div className="md:max-w-[452px] w-full space-x-5 flex">
-                  <div className="mt-[2px] ">
+                <div className="md:max-w-[452px] w-full space-x-5 flex items-center">
+                  <div className="mt-[4px] cursor-pointer">
                     <label className="custom-checkbox">
                       <input
                         checked={formData.barter}
@@ -1367,7 +1367,7 @@ function NewAdvertisement() {
                   </div>
                   <div>
                     <label htmlFor="barter">
-                      <h3 className="font-primary text-[14px] font-normal text-primary ">
+                      <h3 className="font-primary cursor-pointer text-[14px] font-normal text-primary ">
                         Barter is possible
                       </h3>
                     </label>
@@ -1603,7 +1603,7 @@ function NewAdvertisement() {
                       className="md:min-w-[452px] min-w-full text-[14px] font-primary text-white  py-[18px] px-[20px] outline-none rounded-md font-medium bg-red"
                       type="submit"
                     >
-                      Continue
+                      <p>Continue</p>
                     </button>
                   </AnimatedButtonWrapper>
                 </div>

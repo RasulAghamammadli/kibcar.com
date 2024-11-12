@@ -1,5 +1,9 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+
+// components
 import Brand from "../components/filters/Brand";
 import City from "../components/filters/City";
 import Model from "../components/filters/Model";
@@ -7,7 +11,6 @@ import Type from "../components/filters/Type";
 import Price from "../components/filters/Price";
 import PaymentCurrency from "../components/filters/PaymentCurrency";
 import PaymentType from "../components/filters/PaymentType";
-import { Link } from "react-router-dom";
 import BanType from "../components/filters/BanType";
 import YearManufacturer from "../components/filters/YearManufacturer";
 import MaxYearManufacturer from "../components/filters/MaxYearManufacturer";
@@ -19,18 +22,14 @@ import VolumeMin from "../components/filters/VolumeMin";
 import VolumeMax from "../components/filters/VolumeMax";
 import chevronTop from "../assets/icons/chivron-top.svg";
 import chivronBottom from "../assets/icons/chivron-bottom.svg";
-import notifiedIcon from "../assets/icons/notify-icon.svg";
 import Power from "../components/filters/Power";
 import Mileage from "../components/filters/Mileage";
 import CarType from "../components/filters/CarType";
 import OwnersNumber from "../components/filters/OwnersNumber";
 import SeatsNumber from "../components/filters/SeatsNumber";
 import Market from "../components/filters/Market";
-import { useContext } from "react";
 import FilterContext from "../context/filterContext/FilterContext";
 import VipAnnouncement from "../components/cars/VipAnnouncement";
-import RecentAnnouncement from "../components/cars/RecentAnnouncement";
-import PremiumAds from "../components/cars/PremiumAds";
 import VehicleFeatures from "../components/cars/VehicleFeatures";
 import NoAds from "../components/NoAds";
 import Spinner from "../components/Spinner";
@@ -229,7 +228,7 @@ function Homepage() {
                 hideMoreMobile && !moreFilters ? "hidden" : ""
               }`}
             >
-              <div className="flex justify-between h-full gap-3">
+              <div className="flex justify-between h-full ">
                 <div className="flex-1">
                   <YearManufacturer />
                 </div>
@@ -258,14 +257,6 @@ function Homepage() {
             </div>
             <div className="xl:col-span-3 md:col-span-6 col-span-12 h-[48px]">
               <VolumeMin />
-              {/* <div className="flex justify-between h-full gap-6">
-                <div className="flex-1">
-                  <VolumeMin />
-                </div>
-                <div className="flex-1">
-                  <VolumeMax />
-                </div>
-              </div> */}
             </div>
             <div className="xl:col-span-3 md:col-span-6 col-span-12 h-[48px]">
               <VolumeMax />
@@ -330,7 +321,7 @@ function Homepage() {
               <div className="flex flex-wrap items-center justify-between md:flex-nowrap md:gy-0 ">
                 <span className="font-primary text-primary text-[14px] inline-block ">
                   <h2 className="flex items-center font-normal text-primary text-[14px] md:text-[14px] font-primary">
-                    Today :{" "}
+                    Today :
                     <Link className="ml-1 font-primary font-normal text-link">
                       {adsCount} Ads
                     </Link>
@@ -342,7 +333,7 @@ function Homepage() {
                       onClick={handleResetForm}
                       className="font-primary text-[14px] font-normal mr-7 text-[#8D94AD]"
                     >
-                      Rest
+                      Reset
                     </button>
                     <button
                       onClick={handleMoreFilters}
@@ -360,9 +351,9 @@ function Homepage() {
                     <AnimatedButtonWrapper>
                       <button
                         onClick={showFilterPayload}
-                        className="text-white rounded-lg shadow-lg bg-red hover:bg-[#882111] shadow-none hover:shadow-none py-[14px] px-[35px] font-primary text-[14px] font-normal md:ml-14 ml-[20px] flex items-center"
+                        className="text-white rounded-lg bg-red hover:bg-[#882111] shadow-none hover:shadow-none py-[14px] px-[35px] font-primary text-[14px] font-normal md:ml-14 ml-[20px] flex items-center"
                       >
-                        Shows ads
+                        <p>Shows ads</p>
                       </button>
                     </AnimatedButtonWrapper>
                   </div>

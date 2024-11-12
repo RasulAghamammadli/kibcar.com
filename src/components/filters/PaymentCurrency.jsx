@@ -38,8 +38,10 @@ function PaymentCurrency() {
         onToggle={handleToggle}
       >
         <summary
-          className={`flex items-center justify-between w-full h-full px-[10px] bg-white border rounded-lg btn shadow-input hover:bg-white hover:!border-[#8F93AD] ${
-            isOpen ? "border-[#8F93AD]" : "border-gray-300"
+          className={`flex items-center justify-between w-full h-full px-[10px] bg-white border rounded-lg btn shadow-none hover:bg-white ${
+            isOpen
+              ? "border-[#8F93AD]  hover:!border-[#8F93AD]"
+              : "border-gray-300"
           }`}
         >
           <div>
@@ -47,12 +49,18 @@ function PaymentCurrency() {
               {selectedCurrency || "Currency"}
             </p>
           </div>
-          <img src={chivronBottom} alt="chivron-Bottom" />
+          <img
+            src={chivronBottom}
+            alt="chivron-Bottom"
+            className={`transition-transform duration-300 ${
+              isOpen ? "rotate-180" : ""
+            }`}
+          />
         </summary>
-        <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 flex justify-start w-full mt-1 rounded-none rounded-l-lg">
+        <ul className="p-2 px-0 shadow menu dropdown-content z-[1] bg-base-100 flex justify-start w-full mt-0.5 rounded-lg ">
           {currencies.map((item) => (
             <li key={item.id} onClick={() => handleSelection(item)}>
-              <a>{item.name}</a>
+              <a className="rounded-none px-[10px]">{item.name}</a>
             </li>
           ))}
         </ul>

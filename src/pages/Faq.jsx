@@ -6,7 +6,7 @@ import faq2 from "../assets/images/faq2.svg";
 import faq3 from "../assets/images/faq3.svg";
 import { Link } from "react-router-dom";
 function Faq() {
-  const [activeTab, setActiveTab] = useState("Popular Questions");
+  const [activeTab, setActiveTab] = useState("Popüler Sorular");
   const [openAccordion, setOpenAccordion] = useState("popular-1");
 
   // Function to handle accordion toggle
@@ -25,7 +25,7 @@ function Faq() {
         }}
       >
         <h2 className="capitalize text-[20px] font-medium leading-8 text-[#505050] text-center">
-          Hello! How can we help you?
+          Merhaba! Size nasıl yardımcı olabiliriz?
         </h2>
       </div>
       <div className="lg:container">
@@ -33,16 +33,16 @@ function Faq() {
           <div className="flex w-full lg:w-[32%] flex-col">
             <div className="flex items-center lg:block border-b border-[#eaebf2] lg:border-none bg-white lg:bg-[#f6f7fa] lg:py-[40px] lg:px-[25px] p-[15px] lg:space-y-4 rounded-lg gap-[12px]">
               <Tabs
-                active={activeTab === "Popular Questions"}
-                onClick={() => setActiveTab("Popular Questions")}
+                active={activeTab === "Popüler Sorular"}
+                onClick={() => setActiveTab("Popüler Sorular")}
               >
-                Popular Questions
+                Popüler Sorular
               </Tabs>
               <Tabs
-                active={activeTab === "announcement"}
-                onClick={() => setActiveTab("announcement")}
+                active={activeTab === "Duyurular"}
+                onClick={() => setActiveTab("Duyurular")}
               >
-                Announcements
+                Duyurular
               </Tabs>
             </div>
           </div>
@@ -50,7 +50,7 @@ function Faq() {
           <div className="w-full lg:w-[63%] bg-white lg:bg-transparent container">
             <h2 className="text-[15px] font-medium capitalize mb-[20px] text-[#212C3A] hidden lg:block">
               <Link to="/" className="hover:text-red text-[#8D94AD]">
-                Main page
+                Ana sayfa
               </Link>
               <span className="text-[#8D94AD]"> • </span>
               {activeTab}
@@ -58,67 +58,67 @@ function Faq() {
             <h2 className="text-[22px] font-bold capitalize mb-[20px] text-[#212C3A] pt-5 lg:pt-0">
               {activeTab}
             </h2>
-            {activeTab === "Popular Questions" && (
+            {activeTab === "Popüler Sorular" && (
               <div className="flex flex-col gap-y-5">
                 <Accordion
                   id="popular-1"
                   isOpen={openAccordion === "popular-1"}
                   onToggle={() => toggleAccordion("popular-1")}
-                  title="Why was my ad not published?"
-                  content="Content for question 1"
+                  title="İlanım neden yayınlanmadı?"
+                  content="Soru için içerik 1"
                 />
                 <Accordion
                   id="popular-2"
                   isOpen={openAccordion === "popular-2"}
                   onToggle={() => toggleAccordion("popular-2")}
-                  title="How can I contact support?"
-                  content="Content for question 2"
+                  title="Destek ekibiyle nasıl iletişime geçebilirim?"
+                  content="Soru için içerik 2"
                 />
                 <Accordion
                   id="popular-3"
                   isOpen={openAccordion === "popular-3"}
                   onToggle={() => toggleAccordion("popular-3")}
-                  title="How can I contact support?"
-                  content="Content for question 3"
+                  title="Destek ekibiyle nasıl iletişime geçebilirim?"
+                  content="Soru için içerik 3"
                 />
                 <Accordion
                   id="popular-4"
                   isOpen={openAccordion === "popular-4"}
                   onToggle={() => toggleAccordion("popular-4")}
-                  title="How can I contact support?"
-                  content="Content for question 3"
+                  title="Destek ekibiyle nasıl iletişime geçebilirim?"
+                  content="Soru için içerik 3"
                 />
               </div>
             )}
-            {activeTab === "announcement" && (
+            {activeTab === "Duyurular" && (
               <div className="flex flex-col gap-y-5">
                 <Accordion
                   id="popular-1"
                   isOpen={openAccordion === "popular-1"}
                   onToggle={() => toggleAccordion("popular-1")}
-                  title="Why was my add published"
-                  content="Content for question 1"
+                  title="Sizinle nasıl iletişime geçebilirim?"
+                  content="Soru için içerik 1"
                 />
                 <Accordion
                   id="popular-2"
                   isOpen={openAccordion === "popular-2"}
                   onToggle={() => toggleAccordion("popular-2")}
-                  title="How can I contact you"
-                  content="Content for question 2"
+                  title="Sizinle nasıl iletişime geçebilirim?"
+                  content="Soru için içerik 2"
                 />
                 <Accordion
                   id="popular-3"
                   isOpen={openAccordion === "popular-3"}
                   onToggle={() => toggleAccordion("popular-3")}
-                  title="How can I contact you"
-                  content="Content for question 2"
+                  title="Sizinle nasıl iletişime geçebilirim?"
+                  content="Soru için içerik 2"
                 />
                 <Accordion
                   id="popular-4"
                   isOpen={openAccordion === "popular-4"}
                   onToggle={() => toggleAccordion("popular-4")}
-                  title="How can I contact you"
-                  content="Content for question 2"
+                  title="Sizinle nasıl iletişime geçebilirim?"
+                  content="Soru için içerik 2"
                 />
                 {/* ... More accordions ... */}
               </div>

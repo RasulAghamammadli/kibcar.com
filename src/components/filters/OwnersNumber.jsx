@@ -71,9 +71,7 @@ function OwnersNumber() {
   );
 
   const summaryText =
-    selectedOptions.length === 0
-      ? "Number of Owners"
-      : selectedOptions.join(", ");
+    selectedOptions.length === 0 ? "Sahip Sayısı" : selectedOptions.join(", ");
   useEffect(() => {
     if (isOpen) {
       inputRef.current.focus();
@@ -117,7 +115,7 @@ function OwnersNumber() {
                   : "hidden"
               } `}
             >
-              Number of Owners
+              Sahip Sayısı
             </label>
           </div>
           <img

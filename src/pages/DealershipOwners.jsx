@@ -48,14 +48,14 @@ function DealershipOwners() {
                 : "text-[14px] font-medium text-[#B62C17]"
             } `}
           >
-            OFFICIAL REPRESENTATIVES
+            RESMİ TEMSİLCİLER
           </h2>
         </div>
         <div className="grid grid-cols-12 gap-[15px] lg:mt-5 lg:mb-0 lg:px-[25px]  px-[10px] mb-3">
           <div className="lg:col-span-6 hidden lg:block"></div>
           <input
             type="text"
-            placeholder="search.."
+            placeholder="Ara..."
             value={search}
             onChange={onSearch}
             className="lg:col-span-6 col-span-12 px-5 py-3 border border-[#e5e7eb] rounded-lg focus-visible:border-[#cfcfcf] focus-visible:outline-none"

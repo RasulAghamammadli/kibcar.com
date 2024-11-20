@@ -5,20 +5,20 @@ import phoneIcon from "../../assets/icons/phone-icon.svg";
 import emailIcon from "../../assets/icons/email-icon.svg";
 const links = [
   {
-    name: "Rules",
+    name: "Kurallar",
     href: "/rules",
   },
   {
-    name: "Terms And Conditions",
+    name: "Şartlar ve Koşullar",
     href: "/terms-and-conditions",
   },
 
   {
-    name: "Paid Services",
+    name: "Ücretli Hizmetler",
     href: "/paid-services",
   },
   {
-    name: "Help",
+    name: "Yardım",
     href: "/help",
   },
 ];
@@ -34,7 +34,7 @@ function Footer() {
         <div className="container">
           <div className="flex justify-between items-center pb-[20px] border-b-[2px] border-[#eaebf2]">
             <Link to="/new-advertisement">
-              <p>Place an Ad</p>
+              <p>İlan Ver</p>
             </Link>
             <div className="flex gap-x-5">
               <a href="#">
@@ -74,8 +74,8 @@ function Footer() {
         <div className="container">
           <div className="flex items-center footer justify-between">
             <h2 className="font-primary text-[14px] font-normal leading-7 text-white max-w-[528px]">
-              The Site Administration is not responsible for the content of
-              advertising banners and posted announcements.
+              Site Yönetimi, reklam bannerları ve yayımlanan ilanların
+              içeriğinden sorumlu değildir.
             </h2>
             <p className="font-primary text-[14px] font-normal text-white">
               2023-2023 Digital Classifieds LLC. TIN: 1305631664

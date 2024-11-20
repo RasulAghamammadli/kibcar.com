@@ -68,7 +68,7 @@ function FuelType() {
   );
 
   const summaryText =
-    selectedOptions.length === 0 ? "Fuel Type" : selectedOptions.join(", ");
+    selectedOptions.length === 0 ? "Yakıt Tipi" : selectedOptions.join(", ");
   useEffect(() => {
     if (isOpen) {
       inputRef.current.focus();
@@ -112,7 +112,7 @@ function FuelType() {
                   : "hidden"
               } `}
             >
-              Fuel type
+              Yakıt Tipi
             </label>
           </div>
           <img

@@ -87,20 +87,20 @@ function VolumeMax() {
         onClick={handleDetailsClick}
       >
         <summary
-          className={`flex items-center justify-between w-full h-full px-[10px] bg-white border rounded-lg btn shadow-none hover:bg-white  ${
+          className={`flex items-center justify-between w-full h-full px-[10px] bg-white border border-l-0 rounded-lg rounded-l-none btn shadow-none hover:bg-white  ${
             isOpen
-              ? "border-[#8F93AD] hover:!border-[#8F93AD]"
+              ? "border-[#8F93AD] border-l-[1px] hover:!border-[#8F93AD]"
               : "border-gray-300"
           }`}
         >
-          <div className="max-w-[80%]">
+          <div className="max-w-[64%]">
             <input
               id="volumeMax"
               ref={inputRef}
               type="text"
               value={searchTerm}
               onChange={handleInputChange}
-              placeholder={selectedVolumeMax || "Max"}
+              placeholder={selectedVolumeMax || "maks."}
               className={`font-primary text-[15px] font-normal w-full bg-transparent border-none focus:outline-none text-start overflow-hidden whitespace-nowrap overflow-ellipsis ${
                 searchTerm ? "mt-[9px]" : ""
               }`}
@@ -113,7 +113,7 @@ function VolumeMax() {
                   : "hidden"
               } `}
             >
-              Max
+              maks.
             </label>
           </div>
           <img

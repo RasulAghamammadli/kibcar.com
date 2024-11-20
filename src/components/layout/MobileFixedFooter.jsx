@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { FaFacebook, FaInstagram, FaPhoneAlt } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
@@ -6,23 +6,23 @@ import { HiXMark } from "react-icons/hi2";
 
 const links = [
   {
-    name: "Russian Language",
+    name: "İngilis Dili",
     href: "/",
   },
   {
-    name: "Help",
+    name: "Yardım",
     href: "/help",
   },
   {
-    name: "All Ads",
+    name: "Tüm İlanlar",
     href: "/",
   },
   {
-    name: "Salons",
+    name: "Bayiler",
     href: "/dealership-owners",
   },
   {
-    name: "Lease",
+    name: "Kiralama",
     href: "/",
   },
 ];
@@ -36,9 +36,11 @@ function MobileFixedFooter() {
   function handleMenuClick() {
     setShowMenu((show) => !show);
   }
+
   function handleContact() {
     // Show Contact menu modal
   }
+
   const [isScrollingUp, setIsScrollingUp] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -68,8 +70,8 @@ function MobileFixedFooter() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [lastScrollY]);
+
   useEffect(() => {
-    console.log(showMenu);
     if (showMenu) {
       document.body.classList.add("overflow-hidden");
     } else {
@@ -90,8 +92,12 @@ function MobileFixedFooter() {
         >
           <ul className="m-0 p-0 list-none flex items-center justify-around">
             <li className="relative w-1/5 text-center">
-              <Link
-                className="block text-[8px] py-[9px] pb-[4px] text-[#8d94ad] no-underline tracking-[0.44px] whitespace-nowrap"
+              <NavLink
+                className={({ isActive }) =>
+                  `block text-[8px] py-[9px] pb-[4px] no-underline tracking-[0.44px] whitespace-nowrap ${
+                    isActive ? "text-[#ca1016] svg-active" : "text-[#8d94ad]"
+                  }`
+                }
                 to="/"
                 onClick={handleMenuLinkClick}
               >
@@ -101,7 +107,7 @@ function MobileFixedFooter() {
                     viewBox="0 0 20 20"
                     width="20"
                     xmlns="http://www.w3.org/2000/svg"
-                    fill="#B62C17"
+                    className="nav-icon "
                   >
                     <g>
                       <path
@@ -111,12 +117,16 @@ function MobileFixedFooter() {
                     </g>
                   </svg>
                 </i>
-                <span className="block mt-1 uppercase">Main</span>
-              </Link>
+                <span className="block mt-1 uppercase">Ana sayfa</span>
+              </NavLink>
             </li>
             <li className="relative w-1/5 text-center">
-              <Link
-                className="block text-[8px] py-[9px] pb-[4px] text-[#8d94ad] no-underline tracking-[0.44px] whitespace-nowrap"
+              <NavLink
+                className={({ isActive }) =>
+                  `block text-[8px] py-[9px] pb-[4px] no-underline tracking-[0.44px] whitespace-nowrap ${
+                    isActive ? "text-[#ca1016] svg-active" : "text-[#8d94ad]"
+                  }`
+                }
                 to="/favorite"
                 onClick={handleMenuLinkClick}
               >
@@ -126,7 +136,7 @@ function MobileFixedFooter() {
                     viewBox="0 0 24 20"
                     width="24"
                     xmlns="http://www.w3.org/2000/svg"
-                    fill="#8d94ad"
+                    className="nav-icon"
                   >
                     <g fillRule="evenodd">
                       <g>
@@ -138,19 +148,19 @@ function MobileFixedFooter() {
                     </g>
                   </svg>
                 </i>
-                <span className="block mt-1 uppercase">Favorite</span>
-              </Link>
+                <span className="block mt-1 uppercase">Favori</span>
+              </NavLink>
             </li>
             <li className="relative w-1/5 text-center">
-              <Link
+              <NavLink
                 className="block text-[8px] py-[9px] pb-[4px] text-[#8d94ad] no-underline tracking-[0.44px] whitespace-nowrap absolute p-0 left-1/2 top-[-58px] transform -translate-x-1/2"
                 to="/new-advertisement"
                 onClick={handleMenuLinkClick}
               >
                 <i className="inline-block w-[45px] h-[45px]">
                   <svg
-                    height="45"
-                    viewBox="0 0 46 45"
+                    height="60"
+                    viewBox="0 0 46 44"
                     width="46"
                     xmlns="http://www.w3.org/2000/svg"
                   >
@@ -184,13 +194,17 @@ function MobileFixedFooter() {
                     </g>
                   </svg>
                 </i>
-                <span className="block mt-1 uppercase">New Announcement</span>
-              </Link>
+                <span className="block mt-[11.2px] uppercase">Yeni İlan</span>
+              </NavLink>
             </li>
             <li className="relative w-1/5 text-center">
-              <Link
-                className="block text-[8px] py-[9px] pb-[4px] text-[#8d94ad] no-underline tracking-[0.44px] whitespace-nowrap js-auth-link"
-                to="/"
+              <NavLink
+                className={({ isActive }) =>
+                  `block text-[8px] py-[9px] pb-[4px] no-underline tracking-[0.44px] whitespace-nowrap ${
+                    isActive ? "text-[#ca1016] svg-active" : "text-[#8d94ad]"
+                  }`
+                }
+                to="/dealership-owners"
                 onClick={handleMenuLinkClick}
               >
                 <i className="inline-block w-[26px] h-[20px]">
@@ -199,7 +213,7 @@ function MobileFixedFooter() {
                     viewBox="0 0 20 20"
                     width="20"
                     xmlns="http://www.w3.org/2000/svg"
-                    fill="#8d94ad"
+                    className="nav-icon"
                   >
                     <g fillRule="evenodd">
                       <path
@@ -209,19 +223,23 @@ function MobileFixedFooter() {
                     </g>
                   </svg>
                 </i>
-                <span className="block mt-1 uppercase">Cabinet</span>
-              </Link>
+                <span className="block mt-1 uppercase">Hesabım</span>
+              </NavLink>
             </li>
             <li className="relative w-1/5 text-center">
               <button onClick={handleMenuClick}>
-                <div className="block text-[8px] py-[9px] pb-[4px] text-[#8d94ad] no-underline tracking-[0.44px] whitespace-nowrap">
+                <div
+                  className={`block text-[8px] py-[9px] pb-[4px] text-[#8d94ad] no-underline tracking-[0.44px] whitespace-nowrap ${
+                    showMenu && "text-[#ca1016] svg-active active"
+                  }`}
+                >
                   <i className="inline-block w-[26px] h-[20px]">
                     <svg
                       height="20"
                       viewBox="0 0 28 22"
                       width="26"
                       xmlns="http://www.w3.org/2000/svg"
-                      fill="#8d94ad"
+                      className="nav-icon"
                     >
                       <path
                         d="M25.917 18.005c.598 0 1.083.56 1.083 1.25s-.485 1.25-1.083 1.25H2.083c-.598 0-1.083-.56-1.083-1.25s.485-1.25 1.083-1.25zm0-8c.598 0 1.083.56 1.083 1.25s-.485 1.25-1.083 1.25H2.083c-.598 0-1.083-.56-1.083-1.25s.485-1.25 1.083-1.25zm0-9c.598 0 1.083.56 1.083 1.25s-.485 1.25-1.083 1.25H2.083C1.485 3.505 1 2.945 1 2.255s.485-1.25 1.083-1.25z"
@@ -229,7 +247,7 @@ function MobileFixedFooter() {
                       ></path>
                     </svg>
                   </i>
-                  <span className="block mt-1 uppercase">More</span>
+                  <span className="block mt-1 uppercase">Daha fazla</span>
                 </div>
               </button>
             </li>
@@ -241,7 +259,7 @@ function MobileFixedFooter() {
           showMenu ? "" : "hidden"
         }`}
       >
-        <p className="w-full text-center bg-white py-4">More</p>
+        <p className="w-full text-center bg-white py-4">Daha fazla</p>
 
         <div className="flex flex-col gap-4 mt-8 px-4">
           {links.map((link) => (
@@ -261,7 +279,7 @@ function MobileFixedFooter() {
               onClick={() => setShowContact(true)}
               className="container text-start font-primary text-[14px] font-normal"
             >
-              Contact Us
+              Bize Ulaşın
             </div>
           </button>
         </div>
@@ -277,7 +295,7 @@ function MobileFixedFooter() {
           ref={contactRef}
         >
           <div className="relative px-4 py-5 rounded-tr-lg rounded-tl-lg border-y-2 border-[#eaebf2]">
-            Contact Us
+            Bize Ulaşın
             <button
               onClick={() => setShowContact(false)}
               className="absolute top-[22px] right-[10px]"
@@ -287,11 +305,11 @@ function MobileFixedFooter() {
           </div>
           <div className="flex items-center px-4 py-5 border-b border-[#eaebf2]">
             <FaPhoneAlt className="mr-3" />
-            <a href="#">Call</a>
+            <a href="#">Ara</a>
           </div>
           <div className="flex items-center px-4 py-5 border-b border-[#eaebf2]">
             <IoMdMail className="mr-3" />
-            <a href="#">Write a letter</a>
+            <a href="#">Bir mektup yaz</a>
           </div>
           <div className="flex items-center px-4 py-5 border-b border-[#eaebf2]">
             <FaFacebook className="mr-3" />

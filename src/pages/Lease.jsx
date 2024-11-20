@@ -8,8 +8,8 @@ function Lease() {
         </div>
         <div className="container pb-4">
           <p className="text-[18px] text-center text-[#212c3a]">
-            Exciting things are on the way! Stay tuned—something special is
-            coming soon.
+            Heyecan verici şeyler yolda! Takipte kalın, yakında özel bir şey
+            geliyor.
           </p>
         </div>
       </div>

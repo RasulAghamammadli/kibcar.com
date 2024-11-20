@@ -72,9 +72,7 @@ function SeatsNumber() {
   );
 
   const summaryText =
-    selectedOptions.length === 0
-      ? "Number of Seats"
-      : selectedOptions.join(", ");
+    selectedOptions.length === 0 ? "Koltuk Sayısı" : selectedOptions.join(", ");
   useEffect(() => {
     if (isOpen) {
       inputRef.current.focus();
@@ -82,7 +80,7 @@ function SeatsNumber() {
       inputRef.current.blur();
     }
   }, [isOpen]);
-  
+
   return (
     <div className="h-full">
       <details
@@ -118,7 +116,7 @@ function SeatsNumber() {
                   : "hidden"
               } `}
             >
-              Number of Seats
+              Koltuk Sayısı
             </label>
           </div>
           <img

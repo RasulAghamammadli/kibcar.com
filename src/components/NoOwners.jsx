@@ -8,12 +8,12 @@ function NoOwners() {
         </div>
         <div className="container pb-4">
           <p className="text-[18px] text-[#212c3a]">
-            Sorry, nothing was found based on your search.
+            Üzgünüz, aramanıza uygun sonuç bulunamadı.
           </p>
         </div>
         <div className="container">
           <p className="text-[18px] text-[#8d94ad]">
-            Please choose more suitable search filters.
+            Lütfen daha uygun arama filtreleri seçin.
           </p>
         </div>
       </div>

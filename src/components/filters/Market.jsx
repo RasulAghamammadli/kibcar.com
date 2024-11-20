@@ -72,7 +72,7 @@ function Market() {
 
   const summaryText =
     selectedOptions.length === 0
-      ? "For which market it is assembled"
+      ? "Hangi pazar için atandığı"
       : selectedOptions.join(", ");
   useEffect(() => {
     if (isOpen) {
@@ -116,7 +116,7 @@ function Market() {
                   : "hidden"
               } `}
             >
-              For which market it is assembled
+              Hangi pazar için atandığı
             </label>
           </div>
           <img

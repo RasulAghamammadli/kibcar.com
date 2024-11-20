@@ -68,7 +68,7 @@ function BanType() {
   );
 
   const summaryText =
-    selectedOptions.length === 0 ? "Ban Type" : selectedOptions.join(", ");
+    selectedOptions.length === 0 ? "Gövde Tipi" : selectedOptions.join(", ");
   useEffect(() => {
     if (isOpen) {
       inputRef.current.focus();
@@ -111,7 +111,7 @@ function BanType() {
                   : "hidden"
               } `}
             >
-              Ban Type
+              Gövde Tipi
             </label>
           </div>
           <img

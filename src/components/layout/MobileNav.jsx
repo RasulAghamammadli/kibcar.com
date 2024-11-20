@@ -1,16 +1,22 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { BsPlusCircleFill, BsHeart, BsHeartFill, BsShare, BsArrowLeft } from "react-icons/bs";
-import PropTypes from 'prop-types';
-import { useCarContext } from '../../context/CarContext';
+import {
+  BsPlusCircleFill,
+  BsHeart,
+  BsHeartFill,
+  BsShare,
+  BsArrowLeft,
+} from "react-icons/bs";
+import PropTypes from "prop-types";
+import { useCarContext } from "../../context/CarContext";
 
 function MobileNav({ title }) {
   const { currentCar } = useCarContext();
   const [isFavorite, setIsFavorite] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const isHomePage = location.pathname === '/';
-  const isCarDetails = location.pathname.includes('/car-details');
+  const isHomePage = location.pathname === "/";
+  const isCarDetails = location.pathname.includes("/car-details");
 
   useEffect(() => {
     if (isCarDetails && currentCar) {
@@ -38,14 +44,14 @@ function MobileNav({ title }) {
       try {
         await navigator.share({
           title: document.title,
-          url: window.location.href
+          url: window.location.href,
         });
-        console.log('Content shared successfully');
+        console.log("Content shared successfully");
       } catch (err) {
-        console.error('Eror sharing:', err);
+        console.error("Eror sharing:", err);
       }
     } else {
-      console.log('Web Share API not supported');
+      console.log("Web Share API not supported");
     }
   };
 
@@ -92,20 +98,26 @@ function MobileNav({ title }) {
           <div className="flex items-center space-x-4">
             {isCarDetails && (
               <>
-                <button 
-                  onClick={handleFavoriteClick} 
+                <button
+                  onClick={handleFavoriteClick}
                   className={isFavorite ? "text-red" : "text-gray-600"}
                 >
-                  {isFavorite ? <BsHeartFill size="20px" /> : <BsHeart size="20px" />}
+                  {isFavorite ? (
+                    <BsHeartFill size="20px" />
+                  ) : (
+                    <BsHeart size="20px" />
+                  )}
                 </button>
                 <button onClick={handleShareClick} className="text-gray-600">
                   <BsShare size="20px" />
                 </button>
               </>
             )}
-            <Link to={"/new-advertisement"} className="text-red">
-              <BsPlusCircleFill size="26px" />
-            </Link>
+            {location.pathname !== "/new-advertisement" && (
+              <Link to={"/new-advertisement"} className="text-red">
+                <BsPlusCircleFill size="26px" />
+              </Link>
+            )}
           </div>
         </div>
       </nav>

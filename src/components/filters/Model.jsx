@@ -93,12 +93,17 @@ function Model() {
         onToggle={(e) => setIsOpen(e.target.open)}
       >
         <summary
-          className={`flex items-center justify-between w-full h-full px-[10px] bg-white opacity-100 rounded-lg btn shadow-none hover:bg-white ${
+          style={{
+            background: "#fff",
+            opacity: !brandId && "0.5",
+            border: !brandId && "1px solid #dfe3e9",
+          }}
+          className={`flex items-center justify-between w-full h-full opacity-100 px-[10px] bg-white rounded-lg btn shadow-none hover:bg-white ${
             isOpen
               ? "border-[#8F93AD] hover:!border-[#8F93AD]"
               : "border-gray-300"
           }`}
-          // disabled={!brandId}
+          disabled={!brandId}
         >
           <div className="max-w-[80%]">
             <input
@@ -112,7 +117,7 @@ function Model() {
               className={`font-primary text-[15px] font-normal w-full bg-transparent border-none focus:outline-none text-start overflow-hidden whitespace-nowrap overflow-ellipsis ${
                 searchTerm ? "mt-[9px]" : ""
               }`}
-              // disabled={!brandId}
+              disabled={!brandId}
             />
             <label
               htmlFor="model"

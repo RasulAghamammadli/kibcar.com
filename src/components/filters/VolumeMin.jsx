@@ -87,33 +87,33 @@ function VolumeMin() {
         onClick={handleDetailsClick}
       >
         <summary
-          className={`flex items-center justify-between w-full h-full px-[10px] bg-white border rounded-lg btn shadow-none hover:bg-white  ${
+          className={`flex items-center justify-between w-full h-full px-[10px] bg-white border rounded-lg rounded-r-none btn shadow-none hover:bg-white  ${
             isOpen
               ? "border-[#8F93AD] hover:!border-[#8F93AD]"
               : "border-gray-300"
           }`}
         >
-          <div className="max-w-[80%]">
+          <div className="max-w-[64%]">
             <input
               id="volumeMin"
               ref={inputRef}
               type="text"
               value={searchTerm}
               onChange={handleInputChange}
-              placeholder={selectedVolumeMin || "Volume (cm.3)"}
+              placeholder={selectedVolumeMin || "Hacim (cm³), min."}
               className={`font-primary text-[15px] font-normal w-full bg-transparent border-none focus:outline-none text-start overflow-hidden whitespace-nowrap overflow-ellipsis ${
-                searchTerm ? "mt-[9px]" : ""
+                searchTerm ? "mt-[11px]" : ""
               }`}
             />
             <label
               htmlFor="volumeMin"
               className={`${
                 searchTerm
-                  ? "absolute cursor-pointer font-normal left-0 top-[8px] pl-[0.6rem] pr-[0.1rem] text-[12px] leading-3 transition-all duration-300 w-full text-start peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-focus:top-[8px]  peer-focus:text-[12px] peer-focus:leading-3 font-primary text-secondary"
+                  ? "absolute cursor-pointer font-normal left-0 top-[8px] pl-[0.6rem] pr-[0.1rem] pt-[2px] text-[12px] leading-3 transition-all duration-300 w-full text-start peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-focus:top-[8px]  peer-focus:text-[12px] peer-focus:leading-3 font-primary text-secondary"
                   : "hidden"
               } `}
             >
-              Volume (cm.3)
+              Hacim (cm<sup>3</sup>), min.
             </label>
           </div>
           <img

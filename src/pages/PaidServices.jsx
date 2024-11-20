@@ -20,7 +20,7 @@ function PaidServices() {
                 : "text-[14px] font-medium text-primary"
             } `}
           >
-            Types of paid services
+            Ücretli Hizmetler
           </h2>
         </div>
         <div className="px-5 text-[12px] md:text-[14px] leading-[28px]">
@@ -29,31 +29,31 @@ function PaidServices() {
             <p className="text-[14px]">
               ــ{" "}
               <a className="text-base underline" href="#bumb">
-                "Advance Search" service
+                "Arama Sonuçlarında Yükselt" hizmeti
               </a>
             </p>
             <p className="text-[14px]">
               ــ{" "}
               <a className="text-base underline" href="#vip">
-                "VIP" service
+                "VIP" hizmeti
               </a>
             </p>
             <p className="text-[14px]">
               ــ{" "}
               <a className="text-base underline" href="#featured">
-                "Premium" service
+                "Premium" hizmeti
               </a>
             </p>
             <p className="text-[14px]">
               ــ{" "}
               <a className="text-base underline" href="#limits">
-                "Ad limit" service
+                "İlan Limiti" hizmeti
               </a>
             </p>
             <p className="text-[14px]">
               ــ{" "}
               <a className="text-base underline" href="#relist">
-                "Re-advertise" service
+                "İlanı Tekrar Yayınla" hizmeti
               </a>
             </p>
             <p className="text-[14px]">
@@ -65,636 +65,615 @@ function PaidServices() {
             <p className="text-[14px]">
               ــ{" "}
               <a className="text-base underline" href="#recovery">
-                "Ad recovery" service
+                "İlan Yenileme" hizmeti
               </a>
             </p>
           </section>
           <section className="mb-[60px]" id="bumb">
             <h2 className="my-[10px] font-bold text-[21px]">
-              "Advance Search" Service
+              "Arama Sonuçlarında Yükselt" Hizmeti
             </h2>
             <p className="my-4">
-              "Advance Search" is a paid promotion service. This service ranks
-              your ad higher than other similar ads. As a result, more potential
-              buyers view your ad and you sell items faster.
+              "Arama Sonuçlarında Yükselt" ücretli bir tanıtım hizmetidir. Bu
+              hizmet, ilanınızı benzer diğer ilanların üzerinde sıralar. Sonuç
+              olarak, ilanınızı daha fazla potansiyel alıcı görür ve satış
+              işlemini daha hızlı yaparsınız.
             </p>
 
             <h4 className="my-[10px] font-bold">
-              How does the "Search Forward" service work?
+              "Arama Sonuçlarında Yükselt" hizmeti nasıl çalışır?
             </h4>
             <p className="my-4">
-              Thousands of new ads are published on the Turbo.az website every
-              day. These ads are ranked differently in search results. The
-              position of each ad depends on many factors. For example, the date
-              of publication of the ad, its relevance to the search query, as
-              well as the applied services play an important role. Ads are
-              sorted based on all these parameters.
+              kibcar.com web sitesinde her gün binlerce yeni ilan yayınlanıyor.
+              Bu ilanlar arama sonuçlarında farklı şekilde sıralanır. Her ilanın
+              pozisyonu birçok faktöre bağlıdır. Örneğin, ilanın yayınlanma
+              tarihi, arama sorgusuna uygunluğu ve uygulanan hizmetler önemli
+              bir rol oynar. İlanlar tüm bu parametrelere göre sıralanır.
             </p>
             <p className="my-4">
-              "Promote in search": This service raises the ad above all free ads
-              and is for one-time use. This service updates the publication date
-              of the ad and makes it appear as if it had just been posted. In
-              addition, the service prioritizes your ad - it ranks higher in
-              search results than other similar ads that do not apply promotion.
+              "Arama Sonuçlarında Yükselt": Bu hizmet, ilanın tarihini
+              güncelleyerek onu en son yayınlanmış gibi gösterir ve diğer
+              ücretsiz ilanların üstüne çıkarır. Ayrıca, bu hizmet sayesinde
+              ilanın arama sonuçlarında diğer benzer ilanlardan daha yüksek
+              sıralanma önceliği olur.
             </p>
             <p className="my-4">
-              The most favorable positions for the ad are those where users pay
-              more attention. And it's not always the first lines of search
-              results. Therefore, the "Advance in Search" service does not
-              guarantee that your ad will be on the first line of search
-              results.
+              İlan için en uygun pozisyonlar, kullanıcıların daha fazla dikkat
+              ettiği yerlerdir ve bu her zaman arama sonuçlarının ilk satırları
+              değildir. Bu nedenle, "Arama Sonuçlarında Yükselt" hizmeti, ilanın
+              her zaman arama sonuçlarının ilk satırında olacağını garanti
+              etmez.
             </p>
             <p className="my-4">
-              You need to make sure that your ad is of good quality and relevant
-              to the search query. For example, of the two ads applied to the
-              service, the one with better quality will be ranked higher than
-              the other.
+              İlanınızın kaliteli ve arama sorgusuna uygun olduğundan emin
+              olmalısınız. Örneğin, iki ilana da aynı hizmet uygulanmışsa, daha
+              kaliteli olan ilan daha üst sıralarda yer alacaktır.
+            </p>
+
+            <h4 className="my-[10px] font-bold">Hizmetin maliyeti nedir?</h4>
+            <p className="my-4">- 3 USD – 1 defa yükseltme </p>
+            <p className="my-4">
+              - 6 USD – 3 defa yükseltme (24 saat içinde 1 defa)
+            </p>
+            <p className="my-4">
+              - 9 USD – 5 defa yükseltme (24 saat içinde 1 defa)
+            </p>
+            <p className="my-4">
+              - 15 USD – 10 defa yükseltme (24 saat içinde 1 defa)
+            </p>
+
+            <h4 className="my-[10px] font-bold">Hizmet ne zaman aktif olur?</h4>
+            <p className="my-4">
+              Hizmet, ilanın yayınlanma tarihi güncellenir güncellenmez aktif
+              olur.
+            </p>
+            <p className="my-4">
+              <strong>BONUS:</strong> Yeni bir ilan yayınlandığında, ilan
+              ücretsiz olarak arama sonuçlarının en üstüne çıkar.
             </p>
 
             <h4 className="my-[10px] font-bold">
-              How much does the service cost?
+              Hizmet, ilanın süresini etkiler mi?
             </h4>
-            <p className="my-4">3 AZN - advance 1 time</p>
-            <p className="my-4">6 AZN - withdraw 3 times (once in 24 hours)</p>
-            <p className="my-4">9 AZN - withdraw 5 times (once in 24 hours)</p>
             <p className="my-4">
-              15 AZN - withdraw 10 times (once in 24 hours)
+              "Arama Sonuçlarında Yükselt" hizmeti bir defaya mahsus bir
+              hizmettir ve site üzerinde aktif olan bir ilanın etkinlik süresini
+              etkilemez. Ancak, ilan süresinin hizmet süresinden önce sona
+              erdiği durumlar istisnadır.
+            </p>
+            <p className="my-4">
+              <strong>Örnek:</strong>
+            </p>
+            <p className="my-4">
+              - 1 Ağustos: Ücretsiz bir ilan verdiniz - 30 gün boyunca aktiftir
+              (1 Ağustos - 30 Ağustos).
+            </p>
+            <p className="my-4">
+              - 5 Ağustos: İlanın süresinin dolmasına 25 gün kaldı (5 Ağustos -
+              30 Ağustos). Eğer "Arama Sonuçlarında Yükselt" hizmetini
+              etkinleştirirseniz, ilanın süresi değişmez.
+            </p>
+            <p className="my-4">
+              - 31 Ağustos: İlan süresi doldu (1 Ağustos - 30 Ağustos). Eğer
+              "Arama Sonuçlarında Yükselt" hizmetini etkinleştirirseniz, hizmet
+              uygulandıktan sonra ilan yeniden aktif hale gelir ve aktif süresi
+              3 gün uzatılır. Eğer "3 defa Arama Yükseltme" hizmetini
+              kullanırsanız, ilan 3 defa sıfırlanarak her 24 saatte bir
+              yükseltilecek ve aktif süresi 3 gün uzatılacaktır. Eğer "5 defa
+              Arama Yükseltme" hizmetini kullanırsanız, ilan 5 defa sıfırlanarak
+              her 24 saatte bir yükseltilecek ve aktif süresi 5 gün
+              uzatılacaktır.
             </p>
 
             <h4 className="my-[10px] font-bold">
-              When is the service activated?
+              Hizmeti birden fazla defa uygularsam ne olur?
             </h4>
             <p className="my-4">
-              The service starts as soon as the publication date of the ad is
-              updated.
+              Eğer "Arama Sonuçlarında Yükselt" hizmetini birden fazla kez satın
+              alırsanız, her sipariş ödemenin hemen ardından uygulanacaktır.
+              Hizmet, 5 dakikalık aralıklarla kullanılabilir.
             </p>
             <p className="my-4">
-              <strong>BONUS:</strong> when a new ad is posted, it climbs to the
-              top of the search results for free.
-            </p>
-
-            <h4 className="my-[10px] font-bold">
-              Does the service affect the duration of the ad?
-            </h4>
-            <p className="my-4">
-              Since the "Advance Search" service is for one-time use, it does
-              not affect the duration of the ad's activity if it is active on
-              the site. The exception is cases where the ad's activity period
-              expires earlier than the service period.
+              <strong>Örnek:</strong>
             </p>
             <p className="my-4">
-              <strong>Example:</strong>
-            </p>
-            <p className="my-4">
-              August 1: you placed a free ad - it is active for 30 days (from
-              August 1 to 30).
-            </p>
-            <p className="my-4">
-              August 5: 25 days left until the ad expires (August 5 to 30). If
-              you activate the "Search forward" service, the duration of the ad
-              will not change.
-            </p>
-            <p className="my-4">
-              August 31: the ad has already expired (from August 1 to 30). If
-              you activate the "Search forward" service, the ad will be restored
-              once the service is applied and its active period will be extended
-              for 3 days. If you activate the "Search 3 times forward" service,
-              the ad will be reset by applying the service 3 times (once in 24
-              hours) and its active period will be extended for 3 days. If you
-              activate the "Search 5 times forward" service, the ad will be
-              reset by applying the service 5 times (once in 24 hours) and its
-              active period will be extended for 5 days.
-            </p>
-
-            <h4 className="my-[10px] font-bold">
-              What will happen if I apply the service multiple times?
-            </h4>
-            <p className="my-4">
-              If you purchase the "Search Forward" service several times, each
-              order will be fulfilled immediately after payment.
-            </p>
-            <p className="my-4">
-              The service is available in 5-minute intervals.
-            </p>
-            <p className="my-4">
-              <strong>Example:</strong>
-            </p>
-            <p className="my-4">
-              You apply the "Advance Search" service to the ad 5 times on
-              Monday. In this case, the ad is postponed 5 times immediately
-              after payment on the same day.
+              Pazartesi günü ilanınıza 5 defa "Arama Sonuçlarında Yükselt"
+              hizmetini uygularsınız. Bu durumda, ilan aynı gün içerisinde ödeme
+              yapıldıktan hemen sonra 5 defa üst sıralara çıkarılır.
             </p>
           </section>
           <section className="mb-[60px]" id="vip">
-            <h2 className="my-[10px] font-bold text-[21px]">"VIP" Service</h2>
+            <h2 className="my-[10px] font-bold text-[21px]"> "VIP" Hizmeti</h2>
             <p className="my-4">
-              "VIP" is a paid promotion service. With the help of this service,
-              the announcement appears in a special VIP-block in a random order
-              and attracts more attention. On the cards of the announcements
-              where the service is applied, the sign "V" is reflected in the
-              lower right corner.
+              "VIP" ücretli bir tanıtım hizmetidir. Bu hizmet ile ilan, rastgele
+              bir sırayla özel bir VIP bloğunda yer alır ve daha fazla dikkat
+              çeker. Bu hizmetin uygulandığı ilanların kartlarında sağ alt
+              köşede "V" işareti görülür.
+            </p>
+
+            <h4 className="my-[10px] font-bold">Hizmetin maliyeti nedir?</h4>
+            <p className="my-4">- 5 USD – 1 gün</p>
+            <p className="my-4">- 15 USD – 5 gün</p>
+            <p className="my-4">- 25 USD – 15 gün</p>
+            <p className="my-4">- 40 USD – 30 gün</p>
+
+            <h4 className="my-[10px] font-bold">Hizmet ne zaman aktif olur?</h4>
+            <p className="my-4">
+              Hizmet, ödeme yapıldıktan hemen sonra aktif hale gelir. Satın
+              alınan gün sayısına bağlı olarak ilan 30 güne kadar VIP bloğunda
+              yer alabilir.
+            </p>
+            <p className="my-4">
+              <strong>BONUS:</strong> "Arama Sonuçlarında Yükselt" hizmeti, bu
+              hizmetin etkinleştirildiği andan itibaren gün boyunca ilana 1 kez
+              uygulanır.
             </p>
 
             <h4 className="my-[10px] font-bold">
-              How much does the service cost?
-            </h4>
-            <p className="my-4">5 AZN - 1 day</p>
-            <p className="my-4">15 AZN - 5 days</p>
-            <p className="my-4">25 AZN - 15 days</p>
-            <p className="my-4">40 AZN - 30 days</p>
-
-            <h4 className="my-[10px] font-bold">
-              When is the service activated?
+              İlanımı VIP bloğunda göremiyorum
             </h4>
             <p className="my-4">
-              The service is activated as soon as the payment is made. Depending
-              on the number of days obtained, the ad can be placed in the VIP
-              block for up to 30 days.
+              İlanlar "VIP ilanlar" bloğunda rastgele sırayla sayfanın üst
+              sıralarında yer alır.
             </p>
             <p className="my-4">
-              <strong>BONUS:</strong> "Advance search" service is applied to the
-              ad 1 time per day for the number of days from the moment of
-              activation of this service.
-            </p>
-
-            <h4 className="my-[10px] font-bold">
-              I don't see my ad in the VIP block
-            </h4>
-            <p className="my-4">
-              Announcements are placed in the "VIP announcements" block in
-              random order on the top lines of the page.
+              Masaüstü versiyonun arama sonuçları sayfasındaki VIP blokta aynı
+              anda en fazla 8 ilan (hepsini göster seçeneği ile) görüntülenir.
             </p>
             <p className="my-4">
-              The VIP-block on the search results page of the desktop version of
-              the site displays up to 8 ads at the same time (with the option to
-              show all).
+              Mobil versiyonun arama sonuçları sayfasındaki VIP blokta aynı anda
+              en fazla 4 ilan (hepsini göster seçeneği ile) görüntülenir.
             </p>
             <p className="my-4">
-              In the VIP-block on the search results page of the mobile version
-              of the site, up to 4 ads (with the option to show all) are
-              displayed at the same time.
+              Mobil uygulamadaki VIP blok, her 24 ilanda bir tekrarlanır ve
+              blokta 2 ilan bulunur (sınırsız kaydırma seçeneği ile).
             </p>
             <p className="my-4">
-              The VIP-block in the mobile application is repeated every 24 ads,
-              and the block contains 2 ads (with the possibility of infinite
-              scrolling).
+              Her sayfa yenileme sırasında, sistem VIP ilanları öyle bir şekilde
+              seçer ki aynı pakete sahip olan ilanlar yaklaşık olarak aynı
+              sayıda görüntülenme alır. İlanınızı göremeseniz bile diğer
+              ziyaretçilerin o anda ilanınızı gördüğünden emin olabilirsiniz.
             </p>
             <p className="my-4">
-              During each page refresh, the system selects VIP-ads in such a way
-              that ads with the same package receive approximately the same
-              number of views. Even if you don't see an ad, you can be sure that
-              other visitors are seeing it at that moment.
-            </p>
-            <p className="my-4">
-              In addition, the VIP-block is displayed in the top positions on
-              the category page, section page, and search results to which the
-              ad belongs.
+              Ayrıca, VIP blok, ilanın ait olduğu kategori sayfasında, bölüm
+              sayfasında ve arama sonuçlarında en üst pozisyonlarda gösterilir.
             </p>
 
             <h4 className="my-[10px] font-bold">
-              Does the service affect the duration of the ad?
+              Hizmet, ilanın süresini etkiler mi?
             </h4>
             <p className="my-4">
-              It takes effect if the ad expires earlier than the service period.
-              The minimum duration of the "VIP" service is 1 day, and it will be
-              automatically extended if the standard activation period of the ad
-              expires earlier.
+              Eğer ilan, hizmet süresinden önce sona ererse etkili olur. "VIP"
+              hizmetinin minimum süresi 1 gündür ve ilanın standart etkinlik
+              süresi hizmet süresinden önce sona ererse otomatik olarak
+              uzatılır.
             </p>
             <p className="my-4">
-              If the ad has already expired, the ad will be renewed for a period
-              equal to the term of this service from the moment the "VIP"
-              service is applied.
+              Eğer ilan zaten süresi dolmuşsa, ilan bu hizmetin uygulanmasından
+              itibaren hizmet süresine eşit bir süre için yenilenir.
             </p>
             <p className="my-4">
-              <strong>Example:</strong>
+              <strong>Örnek:</strong>
             </p>
             <p className="my-4">
-              August 1: you placed a free ad - it is active for 30 days (from
-              August 1 to 30).
+              - 1 Ağustos: Ücretsiz bir ilan verdiniz - 30 gün boyunca aktiftir
+              (1 Ağustos - 30 Ağustos).
             </p>
             <p className="my-4">
-              August 5: 25 days left until the ad expires (August 5 to 30). If
-              you activate the "VIP" service, the duration of the ad will not
-              change.
+              - 5 Ağustos: İlanın süresinin dolmasına 25 gün kaldı (5 Ağustos -
+              30 Ağustos). Eğer "VIP" hizmetini etkinleştirirseniz, ilanın
+              süresi değişmez.
             </p>
             <p className="my-4">
-              August 27: 3 more days until the ad expires (August 27 to 30). If
-              you activate the "VIP" service for 5 days, the ad's activation
-              period will be extended by 2 days so that the service remains
-              active for 5 days.
+              - 27 Ağustos: İlanın süresinin dolmasına 3 gün kaldı (27 Ağustos -
+              30 Ağustos). Eğer 5 günlük "VIP" hizmetini etkinleştirirseniz,
+              ilanın aktif süresi 2 gün uzatılacak ve hizmet 5 gün boyunca etkin
+              olacaktır.
             </p>
             <p className="my-4">
-              August 31: the ad has already expired (from August 1 to 30). If
-              you activate the "VIP" service, the ad will be restored and its
-              activity period will be extended for 5 days.
+              - 31 Ağustos: İlan süresi dolmuş durumda (1 Ağustos - 30 Ağustos).
+              Eğer "VIP" hizmetini etkinleştirirseniz, ilan yenilenecek ve aktif
+              süresi 5 gün uzatılacaktır.
             </p>
 
             <h4 className="my-[10px] font-bold">
-              What will happen if I apply the service multiple times?
+              Hizmeti birden fazla defa uygularsam ne olur?
             </h4>
             <p className="my-4">
-              The effect of VIP-settings will be active for a longer time. If
-              you apply the 5-day "VIP" service twice, the VIP settings will be
-              valid for 10 days. At the same time, bonus promotions will take
-              place every day from the moment the service is activated -
-              immediately after the service payment is made and until the
-              service expires.
+              VIP ayarlarının etkisi daha uzun süre devam eder. Eğer 5 günlük
+              "VIP" hizmetini iki kez uygularsanız, VIP ayarları 10 gün boyunca
+              geçerli olacaktır. Bu süre boyunca, hizmetin etkinleştirildiği
+              andan itibaren her gün bonus promosyonlar gerçekleştirilecektir.
             </p>
 
             <h4 className="my-[10px] font-bold">
-              Does the ad remain in the VIP-block after making changes to it?
+              İlan üzerinde değişiklik yaptıktan sonra ilanın VIP blokta kalmaya
+              devam eder mi?
             </h4>
             <p className="my-4">
-              Yes, if these changes do not violate the rules of the site.
+              Evet, bu değişiklikler sitenin kurallarını ihlal etmediği sürece
+              VIP blokta kalır.
             </p>
             <p className="my-4">
-              <strong>RECOMMENDATION:</strong> every ad placed on the site must
-              be verified and it takes some time for this. Do not rush to use
-              paid services and familiarize yourself with our rules.
+              <strong>ÖNERİ:</strong> Siteye yerleştirilen her ilanın
+              doğrulanması gerekmektedir ve bu biraz zaman alabilir. Ücretli
+              hizmetleri kullanmadan önce acele etmeyin ve kurallarımızı
+              inceleyin.
             </p>
           </section>
           <section className="mb-[60px]" id="featured">
             <h2 className="my-[10px] font-bold text-[21px]">
-              "Premium" Service
+              "Premium" Hizmeti
             </h2>
             <p className="my-4">
-              "Premium" is a paid promotion service. Advertisements with the
-              "Premium" service applied appear in a specially allocated block on
-              the main page of the site and remain there until the end of their
-              activity period. You can see all such ads on one page at the same
-              time. On the cards of the announcements where the service is
-              applied, the crown symbol is reflected in the lower right corner.
+              "Premium" ücretli bir tanıtım hizmetidir. "Premium" hizmetinin
+              uygulandığı ilanlar, sitenin ana sayfasında ayrılmış özel bir
+              blokta görünür ve aktif oldukları süre boyunca orada kalırlar. Tüm
+              bu tür ilanları aynı anda tek bir sayfada görebilirsiniz. Bu
+              hizmetin uygulandığı ilanların kartlarında sağ alt köşede taç
+              simgesi görünür.
+            </p>
+
+            <h4 className="my-[10px] font-bold">Hizmetin maliyeti nedir?</h4>
+            <p className="my-4">- 7 USD – 1 gün</p>
+            <p className="my-4">- 20 USD – 5 gün</p>
+            <p className="my-4">- 45 USD – 15 gün</p>
+            <p className="my-4">- 60 USD – 30 gün</p>
+
+            <h4 className="my-[10px] font-bold">Hizmet ne zaman aktif olur?</h4>
+            <p className="my-4">
+              Hizmet, ödeme yapıldıktan hemen sonra aktif hale gelir. Satın
+              alınan gün sayısına bağlı olarak ilan 30 güne kadar Premium blokta
+              yer alabilir.
+            </p>
+            <p className="my-4">
+              <strong>BONUS:</strong> "Arama Sonuçlarında Yükselt" ve "VIP"
+              hizmetleri, bu hizmetin etkinleştirildiği andan itibaren gün
+              boyunca ilana 1 kez uygulanır ve bu süre hizmet süresi boyunca
+              geçerlidir.
             </p>
 
             <h4 className="my-[10px] font-bold">
-              How much does the service cost?
-            </h4>
-            <p className="my-4">7 AZN – 1 day</p>
-            <p className="my-4">20 AZN – 5 days</p>
-            <p className="my-4">45 AZN – 15 days</p>
-            <p className="my-4">60 AZN – 30 days</p>
-
-            <h4 className="my-[10px] font-bold">
-              When is the service activated?
+              Premium blokta ilanımı göremiyorum
             </h4>
             <p className="my-4">
-              The service is activated as soon as the payment is made. The ad
-              can be placed in the Premium-block for up to 30 days, depending on
-              the number of days obtained.
+              İlan, ana sayfadaki Premium blokta Premium ayarlarının sona
+              ermesine kadar yer alır. İlanlar Premium blokta hizmetin tanıtım
+              tarihine göre (en yeniden en eskiye doğru) sıralanır.
             </p>
             <p className="my-4">
-              <strong>BONUS:</strong> "Advance Search" service and "VIP" service
-              for the duration of the obtained service are applied to the ad 1
-              time per day, according to the number of days from the moment of
-              activation of this service.
+              "Arama Sonuçlarında Yükselt" hizmeti, Premium bloktaki bir ilana
+              uygulandığında, ilan bu bloktaki diğer ilanlara göre daha üst bir
+              konuma taşınır.
             </p>
 
             <h4 className="my-[10px] font-bold">
-              I don't see my ad in the Premium block
+              Hizmet, ilanın süresini etkiler mi?
             </h4>
             <p className="my-4">
-              The ad is placed in the premium-block on the home page until the
-              premium-settings expire. Ads are located in the premium block
-              according to the date of introduction of the service (from the
-              newest to the oldest).
+              Eğer ilan, hizmet süresinden önce sona ererse etkili olur.
+              "Premium" hizmetinin minimum süresi 1 gündür ve ilanın standart
+              etkinlik süresi hizmet süresinden önce sona ererse otomatik olarak
+              hizmetin uygulandığı andan itibaren 24 saatlik bir süre uzatılır.
             </p>
             <p className="my-4">
-              When the "Advance Search" service is applied to an ad in a premium
-              block, the ad rises to a higher position among other ads in this
-              block.
+              Eğer ilanın süresi zaten dolmuşsa, ilan bu hizmetin
+              uygulanmasından itibaren hizmet süresine eşit bir süre için
+              yenilenir.
+            </p>
+            <p className="my-4">
+              <strong>Örnek:</strong>
+            </p>
+            <p className="my-4">
+              - 1 Ağustos, 18:00: Ücretsiz bir ilan verdiniz - 30 gün boyunca
+              aktiftir (1 Ağustos - 30 Ağustos).
+            </p>
+            <p className="my-4">
+              - 5 Ağustos, 18:00: İlanın süresinin dolmasına 25 gün kaldı (5
+              Ağustos - 30 Ağustos). Eğer 5 günlük "Premium" hizmetini
+              etkinleştirirseniz, ilanın süresi değişmez.
+            </p>
+            <p className="my-4">
+              - 29 Ağustos, 18:00: İlanın süresinin dolmasına 1 gün kaldı (29
+              Ağustos - 30 Ağustos). Eğer 5 günlük "Premium" hizmetini 15:00'te
+              etkinleştirirseniz, ilanın aktif süresi 4 gün uzatılır, böylece
+              hizmet 5 gün boyunca aktif olur (hem hizmet hem de ilan 3 Eylül,
+              15:00'te sona erer).
+            </p>
+            <p className="my-4">
+              - 31 Ağustos: İlan süresi dolmuş durumda (1 Ağustos - 30 Ağustos).
+              Eğer 5 günlük "Premium" hizmetini etkinleştirirseniz, ilan
+              yenilenecek ve aktif süresi 5 gün uzatılacaktır.
             </p>
 
             <h4 className="my-[10px] font-bold">
-              Does the service affect the duration of the ad?
+              Hizmeti birden fazla defa uygularsam ne olur?
             </h4>
             <p className="my-4">
-              It takes effect if the ad expires earlier than the service period.
-              The minimum duration of the "Premium" service is 1 day, and if the
-              standard activation period of the ad expires earlier, it will be
-              automatically extended for a period of 24 hours from the moment
-              the service is applied.
-            </p>
-            <p className="my-4">
-              If the term of the ad has already expired, the ad will be renewed
-              for a period equal to the term of this service from the moment the
-              "Premium" service is applied.
-            </p>
-            <p className="my-4">
-              <strong>Example:</strong>
-            </p>
-            <p className="my-4">
-              August 1, 18:00: you placed a free ad - it is active for 30 days
-              (from August 1 to 30).
-            </p>
-            <p className="my-4">
-              August 5, 6:00 p.m.: 25 days left until the ad expires (August 5
-              to 30). If you activate the 5-day "Premium" service, the duration
-              of the ad will not change.
-            </p>
-            <p className="my-4">
-              August 29, 6:00 p.m.: 1 day left until the ad expires (August 29
-              to 30). If you activate the 5-day "Premium" service at 15:00, the
-              active period of the ad will be extended by 4 days so that the
-              service remains active for 5 days (both the service and the ad
-              will expire on September 3, 15:00).
-            </p>
-            <p className="my-4">
-              August 31: the ad has already expired (from August 1 to 30). If
-              you activate the 5-day "Premium" service, the ad will be restored
-              and its active period will be extended for 5 days.
+              Premium ayarlarının etkisi daha uzun süre devam eder. Eğer 5
+              günlük "Premium" hizmetini iki kez uygularsanız, Premium ayarları
+              10 gün boyunca geçerli olacaktır. Bu süre boyunca, hizmetin
+              etkinleştirildiği andan itibaren her gün bonus promosyonlar
+              gerçekleştirilecektir.
             </p>
 
             <h4 className="my-[10px] font-bold">
-              What will happen if I apply the service multiple times?
+              İlan üzerinde değişiklik yaptıktan sonra ilanın Premium blokta
+              kalmaya devam eder mi?
             </h4>
             <p className="my-4">
-              The effect of premium settings will be active for a longer time.
-              If you use the 5-day "Premium" service twice, the premium settings
-              will be valid for 10 days. At the same time, bonus promotions will
-              take place every day from the moment the service is activated -
-              immediately after the service payment is made and until the
-              service expires.
-            </p>
-
-            <h4 className="my-[10px] font-bold">
-              Does the ad remain in the Premium-block after making changes to
-              it?
-            </h4>
-            <p className="my-4">
-              Yes, if these changes do not violate the rules of the site.
+              Evet, bu değişiklikler sitenin kurallarını ihlal etmediği sürece
+              Premium blokta kalır.
             </p>
             <p className="my-4">
-              <strong>RECOMMENDATION:</strong> every ad placed on the site must
-              be verified and it takes some time for this. Do not rush to use
-              paid services and familiarize yourself with our rules.
+              <strong>ÖNERİ:</strong> Siteye yerleştirilen her ilanın
+              doğrulanması gerekmektedir ve bu biraz zaman alabilir. Ücretli
+              hizmetleri kullanmadan önce acele etmeyin ve kurallarımızı
+              inceleyin.
             </p>
           </section>
           <section className="mb-[60px]" id="limits">
             <h2 className="my-[10px] font-bold text-[21px]">
-              "Ad limit" Service
+              "İlan Limiti" Hizmeti
             </h2>
             <p className="my-4">
-              "Ad limit" is the number of free ads that individual sellers can
-              place in a 30-day period. When the limit is over, posting ads is
-              paid.
+              "İlan Limiti", bireysel satıcıların 30 günlük bir dönemde ücretsiz
+              olarak yerleştirebilecekleri ilan sayısını ifade eder. Limit
+              aşıldığında, ilan yerleştirme ücretli olur.
             </p>
             <p className="my-4">
-              There is no free ad limit for professional sellers. People who are
-              engaged in business and extra income work place all ads on
-              Turbo.az for a fee.
+              Profesyonel satıcılar için ücretsiz ilan limiti yoktur. Ticaretle
+              uğraşan ve ek gelir elde eden kişiler, kibcar.com’da tüm
+              ilanlarını ücretli olarak yerleştirirler.
             </p>
 
             <h4 className="my-[10px] font-bold">
-              Which ads count as using the limit?
+              Hangi ilanlar limit kullanımına dahil edilir?
             </h4>
             <p className="my-4">
-              In the following cases, the limit is reduced by 1 number of ads:
+              Aşağıdaki durumlarda ilan limiti 1 ilan azaltılır:
             </p>
             <ul className="list-disc ml-8 my-4">
-              <li>when placing an ad using the limit;</li>
-              <li>when placing an ad and later canceling it;</li>
+              <li>- limit kullanılarak bir ilan yerleştirildiğinde;</li>
+              <li>- ilan yerleştirildikten sonra iptal edildiğinde;</li>
               <li>
-                if the ad is blocked or not accepted due to duplicate posting;
+                - ilan yinelenen ilan nedeniyle engellendiğinde veya kabul
+                edilmediğinde;
               </li>
-              <li>
-                when restoring an ad that has already been removed from the
-                site.
-              </li>
+              <li>- siteden kaldırılan bir ilan geri yüklendiğinde.</li>
             </ul>
 
             <h4 className="my-[10px] font-bold">
-              How do I post an ad for free?
+              Bir ilanı nasıl ücretsiz olarak yayınlarım?
             </h4>
             <p className="my-4">
-              Post an ad once every 30 days. If you take advantage of free ad
-              placement and place one or more paid ads, the ad recovery day will
-              remain the same.
+              30 günde bir ilan yayınlayın. Ücretsiz ilan yerleştirme avantajını
+              kullandıysanız ve bir veya daha fazla ücretli ilan
+              yerleştirirseniz, ilan yenileme günü aynı kalır.
             </p>
             <p className="my-4">
-              <strong>Example:</strong>
+              <strong>Örnek:</strong>
             </p>
             <p className="my-4">
-              Limit – 1 free ad per 30 days. You post the ad on May 1. Limit
-              used. You will be able to place your next free ad on May 31. If
-              you place a paid ad on May 5th, the limit reset date will not
-              change and the next free ad will still be available on May 31st.
+              Limit – 30 gün içinde 1 ücretsiz ilan. 1 Mayıs’ta ilan
+              yayınlarsınız. Limit kullanıldı. Bir sonraki ücretsiz ilanınızı 31
+              Mayıs’ta yerleştirebilirsiniz. 5 Mayıs’ta ücretli bir ilan
+              yerleştirirseniz, limit sıfırlanma tarihi değişmez ve bir sonraki
+              ücretsiz ilan yine 31 Mayıs’ta mevcut olur.
             </p>
 
             <h4 className="my-[10px] font-bold">
-              Why was paid ad placement introduced?
+              Neden ücretli ilan yerleştirme uygulandı?
             </h4>
             <p className="my-4">
-              Thanks to paid ad placement, we reduce the number of duplicate and
-              questionable ads on the Turbo.az website and limit the activity of
-              fraudsters. At the same time, the number of views of the
-              advertisements of our honest sellers increases, and the agreements
-              speed up. For buyers, it is more convenient to find a vehicle
-              among unique offers.
+              Ücretli ilan yerleştirme sayesinde, kibcar.com sitesinde yinelenen
+              ve şüpheli ilanların sayısını azaltıyoruz ve dolandırıcıların
+              faaliyetlerini sınırlıyoruz. Aynı zamanda, dürüst satıcılarımızın
+              ilanlarının görüntülenme sayısı artıyor ve anlaşmalar hızlanıyor.
+              Alıcılar için, benzersiz tekliflerle araç bulmak daha kolay hale
+              geliyor.
             </p>
             <p className="my-4">
-              Paid ad placement is intended primarily for businessmen and
-              companies who use Turbo.az as a regular source of income.
-              Individuals post ads for free.
-            </p>
-
-            <h4 className="my-[10px] font-bold">Which ads are paid?</h4>
-            <p className="my-4">
-              Placements become paid when the free ad limit is reached.
+              Ücretli ilan yerleştirme, esas olarak kibcar.com’ı düzenli gelir
+              kaynağı olarak kullanan iş adamları ve şirketler için
+              tasarlanmıştır. Bireysel kişiler ilanlarını ücretsiz olarak
+              yerleştirirler.
             </p>
 
-            <h4 className="my-[10px] font-bold">
-              How much does the service cost?
-            </h4>
+            <h4 className="my-[10px] font-bold">Hangi ilanlar ücretlidir?</h4>
             <p className="my-4">
-              12 AZN – for individual sellers who have exhausted their free ad
-              limit
+              Ücretsiz ilan limiti dolduğunda ilanlar ücretli hale gelir.
+            </p>
+
+            <h4 className="my-[10px] font-bold">Hizmetin maliyeti nedir?</h4>
+            <p className="my-4">
+              - 12 USD – Ücretsiz ilan limitini aşan bireysel satıcılar için
             </p>
             <p className="my-4">
-              30 AZN – for sellers operating on the site with a business account
+              - 30 USD – İş hesabı ile site üzerinde faaliyet gösteren satıcılar
+              için
             </p>
           </section>
           <section className="mb-[60px]" id="relist">
             <h2 className="my-[10px] font-bold text-[21px]">
-              "Re-advertise" Service
+              "Tekrar İlan" Hizmeti
             </h2>
             <p className="my-4">
-              "Repeat advertisement" - placement of repeated and similar
-              advertisements (brand/model, color) within 90 days on a paid
-              basis.
+              "Tekrar İlan", 90 gün içinde tekrarlanan ve benzer ilanların
+              (marka/model, renk) ücretli olarak yerleştirilmesidir.
             </p>
             <p className="my-4">
-              A vehicle can be put up for sale for free only once within 90
-              days.
+              Bir araç, 90 gün içinde yalnızca bir kez ücretsiz olarak satışa
+              çıkarılabilir.
+            </p>
+
+            <h4 className="my-[10px] font-bold">Hizmetin maliyeti nedir?</h4>
+            <p className="my-4">- 12 USD – Bireysel satıcılar için</p>
+            <p className="my-4">
+              - 30 USD – İş hesabı ile site üzerinde faaliyet gösteren satıcılar
+              için
             </p>
 
             <h4 className="my-[10px] font-bold">
-              How much does the service cost?
-            </h4>
-            <p className="my-4">12 AZN – for individual sellers</p>
-            <p className="my-4">
-              30 AZN – for sellers operating on the site with a business account
-            </p>
-
-            <h4 className="my-[10px] font-bold">
-              Why are ads not accepted due to duplicate postings?
+              İlanlar neden yinelenen ilanlar nedeniyle kabul edilmiyor?
             </h4>
             <p className="my-4">
-              You are selling the same or similar vehicle through multiple ads.
-              Within 90 days, you cannot:
+              Aynı veya benzer aracı birden fazla ilanla satıyorsunuz. 90 gün
+              içinde aşağıdaki durumlar yasaktır:
             </p>
             <ul className="list-disc ml-8 my-4">
               <li>
-                posting a new ad with the same or similar (make/model, color)
-                vehicle;
+                - Aynı veya benzer (marka/model, renk) araçla yeni bir ilan
+                vermek;
               </li>
               <li>
-                cancel the first ad and place a new ad for the same or similar
-                vehicle;
+                - İlk ilanı iptal edip aynı veya benzer araç için yeni bir ilan
+                vermek;
               </li>
-              <li>mention this vehicle in the description of another ad;</li>
-              <li>to use images of this vehicle in another advertisement.</li>
+              <li>- Bu aracı başka bir ilanın açıklamasında belirtmek; </li>
+              <li>- Bu araca ait görselleri başka bir ilanda kullanmak.</li>
             </ul>
 
-            <h4 className="my-[10px] font-bold">How to sell a vehicle?</h4>
+            <h4 className="my-[10px] font-bold">Aracı nasıl satabilirim? </h4>
             <p className="my-4">
-              Use the first ad. We block every ad with the same or similar
-              offer, but keep the very first ad. If you have canceled it, you
-              can restore it again. Recovery is chargeable.
+              İlk ilanı kullanın. Aynı veya benzer teklif içeren her ilanı
+              engelliyoruz, ancak ilk ilanı koruyoruz. Eğer iptal ettiyseniz, bu
+              ilanı yeniden geri yükleyebilirsiniz. Geri yükleme ücretlidir.
             </p>
             <p className="my-4">
-              If you forgot to mention something in the description, want to
-              change the pictures or price, etc., please edit the first ad.
+              Eğer açıklamada bir şey eklemeyi unuttuysanız, görselleri veya
+              fiyatı değiştirmek istiyorsanız, lütfen ilk ilanı düzenleyin.
             </p>
             <p className="my-4">
-              Apply paid services to your ad to rank higher in search results.
+              İlanınızı arama sonuçlarında daha üst sıralara yerleştirmek için
+              ücretli hizmetler uygulayın.
             </p>
             <p className="my-4">
-              You can use the "Re-advertise" service to post a new ad that is
-              not accepted due to repeated posting. In this case, the first
-              advertisement will not be accepted.
-            </p>
-
-            <h4 className="my-[10px] font-bold">Why not repost?</h4>
-            <p className="my-4">
-              Duplicate ads make searching difficult. It is difficult to search
-              for a product or service among duplicate ads - it is impossible to
-              understand which ads you have seen before, which ones are
-              duplicates, and which ones you haven't opened yet. This is often
-              time-consuming and causes negative impressions. The purchase
-              process takes too long or stops altogether.
+              Yinelenen ilan nedeniyle kabul edilmeyen yeni bir ilan vermek için
+              "Tekrar İlan" hizmetini kullanabilirsiniz. Bu durumda, ilk ilan
+              kabul edilmeyecektir.
             </p>
 
             <h4 className="my-[10px] font-bold">
-              Can I place a repeat ad from another number?
+              Neden yeniden ilan vermemeliyim?
             </h4>
             <p className="my-4">
-              You cannot post the same or similar ad from another number within
-              90 days. Even if it is the number of your friend, spouse, or
-              neighbor - still not.
+              Yinelenen ilanlar, arama yapmayı zorlaştırır. Ürün veya hizmet
+              ararken yinelenen ilanlar arasında dolaşmak zorlaşır – hangi
+              ilanları daha önce gördüğünüzü, hangilerinin yinelenmiş olduğunu
+              ve hangilerini açmadığınızı anlamak imkansızdır. Bu durum
+              genellikle zaman kaybına yol açar ve olumsuz izlenimlere neden
+              olur. Satın alma süreci çok uzun sürer veya tamamen durur.
+            </p>
+
+            <h4 className="my-[10px] font-bold">
+              Aynı ilanı başka bir numaradan verebilir miyim?
+            </h4>
+            <p className="my-4">
+              90 gün içinde aynı veya benzer ilanı başka bir numaradan
+              veremezsiniz. Bu arkadaşınızın, eşinizin ya da komşunuzun numarası
+              bile olsa – yine de izin verilmez.
             </p>
           </section>
           <section className="mb-[60px]" id="sms-pin">
-            <h2 className="my-[10px] font-bold text-[21px]">"SMS PIN"</h2>
+            <h2 className="my-[10px] font-bold text-[21px]">
+              {" "}
+              "SMS PIN" Hizmeti
+            </h2>
             <p className="my-4">
-              "SMS PIN" – recovery of the PIN code on a paid basis.
+              "SMS PIN" – PIN kodunun ücretli olarak geri alınması hizmetidir.
             </p>
             <p className="my-4">
-              To make changes to the ad, you must enter the PIN code sent to the
-              e-mail address when the ad was placed. In cases where the e-mail
-              address is entered incorrectly or the PIN code is lost, it is
-              possible to send it via SMS to the number specified in the
-              advertisement.
+              İlana değişiklik yapmak için, ilanın verildiği sırada e-posta
+              adresine gönderilen PIN kodunu girmeniz gerekmektedir. E-posta
+              adresi yanlış girildiğinde veya PIN kodu kaybedildiğinde,
+              ilanınızda belirtilen numaraya SMS yoluyla gönderilmesi mümkündür.
+            </p>
+
+            <h4 className="my-[10px] font-bold">Hizmetin maliyeti nedir?</h4>
+            <p className="my-4">
+              - 1 USD – PIN kodunun numaranıza SMS olarak gönderilmesi
             </p>
 
             <h4 className="my-[10px] font-bold">
-              How much does the service cost?
+              PIN kodunu başka nasıl alabilirim?
             </h4>
             <p className="my-4">
-              1 AZN – sending the PIN code to your number in the form of an SMS
-            </p>
-
-            <h4 className="my-[10px] font-bold">
-              How else can I get the PIN code?
-            </h4>
-            <p className="my-4">
-              The PIN-code of the ad is sent to the e-mail address when the ad
-              is placed. If you do not wish to receive a PIN via SMS, please
-              provide a valid and correct email address when posting an ad.
+              PIN kodu, ilan verildiğinde e-posta adresine gönderilir. SMS ile
+              PIN almak istemiyorsanız, lütfen ilan verirken geçerli ve doğru
+              bir e-posta adresi sağlayın.
             </p>
             <p className="my-4">
-              If you have lost or deleted the email containing the ad's PIN
-              code, the code can be re-sent to that email address.
+              Eğer ilanın PIN kodunun yer aldığı e-postayı kaybettiyseniz veya
+              sildiyseniz, kod bu e-posta adresine yeniden gönderilebilir.
             </p>
           </section>
           <section className="mb-[60px]" id="recovery">
             <h2 className="my-[10px] font-bold text-[21px]">
-              "Ad recovery" Service
+              "İlan Yenileme" Hizmeti
             </h2>
             <p className="my-4">
-              "Ad recovery" is a paid ad service. The service can only be
-              applied to expired and canceled ads. The restoration extends the
-              period of the ad for 30 days from the moment the service is
-              applied.
+              "İlan Yenileme" ücretli bir ilan hizmetidir. Bu hizmet yalnızca
+              süresi dolmuş ve iptal edilmiş ilanlara uygulanabilir. Yenileme,
+              hizmetin uygulanmasından itibaren ilan süresini 30 gün uzatır.
             </p>
 
             <h4 className="my-[10px] font-bold">
-              How does "ad recovery" work?
+              "İlan yenileme" nasıl çalışır?
             </h4>
             <p className="my-4">
-              The duration of the free ad on the site is 30 days. If this period
-              expires automatically or the ad is canceled (accidentally or
-              intentionally), then it gets the status of an inactive ad on the
-              site. To restore your ad, you need to find this ad from your
-              personal cabinet, mails sent when posting your ad, bookmarks saved
-              in the browser, or selected on the site and click the "Restore"
-              button at the bottom of it or on the card of the ad.
+              Sitedeki ücretsiz ilan süresi 30 gündür. Bu süre otomatik olarak
+              sona ererse veya ilan iptal edilirse (yanlışlıkla veya kasıtlı
+              olarak), ilan sitede inaktif ilan statüsü kazanır. İlanınızı geri
+              yüklemek için, ilanınızı kişisel kabinetinizden, ilanınızı
+              verdiğinizde gönderilen e-postalardan, tarayıcıda kaydedilen yer
+              imlerinden veya sitede seçilenlerden bularak altındaki veya ilanın
+              kartındaki "Yenile" butonuna tıklamanız gerekir.
             </p>
             <p className="my-4">
-              Recovery extends the duration of the ad by 30 days and moves it to
-              the top of the search results once.
+              Yenileme, ilan süresini 30 gün uzatır ve ilanı arama sonuçlarının
+              en üstüne taşır.
             </p>
             <p className="my-4">
-              When restoring an ad, the user gets a new opportunity to reset the
-              number of views of the ad and make corrections before publication.
+              İlanı yenilerken kullanıcı, ilanın görüntülenme sayısını
+              sıfırlamak ve yayımlamadan önce düzeltmeler yapmak için yeni bir
+              fırsat elde eder.
             </p>
             <p className="my-4">
-              During recovery, the amended ad must pass verification. The
-              announcement will be published on the website immediately after
-              the approval of the amendments. Unedited ads are published on the
-              site without verification.
+              Yenileme sırasında, değiştirilen ilan doğrulamadan geçmelidir.
+              İlan değişikliklerin onaylanmasından hemen sonra sitede
+              yayınlanacaktır. Düzenlenmemiş ilanlar ise doğrulama yapılmadan
+              sitede yayınlanır.
+            </p>
+
+            <h4 className="my-[10px] font-bold">Hizmetin maliyeti nedir?</h4>
+            <p className="my-4">- 12 USD – Bireysel satıcılar için</p>
+            <p className="my-4">
+              - 30 USD – İş hesabı ile site üzerinde faaliyet gösteren satıcılar
+              için
+            </p>
+
+            <h4 className="my-[10px] font-bold">Hizmet ne zaman aktif olur?</h4>
+            <p className="my-4">
+              Hizmet, ilanın yayınlanma tarihi güncellendiği anda aktif hale
+              gelir.
+            </p>
+            <p className="my-4">
+              <strong>BONUS:</strong> Yenileme sırasında ilan, arama
+              sonuçlarının en üstüne ücretsiz olarak taşınır.
             </p>
 
             <h4 className="my-[10px] font-bold">
-              How much does the service cost?
-            </h4>
-            <p className="my-4">12 AZN – for individual sellers</p>
-            <p className="my-4">
-              30 AZN – for sellers operating on the site with a business account
-            </p>
-
-            <h4 className="my-[10px] font-bold">
-              When is the service activated?
+              Hizmet, ilanın süresini etkiler mi?
             </h4>
             <p className="my-4">
-              The service is activated as soon as the publication date of the ad
-              is updated.
+              "İlan Yenileme" hizmeti yalnızca inaktif ilanlara uygulanabilir ve
+              ilan sitede aktif olduğu sürece hizmet, etkinlik süresini
+              etkilemez.
             </p>
             <p className="my-4">
-              <strong>BONUS:</strong> during recovery, the ad rises to the top
-              of the search results for free.
-            </p>
-
-            <h4 className="my-[10px] font-bold">
-              Does the service affect the duration of the ad?
-            </h4>
-            <p className="my-4">
-              "Ad recovery" service can be applied only to inactive ads, and
-              while the ad is active on the site, the service does not affect
-              its activity period in any way.
-            </p>
-            <p className="my-4">
-              If an ad is unpublished before its expiration date, the renewal
-              will extend the ad's expiration date by another 30 days.
+              Eğer bir ilan süresi dolmadan yayından kaldırılırsa, yenileme ilan
+              süresini 30 gün daha uzatır.
             </p>
           </section>
         </div>

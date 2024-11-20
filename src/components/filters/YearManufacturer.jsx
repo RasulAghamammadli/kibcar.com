@@ -101,7 +101,7 @@ function YearManufacturer() {
               type="text"
               value={searchTerm}
               onChange={handleInputChange}
-              placeholder={selectedYearManufactured || "Year"}
+              placeholder={selectedYearManufactured || "Yıl, min."}
               className={`font-primary text-[15px] font-normal w-full bg-transparent border-none focus:outline-none text-start overflow-hidden whitespace-nowrap overflow-ellipsis ${
                 searchTerm ? "mt-[9px]" : ""
               }`}
@@ -114,7 +114,7 @@ function YearManufacturer() {
                   : "hidden"
               } `}
             >
-              Year
+              Yıl, min.
             </label>
           </div>
           <img

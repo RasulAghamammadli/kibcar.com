@@ -7,8 +7,8 @@ function CarType() {
     setSelectedCarType(value);
   };
 
-  const options = ["all", "Salons", "Personal"];
-  useEffect(() => setSelectedCarType("all"), []);
+  const options = ["tümü", "bayiler", "kişisel"];
+  useEffect(() => setSelectedCarType("tümü"), []);
 
   return (
     <div className="flex justify-between border border-gray-300 rounded-lg h-full">

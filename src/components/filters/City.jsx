@@ -69,7 +69,7 @@ function City() {
   );
 
   const summaryText =
-    selectedOptions.length === 0 ? "City" : selectedOptions.join(", ");
+    selectedOptions.length === 0 ? "Şehir" : selectedOptions.join(", ");
   useEffect(() => {
     if (isOpen) {
       inputRef.current.focus();
@@ -113,7 +113,7 @@ function City() {
                   : "hidden"
               } `}
             >
-              City
+              Şehir
             </label>
           </div>
 

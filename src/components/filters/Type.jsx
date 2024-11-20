@@ -7,15 +7,15 @@ function Type() {
   const handleChange = (value) => {
     setSelectedType(value);
   };
-  useEffect(() => setSelectedType("all"), []);
-  const options = ["all", "new", "drove"];
+  useEffect(() => setSelectedType("tümü"), []);
+  const options = ["tümü", "yeni", "kullanılmış"];
 
   return (
     <div className="flex justify-between border border-gray-300 rounded-lg h-full">
       {options.map((option) => (
         <label
           key={option}
-          className={`first:rounded-l-md  even:border-x-[1px] even:border-gray-300 last:rounded-r-md py-[15px] px-[20px] cursor-pointer flex flex-1 justify-center items-center transition-all duration-100 ${
+          className={`first:rounded-l-md  first:px-[10px] even:border-x-[1px] even:px-[10px] even:border-gray-300 last:rounded-r-md last:px-[25px] py-[15px] cursor-pointer flex flex-1 justify-center items-center transition-all duration-100 ${
             selectedType === option
               ? "bg-red text-white"
               : "bg-white text-secondary"

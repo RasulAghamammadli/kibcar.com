@@ -5,20 +5,20 @@ import phoneIcon from "../../assets/icons/phone-icon.svg";
 import emailIcon from "../../assets/icons/email-icon.svg";
 const links = [
   {
-    name: "Rules",
+    name: "Kurallar",
     href: "/rules",
   },
   {
-    name: "Terms And Conditions",
+    name: "Şartlar ve Koşullar",
     href: "/terms-and-conditions",
   },
 
   {
-    name: "Paid Services",
+    name: "Ücretli Hizmetler",
     href: "/paid-services",
   },
   {
-    name: "Place an Ad",
+    name: "Bir İlan Yerleştirin",
     href: "/new-advertisement",
   },
 ];
@@ -39,10 +39,10 @@ function MobileFooter() {
             ))}
           </div>
           <div className="flex flex-col gap-[6px] py-[25px] border-y border-[#eceaf6]">
-            <p>Support Service</p>
+            <p>Destek Hizmeti</p>
             <p className="font-bold">(012) 505-77-55</p>
             <p className="text-[12px] text-secondary">
-              Working hours — Weekdays: 09:00-19:00 | Saturday: 09:00-13:00
+              Çalışma saatleri — Hafta içi: 09:00-19:00 | Cumartesi: 09:00-13:00
             </p>
             <div className="flex items-center gap-x-5 mt-4">
               <a href="mailto:kibcar@kibcar.com">
@@ -66,8 +66,8 @@ function MobileFooter() {
             <div className="container">
               <div className="flex flex-col">
                 <h2 className="font-primary text-[12px] font-normal leading-7 text-secondary">
-                  The Site Administration is not responsible for the content of
-                  advertising banners and posted announcements.
+                  Site Yönetimi, reklam bannerları ve yayımlanan ilanların
+                  içeriğinden sorumlu değildir.
                 </h2>
                 <p className="font-primary text-[12px] font-normal text-secondary">
                   2023-2023 Digital Classifieds LLC. TIN: 1305631664

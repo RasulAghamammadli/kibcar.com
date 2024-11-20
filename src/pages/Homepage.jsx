@@ -200,16 +200,16 @@ function Homepage() {
                 hideMoreMobile && !moreFilters ? "hidden" : ""
               }`}
             >
-              <div className="flex justify-between h-full ">
+              <div className="flex justify-between h-full">
                 <PaymentCurrency />
                 <PaymentType
-                  label="Credit"
+                  label="Kredi"
                   type="credit"
                   name="paymentType"
                   setPaymentOptions={setPaymentOptions}
                 />
                 <PaymentType
-                  label="Barter"
+                  label="Takas"
                   type="barter"
                   name="paymentType"
                   setPaymentOptions={setPaymentOptions}
@@ -228,7 +228,7 @@ function Homepage() {
                 hideMoreMobile && !moreFilters ? "hidden" : ""
               }`}
             >
-              <div className="flex justify-between h-full ">
+              <div className="flex justify-between h-full">
                 <div className="flex-1">
                   <YearManufacturer />
                 </div>
@@ -255,16 +255,20 @@ function Homepage() {
             <div className="xl:col-span-3 lg:col-span-4 md:col-span-6 col-span-12 h-[48px]">
               <GearBox />
             </div>
-            <div className="xl:col-span-3 md:col-span-6 col-span-12 h-[48px]">
-              <VolumeMin />
+            <div className="flex items-center justify-between xl:col-span-4 md:col-span-4 col-span-12 h-[48px]">
+              <div className="flex-1">
+                <VolumeMin />
+              </div>
+              <div className="flex-1">
+                <VolumeMax />
+              </div>
             </div>
-            <div className="xl:col-span-3 md:col-span-6 col-span-12 h-[48px]">
-              <VolumeMax />
-            </div>
-            <div className="xl:col-span-3 md:col-span-6 col-span-12 h-[48px]">
+            {/* <div className="xl:col-span-3 md:col-span-6 col-span-12 h-[48px]">
+            </div> */}
+            <div className="xl:col-span-4 md:col-span-4 col-span-12 h-[48px]">
               <Power />
             </div>
-            <div className="xl:col-span-3 md:col-span-6 col-span-12 h-[48px]">
+            <div className="xl:col-span-4 md:col-span-4 col-span-12 h-[48px]">
               <Mileage />
             </div>
             <div className="xl:col-span-3 lg:col-span-4 md:col-span-6 col-span-12 h-[48px]">
@@ -281,7 +285,7 @@ function Homepage() {
             </div>
             <div className="xl:col-span-3 lg:col-span-4 md:col-span-6 col-span-12 h-[48px]">
               <PaymentType
-                label="There is no punctuation"
+                label="Noktalama işareti yok"
                 type="noPunctuation"
                 name="noPunctuation"
                 setPaymentOptions={setPaymentOptions}
@@ -289,7 +293,7 @@ function Homepage() {
             </div>
             <div className="xl:col-span-3 lg:col-span-4 md:col-span-6 col-span-12 h-[48px]">
               <PaymentType
-                label="Not colored"
+                label="Boyasız"
                 type="notColored"
                 name="notColored"
                 setPaymentOptions={setPaymentOptions}
@@ -297,7 +301,7 @@ function Homepage() {
             </div>
             <div className="xl:col-span-3 lg:col-span-4 md:col-span-6 col-span-12 h-[48px]">
               <PaymentType
-                label="Accidental cars only"
+                label="Sadece kazalı araçlar"
                 type="accidentalCars"
                 name="accidentalCars"
                 setPaymentOptions={setPaymentOptions}
@@ -307,7 +311,7 @@ function Homepage() {
             <div className="col-span-12 mt-12">
               <div className="flex items-center justify-between">
                 <span className="font-primary text-primary text-[14px] inline-block min-w-[130px]">
-                  Vehicle supply
+                  Araç Tedarikçileri
                 </span>
                 <hr className="h-[1px] w-full bg-[#e2e2e2]" />
               </div>
@@ -321,9 +325,9 @@ function Homepage() {
               <div className="flex flex-wrap items-center justify-between md:flex-nowrap md:gy-0 ">
                 <span className="font-primary text-primary text-[14px] inline-block ">
                   <h2 className="flex items-center font-normal text-primary text-[14px] md:text-[14px] font-primary">
-                    Today :
+                    Bugün:
                     <Link className="ml-1 font-primary font-normal text-link">
-                      {adsCount} Ads
+                      {adsCount} İlan
                     </Link>
                   </h2>
                 </span>
@@ -333,13 +337,13 @@ function Homepage() {
                       onClick={handleResetForm}
                       className="font-primary text-[14px] font-normal mr-7 text-[#8D94AD]"
                     >
-                      Reset
+                      Sıfırla
                     </button>
                     <button
                       onClick={handleMoreFilters}
                       className="text-red hover:text:[#882111] font-primary text-[14px] font-normal flex items-center"
                     >
-                      {moreFilters ? "Hide" : `More Filters `}
+                      {moreFilters ? "Gizle" : `Daha Fazla Filtre`}
                       <img
                         className="ml-[10px]"
                         src={moreFilters ? chevronTop : chivronBottom}
@@ -353,7 +357,7 @@ function Homepage() {
                         onClick={showFilterPayload}
                         className="text-white rounded-lg bg-red hover:bg-[#882111] shadow-none hover:shadow-none py-[14px] px-[35px] font-primary text-[14px] font-normal md:ml-14 ml-[20px] flex items-center"
                       >
-                        <p>Shows ads</p>
+                        <p>İlanları Göster</p>
                       </button>
                     </AnimatedButtonWrapper>
                   </div>

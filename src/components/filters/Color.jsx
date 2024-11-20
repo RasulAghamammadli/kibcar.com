@@ -68,7 +68,7 @@ function Color() {
   );
 
   const summaryText =
-    selectedOptions.length === 0 ? "Color" : selectedOptions.join(", ");
+    selectedOptions.length === 0 ? "Renk" : selectedOptions.join(", ");
   useEffect(() => {
     if (isOpen) {
       inputRef.current.focus();
@@ -112,7 +112,7 @@ function Color() {
                   : "hidden"
               } `}
             >
-              Color
+              Renk
             </label>
           </div>
           <img

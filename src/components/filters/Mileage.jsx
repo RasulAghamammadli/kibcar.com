@@ -21,7 +21,7 @@ const Mileage = () => {
           htmlFor="minMileage"
           className="absolute cursor-pointer left-0 top-[7px] pl-[0.6rem] pr-[0.1rem] text-[12px] leading-4 transition-all w-full text-start peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-focus:top-[7px]  peer-focus:text-[12px] peer-focus:leading-4 font-primary text-secondary"
         >
-          Mileage (km), min
+          Kilometre (km), min.
         </label>
       </div>
       <div className="relative w-[50%] h-full border-l border-[#e2e2e2] pt-[10px] px-2.5 focus-within:border focus-within:border-[#8F93AD] focus-within:rounded-r-md">
@@ -38,7 +38,7 @@ const Mileage = () => {
           htmlFor="maxMileage"
           className="absolute cursor-pointer left-0 top-[7px] pl-[0.6rem] pr-[0.1rem] text-[12px] leading-4 transition-all w-full text-start peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-focus:top-[7px]  peer-focus:text-[12px] peer-focus:leading-4 font-primary text-secondary"
         >
-          Max
+          maks.
         </label>
       </div>
     </div>

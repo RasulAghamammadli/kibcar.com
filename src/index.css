@@ -91,6 +91,14 @@ label {
   overflow: hidden;
 }
 
+.nav-icon {
+  fill: #8d94ad; /* default */
+}
+
+.svg-active .nav-icon {
+  fill: #ca1016; /* active */
+}
+
 favourite-sec input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;

@@ -33,23 +33,23 @@ function Nav() {
               </div>
               <div className="flex items-center space-x-5">
                 <div className="text-[#212c3a]">
-                  <span>Support: </span>
+                  <span>Destek: </span>
                   <a className="hover:text-red" href="tel:+900125057755">
                     (012) 505-77-55
                   </a>
                 </div>
                 <Link className="hover:text-red" to={"/help"}>
-                  Help
+                  Yardım
                 </Link>
                 <Link className="hover:text-red" to={"/"}>
-                  Ru
+                  En
                 </Link>
                 <Link
                   to={"/favorite"}
                   className="hover:text-red flex items-center"
                 >
                   <FaHeart className="mr-3" />
-                  Favorite
+                  Favoriler
                 </Link>
               </div>
             </div>
@@ -70,19 +70,19 @@ function Nav() {
                     to={"/"}
                     className="font-primary text-[14px]  font-normal leading-5  text-white"
                   >
-                    All Ads
+                    Tüm ilanlar
                   </Link>
                   <Link
                     to={"/dealership-owners"}
                     className="font-primary text-[14px]  font-normal leading-5  text-white"
                   >
-                    Salons
+                    Bayiler
                   </Link>
                   <Link
                     to={"/lease"}
                     className="font-primary text-[14px]  font-normal leading-5  text-white"
                   >
-                    Lease
+                    Kiralama
                   </Link>
                 </div>
               </div>
@@ -93,7 +93,7 @@ function Nav() {
                 >
                   <img src={newLogo} alt="add-Announcement" />
                   <p className="font-primary text-[14px] font-medium leading-[18px] text-white">
-                    New Announcement
+                    Yeni İlan
                   </p>
                 </Link>
               </div>

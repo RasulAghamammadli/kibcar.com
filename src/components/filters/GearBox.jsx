@@ -69,7 +69,7 @@ function GearBox() {
   );
 
   const summaryText =
-    selectedOptions.length === 0 ? "Gear Box" : selectedOptions.join(", ");
+    selectedOptions.length === 0 ? "Şanzıman" : selectedOptions.join(", ");
   useEffect(() => {
     if (isOpen) {
       inputRef.current.focus();
@@ -113,7 +113,7 @@ function GearBox() {
                   : "hidden"
               } `}
             >
-              Gear Box
+              Şanzıman
             </label>
           </div>
           <img

@@ -68,7 +68,7 @@ function Gear() {
   );
 
   const summaryText =
-    selectedOptions.length === 0 ? "Gear" : selectedOptions.join(", ");
+    selectedOptions.length === 0 ? "Vites" : selectedOptions.join(", ");
   useEffect(() => {
     if (isOpen) {
       inputRef.current.focus();
@@ -112,7 +112,7 @@ function Gear() {
                   : "hidden"
               } `}
             >
-              Gear
+              Vites
             </label>
           </div>
           <img

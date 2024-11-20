@@ -101,7 +101,7 @@ function MaxYearManufacturer() {
               type="text"
               value={searchTerm}
               onChange={handleInputChange}
-              placeholder={selectedMaxYearManufactured || "Max year"}
+              placeholder={selectedMaxYearManufactured || "maks."}
               className={`font-primary text-[15px] font-normal w-full bg-transparent border-none focus:outline-none text-start overflow-hidden whitespace-nowrap overflow-ellipsis ${
                 searchTerm ? "mt-[9px]" : ""
               }`}
@@ -114,7 +114,7 @@ function MaxYearManufacturer() {
                   : "hidden"
               } `}
             >
-              Max year
+              maks.
             </label>
           </div>
           <img

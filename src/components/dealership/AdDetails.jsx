@@ -61,9 +61,9 @@ function AdDetails({
                     <p className="block lg:hidden text-[16px] text-[#dbd8d8]">
                       {number_of_announcment} announcement
                     </p>
-                    <p className="text-[14px] font-primary text-white pb-[10px] pr-[21px] border-r border-[#2a3e63] flex-1 hidden lg:block">
+                    <div className="text-[14px] font-primary text-white pb-[10px] pr-[21px] border-r border-[#2a3e63] flex-1 hidden lg:block">
                       <ReadMore text={description} maxLength={220} />
-                    </p>
+                    </div>
                     <p className="lg:flex items-center font-primary text-[15px] underline text-white hidden ">
                       <FaMapMarkerAlt
                         size="22px"
@@ -108,9 +108,9 @@ function AdDetails({
                 </p>
               </div>
             </div>
-            <p className="text-[14px] font-primary text-white pt-[10px] lg:pt-0 pb-[15px] pr-[21px] flex-1 block lg:hidden">
+            <div className="text-[14px] font-primary text-white pt-[10px] lg:pt-0 pb-[15px] pr-[21px] flex-1 block lg:hidden">
               <ReadMore text={description} maxLength={220} />
-            </p>
+            </div>
             <p className="mb-[5px] rounded-md px-3 py-[10.5px] w-full lg:hidden items-center justify-center text-white bg-link font-medium font-primary text-[14px] flex ">
               <img
                 className="w-6 h-6 md:mr-[15px]"

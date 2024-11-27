@@ -1,15 +1,17 @@
 import { useState } from "react";
 
-export default function ReadMore({ text, maxLength }) {
+export default function ReadMore({ text = "", maxLength }) {
+  // initial
   const [isExpanded, setIsExpanded] = useState(false);
 
-  if (text.length <= maxLength) {
-    return <p>{text}</p>;
+  // text not null&undefined
+  if (!text || !maxLength || text.length <= maxLength) {
+    return <div>{text}</div>;
   }
 
   return (
     <div className="pt-[15px]">
-      <p>{isExpanded ? text : `${text.substring(0, maxLength)}...`}</p>
+      <div>{isExpanded ? text : `${text.substring(0, maxLength)}...`}</div>
       <button onClick={() => setIsExpanded(!isExpanded)}>
         {isExpanded ? "Read Less" : "Read More"}
       </button>

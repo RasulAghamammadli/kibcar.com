@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import "react-image-gallery/styles/css/image-gallery.css";
 
 import phoneDetails from "../../../assets/images/phone-details.png";
-import clockGray from "../../../assets/icons/clock-gray.png";
-import vipIcon from "../../../assets/icons/vip-icon.png";
 import FullscreenMode from "./FullscreenMode";
 import ProfileCard from "./ProfileCard";
 import AttentionNote from "./AttentionNote";
@@ -355,12 +353,12 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
                   <p className="text-black font-primary text-[14px] font-normal">
                     {car.car_dealership.slogan}
                   </p>
-                  <p className="text-secondary font-primary text-[14px] font-normal">
+                  <div className="text-secondary font-primary text-[14px] font-normal">
                     <ReadMore
                       text={car.car_dealership.description}
                       maxLength={220}
                     />
-                  </p>
+                  </div>
                   <Link
                     to={`/dealership/${car.car_dealership.id}`}
                     className="text-secondary font-primary text-[14px] font-normal underline pb-[20px]"
@@ -400,22 +398,6 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
           <div to={""} className="grid grid-cols-12 space-x-2 mt-[20px]">
             {!car.is_premium_announcement && (
               <>
-                {/* <Link
-                        onClick={handleMoveForward}
-                        className="p-[10px] w-full flex gap-x-[10px] items-center bg-[#F6F7FA] rounded-md "
-                      >
-                        <div className="flex flex-col ">
-                          <p className="font-primary p-[10px] text-[14px] font-bold leading-10 text-primary">
-                            PREMIUM
-                          </p>
-                   
-                        </div>
-                        <img
-                          className="w-4 h-4"
-                          src={arrowIcon}
-                          alt="arrowIcon"
-                        />
-                      </Link> */}
                 <Link className="col-span-4">
                   <CreativeButton
                     title="Move forward"
@@ -488,33 +470,6 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
                 </Link>
               </>
             )}
-
-            {/* <Link className="p-[10px] w-full md:w-[33%] flex gap-x-[10px] items-center bg-[#F6F7FA] rounded-md ">
-                    <div className="flex flex-col ">
-                      <p className="font-primary text-[14px] font-bold leading-6 text-primary">
-                        Move forward
-                      </p>
-                      <span className="font-primary text-[14px] font-normal text-link leading-6 ">
-                        From 3 AZN
-                      </span>
-                    </div>
-                    <img className="w-4 h-4" src={vipIcon} alt="vipIcon" />
-                  </Link>
-                  <Link className="p-[10px] w-full md:w-[33%] flex gap-x-[10px] items-center bg-[#F6F7FA] rounded-md ">
-                    <div className="flex flex-col ">
-                      <p className="font-primary text-[14px] font-bold leading-6 text-primary">
-                        Move forward
-                      </p>
-                      <span className="font-primary text-[14px] font-normal text-link leading-6 ">
-                        From 3 AZN
-                      </span>
-                    </div>
-                    <img
-                      className="w-4 h-4"
-                      src={premiumIcon}
-                      alt="premiumIcon"
-                    />
-                  </Link> */}
           </div>
         </div>
       </div>

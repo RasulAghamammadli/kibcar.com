@@ -125,7 +125,7 @@ function FuelType() {
         </summary>
         <ul className="p-2 px-0 z-[1] shadow menu dropdown-content bg-base-100 flex flex-col flex-nowrap justify-start w-full mt-0.5 rounded-lg max-h-[210px] overflow-y-auto">
           {filteredFuelTypes.map((item) => (
-            <li className="flex items-center">
+            <li key={item.id} className="flex items-center">
               <label className="flex items-center justify-between w-full pr-4 px-[10px] py-2.5 text-secondary font-primary rounded-none">
                 <span className="text-primary font-primary text-[15px]">
                   {item.name}

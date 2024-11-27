@@ -102,7 +102,7 @@ function CarDetails() {
         });
 
         setCarImages([...featuredImagesArr, ...ImagesArr]);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.log(error);
       } finally {
@@ -116,7 +116,6 @@ function CarDetails() {
   useEffect(() => {
     const handleScroll = () => {
       const navbarContainer = document.querySelector(".navigation-container");
-
       if (window.scrollY > 10) {
         navbarContainer.classList.add("fixed-nav-container");
       } else {

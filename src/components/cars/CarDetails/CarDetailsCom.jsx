@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { useCarContext } from '../../../context/CarContext';
+import { useEffect } from "react";
+import PropTypes from "prop-types";
+import { useCarContext } from "../../../context/CarContext";
 
 function CarDetailsCom({ car }) {
   const { setCurrentCar } = useCarContext();
@@ -49,7 +49,7 @@ function CarDetailsCom({ car }) {
             {car.engine_volume_liters + " L / " + car.fuel_type.name}
           </p>
           <p className="font-primary text-[14px] text-[#212c3a]">
-            {Number(car.mileage_in_km).toLocaleString()} km
+            {Number(car.mileage_in_km || 0).toLocaleString()} km
           </p>
         </div>
       </div>
@@ -78,7 +78,8 @@ function CarDetailsCom({ car }) {
             {car.vehicle_status == "USED" ? "No" : "Yes"}
           </p>
           <p className="font-primary text-[14px] text-[#212c3a]">
-            {car.number_of_seats}
+            {/* {numberOfSeats} */}
+            {car.number_of_seats != null ? car.number_of_seats : "-"}
           </p>
           <p className="font-primary text-[14px] text-[#212c3a]">1</p>
           <p className="font-primary text-[14px] text-[#212c3a]">
@@ -129,7 +130,8 @@ CarDetailsCom.propTypes = {
     fuel_type: PropTypes.shape({
       name: PropTypes.string.isRequired,
     }).isRequired,
-    mileage_in_km: PropTypes.number.isRequired,
+    mileage_in_km: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      .isRequired,
     vehicle_transmission: PropTypes.shape({
       name: PropTypes.string.isRequired,
     }).isRequired,
@@ -137,7 +139,7 @@ CarDetailsCom.propTypes = {
       name: PropTypes.string.isRequired,
     }).isRequired,
     vehicle_status: PropTypes.string.isRequired,
-    number_of_seats: PropTypes.number.isRequired,
+    number_of_seats: PropTypes.number,
     vehicle_market: PropTypes.shape({
       name: PropTypes.string.isRequired,
     }).isRequired,

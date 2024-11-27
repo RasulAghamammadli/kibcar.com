@@ -1057,7 +1057,7 @@ function NewAdvertisement() {
                         <h3 className="font-primary text-[14px] font-normal text-primary ">
                           Kaza veya yedek parça için
                         </h3>
-                        <p className="pt-1 text-[14px] font-primary text-secondary">
+                        <p className="pt-1 text-[14px] whitespace-normal font-primary text-secondary">
                           Onarım ihtiyacında veya genel hasar
                         </p>
                       </label>
@@ -1081,14 +1081,14 @@ function NewAdvertisement() {
                         <h3 className="font-primary text-[14px] font-normal text-primary ">
                           Motor arızası var
                         </h3>
-                        <p className="pt-1 text-[14px] font-primary text-secondary">
+                        <p className="pt-1 text-[14px] whitespace-normal	 w-[100%] font-primary text-secondary">
                           Bir veya daha fazla parça değiştirilmiş veya tamir
                           edilmiş
                         </p>
                       </label>
                     </div>
                   </div>
-                  <div className="flex w-full md:max-w-[452px] gap-x-5 ">
+                  <div className="flex w-full md:max-w-[452px] lg:w-[900px] gap-x-5 ">
                     <div className="mt-[2px]">
                       <label className="custom-checkbox">
                         <input
@@ -1106,7 +1106,7 @@ function NewAdvertisement() {
                         <h3 className="font-primary text-[14px] font-normal text-primary ">
                           Boyalıdır
                         </h3>
-                        <p className="pt-1 text-[14px] font-primary text-secondary">
+                        <p className="pt-1 text-[14px] whitespace-normal font-primary text-secondary">
                           Bir veya daha fazla parça boyanmış ya da kozmetik
                           işlem yapılmış
                         </p>

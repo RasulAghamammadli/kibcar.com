@@ -26,6 +26,7 @@ const links = [
     href: "/",
   },
 ];
+
 function MobileFixedFooter() {
   const location = useLocation();
   const show = location.pathname == "/" || location.pathname == "/favorite";
@@ -41,35 +42,40 @@ function MobileFixedFooter() {
     // Show Contact menu modal
   }
 
-  const [isScrollingUp, setIsScrollingUp] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-
-  const handleScroll = () => {
-    const currentScrollY = window.scrollY;
-
-    if (currentScrollY < lastScrollY) {
-      setIsScrollingUp(true);
-    } else {
-      setIsScrollingUp(false);
-    }
-
-    setLastScrollY(currentScrollY);
-  };
   const handleMenuLinkClick = () => {
     // close the menu
     setShowMenu(false);
   };
+
   const handleClickOutside = (event) => {
     if (contactRef.current && !contactRef.current.contains(event.target)) {
       setShowContact(false);
     }
   };
+
+  // genius scroll event for fixed navbar(bottom)
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+
   useEffect(() => {
+    let scrollTimeout;
+
+    const handleScroll = () => {
+      setIsScrolling(true);
+      setIsVisible(false);
+
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        setIsScrolling(false);
+        setIsVisible(true);
+      }, 200);
+    };
+
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [lastScrollY]);
+  }, []);
 
   useEffect(() => {
     if (showMenu) {
@@ -83,11 +89,15 @@ function MobileFixedFooter() {
   }, [showMenu]);
 
   return (
-    <div className={`${showMenu ? "relative h-[100dvh]" : ""}  w-full`}>
+    <div
+      className={`${
+        showMenu ? "relative h-[100dvh] toggle-active" : ""
+      }  w-full`}
+    >
       <div className={`h-full bg-[#f6f7fa] ${show ? "" : "hidden"}`}>
         <div
-          className={`fixed left-0 right-0 px-2 border-t border-gray-200 z-[60] bg-white transition-all duration-200 ${
-            !isScrollingUp ? "-bottom-60" : "bottom-0"
+          className={`scroll-aware-navbar px-2 border-t border-gray-200 z-[60] bg-white transition-all duration-200 ${
+            isVisible ? "visible" : "hidden"
           }`}
         >
           <ul className="m-0 p-0 list-none flex items-center justify-around">
@@ -95,19 +105,19 @@ function MobileFixedFooter() {
               <NavLink
                 className={({ isActive }) =>
                   `block text-[8px] py-[9px] pb-[4px] no-underline tracking-[0.44px] whitespace-nowrap ${
-                    isActive ? "text-[#ca1016] svg-active" : "text-[#8d94ad]"
+                    isActive ? "text-[#ca1016] active-item" : "text-[#8d94ad]"
                   }`
                 }
                 to="/"
                 onClick={handleMenuLinkClick}
               >
-                <i className="inline-block w-[26px] h-[20px]">
+                <i className="inline-block w-[24px] h-[20px]">
                   <svg
                     height="20"
                     viewBox="0 0 20 20"
                     width="20"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="nav-icon "
+                    className="nav-icon"
                   >
                     <g>
                       <path
@@ -124,13 +134,13 @@ function MobileFixedFooter() {
               <NavLink
                 className={({ isActive }) =>
                   `block text-[8px] py-[9px] pb-[4px] no-underline tracking-[0.44px] whitespace-nowrap ${
-                    isActive ? "text-[#ca1016] svg-active" : "text-[#8d94ad]"
+                    isActive ? "text-[#ca1016] active-item" : "text-[#8d94ad]"
                   }`
                 }
                 to="/favorite"
                 onClick={handleMenuLinkClick}
               >
-                <i className="inline-block w-[26px] h-[20px]">
+                <i className="inline-block w-[24px] h-[20px]">
                   <svg
                     height="20"
                     viewBox="0 0 24 20"
@@ -201,13 +211,13 @@ function MobileFixedFooter() {
               <NavLink
                 className={({ isActive }) =>
                   `block text-[8px] py-[9px] pb-[4px] no-underline tracking-[0.44px] whitespace-nowrap ${
-                    isActive ? "text-[#ca1016] svg-active" : "text-[#8d94ad]"
+                    isActive ? "text-[#ca1016] active-item" : "text-[#8d94ad]"
                   }`
                 }
                 to="/dealership-owners"
                 onClick={handleMenuLinkClick}
               >
-                <i className="inline-block w-[26px] h-[20px]">
+                <i className="inline-block w-[24px] h-[20px]">
                   <svg
                     height="20"
                     viewBox="0 0 20 20"
@@ -230,16 +240,16 @@ function MobileFixedFooter() {
               <button onClick={handleMenuClick}>
                 <div
                   className={`block text-[8px] py-[9px] pb-[4px] text-[#8d94ad] no-underline tracking-[0.44px] whitespace-nowrap ${
-                    showMenu && "text-[#ca1016] svg-active active"
+                    showMenu && "text-[#ca1016] toggle-btn"
                   }`}
                 >
-                  <i className="inline-block w-[26px] h-[20px]">
+                  <i className="inline-block w-[24px] h-[20px]">
                     <svg
                       height="20"
                       viewBox="0 0 28 22"
                       width="26"
                       xmlns="http://www.w3.org/2000/svg"
-                      className="nav-icon"
+                      className="toggle-nav-icon"
                     >
                       <path
                         d="M25.917 18.005c.598 0 1.083.56 1.083 1.25s-.485 1.25-1.083 1.25H2.083c-.598 0-1.083-.56-1.083-1.25s.485-1.25 1.083-1.25zm0-8c.598 0 1.083.56 1.083 1.25s-.485 1.25-1.083 1.25H2.083c-.598 0-1.083-.56-1.083-1.25s.485-1.25 1.083-1.25zm0-9c.598 0 1.083.56 1.083 1.25s-.485 1.25-1.083 1.25H2.083C1.485 3.505 1 2.945 1 2.255s.485-1.25 1.083-1.25z"

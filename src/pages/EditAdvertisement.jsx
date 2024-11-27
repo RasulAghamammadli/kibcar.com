@@ -413,9 +413,9 @@ function EditAdvertisement() {
 
   // Add placeholders to imageSlots if they're not already replaced by an uploaded image
   [
-    { src: frontView, tag: "Front View" },
-    { src: backView, tag: "Back View" },
-    { src: insideView, tag: "Inside View" },
+    { src: frontView, tag: "Ön Görünüm" },
+    { src: backView, tag: "Arka Görünüm" },
+    { src: insideView, tag: "İç Görünüm" },
   ].forEach((placeholder, index) => {
     if (!formData.uploadedImages[index]) {
       imageSlots.splice(
@@ -474,7 +474,7 @@ function EditAdvertisement() {
       />
       <div className="flex flex-col justify-center items-center gap-2 text-[#4C88F9]">
         <img src={addMore} alt="Add more" className="w-[40px] m-auto  lg:m-0" />
-        Add Photo
+        Fotoğraf Ekle
       </div>
     </div>
   );
@@ -598,27 +598,25 @@ function EditAdvertisement() {
         <div>
           <div className="bg-[#f1f3f7] border-y border-[#eaebf2] p-[20px]">
             <h2 className="uppercase font-secondary text-[16px] font-bold leading-8 text-primary">
-              POSTING AN ADVERTISEMENT
+              İLANI DÜZENLE
             </h2>
           </div>
           <ul className="ml-3 flex flex-col space-y-[6px] items-start mt-[30px] mb-[25px] list-outside advertisement-list font-primary text-[14px] ">
+            <li>Bir araç üç ayda bir kez ücretsiz yayınlanabiliyor.</li>
             <li>
-              A vehicle can be published for free only once in three months.
+              Üç ay içinde tekrarlanan veya benzer ilanlara (marka/model, renk)
+              ödeme yapılır.
             </li>
             <li>
-              Repeat or similar ads (make/model, color) within three months are
-              paid.
-            </li>
-            <li>
-              Use the "Promote" service to see your ad on the front lines of the
-              site
+              İlanınızı sitenin ön saflarında görmek için "Tanıtım" hizmetini
+              kullanın.
             </li>
           </ul>
           <div className="grid grid-cols-12 gap-[30px] md:ml-6">
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  Brand
+                  Marka
                 </label>
                 <select
                   name="brand"
@@ -630,7 +628,7 @@ function EditAdvertisement() {
                   required
                 >
                   <option value="" disabled>
-                    Select
+                    Seç
                   </option>
                   {brands.map((item) => (
                     <option key={item.id} value={item.id}>
@@ -643,7 +641,7 @@ function EditAdvertisement() {
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  Fuel type
+                  Yakıt tipi
                 </label>
                 <select
                   name="fuelType"
@@ -654,7 +652,7 @@ function EditAdvertisement() {
                   required
                 >
                   <option value={""} disabled>
-                    Select
+                    Seç
                   </option>
                   {fuelTypes.map((item) => (
                     <option key={item.id} value={item.id}>
@@ -678,7 +676,7 @@ function EditAdvertisement() {
                   required
                 >
                   <option value={""} disabled>
-                    Select
+                    Seç
                   </option>
                   {brandModels.map((item) => (
                     <option key={item.id} value={item.id}>
@@ -691,7 +689,7 @@ function EditAdvertisement() {
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  Gear
+                  Vites
                 </label>
                 <select
                   name="gear"
@@ -702,7 +700,7 @@ function EditAdvertisement() {
                   required
                 >
                   <option value={""} disabled>
-                    Select
+                    Seç
                   </option>
                   {gears.map((item) => (
                     <option key={item.id} value={item.id}>
@@ -715,7 +713,7 @@ function EditAdvertisement() {
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  Ban Type
+                  Gövde Tipi
                 </label>
                 <select
                   name="banType"
@@ -726,7 +724,7 @@ function EditAdvertisement() {
                   required
                 >
                   <option value={""} disabled>
-                    Select
+                    Seç
                   </option>
                   {banTypes.map((item) => (
                     <option key={item.id} value={item.id}>
@@ -739,7 +737,7 @@ function EditAdvertisement() {
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  Gear Box
+                  Şanzıman
                 </label>
                 <select
                   name="gearBox"
@@ -750,7 +748,7 @@ function EditAdvertisement() {
                   required
                 >
                   <option value="" disabled>
-                    Select
+                    Seç
                   </option>
                   {gearBoxs.map((item) => (
                     <option key={item.id} value={item.id}>
@@ -763,7 +761,7 @@ function EditAdvertisement() {
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  March
+                  Yürüyüş
                 </label>
                 <div className="flex items-center justify-between gap-x-8 md:max-w-[452px] w-full">
                   <div className="w-1/2 md:w-auto">
@@ -821,7 +819,7 @@ function EditAdvertisement() {
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  Year
+                  Yıl
                 </label>
                 <select
                   name="year"
@@ -832,7 +830,7 @@ function EditAdvertisement() {
                   required
                 >
                   <option value={""} disabled>
-                    Select
+                    Seç
                   </option>
                   {years.map((item) => (
                     <option key={item.id} value={item.id}>
@@ -845,7 +843,7 @@ function EditAdvertisement() {
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  Color
+                  Renk
                 </label>
                 <select
                   name="color"
@@ -856,7 +854,7 @@ function EditAdvertisement() {
                   required
                 >
                   <option value={""} disabled>
-                    Select
+                    Seç
                   </option>
                   {colors.map((item) => (
                     <option key={item.id} value={item.id}>
@@ -869,7 +867,7 @@ function EditAdvertisement() {
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  Engine volume.cm 3
+                  Hacim (cm.3)
                 </label>
                 <select
                   name="engineVolume"
@@ -880,7 +878,7 @@ function EditAdvertisement() {
                   required
                 >
                   <option value={""} disabled>
-                    Select
+                    Seç
                   </option>
                   {engineVolumes.map((item) => (
                     <option key={item.id} value={item.id}>
@@ -893,7 +891,7 @@ function EditAdvertisement() {
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  Price
+                  Fiyat
                 </label>
                 <div className="flex items-center justify-between gap-x-4 md:max-w-[452px] w-full">
                   <div className="w-1/2 md:w-auto">
@@ -969,14 +967,13 @@ function EditAdvertisement() {
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  Engine power.ag
+                  Güç (bg)
                 </label>
                 <input
                   className="md:max-w-[452px] w-full py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal focus:outline-0"
                   type="number"
                   name="enginePower"
                   id="enginePower"
-                  placeholder="Engine power.ag"
                   value={formData.enginePower}
                   onChange={handleChange}
                   required
@@ -986,7 +983,7 @@ function EditAdvertisement() {
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  How many do you own?
+                  Kaç tane sahip oldunuz?
                 </label>
                 <select
                   name="howManyDoYouOwn"
@@ -997,7 +994,7 @@ function EditAdvertisement() {
                   required
                 >
                   <option value="" disabled>
-                    Select
+                    Seç
                   </option>
                   {owners.map((item) => (
                     <option key={item.id} value={item.id}>
@@ -1010,7 +1007,7 @@ function EditAdvertisement() {
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  For which market it is assem
+                  Hangi pazar için atandı
                 </label>
                 <select
                   name="marketAssembled"
@@ -1021,7 +1018,7 @@ function EditAdvertisement() {
                   required
                 >
                   <option value="" disabled>
-                    Select
+                    Seç
                   </option>
                   {markets.map((item) => (
                     <option key={item.id} value={item.id}>
@@ -1034,7 +1031,7 @@ function EditAdvertisement() {
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0  justify-between md:gap-[10px] md:flex-row flex-col mt-6">
                 <label className="font-primary text-[14px] font-normal min-w-[165px] max-w-[165px]">
-                  The Situation
+                  Durum
                 </label>
                 <div className="flex flex-col gap-[20px]">
                   <div className="flex w-full md:max-w-[452px] gap-x-5 ">
@@ -1053,10 +1050,10 @@ function EditAdvertisement() {
                     <div>
                       <label htmlFor="needRepair">
                         <h3 className="font-primary text-[14px] font-normal text-primary ">
-                          For accident or spare parts
+                          Kaza veya yedek parça için
                         </h3>
-                        <p className="pt-1 text-[14px] font-primary text-secondary">
-                          In need of repair or in general disrepair..
+                        <p className="pt-1 text-[14px] whitespace-normal font-primary text-secondary">
+                          Onarım ihtiyacında veya genel hasar
                         </p>
                       </label>
                     </div>
@@ -1077,15 +1074,16 @@ function EditAdvertisement() {
                     <div>
                       <label htmlFor="hasStroke">
                         <h3 className="font-primary text-[14px] font-normal text-primary ">
-                          It has a stroke
+                          Motor arızası var
                         </h3>
-                        <p className="pt-1 text-[14px] font-primary text-secondary">
-                          One or more parts have been replaced or repaired.
+                        <p className="pt-1 text-[14px] whitespace-normal	 w-[100%] font-primary text-secondary">
+                          Bir veya daha fazla parça değiştirilmiş veya tamir
+                          edilmiş
                         </p>
                       </label>
                     </div>
                   </div>
-                  <div className="flex w-full md:max-w-[452px] gap-x-5 ">
+                  <div className="flex w-full md:max-w-[452px] lg:w-[900px] gap-x-5 ">
                     <div className="mt-[2px]">
                       <label className="custom-checkbox">
                         <input
@@ -1101,11 +1099,11 @@ function EditAdvertisement() {
                     <div>
                       <label htmlFor="hasColor">
                         <h3 className="font-primary text-[14px] font-normal text-primary ">
-                          It is colored
+                          Boyalıdır
                         </h3>
-                        <p className="pt-1 text-[14px] font-primary text-secondary">
-                          One or more details have been painted or cosmetic work
-                          has been done.
+                        <p className="pt-1 text-[14px] whitespace-normal font-primary text-secondary">
+                          Bir veya daha fazla parça boyanmış ya da kozmetik
+                          işlem yapılmış
                         </p>
                       </label>
                     </div>
@@ -1116,7 +1114,7 @@ function EditAdvertisement() {
             <div className="col-span-12">
               <div className="flex space-y-2 md:space-y-0  justify-between md:gap-[50px] md:flex-row flex-col ">
                 <label className="font-primary text-[14px] font-normal md:min-w-[12%]">
-                  Car Status
+                  Araç Durumu
                 </label>
                 <div className="md:flex-nowrap  flex-wrap gap-y-3 md:gap-y-0  md:min-w-[452px] w-full gap-x-5 flex md:ml-2">
                   <div className="flex items-center gap-x-2">
@@ -1135,7 +1133,7 @@ function EditAdvertisement() {
                       className="text-[14px] font-normal text-primary"
                       htmlFor="carStatusNew"
                     >
-                      New
+                      Yeni
                     </label>
                   </div>
                   <div className="flex items-center gap-x-2">
@@ -1154,7 +1152,7 @@ function EditAdvertisement() {
                       className="text-[14px] font-normal text-primary"
                       htmlFor="carStatusUsed"
                     >
-                      Used
+                      İkinci el
                     </label>
                   </div>
                 </div>
@@ -1163,7 +1161,7 @@ function EditAdvertisement() {
             <div className="col-span-12">
               <div className="flex space-y-2 md:space-y-0  justify-between md:gap-[50px] md:flex-row flex-col ">
                 <label className="font-primary text-[14px] font-normal md:min-w-[12%]">
-                  Number of seats
+                  Koltuk sayısı
                 </label>
                 <div className="md:flex-nowrap  flex-wrap gap-y-3 md:gap-y-0  md:min-w-[452px] w-full gap-x-5 flex md:ml-2">
                   <div className="flex items-center gap-x-2">
@@ -1334,7 +1332,7 @@ function EditAdvertisement() {
                       className="text-[14px] font-normal  text-primary"
                       htmlFor="seatVal"
                     >
-                      Don’t be mentioned
+                      Bahsedilmesin
                     </label>
                   </div>
                 </div>
@@ -1359,7 +1357,7 @@ function EditAdvertisement() {
                   <div>
                     <label htmlFor="credit">
                       <h3 className="font-primary text-[14px] font-normal text-primary ">
-                        With credit
+                        Kredi ile
                       </h3>
                     </label>
                   </div>
@@ -1383,7 +1381,7 @@ function EditAdvertisement() {
                   <div>
                     <label htmlFor="barter">
                       <h3 className="font-primary text-[14px] font-normal text-primary ">
-                        Barter is possible
+                        Takas yapılabilir
                       </h3>
                     </label>
                   </div>
@@ -1395,7 +1393,7 @@ function EditAdvertisement() {
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal min-w-[165px] max-w-[165px]">
-                  VIN code
+                  VIN kodu
                 </label>
                 <input
                   type="text"
@@ -1411,7 +1409,7 @@ function EditAdvertisement() {
             <div className="col-span-12">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between lg:gap-[10px] xl:gap-[53mt-[117px]px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal min-w-[165px] max-w-[165px]">
-                  Additional Information
+                  Ek Bilgiler
                 </label>
                 <div className="w-full min-h-[132px] md:min-w-[452px] ">
                   <textarea
@@ -1423,7 +1421,7 @@ function EditAdvertisement() {
                     onChange={handleChange}
                   ></textarea>
                   <p className="text-secondary text-sm">
-                    It is forbidden to record phone numbers
+                    Telefon numaralarının kaydedilmesi yasaktır.
                   </p>
                 </div>
               </div>
@@ -1431,7 +1429,7 @@ function EditAdvertisement() {
           </div>
           <div className="mt-6 md:ml-6">
             <h2 className="uppercase font-secondary text-[26px] font-bold leading-8 text-primary mt-[30px] mb-4">
-              Vehicle supply
+              Araç Tedarikçileri
             </h2>
             <div className="grid grid-cols-12 gap-y-5">
               {carFeatures.map((feature) => (
@@ -1461,12 +1459,13 @@ function EditAdvertisement() {
             <div id="picturesSection" className="grid grid-cols-12">
               <div className="col-span-12">
                 <h2 className="uppercase mb-4 mt-[30px] font-secondary text-[26px] font-bold leading-8 text-primary">
-                  Pictures
+                  Resimler
                 </h2>
                 <div className="bg-[#f6f7fa] p-4 rounded-lg mb-6">
-                  <p className="text-[14] text-[#ff586d]">Prohibited</p>
+                  <p className="text-[14] text-[#ff586d]">Yasaktır</p>
                   <p className="font-semibold mt-2">
-                    Screenshots, photos with frames and screenshots.
+                    Ekran görüntüleri, çerçeveli fotoğraflar ve ekran
+                    görüntüleri yasaktır.
                   </p>
                 </div>
                 <p
@@ -1513,11 +1512,10 @@ function EditAdvertisement() {
           <div className="grid grid-cols-12 mt-[30px]">
             <div className="col-span-12">
               <h2 className="uppercase font-secondary text-[26px] font-bold leading-8 text-primary">
-                Contact
+                İletişim
               </h2>
               <p className="mt-[10px] font-primary text-secondary">
-                No changes are made to the contact details after the
-                advertisement is published.
+                İlan yayımlandıktan sonra iletişim bilgileri değiştirilemez.
               </p>
               <div className="mt-[30px] flex flex-col gap-y-[30px]">
                 <div className="flex flex-col items-start md:flex-row md:items-center gap-y-3">
@@ -1525,14 +1523,14 @@ function EditAdvertisement() {
                     className="md:min-w-[244px] md:max-w-[244px] w-full"
                     htmlFor="yourName"
                   >
-                    Your Name
+                    Adınız
                   </label>
                   <input
                     className="md:max-w-[452px] w-full py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal focus:outline-0"
                     type="text"
                     name="userName"
                     id="yourName"
-                    placeholder="Enter Your Name"
+                    placeholder="Adınız"
                     value={formData.userName}
                     onChange={handleChange}
                     required
@@ -1611,19 +1609,20 @@ function EditAdvertisement() {
                       className="md:min-w-[452px] min-w-full text-[14px] font-primary text-white  py-[18px] px-[20px] outline-none rounded-md font-medium bg-red"
                       type="submit"
                     >
-                      Continue
+                      Devam Et
                     </button>
                   </AnimatedButtonWrapper>
                 </div>
                 <div className="text-secondary mb-10">
-                  By posting an ad, you agree to{" "}
+                  Bir ilan vererek{" "}
                   <Link to="" className="text-link">
-                    the User Agreement
+                    Kullanıcı Sözleşmesini
                   </Link>{" "}
-                  and kibcar.com{" "}
+                  ve kibcar.com{" "}
                   <Link to="" className="text-link">
-                    Rules
-                  </Link>
+                    Kurallarını
+                  </Link>{" "}
+                  kabul etmiş olursunuz.
                 </div>
               </div>
             </div>

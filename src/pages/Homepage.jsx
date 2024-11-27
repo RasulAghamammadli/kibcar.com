@@ -335,7 +335,7 @@ function Homepage() {
                   <div className="flex items-center">
                     <button
                       onClick={handleResetForm}
-                      className="font-primary text-[14px] font-normal mr-7 text-[#8D94AD]"
+                      className="reset-btn font-primary text-[14px] font-normal mr-7 text-[#8D94AD]"
                     >
                       Sıfırla
                     </button>
@@ -355,7 +355,7 @@ function Homepage() {
                     <AnimatedButtonWrapper>
                       <button
                         onClick={showFilterPayload}
-                        className="text-white rounded-lg bg-red hover:bg-[#882111] shadow-none hover:shadow-none py-[14px] px-[35px] font-primary text-[14px] font-normal md:ml-14 ml-[20px] flex items-center"
+                        className="btn-search text-white rounded-lg bg-red hover:bg-[#882111] shadow-none hover:shadow-none py-[14px] px-[35px] font-primary text-[14px] font-normal md:ml-14 ml-[20px] flex items-center"
                       >
                         <p>İlanları Göster</p>
                       </button>

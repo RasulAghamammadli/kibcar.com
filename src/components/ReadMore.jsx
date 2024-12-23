@@ -13,7 +13,7 @@ export default function ReadMore({ text = "", maxLength }) {
     <div className="pt-[15px]">
       <div>{isExpanded ? text : `${text.substring(0, maxLength)}...`}</div>
       <button onClick={() => setIsExpanded(!isExpanded)}>
-        {isExpanded ? "Read Less" : "Read More"}
+        {isExpanded ? "Daha az" : "Daha Fazla Oku"}
       </button>
     </div>
   );

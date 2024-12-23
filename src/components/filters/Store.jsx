@@ -4,7 +4,7 @@ import chivronBottom from "../../assets/icons/chivron-bottom-gray.svg";
 import { useContext } from "react";
 import FilterContext from "../../context/filterContext/FilterContext";
 
-function Market() {
+function Store() {
   const [markets, setMarkets] = useState([]);
   const {
     checkedMarketAssembled,
@@ -74,6 +74,7 @@ function Market() {
     selectedOptions.length === 0
       ? "Hangi pazar için atandığı"
       : selectedOptions.join(", ");
+
   useEffect(() => {
     if (isOpen) {
       inputRef.current.focus();
@@ -81,6 +82,7 @@ function Market() {
       inputRef.current.blur();
     }
   }, [isOpen]);
+
   return (
     <div className="h-full">
       <details
@@ -151,4 +153,4 @@ function Market() {
   );
 }
 
-export default Market;
+export default Store;

@@ -58,7 +58,7 @@ function OtpModal({ onClose, resendOtp, verifyOtp }) {
       <div className="z-10 bg-white rounded-lg shadow-lg w-full max-w-[450px]">
         <div className="py-[16px] px-[20px] bg-[#F00000] rounded-t-lg relative">
           <p className="font-primary font-medium text-[14px] text-center text-white">
-            Confirm your identity
+            Kimliğinizi doğrulayın
           </p>
           <img
             onClick={onClose}
@@ -70,10 +70,10 @@ function OtpModal({ onClose, resendOtp, verifyOtp }) {
         <div className="px-[20px]">
           <div className="py-[20px]">
             <p className="text-[#6B6B6B] text-[14px]">
-              Enter your OTP to continue.
+              Devam etmek için OTP'nizi girin.
             </p>
             <p className="text-[#6B6B6B] text-[14px]">
-              You can get the OTP code from the letter sent to you on gmail
+              OTP kodunu gmail'e gönderilen mektuptan alabilirsiniz.
             </p>
           </div>
           <div>
@@ -93,13 +93,13 @@ function OtpModal({ onClose, resendOtp, verifyOtp }) {
                 className="px-4 py-[12px] w-full font-bold text-white bg-red rounded-md"
                 onClick={handleVerify}
               >
-                Verify OTP
+                OTP'yi doğrulayın
               </button>
             </AnimatedButtonWrapper>
           </div>
           <div className="flex justify-between mt-4">
             <span className="pb-4 py-2 font-primary font-medium text-[#6B6B6B] text-[14px] rounded inline-block">
-              Didn’t receive the OTP?
+              OTP'yi almadınız mı?
               <span
                 className={`underline text-red ps-1 cursor-pointer ${
                   resendDisabled ? "opacity-50 cursor-not-allowed" : ""
@@ -107,14 +107,14 @@ function OtpModal({ onClose, resendOtp, verifyOtp }) {
                 onClick={!resendDisabled ? handleResend : null}
               >
                 {resendDisabled
-                  ? `Resend in ${timer}s`
-                  : "Click here to resend it"}
+                  ? `${timer}s içinde yeniden gönder`
+                  : "Tekrar göndermek için buraya tıklayın"}
               </span>
             </span>
           </div>
           {showResendMsg && (
             <p className="text-[#6B6B6B] text-[14px] pb-4">
-              OTP resent successfully!
+              OTP başarıyla yeniden gönderildi!
             </p>
           )}
         </div>

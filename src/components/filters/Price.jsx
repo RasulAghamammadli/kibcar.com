@@ -4,6 +4,9 @@ const Price = () => {
   const { minPrice, setMinPrice, maxPrice, setMaxPrice } =
     useContext(FilterContext);
 
+  console.log("min", minPrice);
+  console.log("max", maxPrice);
+
   return (
     <div className="flex justify-between items-center rounded-lg border border-gray-300 h-full bg-white ">
       <div className="relative w-[50%] h-full pt-[10px] px-2.5  border-gray-300 focus-within:border focus-within:border-[#8F93AD] focus-within:rounded-l-md">

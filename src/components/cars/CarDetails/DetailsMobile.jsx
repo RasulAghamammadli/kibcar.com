@@ -41,11 +41,10 @@ function DetailsMobile({
           src={phoneDetails}
           alt="phoneDetails"
         />
-        <p className="text-[15px] text-white">Call</p>
+        <p className="text-[15px] text-white">Ara</p>
       </a>
       <ul className="container flex items-center gap-[10px] py-[8px] font-primary  uppercase text-[14px] text-[#b4b5b9]">
-        <li>{car.brand.name}</li> •<li>{car.brand_model.name}</li> •
-        <li>{car.brand_model.name}</li>
+        <li>{car.brand.name}</li> •<li>{car.brand_model.name}</li>
       </ul>
       {/* fixed while scrolling */}
       {car.car_dealership && (
@@ -61,7 +60,7 @@ function DetailsMobile({
           <div className="flex-1">
             <p>{car.car_dealership.name}</p>
             <p className="text-[15px] font-primary text-[#8d94ad]">
-              {car.car_dealership_announcement_count} ads
+              {car.car_dealership_announcement_count} ilan
             </p>
           </div>
           <MdOutlineArrowForwardIos />
@@ -89,7 +88,7 @@ function DetailsMobile({
                 <>
                   <Link className="col-span-4">
                     <CreativeButton
-                      title="Move forward"
+                      title="İleriye götür"
                       price="3"
                       icon={
                         <svg
@@ -186,7 +185,7 @@ function DetailsMobile({
                   <div>
                     <p>{car.car_dealership.name}</p>
                     <p className="text-[15px] font-primary  uppercase text-[#8d94ad]">
-                      Daily: 09:00-19:00
+                      Günlük: 09:00-19:00
                     </p>
                   </div>
 
@@ -229,7 +228,7 @@ function DetailsMobile({
                   ? formatPhoneNumber(car.car_dealership.phone1)
                   : formatPhoneNumber(car.creator.guest_phone.phone)}
               </a>
-              <a className="text-[15px]  text-link underline">Call</a>
+              <a className="text-[15px]  text-link underline">Ara</a>
               {/* <AttentionNote /> */}
             </div>
             <div className="pb-[15px] border-b border-solid border-[#E2E2E2]">
@@ -240,19 +239,19 @@ function DetailsMobile({
                   to={`/dealership/${car.car_dealership.id}`}
                   className="flex flex-col mt-[15px] py-[15px] text-white px-[40px] text-center font-primary bg-link rounded-md leading-[17px]"
                 >
-                  Go to the salon
+                  Salona git
                 </Link>
               )}
             </div>
             <div className="grid grid-cols-12 space-x-1 pt-[15px]">
               <p className="col-span-6 text-[15px] text-[#8d94ad]">
-                Announcement number:
+                İlan numarası:
               </p>
               <p className="col-span-6 text-[15px] text-[#8d94ad]">{id}</p>
             </div>
             <div className="grid grid-cols-12 space-x-1 pt-[5px]">
               <p className="col-span-6 text-[15px] text-[#8d94ad]">
-                Updated At:
+                Güncellendi:
               </p>
               <p className="col-span-6 text-[15px] text-[#8d94ad]">
                 {car.updated_date}
@@ -263,7 +262,7 @@ function DetailsMobile({
                 <Modal>
                   <Modal.Open windowName="edit">
                     <button className="font-primary text-[14px] underline text-[#212c3a] hover:text-link">
-                      Correct it
+                      Düzelt
                     </button>
                   </Modal.Open>
                   <Modal.Window name="edit">
@@ -271,7 +270,7 @@ function DetailsMobile({
                   </Modal.Window>
                   <Modal.Open windowName="delete">
                     <button className="font-primary text-[14px] underline text-[#212c3a] hover:text-link">
-                      Delete Announcement
+                      İlanı sil
                     </button>
                   </Modal.Open>
                   <Modal.Window name="delete">
@@ -279,7 +278,7 @@ function DetailsMobile({
                   </Modal.Window>
                   <Modal.Open windowName="forget-pin">
                     <button className="font-primary text-[14px] underline text-[#212c3a] hover:text-link">
-                      Forget pin
+                      PIN'i unut
                     </button>
                   </Modal.Open>
                   <Modal.Window name="forget-pin">
@@ -294,7 +293,7 @@ function DetailsMobile({
                   <button className="group flex items-center space-x-[4px]  rounded-md justify-center bg-white ">
                     <IoFlagOutline size="22px" className="mr-[2px]" />
                     <p className="font-primary text-[14px] font-medium leading-[21px] text-[#212c3a] group-hover:text-rose-600  ">
-                      Complain
+                      Şikayet
                     </p>
                   </button>
                 </Modal.Open>

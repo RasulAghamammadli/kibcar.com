@@ -69,14 +69,14 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
       <ul className="flex items-center gap-[10px] py-[16px] font-primary font-medium border-b border-solid border-[#E2E2E2] uppercase text-[16px] text-[#212c3a]">
         <li className="underline">{car.brand.name}</li> -
         <li className="underline">{car.brand_model.name}</li> -
-        <li>{car.brand_model.name}</li>
+        <li>İlan № {car.id}</li>
       </ul>
       {/* fixed while scrolling */}
       <div className="navigation-container">
         <div className="navigation flex md:flex-row flex-col gap-y-4 md:gap-y-0  items-center justify-between py-[15px] ">
           <h2 className="text-[#212c3a] text-center md:text-start text-[24px]  font-bold leading-8">
             {car.brand.name} {car.brand_model.name},{" "}
-            {car.engine_volume_liters + " L "} , {car.vehicle_year.name} ,{" "}
+            {car.engine_volume_liters + " L"}, {car.vehicle_year.name},{" "}
             {Number(car.mileage).toLocaleString()}{" "}
             {car.mileage_measurement_unit.toUpperCase()}
           </h2>
@@ -110,7 +110,7 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
                     : "text-[#212c3a] group-hover:text-rose-600"
                 }`}
               >
-                {isFavorite ? "Saved to favorites" : "Save to favorites"}
+                {isFavorite ? "Favorilere kaydedildi" : "Favorilere kaydedildi"}
               </p>
             </button>
 
@@ -125,7 +125,7 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
                     className="mr-[2px] group-hover:text-rose-600"
                   />
                   <p className="font-primary text-[14px] font-medium leading-[21px] text-[#212c3a] group-hover:text-rose-600  ">
-                    Complain
+                    Şikayet
                   </p>
                 </button>
               </Modal.Open>
@@ -160,6 +160,7 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
                 /> */}
           {showFullSlider != null && (
             <FullscreenMode
+              car={car}
               showFullSlider={showFullSlider}
               setShowFullSlider={setShowFullSlider}
               carImages={carImages}
@@ -177,7 +178,7 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
             carImages={carImages}
           /> */}
           <ul className=" pt-[20px] pb-[20px] picture-list pl-[20px] border-b border-solid border-[#E2E2E2] text-[12px]">
-            <li>Updated: {car.updated_date}</li>
+            <li>Güncellendi: {car.updated_date}</li>
           </ul>
           <CarDetailsCom car={car} />
           <div className="flex flex-col gap-y-[10px] mt-[30px] ">
@@ -204,7 +205,7 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
                 <Modal>
                   <Modal.Open windowName="edit">
                     <button className="font-primary text-[14px] underline text-[#212c3a] hover:text-link">
-                      Correct it
+                      Düzelt
                     </button>
                   </Modal.Open>
                   <Modal.Window name="edit">
@@ -212,7 +213,7 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
                   </Modal.Window>
                   <Modal.Open windowName="delete">
                     <button className="font-primary text-[14px] underline text-[#212c3a] hover:text-link">
-                      Delete Announcement
+                      İlanı sil
                     </button>
                   </Modal.Open>
                   <Modal.Window name="delete">
@@ -220,7 +221,7 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
                   </Modal.Window>
                   <Modal.Open windowName="pin-methods">
                     <button className="font-primary text-[14px] underline text-[#212c3a] hover:text-link">
-                      Forget pin
+                      PIN'i unut
                     </button>
                   </Modal.Open>
                   <Modal.Window name="forget-pin">
@@ -232,7 +233,7 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
                 </Modal>
               </div>
               <p className="font-primary text-[14px] text-[#212c3a]">
-                Announcement number: {id}
+                İlan numarası: {id}
               </p>
             </div>
           </div>
@@ -262,7 +263,7 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
               }`}
             >
               <p className="text-center font-primary text-white text-[14px] cursor-pointer">
-                Show The Number
+                Numarayı göster
               </p>
               <div
                 className={`justify-center flex items-center gap-x-[10px] font-secondary text-[18px] font-bold leading-7 text-white visible h-8 pt-[5px] cursor-pointer`}
@@ -363,7 +364,7 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
                     to={`/dealership/${car.car_dealership.id}`}
                     className="text-secondary font-primary text-[14px] font-normal underline pb-[20px]"
                   >
-                    {car.car_dealership_announcement_count} announcements
+                    {car.car_dealership_announcement_count} ilan
                   </Link>
                 </div>
 
@@ -371,7 +372,7 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
                   <div className="flex items-center">
                     <FaClock size="18px" color="#B1B8C6" className="mr-2" />
                     <p className="text-[15px] font-primary  uppercase text-primary">
-                      Daily: 09:00-19:00
+                      Günlük: 09:00-19:00
                     </p>
                   </div>
                   <div className="flex  items-center">
@@ -390,7 +391,7 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
                   to={`/dealership/${car.car_dealership.id}`}
                   className="flex flex-col mt-[25px] py-[15px] text-white px-[40px] text-center font-primary bg-link rounded-md leading-[17px]"
                 >
-                  Go to the salon
+                  Salona git
                 </Link>
               </>
             )}
@@ -400,7 +401,7 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
               <>
                 <Link className="col-span-4">
                   <CreativeButton
-                    title="Move forward"
+                    title="İleriye götür"
                     price="3"
                     icon={
                       <svg

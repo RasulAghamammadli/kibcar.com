@@ -37,7 +37,7 @@ function ComplainForm({ onCloseModal }) {
     <div className="min-w-[350px] lg:min-w-[450px] max-w-[440px]">
       <div className="px-[30px] py-[20px] rounded-t-lg relative border-b border-[#eaebf2]">
         <p className="font-primary font-semibold text-[16px]  text-[#212c3a] ">
-          Complain
+          Şikayet
         </p>
       </div>
       <div className="h-full">
@@ -49,7 +49,7 @@ function ComplainForm({ onCloseModal }) {
             <div className="max-w-[80%]">
               {complainName && (
                 <p className="font-primary mb-1 text-[12px] opacity-70 text-secondary text-start">
-                  The reason for the complaint
+                  Şikayetin nedeni
                 </p>
               )}
               <p
@@ -57,7 +57,7 @@ function ComplainForm({ onCloseModal }) {
                   !complainName && "text-secondary"
                 }`}
               >
-                {complainName || "The reason for the complaint"}
+                {complainName || "Şikayetin nedeni"}
               </p>
             </div>
 
@@ -78,7 +78,7 @@ function ComplainForm({ onCloseModal }) {
       <div className="px-[30px]">
         <textarea
           className="w-full h-auto max-h-[200px] text-[15px] min-h-[18px] resize-none text-[#212c3a] leading-[18px] focus:outline-none border-l-0 border-r-0 border-t-0 border-b border-[#eaebf2] py-4 "
-          placeholder="Describe the complaint"
+          placeholder="Şikayeti açıklayın"
           name="description"
           id="description"
         ></textarea>
@@ -88,7 +88,7 @@ function ComplainForm({ onCloseModal }) {
           onClick={onConfirm}
           className="px-[10px] py-[12px] w-full font-bold text-white bg-[#4c88f9] rounded-md "
         >
-          Send
+          Gönder
         </button>
       </div>
     </div>

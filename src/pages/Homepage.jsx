@@ -27,7 +27,7 @@ import Mileage from "../components/filters/Mileage";
 import CarType from "../components/filters/CarType";
 import OwnersNumber from "../components/filters/OwnersNumber";
 import SeatsNumber from "../components/filters/SeatsNumber";
-import Market from "../components/filters/Market";
+import Store from "../components/filters/Store";
 import FilterContext from "../context/filterContext/FilterContext";
 import VipAnnouncement from "../components/cars/VipAnnouncement";
 import VehicleFeatures from "../components/cars/VehicleFeatures";
@@ -49,6 +49,8 @@ function Homepage() {
   const [key, setKey] = useState(0);
 
   const filterContextData = useContext(FilterContext);
+
+  console.log("salaaaam", filterContextData);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -144,7 +146,7 @@ function Homepage() {
             response.data.announcementsCount +
               response.data.premiumAnnouncementsCount
           );
-          console.log(JSON.stringify(response.data));
+          // console.log(JSON.stringify(response.data));
         })
         .catch(function (error) {
           console.log(error);
@@ -153,10 +155,12 @@ function Homepage() {
       console.log(error);
     }
   };
+
   function handleResetForm() {
     resetFilters();
     setKey((prevKey) => prevKey + 1);
   }
+
   return (
     <main key={key} className="flex-1">
       <form
@@ -281,7 +285,7 @@ function Homepage() {
               <SeatsNumber />
             </div>
             <div className="xl:col-span-3 lg:col-span-4 md:col-span-6 col-span-12 h-[48px]">
-              <Market />
+              <Store />
             </div>
             <div className="xl:col-span-3 lg:col-span-4 md:col-span-6 col-span-12 h-[48px]">
               <PaymentType

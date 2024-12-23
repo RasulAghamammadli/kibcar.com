@@ -910,18 +910,18 @@ function EditAdvertisement() {
                       <input
                         className="w-4 h-4 accent-red"
                         onChange={handleChange}
-                        id="azn"
+                        id="stg"
                         type="radio"
                         name="currencyValue"
-                        value="azn"
-                        checked={formData.currencyValue === "AZN"}
+                        value="stg"
+                        checked={formData.currencyValue === "STG"}
                         required
                       />
                       <label
                         className="text-[14px] font-secondary"
-                        htmlFor="azn"
+                        htmlFor="stg"
                       >
-                        AZN
+                        STG
                       </label>
                     </div>
                     <div className="flex items-center gap-x-2">

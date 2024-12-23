@@ -295,7 +295,9 @@ function NewAdvertisement() {
           type: file.type,
         });
       } else {
-        formData.imagesFiles = [...formData.imagesFiles, file];
+        formData.imagesFiles = new File([file], filename, {
+          type: file.type,
+        });
       }
       // Replace or add new uploaded image
       let updatedImages = [...formData.uploadedImages];
@@ -917,17 +919,17 @@ function NewAdvertisement() {
                       <input
                         className="w-4 h-4 accent-red"
                         onChange={handleChange}
-                        id="azn"
+                        id="stg"
                         type="radio"
                         name="currencyValue"
-                        value="azn"
+                        value="stg"
                         required
                       />
                       <label
                         className="text-[14px] font-secondary"
-                        htmlFor="azn"
+                        htmlFor="stg"
                       >
-                        AZN
+                        STG
                       </label>
                     </div>
                     <div className="flex items-center gap-x-2">
@@ -1593,7 +1595,7 @@ function NewAdvertisement() {
                       required
                     />
                   </div>
-                </div>{" "}
+                </div>
                 {error && <p className="text-red">{error}</p>}
                 <div className="max-w-[700px] mt-30 flex justify-end">
                   <AnimatedButtonWrapper>

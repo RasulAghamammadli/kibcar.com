@@ -23,9 +23,12 @@ const NextArrow = ({ onClick }) => {
   );
 };
 
-function FullscreenMode({ showFullSlider, setShowFullSlider, carImages }) {
+function FullscreenMode({ showFullSlider, setShowFullSlider, carImages, car }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef(null);
+
+  console.log(car);
+
   const settings = {
     customPaging: function (i) {
       return (
@@ -77,9 +80,11 @@ function FullscreenMode({ showFullSlider, setShowFullSlider, carImages }) {
       <nav className="flex justify-between items-center h-[60px] font-medium text-base leading-5 text-white px-7 bg-white bg-opacity-10">
         <div className="flex items-center">
           <p className="pr-5 border-r border-r-[rgba(255,255,255,0.25)]">
-            Hyundai Santa Fe
+            {car.brand.name} {car.brand_model.name}
           </p>
-          <p className="pl-5">30 600 AZN</p>
+          <p className="pl-5">
+            {car.price} {car.price_currency}
+          </p>
         </div>
         <ul className="flex items-center gap-x-10">
           <li className="flex justify-center items-center gap-x-2 w-[220px] h-10 leading-10 text-base bg-[#3db460] rounded-md text-center cursor-pointer transition-colors duration-200 ease-in-out hover:bg-[#269547]">
@@ -99,7 +104,7 @@ function FullscreenMode({ showFullSlider, setShowFullSlider, carImages }) {
                 fill="#fff"
               />
             </svg>
-            <a href="#">Nömrəni göstər</a>
+            <a href="#">Numarayı göster</a>
           </li>
           <li className="group flex items-center gap-x-2 cursor-pointer">
             <svg
@@ -119,7 +124,7 @@ function FullscreenMode({ showFullSlider, setShowFullSlider, carImages }) {
               />
             </svg>
             <Link to="#" className="underline font-bold">
-              Seçilmişlərdə saxla
+              Favorilere kaydet
             </Link>
           </li>
           <li className="hover:bg-[#FFFFFF26] rounded-lg">

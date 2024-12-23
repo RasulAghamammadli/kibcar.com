@@ -110,7 +110,7 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
                     : "text-[#212c3a] group-hover:text-rose-600"
                 }`}
               >
-                {isFavorite ? "Favorilere kaydedildi" : "Favorilere kaydedildi"}
+                {isFavorite ? "Favorilere kaydedildi" : "Favorilere kaydet"}
               </p>
             </button>
 
@@ -133,36 +133,18 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
                 <ComplainForm />
               </Modal.Window>
             </Modal>
-            {/* <Link
-                    className="flex items-center space-x-[10px] rounded-md justify-center bg-white "
-                    to={""}
-                    onClick={() => setComplain(!complain)}
-                  >
-                    <img src={complainLogo} alt="complain" />
-                    <p className="font-primary text-[14px] font-medium leading-[21px] text-secondary">
-                      Complain
-                    </p>
-                  </Link> */}
           </div>
         </div>
       </div>
       <div className="sliderX flex lg:flex-row flex-col  justify-between items-start lg:gap-x-[30px] lg:g-y-0 gap-y-8">
         <div className="lg:w-[65%] w-full">
-          {/* <ImageGallery
-                  infinite={true}
-                  showPlayButton={false}
-                  autoPlay={true}
-                  slideDuration={500}
-                  swipingTransitionDuration={100}
-                  showNav={false}
-                  slideInterval={3000}
-                  items={carImages}
-                /> */}
           {showFullSlider != null && (
             <FullscreenMode
               car={car}
               showFullSlider={showFullSlider}
               setShowFullSlider={setShowFullSlider}
+              handleFavoriteClick={handleFavoriteClick}
+              isFavorite={isFavorite}
               carImages={carImages}
               slideIndex={1}
             />
@@ -221,7 +203,7 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
                   </Modal.Window>
                   <Modal.Open windowName="pin-methods">
                     <button className="font-primary text-[14px] underline text-[#212c3a] hover:text-link">
-                      PIN'i unut
+                      PIN'i unuttum
                     </button>
                   </Modal.Open>
                   <Modal.Window name="forget-pin">

@@ -38,7 +38,7 @@ function GetPinMethods({ onCloseModal, showNewModal, setSharedData }) {
     <div className="min-w-[350px] max-w-[440px]">
       <div className="p-[20px] bg-[#F00000] rounded-t-lg relative">
         <p className="font-primary font-semibold text-[16px] text-center text-white">
-          PIN Recovery
+          PIN Kurtarma
         </p>
       </div>
       <div className="p-[20px]">
@@ -52,7 +52,7 @@ function GetPinMethods({ onCloseModal, showNewModal, setSharedData }) {
               onChange={() => setSelectedOption("SMS")}
               className="form-radio accent-red h-5 w-5"
             />
-            <span className="ml-2 text-base">via SMS</span>
+            <span className="ml-2 text-base">SMS yoluyla</span>
           </label>
           <label className="flex items-center">
             <input
@@ -63,7 +63,7 @@ function GetPinMethods({ onCloseModal, showNewModal, setSharedData }) {
               onClick={() => handleClick("email")}
               className="form-radio accent-red h-5 w-5"
             />
-            <span className="ml-2 text-base">Via e-mail address</span>
+            <span className="ml-2 text-base">E-posta adresi yoluyla</span>
           </label>
         </div>
       </div>

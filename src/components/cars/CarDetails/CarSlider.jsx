@@ -33,6 +33,7 @@ function CarSlider({ carImages, showFullSlider, setShowFullSlider }) {
             <div
               className="w-full h-full bg-cover bg-center bg-no-repeat rounded-[4px]"
               style={{ backgroundImage: `url(${carImages[i].original})` }}
+              // onClick={() => setShowFullSlider(true)}
             ></div>
             {i === 7 ? (
               <div
@@ -74,7 +75,11 @@ function CarSlider({ carImages, showFullSlider, setShowFullSlider }) {
     <div className={`${styles["slider-container"]} relative small-slider`}>
       <Slider {...settings} ref={sliderRef}>
         {carImages.map((item, index) => (
-          <div className="relative h-[480px] p-4 text-center" key={index}>
+          <div
+            className="relative h-[480px] p-4 text-center cursor-pointer"
+            key={index}
+            onClick={() => setShowFullSlider(true)}
+          >
             <div className="flex justify-center absolute top-0 h-full left-0 w-full z-10 ">
               <img src={item.original} />
             </div>

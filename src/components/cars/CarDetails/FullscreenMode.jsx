@@ -23,7 +23,14 @@ const NextArrow = ({ onClick }) => {
   );
 };
 
-function FullscreenMode({ showFullSlider, setShowFullSlider, carImages, car }) {
+function FullscreenMode({
+  showFullSlider,
+  setShowFullSlider,
+  carImages,
+  car,
+  handleFavoriteClick,
+  isFavorite,
+}) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef(null);
 
@@ -106,17 +113,20 @@ function FullscreenMode({ showFullSlider, setShowFullSlider, carImages, car }) {
             </svg>
             <a href="#">Numarayı göster</a>
           </li>
-          <li className="group flex items-center gap-x-2 cursor-pointer">
+          <li
+            onClick={handleFavoriteClick}
+            className="group flex items-center gap-x-2 cursor-pointer"
+          >
             <svg
               width="32"
               height="30"
-              fill="none"
+              fill={isFavorite ? "#e11d48" : "none"}
               viewBox="-5 -5 32 30"
               x="64"
               y="413"
               xmlns="http://www.w3.org/2000/svg"
               className="group-hover:stroke-rose-600"
-              stroke="#fff"
+              stroke={isFavorite ? "#e11d48" : "#fff"}
             >
               <path
                 d="M17.725 2.193a5.204 5.204 0 00-2.593-.693c-1.66 0-3.148.785-4.13 2.016C10.015 2.286 8.529 1.5 6.866 1.5c-.94 0-1.82.253-2.591.693C2.62 3.143 1.5 4.97 1.5 7.07c0 .601.094 1.178.265 1.717.921 4.296 9.237 9.713 9.237 9.713s8.31-5.417 9.232-9.713c.17-.539.266-1.116.266-1.717 0-2.099-1.12-3.926-2.775-4.877z"
@@ -124,7 +134,7 @@ function FullscreenMode({ showFullSlider, setShowFullSlider, carImages, car }) {
               />
             </svg>
             <Link to="#" className="underline font-bold">
-              Favorilere kaydet
+              {isFavorite ? "Favorilere kaydedildi" : "Favorilere kaydet"}
             </Link>
           </li>
           <li className="hover:bg-[#FFFFFF26] rounded-lg">

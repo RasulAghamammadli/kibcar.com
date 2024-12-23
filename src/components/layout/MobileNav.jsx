@@ -89,7 +89,7 @@ function MobileNav({ title }) {
               </button>
             )}
             <Link
-              to={"/"}
+              to="/"
               className="text-black font-bold text-lg tracking-wider font-primary"
             >
               {title}

@@ -50,8 +50,6 @@ function Homepage() {
 
   const filterContextData = useContext(FilterContext);
 
-  console.log("salaaaam", filterContextData);
-
   useEffect(() => {
     const handleClickOutside = (e) => {
       document.querySelectorAll(".dropdown").forEach((dropdown) => {
@@ -69,6 +67,7 @@ function Homepage() {
       window.removeEventListener("click", handleClickOutside);
     };
   }, []);
+
   useEffect(() => {
     async function getAds() {
       setIsLoading(true);
@@ -372,15 +371,13 @@ function Homepage() {
         </div>
       </form>
       {premiumAds.length > 0 && (
-        <VipAnnouncement announcements={premiumAds} title={"Premium Ads"} />
+        <VipAnnouncement announcements={premiumAds} title={"Premium İlanlar"} />
       )}
       {ads.length > 0 && (
-        <VipAnnouncement announcements={ads} title={"Advertisements"} />
+        <VipAnnouncement announcements={ads} title={"Tüm İlanlar"} />
       )}
       {isLoading && <Spinner />}
       {!isLoading && ads.length === 0 && <NoAds />}
-      {/* {ads && <RecentAnnouncement announcements={ads} />} */}
-      {/* {premiumAds && <PremiumAds premiumAds={premiumAds} />} */}
     </main>
   );
 }

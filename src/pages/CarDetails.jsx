@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams, Navigate } from "react-router-dom";
 import "react-image-gallery/styles/css/image-gallery.css";
 import OtpCloseModal from "../assets/icons/close-modal.svg";
 
@@ -24,38 +24,11 @@ function CarDetails() {
   const [iframeSrc, setIframeSrc] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  // const handleMoveForward = async () => {
-  //   setMoveForward(true);
-
-  //   try {
-  //     const response = await axios.post(
-  //       `${
-  //         import.meta.env.VITE_REACT_APP_API_URL
-  //       }/api/announcements/order/token`,
-  //       {
-  //         email: car.guest_contact.email,
-  //         phone: car.guest_contact.phone,
-  //         announcement_id: id,
-  //         service_id: 1,
-  //       }
-  //     );
-
-  //     if (response.data.success == true) {
-  //       const resToken = response.data.token;
-  //       setIframeSrc(`https://www.paytr.com/odeme/guvenli/${resToken}`);
-  //     }
-  //   } catch (error) {
-  //     setMoveForward(false);
-
-  //     console.log(error);
-  //   }
-  // };
-
-  // const handleCorrectAd = async () => {
-  //   navigate("/");
-  // };
+  if (!/^\d+$/.test(id)) {
+    return <Navigate to="/not-found" />;
+  }
 
   const handleCloseCorrectAd = () => {
     setCorrectAd(false);
@@ -71,6 +44,7 @@ function CarDetails() {
 
   const [car, setCar] = useState(null);
   const [carImages, setCarImages] = useState([]);
+
   useEffect(() => {
     async function getCar() {
       try {
@@ -102,17 +76,16 @@ function CarDetails() {
         });
 
         setCarImages([...featuredImagesArr, ...ImagesArr]);
-        // console.log(response.data);
       } catch (error) {
         console.log(error);
+        navigate("/not-found");
       } finally {
         setIsLoading(false);
       }
     }
     getCar();
   }, [id]);
-  // const [heart, setHeart] = useState(false);
-  // const [complain, setComplain] = useState(false);
+
   useEffect(() => {
     const handleScroll = () => {
       const navbarContainer = document.querySelector(".navigation-container");
@@ -152,7 +125,7 @@ function CarDetails() {
           >
             <div className="py-[16px] px-[20px] bg-[#F00000] rounded-t-lg relative">
               <p className="font-primary font-medium text-[14px] text-center text-white">
-                Confirm your identity
+                Kimliğinizi doğrulayın
               </p>
               <img
                 onClick={handleCloseCorrectAd}
@@ -164,14 +137,14 @@ function CarDetails() {
             <div className="px-[20px]">
               <div className="py-[20px]">
                 <p className="text-[#6B6B6B] text-[14px]">
-                  Enter your PIN to continue.
+                  Devam etmek için PIN kodunuzu girin.
                 </p>
                 <p className="text-[#6B6B6B] text-[14px]">
-                  You can get the OTP code from the letter sent to you on gmail
+                  OTP kodunu gmail'e gönderilen mektuptan alabilirsiniz.
                 </p>
               </div>
               <div>
-                <p className="text-[#6B6B6B] text-[14px] mb-[15px]">Ad PIN:</p>
+                <p className="text-[#6B6B6B] text-[14px] mb-[15px]">PIN:</p>
               </div>
               <div className="flex gap-x-[20px]">
                 <input
@@ -184,7 +157,7 @@ function CarDetails() {
                 />
                 <AnimatedButtonWrapper>
                   <button className="px-4 py-[12px] w-full font-bold text-white bg-red rounded-md ">
-                    Submit PIN
+                    PIN'i gönder
                   </button>
                 </AnimatedButtonWrapper>
               </div>
@@ -218,7 +191,7 @@ function CarDetails() {
                   onClick={handleMoveClose}
                   className="px-4 py-[12px]  font-bold text-white bg-red rounded-md"
                 >
-                  Close
+                  Kapat
                 </button>
               </AnimatedButtonWrapper>
             </div>

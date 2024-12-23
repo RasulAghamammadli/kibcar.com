@@ -6,7 +6,7 @@ import {
   Route,
   Navigate,
   useLocation,
-} from "react-router-dom"; 
+} from "react-router-dom";
 import Nav from "./components/layout/Nav";
 // import Homepage from "./pages/Homepage";
 import { FilterProvider } from "./context/filterContext/FilterContext";
@@ -29,8 +29,10 @@ import Spinner from "./components/Spinner";
 import Rules from "./pages/Rules";
 import Terms from "./pages/Terms";
 import PaidServices from "./pages/PaidServices";
+import NotFound from "./pages/NotFound";
+import DetailNotFound from "./pages/DetailNotFound";
 
-import { CarProvider } from './context/CarContext';
+import { CarProvider } from "./context/CarContext";
 
 function App() {
   const [width] = useState(window.innerWidth);
@@ -70,6 +72,8 @@ function App() {
                     element={<EditAdvertisement />}
                   />
                   <Route path="/car-details/:id" element={<CarDetails />} />
+                  <Route path="/not-found" element={<DetailNotFound />} />
+                  <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
 

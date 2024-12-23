@@ -1,8 +1,7 @@
 import useFetchData from "./useFetchCars";
 import CarCard from "./CarCard";
+
 function VipAnnouncement({ announcements, title }) {
-  // const { data, loading, error } = useFetchData(`vipAnnouncement`);
-  // if (loading) return <p>Loading...</p>;
   return (
     <div className="bg-[#F1F3F7]">
       <h1 className="container py-[20px] font-secondary text-[20px] md:text-[26px] font-bold leading-8 text-primary border-y border-[#eaebf2]">

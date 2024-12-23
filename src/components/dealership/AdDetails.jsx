@@ -4,6 +4,7 @@ import cellularLogo from "../../assets/icons/cellur-logo.png";
 import { FaClock, FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import ReadMore from "../ReadMore";
+
 function AdDetails({
   ad: {
     id,
@@ -27,7 +28,7 @@ function AdDetails({
             to="/dealership-owners"
             className="underline text-[16px] hover:text-link"
           >
-            Salons
+            Salonlar
           </Link>
           {" • "}
           {dealership_name}
@@ -41,7 +42,7 @@ function AdDetails({
             />
           </div>
           <div className="p-[10px] pr-[25px] lg:px-[25px] lg:py-[20px] bg-[#192843]">
-            <div className="flex md:space-x-[30px]">
+            <div className="flex md:space-x-[30px] justify-between">
               <div className="flex flex-col justify-between">
                 <img
                   className="max-w-full max-h-[73px] lg:max-h-[150px] lg:min-w-[150px] lg:max-w-[150px]  rounded-[4px] lg:mb-[15px]"
@@ -49,19 +50,19 @@ function AdDetails({
                   alt="dealershipImage"
                 />
                 <button className="rounded-[4px] p-3 max-w-full  max-h-[53px] w-full  text-white bg-link font-medium font-primary text-[14px] hidden lg:block">
-                  {number_of_announcment} announcement
+                  {number_of_announcment} ilan
                 </button>
               </div>
-              <div>
+              <div className="w-[100%]">
                 <div className="flex h-full lg:h-auto lg:min-h-[165px] pb-[7px] lg:pb-[15px] pl-5">
-                  <div className="flex flex-col  justify-between flex-1">
+                  <div className="flex flex-col justify-between flex-1">
                     <h2 className="font-secondary text-[22px] font-bold  text-white">
                       {dealership_name}
                     </h2>
                     <p className="block lg:hidden text-[16px] text-[#dbd8d8]">
-                      {number_of_announcment} announcement
+                      {number_of_announcment} ilan
                     </p>
-                    <div className="text-[14px] font-primary text-white pb-[10px] pr-[21px] border-r border-[#2a3e63] flex-1 hidden lg:block">
+                    <div className="text-[14px] font-primary text-white pb-[10px] pr-[21px] flex-1 hidden lg:block">
                       <ReadMore text={description} maxLength={220} />
                     </div>
                     <p className="lg:flex items-center font-primary text-[15px] underline text-white hidden ">
@@ -73,7 +74,7 @@ function AdDetails({
                       {city?.name}
                     </p>
                   </div>
-                  <div className="pt-[33px] min-w-[200px] hidden lg:block">
+                  <div className="mt-[33px] min-w-[320px] hidden lg:block border-l border-[#2a3e63]">
                     <div className="flex items-start">
                       <FaPhoneAlt
                         className="mx-4"
@@ -93,7 +94,7 @@ function AdDetails({
                     <div className="flex items-center mt-3">
                       <FaClock className="mx-4" size="24px" color="#4989E0" />
                       <p className="font-primary text-white text-[15px]">
-                        Daily: 09:00-19:00
+                        Günlük: 09:00-19:00
                       </p>
                     </div>
                   </div>

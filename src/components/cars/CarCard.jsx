@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { RedHeartIcon, GrayHeartIcon } from "../layout/IconHover";
 import { Link } from "react-router-dom";
 import premiumImage from "../../assets/icons/premium.png";
+
 function CarCard({
   fakeRender,
   car: {
@@ -22,6 +23,7 @@ function CarCard({
     city,
     published_at,
     car_dealership,
+    is_premium_announcement,
     loan,
     barter,
   },
@@ -84,9 +86,11 @@ function CarCard({
       city,
       published_at,
       car_dealership,
+      is_premium_announcement,
       loan,
       barter,
     };
+
     if (heart) {
       removeCarData(id);
       setHeart(false);
@@ -97,9 +101,11 @@ function CarCard({
       fakeRender?.((fakeRender) => !fakeRender);
     }
   }
+
   useEffect(() => {
     checkCarDataAndAct(id, () => setHeart(true));
   }, []);
+
   return (
     <Link
       to={`/car-details/${id}`}
@@ -111,7 +117,7 @@ function CarCard({
         <div className="absolute bottom-[10px] left-[10px] top-[10px] right-[10px] flex flex-col justify-between">
           <div className="flex justify-between">
             <div className="flex items-center space-x-[5px]">
-              {loan === 1 && (
+              {barter === 1 && (
                 <div className="rounded-full bg-[#76c81c] w-[18px] h-[18px]">
                   <svg
                     width="18"
@@ -129,7 +135,7 @@ function CarCard({
                   </svg>
                 </div>
               )}
-              {barter === 1 && (
+              {loan === 1 && (
                 <div className="rounded-full bg-[#f5a623] w-[18px] h-[18px]">
                   <svg
                     width="18"
@@ -188,45 +194,50 @@ function CarCard({
             </button>
           </div>
           <div className="flex items-center justify-between">
-            {car_dealership ? (
+            {car_dealership !== null ? (
               <span className="py-[2px] px-[5px] bg-[#3B8BF2] text-[10px] text-white rounded-md">
-                Salons
+                Salon
               </span>
-            ) : (
-              <span></span>
-            )}
+            ) : null}
 
             <div className="bg-white rounded-md flex items-center">
-              <svg
-                width="20"
-                height="18"
-                fill="none"
-                viewBox="-5 -5 25 24"
-                x="359"
-                y="312"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10.56 5.7L7.5.5 4.44 5.7 0 3.1l1.875 7.15v3.25h11.25v-3.25L15 3.1l-4.44 2.6z"
-                  fill="#FF9F2B"
-                />
-              </svg>
-              <svg
-                viewBox="-5 -5 27 23"
-                width="20"
-                height="18"
-                x="214"
-                y="196"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g fill="none" fillRule="evenodd">
-                  <path fill="#FFF" d="M4.779 1.857h6.691v6.5H4.779z" />
+              {is_premium_announcement && (
+                <svg
+                  width="20"
+                  height="18"
+                  fill="none"
+                  viewBox="-5 -5 25 24"
+                  x="359"
+                  y="312"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <path
-                    fill="#FF4F08"
-                    d="M12.241 0l3.936 4.643L8.305 13 .433 4.643 4.37 0h7.872zM9.577 2.676l-1.233 3.96-1.184-3.96-1.61.002 2.116 5.351 1.275-.002 2.12-5.35H9.576z"
+                    d="M10.56 5.7L7.5.5 4.44 5.7 0 3.1l1.875 7.15v3.25h11.25v-3.25L15 3.1l-4.44 2.6z"
+                    fill="#FF9F2B"
                   />
-                </g>
-              </svg>
+                </svg>
+              )}
+
+              {/* burada is VIP teyin olmalidi */}
+              {/* {is_vip_announcement && (
+               <svg
+                  viewBox="-5 -5 27 23"
+                  width="20"
+                  height="18"
+                  x="214"
+                  y="196"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g fill="none" fillRule="evenodd">
+                    <path fill="#FFF" d="M4.779 1.857h6.691v6.5H4.779z" />
+                    <path
+                      fill="#FF4F08"
+                      d="M12.241 0l3.936 4.643L8.305 13 .433 4.643 4.37 0h7.872zM9.577 2.676l-1.233 3.96-1.184-3.96-1.61.002 2.116 5.351 1.275-.002 2.12-5.35H9.576z"
+                    />
+                  </g>
+                </svg>
+              )} */}
+              {/* burada is VIP teyin olmalidi */}
             </div>
           </div>
         </div>
@@ -250,7 +261,7 @@ function CarCard({
           {`${vehicle_year.name}, ${engine_volume_liters} L, ${mileage} km`}{" "}
         </p>
 
-        <p className="text-secondary font-normal !text-[12px] leading-[17px] overflow-hidden whitespace-nowrap overflow-ellipsis">{`${published_at} , ${city?.name}`}</p>
+        <p className="text-secondary font-normal !text-[12px] leading-[17px] overflow-hidden whitespace-nowrap overflow-ellipsis">{`${published_at}, ${city?.name}`}</p>
       </div>
     </Link>
   );

@@ -24,24 +24,24 @@ function EditAdForm({ onCloseModal, showNewModal }) {
     <div className="min-w-[350px] max-w-[440px]">
       <div className="p-[20px] bg-[#F00000] rounded-t-lg relative">
         <p className="font-primary font-semibold text-[16px] text-center text-white">
-          Confirm your identity
+          Kimliğinizi doğrulayın
         </p>
       </div>
       <div className="p-[20px]">
         <div>
           <p className="text-[#333] text-[14px] leading-snug">
-            Enter your ad's PIN to continue.
+            Devam etmek için reklamınızın PIN kodunu girin.
           </p>
           <p className="text-[#333] text-[14px]  pb-2 leading-snug">
-            You can get the PIN code from the mail sent to you from Kibcar.com
-            when the ad is published on the site.
+            İlan sitede yayınlandığında Kibcar.com tarafından size gönderilen
+            mailden PIN kodunuzu alabilirsiniz.
           </p>
           <p className="text-[#333] text-[14px]">
             {/* You can get the OTP code from the letter sent to you on gmail */}
           </p>
         </div>
         <div>
-          <p className="text-[#333] text-[14px] mb-[15px]">Announcement PIN:</p>
+          <p className="text-[#333] text-[14px] mb-[15px]">İlanın PIN'i:</p>
         </div>
         <div className="flex gap-x-[20px] text-[14px]">
           <input
@@ -50,14 +50,14 @@ function EditAdForm({ onCloseModal, showNewModal }) {
             value={pin}
             onChange={handlePinChange}
             className="px-4 py-[12px] border rounded w-full lg:min-w-[220px]"
-            placeholder="Enter PIN"
+            placeholder="PIN girin"
           />
           <AnimatedButtonWrapper>
             <button
               onClick={onConfirm}
               className="px-[10px] py-[12px] w-full font-bold text-white bg-red rounded-md "
             >
-              Confirm it
+              Onayla
             </button>
           </AnimatedButtonWrapper>
         </div>
@@ -65,7 +65,7 @@ function EditAdForm({ onCloseModal, showNewModal }) {
           onClick={() => showNewModal("pin-methods")}
           className="mt-2 ml-1 text-[15px] underline text-link"
         >
-          Forgot your PIN?
+          PIN kodunuzu mu unuttunuz?
         </button>
         <p className="mt-1 ml-1 text-[14px] error text-red">{errorMsg}</p>
       </div>

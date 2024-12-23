@@ -2,6 +2,7 @@ import { useState } from "react";
 import telephoneGray from "../../assets/icons/telephone-gray.svg";
 import EllipsisText from "react-ellipsis-text";
 import { Link } from "react-router-dom";
+
 function DealershipCard({
   dealership: {
     id,
@@ -17,21 +18,21 @@ function DealershipCard({
   return (
     <Link
       to={`/dealership/${id}`}
-      className="dealership lg:col-span-6 col-span-12 h-fit"
+      className="dealership lg:col-span-6 col-span-12 h-fit transition-all duration-300"
     >
       <div
         className="flex items-center bg-white text-gray-800 leading-6 transition-shadow duration-200 ease-in-out rounded-lg h-full lg:min-h-[152px] min-h-[115px] max-h-[115px]"
-        style={{ boxShadow: "0 0 3px 2px rgba(201, 199, 199, 0.66)" }}
+        style={{ boxShadow: "0 0 3px 2px rgba(201, 199, 199, 0.4)" }}
       >
         <div
           className="relative w-[145px] h-full rounded-bl-lg rounded-tl-lg bg-cover bg-center bg-no-repeat lg:min-h-[152px] min-h-[115px] max-h-[115px]"
           style={{ backgroundImage: `url(${logo_url})` }}
         >
-          <span className="flex justify-center items-center  absolute right-[5px] top-[5px] z-10 w-[40px] h-[20px] bg-[#3B8BF2] text-[10px] text-white rounded-md">
-            Official
+          <span className="flex justify-center items-center absolute right-[5px] top-[5px] z-10 w-[40px] h-[20px] bg-[#3B8BF2] text-[10px] text-white rounded-md">
+            Resmi
           </span>
         </div>
-        <div className="dealershipContent w-[calc(100%-145px)] border-l-2 border-r-[#f7f5f5]  pb-[3px] lg:px-[10px]  lg:pt-[10px] lg:min-h-[152px] px-[10px] pt-[5] max-h-[115px]">
+        <div className="dealershipContent w-[calc(100%-145px)] border-l-2 border-r-[#f7f5f5] pb-[3px] lg:px-[10px] lg:pt-[10px] lg:min-h-[152px] px-[10px] pt-[5] max-h-[115px] ">
           <h2 className="font-bold lg:text-[18px] lg:pb-[5px] text-[15px] pb-[3px]">
             {dealership_name}
           </h2>
@@ -42,7 +43,7 @@ function DealershipCard({
                 : `${description.substring(0, !showMobileCom ? 120 : 60)}...`
               : ""}
           </p>
-          <div className="flex items-center lg:pb-[5px] pb-[1px]">
+          <div className="flex items-center lg:pb-[5px] pb-[1px] ">
             <svg
               width="22"
               height="23"
@@ -63,7 +64,7 @@ function DealershipCard({
           </div>
           <div className="lg:leading-normal leading-[0.7]">
             <div className="text-link text-[12px] ">
-              {number_of_announcment} Announcements
+              {number_of_announcment} İlan
             </div>
           </div>
         </div>

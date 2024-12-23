@@ -1,4 +1,5 @@
 import NoAdsImage from "../assets/images/no-ads.png";
+
 function NoOwners() {
   return (
     <div className="min-h-[441px]">

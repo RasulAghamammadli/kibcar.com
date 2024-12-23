@@ -18,6 +18,7 @@ import DeleteAdForm from "../../DeleteAdForm";
 import ForgetPinForm from "../../ForgetPinForm";
 import { IoFlagOutline } from "react-icons/io5";
 import ComplainForm from "../../ComplainForm";
+import CarSlider from "./CarSlider";
 
 function DetailsMobile({
   car,

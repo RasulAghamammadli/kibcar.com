@@ -1,25 +1,31 @@
 import React, { useEffect, useState } from "react";
 import favCarIcon from "../assets/icons/fav-car.svg";
 import CarCard from "../components/cars/CarCard";
+
 function Favourite() {
   const [car, setCar] = useState([]);
   const [rerender, setRerender] = useState(false);
+
+  console.log(car);
+
   function readCarData() {
     // Retrieve data from localStorage
     const data = localStorage.getItem("carDataList");
     return data ? JSON.parse(data) : [];
   }
+
   useEffect(() => {
     const carData = readCarData();
     setCar(carData);
   }, [rerender]);
+
   return (
     <div className="lg:container">
       <div className="mt-[20px] relative ">
         <h1 className="container font-bold  md:text-[16px] text-[#212C3A] pb-[20px] border-b border-[#eaebf2]">
           Öne çıkan ilanlar
         </h1>
-        {!car ? (
+        {car.length === 0 ? (
           <div className="bg-[#FAFAFA] min-h-[300px] md:min-h-[600px] flex justify-center items-center flex-col">
             <img
               src={favCarIcon}

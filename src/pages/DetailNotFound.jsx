@@ -1,14 +1,17 @@
-import NoAdsImage from "../assets/images/no-ads.png";
+import React from "react";
 
-function NoAds() {
+// images
+import NoAds from "../assets/images/no-ads.png";
+
+const DetailNotFound = () => {
   return (
     <div className="bg-[#F1F3F7]">
       <h1 className="container py-[20px] font-secondary text-[20px] md:text-[26px] font-bold leading-8 text-primary border-y border-[#eaebf2]">
-        İlanlar
+        Sayfa bulunamadı
       </h1>
       <div className="bg-[#F6F7FA] py-[20px]">
         <div className=" container flex items-center justify-center py-[20px]">
-          <img className="h-[200px]" src={NoAdsImage} alt="not-ads" />
+          <img className="h-[200px]" src={NoAds} alt="not-ads" />
         </div>
         <div className="container pb-4">
           <p className="text-[18px] text-[#212c3a]">
@@ -23,6 +26,6 @@ function NoAds() {
       </div>
     </div>
   );
-}
+};
 
-export default NoAds;
+export default DetailNotFound;

@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import useFetchDealership from "../components/cars/useFetchDealership";
 import DealershipCard from "../components/dealership/DealershipCard";
 import Spinner from "../components/Spinner";
-import NoAds from "../components/NoAds";
 import NoOwners from "../components/NoOwners";
+
 function DealershipOwners() {
   const { data, loading, error } = useFetchDealership(`car-dealerships`);
   const [width] = useState(window.innerWidth);

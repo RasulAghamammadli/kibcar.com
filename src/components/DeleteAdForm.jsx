@@ -41,22 +41,22 @@ function DeleteAdForm({ onCloseModal, showNewModal }) {
     <div className="min-w-[350px] max-w-[440px]">
       <div className="p-[20px] bg-[#F00000] rounded-t-lg relative">
         <p className="font-primary font-semibold text-[16px] text-center text-white">
-          Confirm your identity
+          Kimliğinizi doğrulayın
         </p>
       </div>
       <div className="p-[20px]">
         <div>
           <p className="text-[#333] text-[14px] pb-2 leading-snug">
-            Please enter the PIN to confirm the deletion of the ad. You can find
-            the PIN code in the mail sent to you from kibcar.com when the ad is
-            published on the site.
+            Lütfen ilanın silinmesini onaylamak için PIN kodunu girin. PIN
+            kodunu, ilan sitede yayınlandığında kibcar.com'dan size gönderilen
+            e-postada bulabilirsiniz.
           </p>
           <p className="text-[#333] text-[14px]">
             {/* You can get the OTP code from the letter sent to you on gmail */}
           </p>
         </div>
         <div>
-          <p className="text-[#333] text-[14px] mb-[15px]">Announcement PIN:</p>
+          <p className="text-[#333] text-[14px] mb-[15px]">İlanın PIN'i:</p>
         </div>
         <div className="flex gap-x-[20px] text-[14px]">
           <input
@@ -65,7 +65,7 @@ function DeleteAdForm({ onCloseModal, showNewModal }) {
             value={deletePin}
             onChange={handleDeletePinChange}
             className="px-4 py-[12px] border rounded w-full lg:min-w-[220px] max-w-[150px]"
-            placeholder="Enter PIN"
+            placeholder="PIN girin"
           />
 
           <AnimatedButtonWrapper>
@@ -73,7 +73,7 @@ function DeleteAdForm({ onCloseModal, showNewModal }) {
               onClick={handleDeleteApi}
               className="px-[10px] py-[12px] w-full font-bold text-white bg-red rounded-md "
             >
-              Confirm it
+              Onayla
             </button>
           </AnimatedButtonWrapper>
         </div>
@@ -81,7 +81,7 @@ function DeleteAdForm({ onCloseModal, showNewModal }) {
           onClick={() => showNewModal("pin-methods")}
           className="mt-2 ml-1 text-[15px] underline text-link"
         >
-          Forgot your PIN?
+          PIN kodunuzu mu unuttunuz?
         </button>
         <p className="mt-1 ml-1 text-[14px] error text-red">
           {deleteAdErrorMsg}

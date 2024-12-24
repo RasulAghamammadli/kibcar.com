@@ -468,25 +468,6 @@ function NewAdvertisement() {
     </div>
   );
 
-  const [showModal, setShowModal] = useState(false);
-  const [modalContent, setModalContent] = useState("");
-
-  function Modal({ content, onClose }) {
-    return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center transition-opacity">
-        <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-          <p>{content}</p>
-          <button
-            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            onClick={onClose}
-          >
-            Kapat
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   function handleFormSubmit(e) {
     e.preventDefault();
     async function saveAnnouncement() {
@@ -639,6 +620,7 @@ function NewAdvertisement() {
       Object.assign(modalContent.style, {
         background: "white",
         padding: "20px",
+        margin: "0 16px",
         borderRadius: "10px",
         textAlign: "center",
         boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",

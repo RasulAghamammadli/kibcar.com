@@ -12,6 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
 import AnimatedButtonWrapper from "../components/AnimatedButtonWrapper";
+import Modal from "../components/Modal";
 
 function NewAdvertisement() {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ function NewAdvertisement() {
 
     // Set error based on regex
     if (!/^[1-9][0-9]{9}$/.test(value)) {
-      setError("Please enter a valid 10-digit phone number.");
+      setError("Lütfen geçerli bir 10 haneli telefon numarası girin.");
     } else {
       setError("");
     }
@@ -262,9 +263,9 @@ function NewAdvertisement() {
     const numberOfUploadedImages = uploadedImages.length;
 
     if (numberOfUploadedImages < minImages) {
-      return `Please upload at least ${minImages} images.`;
+      return `Lütfen en az ${minImages} adet resim yükleyin.`;
     } else if (numberOfUploadedImages > maxImages) {
-      return `You can only upload up to ${maxImages} images.`;
+      return `En fazla ${maxImages} resim yükleyebilirsiniz.`;
     }
 
     return ""; // No error
@@ -467,6 +468,25 @@ function NewAdvertisement() {
     </div>
   );
 
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState("");
+
+  function Modal({ content, onClose }) {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center transition-opacity">
+        <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+          <p>{content}</p>
+          <button
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            onClick={onClose}
+          >
+            Kapat
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   function handleFormSubmit(e) {
     e.preventDefault();
     async function saveAnnouncement() {
@@ -546,7 +566,11 @@ function NewAdvertisement() {
               setShowPaymentModal(true);
             }
           } catch (error) {
-            console.log(error);
+            if (error.response && error.response.status === 403) {
+              console.error(error);
+            } else {
+              console.error(error);
+            }
           }
         }
 
@@ -584,8 +608,63 @@ function NewAdvertisement() {
             });
           }
         }
+        if (error.response?.status === 403) {
+          showModal(
+            "Ücretsiz deneme limiti doldu. Sadece 1 ücretsiz denemeye izin veriliyor."
+          );
+        }
       }
     }
+
+    // modal
+    function showModal(message) {
+      // create modal
+      const modal = document.createElement("div");
+      Object.assign(modal.style, {
+        position: "fixed",
+        top: "0",
+        left: "0",
+        width: "100vw",
+        height: "100vh",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: "1000",
+        transition: "all 0.2s ease",
+      });
+
+      // Modal content
+      const modalContent = document.createElement("div");
+      Object.assign(modalContent.style, {
+        background: "white",
+        padding: "20px",
+        borderRadius: "10px",
+        textAlign: "center",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+      });
+      modalContent.innerHTML = `
+        <p>${message}</p>
+        <button id="closeModalButton" style="margin-top: 20px; padding: 10px 20px; background: #b62c17; color: white; border: none; border-radius: 5px; cursor: pointer;">
+          Ana sayfaya dön
+        </button>
+      `;
+
+      // close
+      modalContent.querySelector("button").addEventListener("click", () => {
+        modal.style.opacity = "0";
+        setTimeout(() => modal.remove(), 200);
+        navigate("/");
+      });
+
+      // add modal
+      modal.appendChild(modalContent);
+      document.body.appendChild(modal);
+
+      // Smooth
+      setTimeout(() => (modal.style.opacity = "1"), 10);
+    }
+
     const errorMessage = validateImageCount(formData.uploadedImages);
     const picSection = document.getElementById("picturesSection");
     const errorMsg = document.getElementById("error");

@@ -1,9 +1,9 @@
-function ProfileCard() {
+function ProfileCard({ car }) {
   return (
     <div className="flex justify-between items-center mt-4 pt-4 border-t border-[#eaebf2]">
       <div>
-        <p>Ruslan</p>
-        <p className="text-secondary text-[14px]">Ganja</p>
+        <p>{car?.guest_contact?.name}</p>
+        <p className="text-secondary text-[14px]">{car?.city?.name}</p>
       </div>
       <div className="mb-4">
         <svg

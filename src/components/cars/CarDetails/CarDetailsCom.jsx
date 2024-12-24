@@ -79,7 +79,7 @@ function CarDetailsCom({ car }) {
             {car.gear.name ? car.gear.name : "-"}
           </p>
           <p className="font-primary text-[14px] text-[#212c3a]">
-            {car.vehicle_status == "USED" ? "No" : "Yes"}
+            {car.vehicle_status == "USED" ? "Hayır" : "Evet"}
           </p>
           <p className="font-primary text-[14px] text-[#212c3a]">
             {/* {numberOfSeats} */}
@@ -143,7 +143,7 @@ CarDetailsCom.propTypes = {
       name: PropTypes.string.isRequired,
     }).isRequired,
     vehicle_status: PropTypes.string.isRequired,
-    number_of_seats: PropTypes.number,
+    number_of_seats: PropTypes.string.isRequired,
     vehicle_market: PropTypes.shape({
       name: PropTypes.string.isRequired,
     }).isRequired,

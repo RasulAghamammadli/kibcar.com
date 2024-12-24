@@ -29,8 +29,8 @@ function AttentionNote() {
         </svg>
       </div>
       <p>
-        <span className="text-[#ff586d]">Diqqət!</span> Avtomobilə baxış
-        keçirmədən öncə beh göndərməyin.
+        <span className="text-[#ff586d]">Dikkat!</span> Aracı görmeden önce
+        ödeme göndermeyin.
       </p>
     </div>
   );

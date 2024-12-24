@@ -22,7 +22,7 @@ const NextArrow = ({ onClick }) => {
     />
   );
 };
-function CarSlider({ carImages, showFullSlider, setShowFullSlider }) {
+function CarSlider({ carImages, setShowFullSlider }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef(null);
   const settings = {
@@ -81,7 +81,7 @@ function CarSlider({ carImages, showFullSlider, setShowFullSlider }) {
             onClick={() => setShowFullSlider(true)}
           >
             <div className="flex justify-center absolute top-0 h-full left-0 w-full z-10 ">
-              <img src={item.original} />
+              <img src={item.original} className="object-cover" />
             </div>
             <div
               className="absolute top-0 left-0 w-full h-full  bg-cover bg-center bg-no-repeat blur-2xl  z-0"

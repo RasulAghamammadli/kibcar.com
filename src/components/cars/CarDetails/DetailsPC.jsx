@@ -28,6 +28,8 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
   const [number, setNumber] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
+  console.log(car);
+
   useEffect(() => {
     checkCarDataAndAct(car.id, () => setIsFavorite(true));
   }, [car.id]);
@@ -184,35 +186,37 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
             </div>
             <div className="flex items-center justify-between mt-[20px]">
               <div className="flex gap-x-[20px]">
-                <Modal>
-                  <Modal.Open windowName="edit">
-                    <button className="font-primary text-[14px] underline text-[#212c3a] hover:text-link">
-                      Düzelt
-                    </button>
-                  </Modal.Open>
-                  <Modal.Window name="edit">
-                    <EditAdForm />
-                  </Modal.Window>
-                  <Modal.Open windowName="delete">
-                    <button className="font-primary text-[14px] underline text-[#212c3a] hover:text-link">
-                      İlanı sil
-                    </button>
-                  </Modal.Open>
-                  <Modal.Window name="delete">
-                    <DeleteAdForm car={car} />
-                  </Modal.Window>
-                  <Modal.Open windowName="pin-methods">
-                    <button className="font-primary text-[14px] underline text-[#212c3a] hover:text-link">
-                      PIN'i unuttum
-                    </button>
-                  </Modal.Open>
-                  <Modal.Window name="forget-pin">
-                    <ForgetPinForm car={car} />
-                  </Modal.Window>
-                  <Modal.Window name="pin-methods">
-                    <GetPinMethods />
-                  </Modal.Window>
-                </Modal>
+                {car.car_dealership === null && (
+                  <Modal>
+                    <Modal.Open windowName="edit">
+                      <button className="font-primary text-[14px] underline text-[#212c3a] hover:text-link">
+                        Düzelt
+                      </button>
+                    </Modal.Open>
+                    <Modal.Window name="edit">
+                      <EditAdForm />
+                    </Modal.Window>
+                    <Modal.Open windowName="delete">
+                      <button className="font-primary text-[14px] underline text-[#212c3a] hover:text-link">
+                        İlanı sil
+                      </button>
+                    </Modal.Open>
+                    <Modal.Window name="delete">
+                      <DeleteAdForm car={car} />
+                    </Modal.Window>
+                    <Modal.Open windowName="pin-methods">
+                      <button className="font-primary text-[14px] underline text-[#212c3a] hover:text-link">
+                        PIN'i unuttum
+                      </button>
+                    </Modal.Open>
+                    <Modal.Window name="forget-pin">
+                      <ForgetPinForm car={car} />
+                    </Modal.Window>
+                    <Modal.Window name="pin-methods">
+                      <GetPinMethods />
+                    </Modal.Window>
+                  </Modal>
+                )}
               </div>
               <p className="font-primary text-[14px] text-[#212c3a]">
                 İlan numarası: {id}
@@ -225,7 +229,7 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
             <h2 className="text-[26px] font-bold leading-8 text-primary ">
               {Number(car.price).toLocaleString()} {car.price_currency}
             </h2>
-            {!car.car_dealership && <ProfileCard />}
+            {!car.car_dealership && <ProfileCard car={car} />}
             <div className="flex gap-x-5">
               {car.car_dealership && (
                 <div className="flex items-center my-4">

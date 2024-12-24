@@ -799,17 +799,17 @@ function EditAdvertisement() {
                         required
                         className="w-4 h-4 accent-red"
                         onChange={handleChange}
-                        id="mi"
+                        id="mil"
                         type="radio"
                         name="marchNum"
-                        value="mi"
-                        checked={formData.marchNum === "mi"}
+                        value="mil"
+                        checked={formData.marchNum === "mil"}
                       />
                       <label
                         className="text-[14px] font-secondary"
-                        htmlFor="mi"
+                        htmlFor="mil"
                       >
-                        mi
+                        mil
                       </label>
                     </div>
                   </div>

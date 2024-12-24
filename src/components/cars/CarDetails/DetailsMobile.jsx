@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "react-image-gallery/styles/css/image-gallery.css";
 
 import phoneDetails from "../../../assets/images/phone-details.png";
@@ -18,7 +19,7 @@ import DeleteAdForm from "../../DeleteAdForm";
 import ForgetPinForm from "../../ForgetPinForm";
 import { IoFlagOutline } from "react-icons/io5";
 import ComplainForm from "../../ComplainForm";
-import CarSlider from "./CarSlider";
+import FullscreenMobile from "./FullScreenMobile";
 
 function DetailsMobile({
   car,
@@ -27,6 +28,44 @@ function DetailsMobile({
   carImages,
   id,
 }) {
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    checkCarDataAndAct(car.id, () => setIsFavorite(true));
+  }, [car.id]);
+
+  function saveCarData(carData) {
+    const existingData = localStorage.getItem("carDataList");
+    let carDataList = existingData ? JSON.parse(existingData) : [];
+    carDataList.push(carData);
+    localStorage.setItem("carDataList", JSON.stringify(carDataList));
+  }
+
+  function removeCarData(carId) {
+    const existingData = localStorage.getItem("carDataList");
+    let carDataList = existingData ? JSON.parse(existingData) : [];
+    carDataList = carDataList.filter((car) => car.id !== carId);
+    localStorage.setItem("carDataList", JSON.stringify(carDataList));
+  }
+
+  function checkCarDataAndAct(carId, actionCallback) {
+    const data = localStorage.getItem("carDataList");
+    const carDataList = data ? JSON.parse(data) : [];
+    const foundCar = carDataList.find((car) => car.id === carId);
+    if (foundCar) {
+      actionCallback(foundCar);
+    }
+  }
+
+  const handleFavoriteClick = () => {
+    if (isFavorite) {
+      removeCarData(car.id);
+    } else {
+      saveCarData(car);
+    }
+    setIsFavorite(!isFavorite);
+  };
+
   return (
     <div className="relative">
       <a
@@ -35,7 +74,7 @@ function DetailsMobile({
             ? clearFormatPhoneNumber(car.car_dealership.phone1)
             : clearFormatPhoneNumber(car.creator.guest_phone.phone)
         }`}
-        className="fixed h-[48px] justify-center flex items-center gap-x-2 bg-[#3db460] rounded-xl hover:bg-[#269547] w-[calc(100%-32px)] right-4 left-4  bottom-4"
+        className="fixed h-[48px] justify-center flex items-center gap-x-2 bg-[#3db460] rounded-xl hover:bg-[#269547] w-[calc(100%-32px)] right-4 left-4 bottom-4"
       >
         <img
           className="w-[18px] h-[18px]"
@@ -69,6 +108,17 @@ function DetailsMobile({
       )}
       <div className="sliderX flex lg:flex-row flex-col  justify-between items-start lg:gap-x-[30px] lg:g-y-0 gap-y-8">
         <div className="w-full">
+          {showFullSlider != null && (
+            <FullscreenMobile
+              car={car}
+              showFullSlider={showFullSlider}
+              setShowFullSlider={setShowFullSlider}
+              handleFavoriteClick={handleFavoriteClick}
+              isFavorite={isFavorite}
+              carImages={carImages}
+              slideIndex={1}
+            />
+          )}
           <SliderMobile
             showFullSlider={showFullSlider}
             setShowFullSlider={setShowFullSlider}
@@ -179,7 +229,7 @@ function DetailsMobile({
               })}
             </div>
             {!car.car_dealership ? (
-              <ProfileCard />
+              <ProfileCard car={car} />
             ) : (
               <>
                 <div className="flex items-center justify-between mb-[15px] mt-4 pt-4 border-t border-[#eaebf2]">

@@ -86,25 +86,6 @@ function CarDetails() {
     getCar();
   }, [id]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const navbarContainer = document.querySelector(".navigation-container");
-      if (window.scrollY > 10) {
-        navbarContainer.classList.add("fixed-nav-container");
-      } else {
-        navbarContainer.classList.remove("fixed-nav-container");
-      }
-    };
-
-    // Add scroll event listener
-    window.addEventListener("scroll", handleScroll);
-
-    // Clean up function
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   if (car) {
     return (
       <>

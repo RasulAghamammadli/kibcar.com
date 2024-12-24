@@ -23,7 +23,7 @@ const NextArrow = ({ onClick }) => {
   );
 };
 
-function FullscreenMode({
+function FullscreenMobile({
   showFullSlider,
   setShowFullSlider,
   carImages,
@@ -33,8 +33,6 @@ function FullscreenMode({
 }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef(null);
-
-  // console.log(car);
 
   const settings = {
     customPaging: function (i) {
@@ -169,7 +167,7 @@ function FullscreenMode({
               className="relative p-4 text-center h-[calc(100vh-120px)]"
               key={index}
             >
-              <div className="flex justify-center absolute top-0 h-full left-0 w-full z-10 ">
+              <div className="flex justify-center absolute top-0 h-full left-0 w-full z-10">
                 <img src={item.original} />
               </div>
               <div
@@ -180,7 +178,6 @@ function FullscreenMode({
           ))}
         </Slider>
         <div className={`${styles.counter}`}>
-          {/* Display the slide counter */}
           {currentSlide + 1} / {carImages.length}
         </div>
       </div>
@@ -188,4 +185,4 @@ function FullscreenMode({
   );
 }
 
-export default FullscreenMode;
+export default FullscreenMobile;

@@ -109,7 +109,7 @@ function FullscreenMobile({
           ))}
         </Slider>
       </div>
-      <ul className="flex justify-between items-center p-[10px] absolute bottom-0 left-0 w-[100%]">
+      <ul className="flex justify-between items-center p-[10px] fixed bottom-0 left-0 w-[100%] bg-black">
         <li className="mb-[10px] max-w-[80%]">
           <p className="text-[18px] w-fit font-[500] leading-[22px] text-[#f9f9f9] overflow-hidden whitespace-nowrap text-ellipsis">
             {car?.price} {car?.price_currency}

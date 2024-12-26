@@ -1,4 +1,14 @@
+import { useEffect } from "react";
+
 function Spinner() {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
+
   return (
     <div className="absolute inset-0 flex items-center justify-center bg-slate-200/30 backdrop-blur-sm z-[9999]">
       <div className="loader" data-text="KibCar">

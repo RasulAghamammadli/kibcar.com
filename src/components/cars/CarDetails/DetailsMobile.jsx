@@ -130,7 +130,7 @@ function DetailsMobile({
             </h2>
             <h2 className="text-[#212c3a] text-start text-[20px] leading-6 py-[15px] border-b border-solid border-[#E2E2E2]">
               {car.brand.name} {car.brand_model.name},{" "}
-              {car.engine_volume_liters + " L "} , {car.vehicle_year.name} ,{" "}
+              {car.engine_volume_liters + " L"}, {car.vehicle_year.name} yıl,{" "}
               {Number(car.mileage).toLocaleString()}{" "}
               {car.mileage_measurement_unit.toUpperCase()}
             </h2>
@@ -309,33 +309,35 @@ function DetailsMobile({
               </p>
             </div>
             <div className="flex items-center justify-between mt-[20px]">
-              <div className="flex gap-x-[20px] pb-[15px] border-b border-[#E2E2E2]">
-                <Modal>
-                  <Modal.Open windowName="edit">
-                    <button className="font-primary text-[14px] underline text-[#212c3a] hover:text-link">
-                      Düzelt
-                    </button>
-                  </Modal.Open>
-                  <Modal.Window name="edit">
-                    <EditAdForm />
-                  </Modal.Window>
-                  <Modal.Open windowName="delete">
-                    <button className="font-primary text-[14px] underline text-[#212c3a] hover:text-link">
-                      İlanı sil
-                    </button>
-                  </Modal.Open>
-                  <Modal.Window name="delete">
-                    <DeleteAdForm />
-                  </Modal.Window>
-                  <Modal.Open windowName="forget-pin">
-                    <button className="font-primary text-[14px] underline text-[#212c3a] hover:text-link">
-                      PIN'i unut
-                    </button>
-                  </Modal.Open>
-                  <Modal.Window name="forget-pin">
-                    <ForgetPinForm car={car} />
-                  </Modal.Window>
-                </Modal>
+              <div className="flex gap-x-[20px] pb-[15px] w-[100%] border-b border-[#E2E2E2]">
+                {car.car_dealership === null && (
+                  <Modal>
+                    <Modal.Open windowName="edit">
+                      <button className="font-primary text-[14px] underline text-[#212c3a] hover:text-link">
+                        Düzelt
+                      </button>
+                    </Modal.Open>
+                    <Modal.Window name="edit">
+                      <EditAdForm />
+                    </Modal.Window>
+                    <Modal.Open windowName="delete">
+                      <button className="font-primary text-[14px] underline text-[#212c3a] hover:text-link">
+                        İlanı sil
+                      </button>
+                    </Modal.Open>
+                    <Modal.Window name="delete">
+                      <DeleteAdForm />
+                    </Modal.Window>
+                    <Modal.Open windowName="forget-pin">
+                      <button className="font-primary text-[14px] underline text-[#212c3a] hover:text-link">
+                        PIN'i unut
+                      </button>
+                    </Modal.Open>
+                    <Modal.Window name="forget-pin">
+                      <ForgetPinForm car={car} />
+                    </Modal.Window>
+                  </Modal>
+                )}
               </div>
             </div>
             <div className="py-[15px]">

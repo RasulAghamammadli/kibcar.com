@@ -28,8 +28,6 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
   const [number, setNumber] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
-  console.log(car);
-
   useEffect(() => {
     checkCarDataAndAct(car.id, () => setIsFavorite(true));
   }, [car.id]);
@@ -78,7 +76,7 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
         <div className="navigation flex md:flex-row flex-col gap-y-4 md:gap-y-0  items-center justify-between py-[15px] ">
           <h2 className="text-[#212c3a] text-center md:text-start text-[24px]  font-bold leading-8">
             {car.brand.name} {car.brand_model.name},{" "}
-            {car.engine_volume_liters + " L"}, {car.vehicle_year.name},{" "}
+            {car.engine_volume_liters + " L"}, {car.vehicle_year.name} yıl,{" "}
             {Number(car.mileage).toLocaleString()}{" "}
             {car.mileage_measurement_unit.toUpperCase()}
           </h2>

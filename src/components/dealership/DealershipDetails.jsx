@@ -1,6 +1,6 @@
 // DealershipDetails.js
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import CarCard from "../cars/CarCard";
 import AdDetails from "./AdDetails";
 import phoneDetails from "../../assets/images/phone-details.png";
@@ -10,6 +10,12 @@ function DealershipDetails() {
   const { dealershipId } = useParams();
   const [adContent, setAdContent] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  if (!/^\d+$/.test(dealershipId)) {
+    return <Navigate to="/not-found" />;
+  }
+
   useEffect(() => {
     async function fetchDealershipDetails() {
       setIsLoading(true);
@@ -46,6 +52,7 @@ function DealershipDetails() {
         setAdContent(adData);
       } catch (error) {
         console.error("Error fetching ad content:", error);
+        navigate("/not-found");
       } finally {
         setIsLoading(false);
       }

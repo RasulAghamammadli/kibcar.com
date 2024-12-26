@@ -10,7 +10,7 @@ import PaymentModal from "../components/PaymentModal";
 import OtpModal from "../components/OtpModal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import AnimatedButtonWrapper from "../components/AnimatedButtonWrapper";
 
 function EditAdvertisement() {
@@ -46,6 +46,10 @@ function EditAdvertisement() {
   const [paymentToken, setPaymentToken] = useState("");
   const [PictureErrorMsg, setPictureErrorMsg] = useState("");
   const [car, setCar] = useState(null);
+
+  if (!/^\d+$/.test(id)) {
+    return <Navigate to="/not-found" />;
+  }
 
   const initialData = {
     brand: "",
@@ -175,6 +179,7 @@ function EditAdvertisement() {
         console.log(formData);
       } catch (error) {
         console.log(error);
+        navigate("/not-found");
       }
     }
     async function getDefaultOptions() {

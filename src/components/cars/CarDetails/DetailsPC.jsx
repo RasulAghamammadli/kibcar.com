@@ -154,11 +154,6 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
             setShowFullSlider={setShowFullSlider}
             carImages={carImages}
           />
-          {/* <SliderMobile
-            showFullSlider={showFullSlider}
-            setShowFullSlider={setShowFullSlider}
-            carImages={carImages}
-          /> */}
           <ul className=" pt-[20px] pb-[20px] picture-list pl-[20px] border-b border-solid border-[#E2E2E2] text-[12px]">
             <li>Güncellendi: {car.updated_date}</li>
           </ul>

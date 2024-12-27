@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 import Modal from "./Modal";
@@ -37,8 +37,9 @@ function DeleteAdForm({ onCloseModal, showNewModal }) {
   const handleDeletePinChange = (e) => {
     setDeletePin(e.target.value);
   };
+
   return (
-    <div className="min-w-[350px] max-w-[440px]">
+    <div className="min-w-[330px] max-w-[440px]">
       <div className="p-[20px] bg-[#F00000] rounded-t-lg relative">
         <p className="font-primary font-semibold text-[16px] text-center text-white">
           Kimliğinizi doğrulayın

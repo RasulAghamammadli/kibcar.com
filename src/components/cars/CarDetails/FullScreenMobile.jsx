@@ -15,8 +15,6 @@ function FullscreenMobile({
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef(null);
 
-  console.log(car);
-
   const settings = {
     dots: false,
     initialSlide: showFullSlider,
@@ -46,8 +44,8 @@ function FullscreenMobile({
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 w-screen h-screen bg-black z-50 overflow-hidden">
-      <nav className="flex justify-between items-center h-[55px] font-medium text-base leading-5 text-white px-[8px]">
+    <div className="fixed top-0 left-0 w-screen h-screen bg-black z-50 overflow-hidden flex items-center justify-between flex-col">
+      <nav className="flex justify-between w-full items-center h-[55px] font-medium text-base leading-5 text-white px-[8px]">
         <div className="hover:bg-[#FFFFFF26] rounded-lg">
           <button onClick={() => setShowFullSlider(null)}>
             <svg
@@ -95,21 +93,24 @@ function FullscreenMobile({
         </div>
       </nav>
       {/* Slider */}
-      <div className={`${styles["slider-container"]}  relative full-slider`}>
+      <div
+        className={`${styles["slider-container"]} relative full-slider max-w-full max-h-full`}
+      >
         <Slider {...settings} ref={sliderRef}>
           {carImages.map((item, index) => (
-            <div className="relative w-[620px] h-[470px] " key={index}>
-              <div className="absolute max-h-full max-w-full bg-black top-14 left-0 right-0 bottom-0 z-10">
+            <div className="relative !flex justify-center" key={index}>
+              <div className="bg-black max-w-[620px] max-h-[470px] z-10 flex items-center justify-center">
                 <img
                   src={item.original}
-                  className="object-cover w-[100%] h-[100%]"
+                  className="object-cover w-full h-auto"
                 />
               </div>
             </div>
           ))}
         </Slider>
       </div>
-      <ul className="flex justify-between items-center p-[10px] fixed bottom-0 left-0 w-[100%] bg-black">
+
+      <ul className="flex justify-between items-center p-[10px] w-[100%] bg-black">
         <li className="mb-[10px] max-w-[80%]">
           <p className="text-[18px] w-fit font-[500] leading-[22px] text-[#f9f9f9] overflow-hidden whitespace-nowrap text-ellipsis">
             {car?.price} {car?.price_currency}

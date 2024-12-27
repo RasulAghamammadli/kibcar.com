@@ -20,6 +20,7 @@ import ForgetPinForm from "../../ForgetPinForm";
 import { IoFlagOutline } from "react-icons/io5";
 import ComplainForm from "../../ComplainForm";
 import FullscreenMobile from "./FullScreenMobile";
+import GetPinMethods from "../../GetPinMethods";
 
 function DetailsMobile({
   car,
@@ -326,15 +327,18 @@ function DetailsMobile({
                       </button>
                     </Modal.Open>
                     <Modal.Window name="delete">
-                      <DeleteAdForm />
+                      <DeleteAdForm car={car} />
                     </Modal.Window>
-                    <Modal.Open windowName="forget-pin">
+                    <Modal.Open windowName="pin-methods">
                       <button className="font-primary text-[14px] underline text-[#212c3a] hover:text-link">
-                        PIN'i unut
+                        PIN'i unuttum
                       </button>
                     </Modal.Open>
                     <Modal.Window name="forget-pin">
                       <ForgetPinForm car={car} />
+                    </Modal.Window>
+                    <Modal.Window name="pin-methods">
+                      <GetPinMethods />
                     </Modal.Window>
                   </Modal>
                 )}

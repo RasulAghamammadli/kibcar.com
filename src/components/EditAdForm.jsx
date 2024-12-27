@@ -21,7 +21,7 @@ function EditAdForm({ onCloseModal, showNewModal }) {
     }
   };
   return (
-    <div className="min-w-[350px] max-w-[440px]">
+    <div className="min-w-[330px] max-w-[440px]">
       <div className="p-[20px] bg-[#F00000] rounded-t-lg relative">
         <p className="font-primary font-semibold text-[16px] text-center text-white">
           Kimliğinizi doğrulayın

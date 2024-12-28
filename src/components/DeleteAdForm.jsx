@@ -10,7 +10,7 @@ function DeleteAdForm({ onCloseModal, showNewModal }) {
   const [deletePin, setDeletePin] = useState("");
   const handleDeleteApi = async () => {
     if (deletePin === "") {
-      setDeleteAdErrorMsg("Enter the pin first!");
+      setDeleteAdErrorMsg("Önce PIN'i girin!");
       return;
     }
     try {
@@ -26,7 +26,7 @@ function DeleteAdForm({ onCloseModal, showNewModal }) {
         onCloseModal?.();
         // setDeleteAd(false);
       } else {
-        setDeleteAdErrorMsg("Wrong PIN Code!");
+        setDeleteAdErrorMsg("Yanlış PIN!");
       }
     } catch (error) {
       //   setDeleteAd(true);
@@ -65,16 +65,16 @@ function DeleteAdForm({ onCloseModal, showNewModal }) {
             name="pin"
             value={deletePin}
             onChange={handleDeletePinChange}
-            className="px-4 py-[12px] border rounded w-full lg:min-w-[220px] max-w-[150px]"
+            className="px-4 py-[12px] border rounded w-full lg:min-w-[220px] max-w-[150px] outline-none focus:border-[red] transition-all duration-200"
             placeholder="PIN girin"
           />
 
           <AnimatedButtonWrapper>
             <button
               onClick={handleDeleteApi}
-              className="px-[10px] py-[12px] w-full font-bold text-white bg-red rounded-md "
+              className="btn-search text-white rounded-md bg-red hover:bg-[#882111] shadow-none hover:shadow-none px-[10px] py-[12px] w-full font-primary text-[14px] font-normal"
             >
-              Onayla
+              <p>Onayla</p>
             </button>
           </AnimatedButtonWrapper>
         </div>

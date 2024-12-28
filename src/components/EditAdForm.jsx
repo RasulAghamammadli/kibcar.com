@@ -15,7 +15,7 @@ function EditAdForm({ onCloseModal, showNewModal }) {
 
   const onConfirm = () => {
     if (pin != 1111) {
-      setErrorMsg("Wrong Pin!");
+      setErrorMsg("Yanlış PIN!");
     } else {
       navigate(`/edit-advertisement/${id}`);
     }
@@ -49,15 +49,15 @@ function EditAdForm({ onCloseModal, showNewModal }) {
             name="pin"
             value={pin}
             onChange={handlePinChange}
-            className="px-4 py-[12px] border rounded w-full lg:min-w-[220px]"
+            className="px-4 py-[12px] border rounded w-full lg:min-w-[220px] outline-none focus:border-[red] transition-all duration-200"
             placeholder="PIN girin"
           />
           <AnimatedButtonWrapper>
             <button
               onClick={onConfirm}
-              className="px-[10px] py-[12px] w-full font-bold text-white bg-red rounded-md "
+              className="btn-search text-white rounded-md bg-red hover:bg-[#882111] shadow-none hover:shadow-none px-[10px] py-[12px] w-full font-primary text-[14px] font-normal"
             >
-              Onayla
+              <p>Onayla</p>
             </button>
           </AnimatedButtonWrapper>
         </div>

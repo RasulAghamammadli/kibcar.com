@@ -14,13 +14,13 @@ function ForgetPinForm({ car, onCloseModal, sharedData }) {
           objectFit: "cover",
         }}
       ></iframe>
-      <div className="flex justify-between mt-2 ml-1">
+      <div className="flex justify-between mt-4 ml-1">
         <AnimatedButtonWrapper>
           <button
             onClick={onCloseModal}
-            className="px-4 py-[12px]  font-bold text-white bg-red rounded-md"
+            className="btn-search text-white rounded-md bg-red hover:bg-[#882111] shadow-none hover:shadow-none px-[16px] py-[10px] w-[100px] font-primary text-[14px] font-normal"
           >
-            Close
+            <p>Kapat</p>
           </button>
         </AnimatedButtonWrapper>
       </div>

@@ -42,26 +42,26 @@ function GetPinMethods({ onCloseModal, showNewModal, setSharedData }) {
         </p>
       </div>
       <div className="p-[20px]">
-        <div className="flex flex-col">
-          <label className="flex items-center mb-4">
+        <div className="flex flex-col ">
+          <label className="flex items-center mb-4 cursor-pointer w-fit">
             <input
               type="radio"
               value="SMS"
               checked={selectedOption === "SMS"}
               onClick={() => handleClick("sms")}
               onChange={() => setSelectedOption("SMS")}
-              className="form-radio accent-red h-5 w-5"
+              className="form-radio accent-red h-5 w-5 cursor-pointer"
             />
             <span className="ml-2 text-base">SMS yoluyla</span>
           </label>
-          <label className="flex items-center">
+          <label className="flex items-center cursor-pointer w-fit">
             <input
               type="radio"
               value="email"
               checked={selectedOption === "email"}
               onChange={() => setSelectedOption("email")}
               onClick={() => handleClick("email")}
-              className="form-radio accent-red h-5 w-5"
+              className="form-radio accent-red h-5 w-5 cursor-pointer"
             />
             <span className="ml-2 text-base">E-posta adresi yoluyla</span>
           </label>

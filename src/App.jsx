@@ -33,6 +33,7 @@ import NotFound from "./pages/NotFound";
 import DetailNotFound from "./pages/DetailNotFound";
 
 import { CarProvider } from "./context/CarContext";
+import Success from "./pages/Success";
 
 function App() {
   const [width] = useState(window.innerWidth);
@@ -72,6 +73,7 @@ function App() {
                     element={<EditAdvertisement />}
                   />
                   <Route path="/car-details/:id" element={<CarDetails />} />
+                  <Route path="/success" element={<Success />} />
                   <Route path="/not-found" element={<DetailNotFound />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>

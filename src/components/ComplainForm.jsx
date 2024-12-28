@@ -34,7 +34,7 @@ function ComplainForm({ onCloseModal }) {
   };
 
   return (
-    <div className="min-w-[350px] lg:min-w-[450px] max-w-[440px]">
+    <div className="min-w-[330px] lg:min-w-[450px] max-w-[440px]">
       <div className="px-[30px] py-[20px] rounded-t-lg relative border-b border-[#eaebf2]">
         <p className="font-primary font-semibold text-[16px]  text-[#212c3a] ">
           Şikayet
@@ -63,7 +63,7 @@ function ComplainForm({ onCloseModal }) {
 
             <img src={chivronBottom} alt="chivron-Bottom" />
           </summary>
-          <ul className="py-2  z-[1]  menu dropdown-content bg-base-100 flex flex-col flex-nowrap justify-start w-[calc(100%-60px)] mt-2 rounded-lg max-h-[330px] overflow-y-auto">
+          <ul className="py-2  z-[1]  menu dropdown-content bg-base-100 flex flex-col flex-nowrap justify-start w-[calc(100%-60px)] mt-2 rounded-lg max-h-[330px] overflow-y-auto border-[1px] border-[#eaebf2]">
             {options.map((complain) => (
               <li
                 key={complain.value}

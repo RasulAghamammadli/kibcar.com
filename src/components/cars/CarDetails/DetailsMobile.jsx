@@ -210,7 +210,7 @@ function DetailsMobile({
                   </Link>
                 </>
               )}
-            </div>{" "}
+            </div>
             <CarDetailsCom car={car} />
             <div className="py-[15px]">
               {car.additional_information && (

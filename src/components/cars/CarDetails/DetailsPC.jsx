@@ -219,7 +219,7 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
         </div>
         <div className="flex-1 w-full sticky top-[77px]">
           <div className="bg-[#f6f7fa] p-[30px] w-full rounded-lg">
-            <h2 className="text-[26px] font-bold leading-8 text-primary ">
+            <h2 className="text-[26px] font-bold leading-8 text-primary">
               {Number(car.price).toLocaleString()} {car.price_currency}
             </h2>
             {!car.car_dealership && <ProfileCard car={car} />}

@@ -64,6 +64,8 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
     setIsFavorite(!isFavorite);
   };
 
+  console.log(car?.is_premium_announcement);
+
   return (
     <div className="container relative">
       <ul className="flex items-center gap-[10px] py-[16px] font-primary font-medium border-b border-solid border-[#E2E2E2] uppercase text-[16px] text-[#212c3a]">
@@ -375,7 +377,7 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
               </>
             )}
           </div>
-          <div to={""} className="grid grid-cols-12 space-x-2 mt-[20px]">
+          <div className="grid grid-cols-12 space-x-2 mt-[20px]">
             {!car.is_premium_announcement && (
               <>
                 <Link className="col-span-4">

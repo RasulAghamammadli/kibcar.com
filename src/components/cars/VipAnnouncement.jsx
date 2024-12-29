@@ -1,4 +1,3 @@
-import useFetchData from "./useFetchCars";
 import CarCard from "./CarCard";
 
 function VipAnnouncement({ announcements, title }) {

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import Modal from "./Modal";
 
 function GetPinMethods({ onCloseModal, showNewModal, setSharedData }) {
   const [selectedOption, setSelectedOption] = useState("");
@@ -65,6 +66,11 @@ function GetPinMethods({ onCloseModal, showNewModal, setSharedData }) {
             />
             <span className="ml-2 text-base">E-posta adresi yoluyla</span>
           </label>
+          {/* <Modal>
+            <Modal.Open>
+
+            </Modal.Open>
+          </Modal> */}
         </div>
       </div>
     </div>

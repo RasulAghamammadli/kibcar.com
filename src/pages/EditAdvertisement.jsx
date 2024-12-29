@@ -429,7 +429,7 @@ function EditAdvertisement() {
         <div className="col-span-6">
           <div
             key={`placeholder-${index}`}
-            className="md:w-[185px] h-[140px] relative flex rounded-[25px] items-center justify-center bg-[#F6F7FA] m-2  hover:border hover:border-[#3273ec]"
+            className="md:w-[185px] h-[140px] relative flex rounded-[7px] items-center justify-center bg-[#F6F7FA] m-2 border border-[#eaebf2] hover:border-[#3273ec] transition-all duration-200"
           >
             <input
               type="file"
@@ -459,7 +459,7 @@ function EditAdvertisement() {
   imageSlots.push(
     <div
       key="add-more"
-      className="col-span-6 cursor-pointer md:w-[185px] h-[140px] relative flex rounded-[25px] items-center justify-center bg-[#F6F7FA] m-2  hover:border hover:border-[#3273ec]"
+      className="col-span-6 cursor-pointer md:w-[185px] h-[140px] relative flex rounded-[7px] items-center justify-center bg-[#F6F7FA] m-2 hover:bg-[#ebedf3] transition-all duration-300"
       onClick={() => document.getElementById("file-upload-add-more").click()}
     >
       <input
@@ -1541,77 +1541,10 @@ function EditAdvertisement() {
                     required
                   />
                 </div>
-                {/* <div className="flex flex-col items-start md:flex-row md:items-center">
-                  <label
-                    className="md:min-w-[244px] md:max-w-[244px] w-full"
-                    htmlFor="userCity"
-                  >
-                    City
-                  </label>
-                  <select
-                    className="md:max-w-[452px] w-full py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal focus:outline-0"
-                    name="userCity"
-                    id="userCity"
-                    placeholder="Enter Your City"
-                    value={formData.userCity}
-                    onChange={handleChange}
-                    required
-                  >
-                    <option value="Select">Select</option>
-                    {cities.map((item) => (
-                      <option key={item.id} value={item.id}>
-                        {item.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="flex flex-col items-start md:flex-row md:items-center gap-y-3">
-                  <label
-                    className="md:min-w-[244px] md:max-w-[244px] w-full"
-                    htmlFor="userEmail"
-                  >
-                    E-mail
-                  </label>
-                  <div className="flex flex-col md:max-w-[452px] w-full">
-                    <input
-                      className="md:max-w-[452px] w-full py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal focus:outline-0"
-                      type="Email"
-                      name="userEmail"
-                      id="userEmail"
-                      placeholder="moniruiux@gamil.com"
-                      value={formData.userEmail}
-                      onChange={handleChange}
-                      required
-                    />
-                    <p className="text-secondary ml-1">
-                      not displayed on the site
-                    </p>
-                  </div>
-                </div>
-                <div className="flex flex-col items-start md:flex-row md:items-center gap-y-3">
-                  <label
-                    className="md:min-w-[244px] md:max-w-[244px] w-full"
-                    htmlFor="userTel"
-                  >
-                    Mobile Number
-                  </label>
-                  <input
-                    className="md:max-w-[452px] w-full py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal focus:outline-0"
-                    type="tel"
-                    name="userTel"
-                    id="userTel"
-                    placeholder="014656+546566+654"
-                    value={formData.userTel}
-                    maxLength="15"
-                    minLength="10"
-                    onChange={handleChange}
-                    required
-                  />
-                </div> */}
                 <div className="max-w-[700px] mt-30 flex justify-end">
                   <AnimatedButtonWrapper>
                     <button
-                      className="md:min-w-[452px] min-w-full text-[14px] font-primary text-white  py-[18px] px-[20px] outline-none rounded-md font-medium bg-red"
+                      className="md:min-w-[455px] min-w-full text-[14px] font-primary  text-white btn-search rounded-lg bg-red hover:bg-[#882111] shadow-none hover:shadow-none py-[18px] px-[20px] font-normal flex items-center justify-center"
                       type="submit"
                     >
                       Devam Et

@@ -413,7 +413,7 @@ function NewAdvertisement() {
         <div className="col-span-6">
           <div
             key={`placeholder-${index}`}
-            className="md:w-[185px] h-[140px] relative flex rounded-[25px] items-center justify-center bg-[#F6F7FA] m-2  hover:border hover:border-[#3273ec]"
+            className="md:w-[185px] h-[140px] relative flex rounded-[7px] items-center justify-center bg-[#F6F7FA] m-2 border border-[#eaebf2] hover:border-[#3273ec] transition-all duration-200"
           >
             <input
               type="file"
@@ -443,7 +443,7 @@ function NewAdvertisement() {
   imageSlots.push(
     <div
       key="add-more"
-      className="col-span-6 cursor-pointer md:w-[185px] h-[140px] relative flex rounded-[25px] items-center justify-center bg-[#F6F7FA] m-2  hover:border hover:border-[#3273ec]"
+      className="col-span-6 cursor-pointer md:w-[185px] h-[140px] relative flex rounded-[7px] items-center justify-center bg-[#F6F7FA] m-2 hover:bg-[#ebedf3] transition-all duration-200"
       onClick={() => document.getElementById("file-upload-add-more").click()}
     >
       <input
@@ -462,7 +462,7 @@ function NewAdvertisement() {
         multiple
       />
       <div className="flex flex-col justify-center items-center gap-2 text-[#4C88F9]">
-        <img src={addMore} alt="Add more" className="w-[40px] m-auto  lg:m-0" />
+        <img src={addMore} alt="Add more" className="w-[40px] m-auto lg:m-0" />
         Fotoğraf Ekle
       </div>
     </div>
@@ -1523,40 +1523,13 @@ function NewAdvertisement() {
                   {PictureErrorMsg}
                 </p>
                 <div>
-                  <div className="grid grid-cols-12 md:flex md:flex-wrap gap-y-6 lg:gap-x-6 ">
+                  <div className="grid grid-cols-12 md:flex md:flex-wrap gap-y-6 lg:gap-x-8">
                     {imageSlots}
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          {/* <div className="grid grid-cols-12 gap-[30px] mt-[80px]">
-            <div className="col-span-12 lg:col-span-6">
-              <ul className="flex flex-col gap-y-[30px] picture-list ml-5">
-                <li>
-                  Photos must be taken in the territory of the Republic of
-                  Azerbaijan
-                </li>
-                <li>
-                  Photos must be of good quality. The vehicle should be
-                  well-lit, there should be no logos and other inscriptions on
-                  the pictures. Screenshots are not accepted.
-                </li>
-              </ul>
-            </div>
-            <div className="col-span-12 lg:col-span-6">
-              <ul className="flex flex-col gap-y-[30px] picture-list ml-5 lg:ml-0 ">
-                <li>
-                  Photos taken at the dealership must be uploaded from the
-                  registered dealership's account.
-                </li>
-                <li>
-                  A vehicle sold by a private owner must not be photographed in
-                  or near the showroom/official service area.
-                </li>
-              </ul>
-            </div>
-          </div> */}
           <div className="grid grid-cols-12 mt-[30px] md:ml-6">
             <div className="col-span-12">
               <h2 className="uppercase font-secondary text-[26px] font-bold leading-8 text-primary">
@@ -1639,7 +1612,7 @@ function NewAdvertisement() {
                     Cep Telefonu Numarası
                   </label>
                   <div className="relative md:max-w-[452px] w-full">
-                    <span className="font-primary text-[14px] font-normal px-3 py-[10px] absolute  rounded-md rounded-tr-none rounded-br-none left-0 bg-slate-100">
+                    <span className="font-primary text-[14px] font-normal px-3 py-[10px] h-full absolute  rounded-md rounded-tr-none rounded-br-none left-0 bg-slate-100">
                       +90
                     </span>
                     <input

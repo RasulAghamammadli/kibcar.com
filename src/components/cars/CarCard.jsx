@@ -200,7 +200,7 @@ function CarCard({
               </span>
             ) : null}
 
-            <div className="bg-white rounded-md flex items-center">
+            <div className="bg-white rounded-md flex items-center absolute right-0 bottom-0">
               {is_premium_announcement && (
                 <svg
                   width="20"

@@ -160,6 +160,9 @@ function Homepage() {
     setKey((prevKey) => prevKey + 1);
   }
 
+  console.log(premiumAds, "premium");
+  console.log(ads, "ads");
+
   return (
     <main key={key} className="flex-1">
       <form

@@ -8,10 +8,10 @@ function GetPinMethods({ onCloseModal, showNewModal, setSharedData }) {
   const { id } = useParams();
 
   async function handleClick(method) {
-    console.log(selectedOption);
     await handleForgetPin(id, method);
     showNewModal("forget-pin");
   }
+
   const handleForgetPin = async (id, method) => {
     console.log(import.meta.env.VITE_REACT_APP_API_URL);
     try {
@@ -49,7 +49,7 @@ function GetPinMethods({ onCloseModal, showNewModal, setSharedData }) {
               type="radio"
               value="SMS"
               checked={selectedOption === "SMS"}
-              onClick={() => handleClick("sms")}
+              onClick={() => showNewModal("forget-pin")}
               onChange={() => setSelectedOption("SMS")}
               className="form-radio accent-red h-5 w-5 cursor-pointer"
             />
@@ -66,11 +66,6 @@ function GetPinMethods({ onCloseModal, showNewModal, setSharedData }) {
             />
             <span className="ml-2 text-base">E-posta adresi yoluyla</span>
           </label>
-          {/* <Modal>
-            <Modal.Open>
-
-            </Modal.Open>
-          </Modal> */}
         </div>
       </div>
     </div>

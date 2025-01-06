@@ -12,7 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
 import AnimatedButtonWrapper from "../components/AnimatedButtonWrapper";
-import Modal from "../components/Modal";
+import AdLimitModal from "../components/LimitedModal";
 
 function NewAdvertisement() {
   const navigate = useNavigate();
@@ -173,6 +173,7 @@ function NewAdvertisement() {
     }
     getDefaultOptions();
   }, []);
+
   const initialData = {
     brand: "",
     fuelType: "",
@@ -223,6 +224,7 @@ function NewAdvertisement() {
     vehicle_front_panel_image: null,
     imagesFiles: [],
   };
+
   const [formData, setFormData] = useState(initialData);
 
   useEffect(() => {
@@ -249,6 +251,7 @@ function NewAdvertisement() {
       [name]: value,
     });
   }
+
   function handleCheckboxChange(e) {
     const { name, checked } = e.target;
     setFormData({
@@ -256,6 +259,7 @@ function NewAdvertisement() {
       [name]: checked,
     });
   }
+
   const placeholderImages = [frontView, backView, insideView];
   function validateImageCount(uploadedImages) {
     const minImages = 3;
@@ -468,6 +472,15 @@ function NewAdvertisement() {
     </div>
   );
 
+  const [modalType, setModalType] = useState(null);
+
+  const handle403Error = () => {
+    setModalType("limited");
+  };
+  const closeModal = () => {
+    setModalType(null);
+  };
+
   function handleFormSubmit(e) {
     e.preventDefault();
     async function saveAnnouncement() {
@@ -590,61 +603,9 @@ function NewAdvertisement() {
           }
         }
         if (error.response?.status === 403) {
-          showModal(
-            "Ücretsiz deneme limiti doldu. Sadece 1 ücretsiz denemeye izin veriliyor."
-          );
+          handle403Error();
         }
       }
-    }
-
-    // modal
-    function showModal(message) {
-      // create modal
-      const modal = document.createElement("div");
-      Object.assign(modal.style, {
-        position: "fixed",
-        top: "0",
-        left: "0",
-        width: "100vw",
-        height: "100vh",
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        zIndex: "1000",
-        transition: "all 0.2s ease",
-      });
-
-      // Modal content
-      const modalContent = document.createElement("div");
-      Object.assign(modalContent.style, {
-        background: "white",
-        padding: "20px",
-        margin: "0 16px",
-        borderRadius: "10px",
-        textAlign: "center",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-      });
-      modalContent.innerHTML = `
-        <p>${message}</p>
-        <button id="closeModalButton" style="margin-top: 20px; padding: 10px 20px; background: #b62c17; color: white; border: none; border-radius: 5px; cursor: pointer;">
-          Ana sayfaya dön
-        </button>
-      `;
-
-      // close
-      modalContent.querySelector("button").addEventListener("click", () => {
-        modal.style.opacity = "0";
-        setTimeout(() => modal.remove(), 200);
-        navigate("/");
-      });
-
-      // add modal
-      modal.appendChild(modalContent);
-      document.body.appendChild(modal);
-
-      // Smooth
-      setTimeout(() => (modal.style.opacity = "1"), 10);
     }
 
     const errorMessage = validateImageCount(formData.uploadedImages);
@@ -1672,6 +1633,8 @@ function NewAdvertisement() {
           onClose={() => setShowOtpModal(false)}
         />
       )}
+
+      {modalType === "limited" && <AdLimitModal onClose={closeModal} />}
 
       <ToastContainer />
     </form>

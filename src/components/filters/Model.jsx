@@ -77,6 +77,7 @@ function Model() {
     }
     getModels();
   }, [brandId]);
+
   useEffect(() => {
     if (isOpen) {
       inputRef.current.focus();

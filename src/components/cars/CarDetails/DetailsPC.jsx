@@ -23,6 +23,7 @@ import ComplainForm from "../../ComplainForm";
 import ReadMore from "../../ReadMore";
 import { FaClock, FaMapMarkerAlt } from "react-icons/fa";
 import GetPinMethods from "../../GetPinMethods";
+import PaymentModal from "../../PaymentModal";
 
 function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
   const [number, setNumber] = useState(false);
@@ -63,8 +64,6 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
     }
     setIsFavorite(!isFavorite);
   };
-
-  console.log(car?.is_premium_announcement);
 
   return (
     <div className="container relative">
@@ -209,6 +208,9 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
                     </Modal.Window>
                     <Modal.Window name="pin-methods">
                       <GetPinMethods />
+                    </Modal.Window>
+                    <Modal.Window name="payment-modal">
+                      <PaymentModal />
                     </Modal.Window>
                   </Modal>
                 )}

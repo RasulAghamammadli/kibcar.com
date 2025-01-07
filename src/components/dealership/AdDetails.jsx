@@ -18,6 +18,7 @@ function AdDetails({
     logo_url,
     cover_url,
     dealership_name,
+    opening_hours,
   },
 }) {
   return (
@@ -94,7 +95,8 @@ function AdDetails({
                     <div className="flex items-center mt-3">
                       <FaClock className="mx-4" size="24px" color="#4989E0" />
                       <p className="font-primary text-white text-[15px]">
-                        Günlük: 09:00-19:00
+                        Günlük: {opening_hours[0]?.open_time}-
+                        {opening_hours[0]?.close_time}
                       </p>
                     </div>
                   </div>

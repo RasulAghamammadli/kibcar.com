@@ -5,6 +5,7 @@ import CarCard from "../cars/CarCard";
 import AdDetails from "./AdDetails";
 import phoneDetails from "../../assets/images/phone-details.png";
 import Spinner from "../Spinner";
+
 function DealershipDetails() {
   const [dealership, setDealership] = useState(null);
   const { dealershipId } = useParams();
@@ -30,7 +31,6 @@ function DealershipDetails() {
         }
         const data = await response.json();
         setDealership(data);
-        console.log(data);
       } catch (error) {
         console.error("Error fetching dealership details:", error);
       } finally {
@@ -67,28 +67,25 @@ function DealershipDetails() {
 
   return (
     <div className="bg-[#F2F2F2] lg:bg-transparent">
-      {/* <button className="fixed h-[48px] justify-center flex lg:hidden items-center gap-x-2 bg-[#3db460] rounded-xl hover:bg-[#269547] w-[calc(100%-32px)] right-4 left-4  bottom-4  ">
-        <img
-          className="w-[18px] h-[18px]"
-          src={phoneDetails}
-          alt="phoneDetails"
-        />
-        <p className="text-[15px] text-white">Call</p>
-      </button> */}
       <div className="lg:container">
-        <div className="lg:pt-[15px]">
+        <div className="lg:pt-[15px] mb-[40px]">
           <AdDetails ad={adContent?.data} />
         </div>
         {dealership?.data?.length === 0 ? (
-          <p className="lg:my-[60px] p-[10px] lg:p-0 bg-white lg:bg-transparent">
-            This Dealership has no ads yett!
+          <p className="lg:my-[60px] px-[10px] py-[50px] lg:p-0 bg-white font-semibold text-[20px] lg:bg-transparent">
+            Bu bayilik henüz ilan yayınlamadı!
           </p>
         ) : (
-          <div className="container grid grid-cols-12 mt-[15px] gap-[30px] bg-[#FCFCFC] lg:bg-transparent py-4">
-            {dealership?.data.map((car) => (
-              <CarCard key={car.id} car={car} />
-            ))}
-          </div>
+          <>
+            <h1 className="container py-[16px] font-secondary text-[20px] md:text-[26px] font-bold leading-8 text-primary border-y border-[#eaebf2]">
+              İlanlar
+            </h1>
+            <div className="container grid grid-cols-12 mt-[15px] gap-[30px] bg-[#FCFCFC] lg:bg-transparent py-4">
+              {dealership?.data.map((car) => (
+                <CarCard key={car.id} car={car} />
+              ))}
+            </div>
+          </>
         )}
       </div>
     </div>

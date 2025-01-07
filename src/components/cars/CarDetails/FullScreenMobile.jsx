@@ -44,7 +44,7 @@ function FullscreenMobile({
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 w-screen h-screen bg-black z-50 overflow-hidden flex items-center justify-between flex-col">
+    <div className="fixed top-0 left-0 w-screen h-[100dvh] bg-black z-50 overflow-hidden flex items-center justify-between flex-col">
       <nav className="flex justify-between w-full items-center h-[55px] font-medium text-base leading-5 text-white px-[8px]">
         <div className="hover:bg-[#FFFFFF26] rounded-lg">
           <button onClick={() => setShowFullSlider(null)}>

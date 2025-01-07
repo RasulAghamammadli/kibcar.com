@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Modal from "./Modal";
-import EditAdForm from "./EditAdForm";
-import ForgetPinForm from "./ForgetPinForm";
 import { Link } from "react-router-dom";
+import Modal from "./Modal";
+import ForgetPinForm from "./ForgetPinForm";
 
 const LimitedModal = ({ onClose }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
 
   // stop scroll
   useEffect(() => {
@@ -48,29 +48,44 @@ const LimitedModal = ({ onClose }) => {
             Tekrardan hoşgeldiniz, bedava ilan limitiniz doldu. Ödemeli ilan
             paylaşacaksınız.
           </p>
-          <p className="w-fit border border-y-black border-x-0 py-3 pr-[40px] mb-[14px]">
-            1 İlan Ücreti: 450 Türk Lirası
+          <p className="w-fit border border-y-black border-x-0 py-3 pr-[60px] mb-[14px]">
+            1 İlan Ücreti: <span className="font-bold">450 Türk Lirası</span>
           </p>
-          <Modal>
-            <Modal.Open windowName="forget-pin">
-              <div className="flex items-center">
-                <input type="radio" id="pay" className="cursor-pointer" />
-                <label htmlFor="pay" className="cursor-pointer ml-[7px]">
-                  Kredi Kartıyla Ödemeye devam
-                </label>
-              </div>
-            </Modal.Open>
-            <Modal.Window name="forget-pin">
-              <ForgetPinForm />
-            </Modal.Window>
-          </Modal>
-          <div className="mt-[20px]">
+          <div className="flex items-center">
+            <input
+              type="radio"
+              id="pay"
+              className="cursor-pointer"
+              onChange={() => setIsSelected(!isSelected)}
+            />
+            <label htmlFor="pay" className="cursor-pointer ml-[7px]">
+              Kredi Kartıyla Ödemeye devam
+            </label>
+          </div>
+          <div className="mt-[16px] flex gap-2">
             <Link
               to="/"
-              className="rounded-lg bg-red hover:bg-[#882111] text-white p-2 transition-all duration-200"
+              className="rounded-md bg-red hover:bg-[#882111] text-center min-w-[80px] text-white p-2 transition-all duration-200"
             >
               Ana sayfa
             </Link>
+            <Modal>
+              <Modal.Open windowName="forget-pin">
+                <button
+                  disabled={!isSelected}
+                  className={`rounded-md text-white py-2 px-4 min-w-[80px] bg-[#1aad1a] transition-all duration-200 hover:bg-[green] ${
+                    isSelected
+                      ? "opacity-100"
+                      : "opacity-50 hover:bg-[#1aad1a] cursor-not-allowed"
+                  }`}
+                >
+                  Devam et
+                </button>
+              </Modal.Open>
+              <Modal.Window name="forget-pin">
+                <ForgetPinForm />
+              </Modal.Window>
+            </Modal>
           </div>
         </div>
       </div>

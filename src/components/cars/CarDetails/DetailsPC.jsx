@@ -79,7 +79,7 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
             {car.brand.name} {car.brand_model.name},{" "}
             {car.engine_volume_liters + " L"}, {car.vehicle_year.name} yıl,{" "}
             {Number(car.mileage).toLocaleString()}{" "}
-            {car.mileage_measurement_unit.toUpperCase()}
+            {car.mileage_measurement_unit}
           </h2>
           <div className="flex items-center gap-x-[30px]">
             <button
@@ -352,13 +352,13 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
                 </div>
 
                 <div className="pt-[17px] border-t border-solid border-[#E2E2E2] flex flex-col gap-y-[11px]">
-                  <div className="flex items-center">
+                  {/* <div className="flex items-center">
                     <FaClock size="18px" color="#B1B8C6" className="mr-2" />
                     <p className="text-[15px] font-primary  uppercase text-primary">
                       Günlük: 09:00-19:00
                     </p>
-                  </div>
-                  <div className="flex  items-center">
+                  </div> */}
+                  <div className="flex items-center">
                     <FaMapMarkerAlt
                       size="18px"
                       color="#B1B8C6"

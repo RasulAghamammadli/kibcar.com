@@ -5,13 +5,11 @@ import ForgetPinForm from "./ForgetPinForm";
 
 const LimitedModal = ({ onClose }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [isSelected, setIsSelected] = useState(false);
+  const [isSelected, setIsSelected] = useState(true);
 
   // stop scroll
   useEffect(() => {
     setIsVisible(true);
-    document.body.style.overflow = "hidden";
-    return () => (document.body.style.overflow = "auto");
   }, []);
 
   // close modal
@@ -22,71 +20,82 @@ const LimitedModal = ({ onClose }) => {
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 ${
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 max-sm:items-end ${
         isVisible ? "opacity-100" : "opacity-0"
       }`}
       onClick={closeModal}
     >
       <div
-        className="bg-white rounded-lg shadow-lg min-w-[330px] max-w-[440px] mx-4"
+        className="bg-white rounded-lg shadow-lg min-w-[330px] max-w-[455px] max-sm:max-w-[100%] max-sm:rounded-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="p-4 bg-[#F00000] rounded-t-lg relative">
-          <p className="text-white font-semibold text-[16px] text-center">
+        <div className="p-6 px-[30px] relative rounded-t-lg border border-b-[#f6f7fa] max-sm:p-[18px] max-sm:rounded-t-2xl">
+          <p className="text-black font-semibold text-[18px] max-sm:text-center max-sm:text-[16px]">
             Ödemeli ilan
           </p>
           <button
             type="button"
             onClick={closeModal}
-            className="absolute top-[14px] right-4 text-white text-lg font-bold"
+            className="absolute top-[24px] right-[30px] text-[#b6b6b6] text-lg max-sm:right-[100%] max-sm:left-[15px] max-sm:top-[17px]"
           >
             ✕
           </button>
         </div>
-        <div className="p-5 text-[14px] text-left">
-          <p className="mb-[14px]">
-            Tekrardan hoşgeldiniz, bedava ilan limitiniz doldu. Ödemeli ilan
-            paylaşacaksınız.
-          </p>
-          <p className="w-fit border border-y-black border-x-0 py-3 pr-[60px] mb-[14px]">
-            1 İlan Ücreti: <span className="font-bold">450 Türk Lirası</span>
-          </p>
-          <div className="flex items-center">
+        <div className="py-[25px] px-[30px] text-[#8d94ad] max-sm:p-[15px] max-sm:text-[#212c3a]">
+          Tekrardan hoşgeldiniz, bedava ilan limitiniz doldu. Ödemeli ilan
+          paylaşacaksınız.
+        </div>
+        <div className="p-[10px] text-center text-[12px] text-[#8d94ad] bg-[#fbfcff] border border-[#f6f7fa]">
+          İLAN ÜCRETİ
+        </div>
+        <p className="py-[12px] px-[30px] text-[15px] text-[#212c3a] max-sm:p-[15px]">
+          1 İlan Ücreti: 450 Türk Lirası
+        </p>
+        <div className="p-[10px] text-center text-[12px] text-[#8d94ad] bg-[#fbfcff] border border-[#f6f7fa]">
+          ÖDEME YÖNTEMİNİ SEÇİN
+        </div>
+        <div className="py-[12px] px-[30px] text-[15px] flex items-center max-sm:p-[15px]">
+          <label htmlFor="pay" className="flex items-center cursor-pointer">
             <input
               type="radio"
               id="pay"
-              className="cursor-pointer"
+              className="hidden peer cursor-pointer"
+              checked={isSelected}
               onChange={() => setIsSelected(!isSelected)}
             />
-            <label htmlFor="pay" className="cursor-pointer ml-[7px]">
-              Kredi Kartıyla Ödemeye devam
-            </label>
-          </div>
-          <div className="mt-[16px] flex gap-2">
-            <Link
-              to="/"
-              className="rounded-md bg-red hover:bg-[#882111] text-center min-w-[80px] text-white p-2 transition-all duration-200"
+            <div
+              className={`w-[22px] h-[22px] rounded-full border border-[#eaebf2] flex items-center justify-center transition ${
+                isSelected ? "border-[#007eff]" : ""
+              }`}
             >
-              Ana sayfa
-            </Link>
-            <Modal>
-              <Modal.Open windowName="forget-pin">
-                <button
-                  disabled={!isSelected}
-                  className={`rounded-md text-white py-2 px-4 min-w-[80px] bg-[#1aad1a] transition-all duration-200 hover:bg-[green] ${
-                    isSelected
-                      ? "opacity-100"
-                      : "opacity-50 hover:bg-[#1aad1a] cursor-not-allowed"
-                  }`}
-                >
-                  Devam et
-                </button>
-              </Modal.Open>
-              <Modal.Window name="forget-pin">
-                <ForgetPinForm />
-              </Modal.Window>
-            </Modal>
-          </div>
+              <div
+                className={`w-3 h-3 bg-[#007eff] rounded-full ${
+                  isSelected ? "peer-checked:block" : "hidden"
+                }`}
+              ></div>
+            </div>
+            <span className="ml-[10px] text-[#212c3a]">
+              Kredi kartıyla ödemeye devam
+            </span>
+          </label>
+        </div>
+        <div className="flex flex-col gap-3 py-[20px] px-[30px] w-full text-center text-[12px] text-[#8d94ad] bg-[#fbfcff] rounded-b-lg border border-t-[#f6f7fa] max-sm:px-[15px] max-sm:rounded-none">
+          <Modal>
+            <Modal.Open windowName="forget-pin">
+              <button className="rounded-lg text-white text-[16px] py-2 px-4 min-w-[80px] h-[45px] bg-[#4b8af9] hover:bg-[#1a6af7] transition-all duration-200 max-sm:h-[40px]">
+                Öde
+              </button>
+            </Modal.Open>
+            <Modal.Window name="forget-pin">
+              <ForgetPinForm />
+            </Modal.Window>
+          </Modal>
+          <Link
+            to="/"
+            className="rounded-lg bg-red hover:bg-[#882111] flex items-center justify-center min-w-[80px] h-[45px] text-[16px] text-white transition-all duration-200 max-sm:h-[40px]"
+          >
+            Ana sayfa
+          </Link>
         </div>
       </div>
     </div>

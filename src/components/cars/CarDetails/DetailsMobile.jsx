@@ -133,7 +133,7 @@ function DetailsMobile({
               {car.brand.name} {car.brand_model.name},{" "}
               {car.engine_volume_liters + " L"}, {car.vehicle_year.name} yıl,{" "}
               {Number(car.mileage).toLocaleString()}{" "}
-              {car.mileage_measurement_unit.toUpperCase()}
+              {car.mileage_measurement_unit}
             </h2>
             <div to={""} className="grid grid-cols-12 space-x-2 my-[15px] ">
               {!car.is_premium_announcement && (
@@ -236,9 +236,9 @@ function DetailsMobile({
                 <div className="flex items-center justify-between mb-[15px] mt-4 pt-4 border-t border-[#eaebf2]">
                   <div>
                     <p>{car.car_dealership.name}</p>
-                    <p className="text-[15px] font-primary  uppercase text-[#8d94ad]">
+                    {/* <p className="text-[15px] font-primary  uppercase text-[#8d94ad]">
                       Günlük: 09:00-19:00
-                    </p>
+                    </p> */}
                   </div>
 
                   <img
@@ -252,7 +252,7 @@ function DetailsMobile({
                 </p>
               </>
             )}
-            <div className="flex justify-between items-center  p-[10px] bg-[#f8f9fd] rounded-[7px]">
+            <div className="flex justify-between items-center p-[10px] bg-[#f8f9fd] rounded-[7px]">
               <a
                 href={`tel:${
                   car.user

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
+// components
 import Modal from "./Modal";
 import ForgetPinForm from "./ForgetPinForm";
 
@@ -7,7 +9,6 @@ const LimitedModal = ({ onClose }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isSelected, setIsSelected] = useState(true);
 
-  // stop scroll
   useEffect(() => {
     setIsVisible(true);
   }, []);
@@ -64,8 +65,8 @@ const LimitedModal = ({ onClose }) => {
               onChange={() => setIsSelected(!isSelected)}
             />
             <div
-              className={`w-[22px] h-[22px] rounded-full border border-[#eaebf2] flex items-center justify-center transition ${
-                isSelected ? "border-[#007eff]" : ""
+              className={`w-[22px] h-[22px] rounded-full border flex items-center justify-center transition ${
+                isSelected ? "border-[#007eff]" : "border-[#eaebf2]"
               }`}
             >
               <div

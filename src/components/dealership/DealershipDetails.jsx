@@ -77,9 +77,6 @@ function DealershipDetails() {
           </p>
         ) : (
           <>
-            <h1 className="container py-[16px] font-secondary text-[20px] md:text-[26px] font-bold leading-8 text-primary border-y border-[#eaebf2]">
-              İlanlar
-            </h1>
             <div className="container grid grid-cols-12 mt-[15px] gap-[30px] bg-[#FCFCFC] lg:bg-transparent py-4">
               {dealership?.data.map((car) => (
                 <CarCard key={car.id} car={car} />

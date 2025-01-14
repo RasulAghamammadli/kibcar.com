@@ -21,6 +21,7 @@ import { IoFlagOutline } from "react-icons/io5";
 import ComplainForm from "../../ComplainForm";
 import FullscreenMobile from "./FullScreenMobile";
 import GetPinMethods from "../../GetPinMethods";
+import PremiumVipModal from "../../PremiumVipModal";
 
 function DetailsMobile({
   car,
@@ -30,6 +31,12 @@ function DetailsMobile({
   id,
 }) {
   const [isFavorite, setIsFavorite] = useState(false);
+  const [activeModal, setActiveModal] = useState(null);
+
+  // modal functions
+  const openVipModal = () => setActiveModal("vip");
+  const openPremiumModal = () => setActiveModal("premium");
+  const closeModal = () => setActiveModal(null);
 
   useEffect(() => {
     checkCarDataAndAct(car.id, () => setIsFavorite(true));
@@ -138,7 +145,7 @@ function DetailsMobile({
             <div to={""} className="grid grid-cols-12 space-x-2 my-[15px] ">
               {!car.is_premium_announcement && (
                 <>
-                  <Link className="col-span-4">
+                  {/* <Link className="col-span-4">
                     <CreativeButton
                       title="İleriye götür"
                       price="3"
@@ -161,11 +168,15 @@ function DetailsMobile({
                         </svg>
                       }
                     />
-                  </Link>
-                  <Link className="col-span-4">
+                  </Link> */}
+                  <button
+                    type="button"
+                    className="col-span-6"
+                    onClick={openVipModal}
+                  >
                     <CreativeButton
                       title="Vip"
-                      price="5"
+                      price="100"
                       icon={
                         <svg
                           width="26"
@@ -185,11 +196,15 @@ function DetailsMobile({
                         </svg>
                       }
                     />
-                  </Link>
-                  <Link className="col-span-4">
+                  </button>
+                  <button
+                    type="button"
+                    className="col-span-6"
+                    onClick={openPremiumModal}
+                  >
                     <CreativeButton
                       title="Premium"
-                      price="7"
+                      price="140"
                       icon={
                         <svg
                           width="25"
@@ -207,7 +222,7 @@ function DetailsMobile({
                         </svg>
                       }
                     />
-                  </Link>
+                  </button>
                 </>
               )}
             </div>
@@ -362,6 +377,11 @@ function DetailsMobile({
           </div>
         </div>
       </div>
+
+      {/* Payment Modal */}
+      {activeModal && (
+        <PremiumVipModal type={activeModal} onClose={closeModal} car={car} />
+      )}
     </div>
   );
 }

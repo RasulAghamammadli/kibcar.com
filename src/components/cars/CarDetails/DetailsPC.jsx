@@ -24,10 +24,17 @@ import ReadMore from "../../ReadMore";
 import { FaClock, FaMapMarkerAlt } from "react-icons/fa";
 import GetPinMethods from "../../GetPinMethods";
 import PaymentModal from "../../PaymentModal";
+import PremiumVipModal from "../../PremiumVipModal";
 
 function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
   const [number, setNumber] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [activeModal, setActiveModal] = useState(null);
+
+  // modal functions
+  const openVipModal = () => setActiveModal("vip");
+  const openPremiumModal = () => setActiveModal("premium");
+  const closeModal = () => setActiveModal(null);
 
   useEffect(() => {
     checkCarDataAndAct(car.id, () => setIsFavorite(true));
@@ -382,7 +389,7 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
           <div className="grid grid-cols-12 space-x-2 mt-[20px]">
             {!car.is_premium_announcement && (
               <>
-                <Link className="col-span-4">
+                {/* <Link className="col-span-4">
                   <CreativeButton
                     title="İleriye götür"
                     price="3"
@@ -405,11 +412,15 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
                       </svg>
                     }
                   />
-                </Link>
-                <Link className="col-span-4">
+                </Link> */}
+                <button
+                  type="button"
+                  className="col-span-6"
+                  onClick={openVipModal}
+                >
                   <CreativeButton
                     title="Vip"
-                    price="5"
+                    price="100"
                     icon={
                       <svg
                         width="26"
@@ -429,17 +440,21 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
                       </svg>
                     }
                   />
-                </Link>
-                <Link className="col-span-4">
+                </button>
+                <button
+                  type="button"
+                  className="col-span-6"
+                  onClick={openPremiumModal}
+                >
                   <CreativeButton
                     title="Premium"
-                    price="7"
+                    price="140"
                     icon={
                       <svg
                         width="25"
                         height="24"
                         fill="none"
-                        viewBox="-5 -5 25 24"
+                        viewBox="-5 -5 26 24"
                         x="359"
                         y="312"
                         xmlns="http://www.w3.org/2000/svg"
@@ -451,13 +466,18 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
                       </svg>
                     }
                   />
-                </Link>
+                </button>
               </>
             )}
           </div>
         </div>
       </div>
       {/* <RecentAnnouncement carDetail={true} /> */}
+
+      {/* Payment Modal */}
+      {activeModal && (
+        <PremiumVipModal type={activeModal} onClose={closeModal} car={car} />
+      )}
     </div>
   );
 }

@@ -374,7 +374,7 @@ function Homepage() {
         </div>
       </form>
       {premiumAds.length > 0 && (
-        <VipAnnouncement announcements={premiumAds} title={"Premium İlanlar"} />
+        <VipAnnouncement announcements={premiumAds} title={"Premİum İlanlar"} />
       )}
       {ads.length > 0 && (
         <VipAnnouncement announcements={ads} title={"Tüm İlanlar"} />

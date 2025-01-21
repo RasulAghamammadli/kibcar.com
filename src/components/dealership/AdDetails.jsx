@@ -125,7 +125,7 @@ function AdDetails({
           </div>
         </div>
       </div>
-      <p className="lg:hidden font-primary text-[15px] underline text-[#1e6e9d] flex  bg-white mt-1 lg:mt-0 p-[10px]">
+      <p className="lg:hidden font-primary text-[15px] underline text-[#1e6e9d] flex  bg-white mt-0 p-[10px]">
         {city?.name}
       </p>
     </>

@@ -13,7 +13,7 @@ function VolumeMin() {
 
   const handleSelection = (item) => {
     setSelectedVolumeMin(item.name);
-    setSearchTerm("");
+    setSearchTerm(item.name);
     closeDropdown();
   };
 
@@ -22,6 +22,11 @@ function VolumeMin() {
     if (!isOpen) {
       setIsOpen(true);
     }
+  };
+
+  // clear searchTerm
+  const clearSearchTerm = () => {
+    setSearchTerm("");
   };
 
   const closeDropdown = () => {
@@ -100,18 +105,17 @@ function VolumeMin() {
               type="text"
               value={searchTerm}
               onChange={handleInputChange}
-              placeholder={selectedVolumeMin || "Hacim (cm³), min."}
-              className={`font-primary text-[15px] font-normal w-full bg-transparent border-none focus:outline-none text-start overflow-hidden whitespace-nowrap overflow-ellipsis ${
-                searchTerm ? "mt-[11px]" : ""
+              className={`font-primary text-[15px] text-primary font-normal w-full bg-transparent border-none focus:outline-none text-start overflow-hidden whitespace-nowrap overflow-ellipsis ${
+                searchTerm ? "mt-[15px]" : "text-primary"
               }`}
             />
             <label
               htmlFor="volumeMin"
-              className={`${
+              className={`absolute cursor-pointer font-normal left-[11px] bg-white transition-all text-start w-[70%] overflow-hidden whitespace-nowrap overflow-ellipsis ${
                 searchTerm
-                  ? "absolute cursor-pointer font-normal left-0 top-[8px] pl-[0.6rem] pr-[0.1rem] pt-[2px] text-[12px] leading-3 transition-all duration-300 w-full text-start peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-focus:top-[8px]  peer-focus:text-[12px] peer-focus:leading-3 font-primary text-secondary"
-                  : "hidden"
-              } `}
+                  ? "top-[7px] text-[12px] leading-4 text-secondary"
+                  : "top-[15px] text-[15px] leading-5 text-gray-400"
+              }`}
             >
               Hacim (cm<sup>3</sup>), min.
             </label>
@@ -125,6 +129,12 @@ function VolumeMin() {
           />
         </summary>
         <ul className="p-2 px-0 z-[1] shadow menu dropdown-content bg-base-100 flex flex-col flex-nowrap justify-start w-full mt-0.5 rounded-lg max-h-[210px] overflow-y-auto">
+          <li onClick={clearSearchTerm}>
+            <label className="flex items-center w-full pr-4 px-[10px] py-2.5 text-primary text-[15px] rounded-none">
+              <span className="text-red font-semibold text-[15px]">✕</span>
+              Sıfırla
+            </label>
+          </li>
           {filteredEngineVolumes.map((item) => (
             <li key={item.id} onClick={() => handleSelection(item)}>
               <a href="" className="rounded-none px-[10px] text-primary">

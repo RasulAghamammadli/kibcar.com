@@ -10,7 +10,7 @@ function Spinner() {
   }, []);
 
   return (
-    <div className="absolute inset-0 flex items-center justify-center bg-slate-200/30 backdrop-blur-sm z-[9999]">
+    <div className="absolute inset-0 flex items-center h-[100dvh] justify-center bg-slate-200/30  backdrop-blur-sm z-[9999]">
       <div className="loader" data-text="KibCar">
         <svg
           className="loader-svg"
@@ -31,7 +31,7 @@ function Spinner() {
 
           <text
             x="50%"
-            y="50%"
+            y="51%"
             dominantBaseline="middle"
             textAnchor="middle"
             className="text-fill"

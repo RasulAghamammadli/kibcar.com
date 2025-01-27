@@ -5,7 +5,7 @@ import { useContext } from "react";
 import FilterContext from "../../context/filterContext/FilterContext";
 
 function Brand() {
-  const { setBrandId } = useContext(FilterContext);
+  const { setBrandId, brandId } = useContext(FilterContext);
   const [brandName, setBrandName] = useState("");
   const [brands, setBrands] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -27,11 +27,20 @@ function Brand() {
     if (!isOpen) {
       setIsOpen(true);
     }
+    if (e.target.value === "") {
+      setBrandName("");
+      setBrandId("");
+    }
   };
 
   // clear searchTerm
   const clearSearchTerm = () => {
     setSearchTerm("");
+    setBrandName("");
+    setBrandId("");
+    if (detailsRef.current) {
+      detailsRef.current.removeAttribute("open");
+    }
   };
 
   const closeDropdown = () => {
@@ -57,9 +66,12 @@ function Brand() {
     }
   };
 
-  const filteredBrands = brands.filter((brand) =>
-    brand.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredBrands =
+    searchTerm && searchTerm !== brandName
+      ? brands.filter((brand) =>
+          brand.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      : brands;
 
   useEffect(() => {
     async function getBrands() {
@@ -116,7 +128,7 @@ function Brand() {
             />
             <label
               htmlFor="brand"
-              className={`absolute cursor-pointer font-normal left-[11px] bg-white transition-all text-start w-fit ${
+              className={`absolute cursor-pointer font-normal left-[11px] bg-transparent transition-all text-start w-fit ${
                 searchTerm
                   ? "top-[9px] text-[12px] leading-3 text-secondary"
                   : "top-[18px] text-[15px] leading-3 text-gray-400"
@@ -142,7 +154,13 @@ function Brand() {
           </li>
           {filteredBrands.map((brand) => (
             <li key={brand.id} onClick={() => handleSelection(brand)}>
-              <a className="rounded-none px-[10px] text-primary">
+              <a
+                className={`rounded-none px-[10px] text-primary ${
+                  brand.name === brandName
+                    ? "text-red font-semibold hover:text-red"
+                    : ""
+                }`}
+              >
                 {brand.name}
               </a>
             </li>

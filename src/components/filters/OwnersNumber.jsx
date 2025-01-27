@@ -1,11 +1,9 @@
 import axios from "axios";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
 import chivronBottom from "../../assets/icons/chivron-bottom-gray.svg";
-import { useContext } from "react";
 import FilterContext from "../../context/filterContext/FilterContext";
 
 function OwnersNumber() {
-  const [ownersNumber, setOwnersNumber] = useState([]);
   const {
     checkedOwnersNumber,
     setCheckedOwnersNumber,
@@ -13,24 +11,37 @@ function OwnersNumber() {
   } = useContext(FilterContext);
   const detailsRef = useRef(null);
   const inputRef = useRef(null);
+  const [ownersNumber, setOwnersNumber] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleCheckboxChange = (event) => {
     const item = event.target.name;
     const itemId = event.target.id;
+
     setCheckedOwnersNumber((prevItems) => ({
       ...prevItems,
       [item]: !prevItems[item],
     }));
+
     setCheckedOwnersNumberIds((prevItems) => {
       if (prevItems.includes(itemId)) {
-        return prevItems.filter((item) => item !== itemId);
+        return prevItems.filter((id) => id !== itemId);
       } else {
         return [...prevItems, itemId];
       }
     });
+
     setSearchTerm(""); // Clear search term after selection
+  };
+
+  const clearSearchTerm = () => {
+    setSearchTerm("");
+    setCheckedOwnersNumber({});
+    setCheckedOwnersNumberIds([]);
+    if (detailsRef.current) {
+      detailsRef.current.removeAttribute("open");
+    }
   };
 
   const handleInputFocus = () => {
@@ -48,6 +59,14 @@ function OwnersNumber() {
     }
   };
 
+  const filteredOwnersNumber = ownersNumber.filter((owner) =>
+    owner.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const selectedOptions = Object.keys(checkedOwnersNumber)
+    .filter((key) => checkedOwnersNumber[key])
+    .join(", ");
+
   useEffect(() => {
     async function getOwnersNumber() {
       try {
@@ -62,16 +81,6 @@ function OwnersNumber() {
     getOwnersNumber();
   }, []);
 
-  const filteredOwnersNumber = ownersNumber.filter((owner) =>
-    owner.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const selectedOptions = Object.keys(checkedOwnersNumber).filter(
-    (item) => checkedOwnersNumber[item]
-  );
-
-  const summaryText =
-    selectedOptions.length === 0 ? "Sahip Sayısı" : selectedOptions.join(", ");
   useEffect(() => {
     if (isOpen) {
       inputRef.current.focus();
@@ -81,7 +90,7 @@ function OwnersNumber() {
   }, [isOpen]);
 
   return (
-    <div className="h-full">
+    <div className="w-full h-full">
       <details
         ref={detailsRef}
         className="w-full h-full dropdown"
@@ -96,24 +105,23 @@ function OwnersNumber() {
         >
           <div className="max-w-[80%]">
             <input
-              id="numOwners"
               ref={inputRef}
+              id="numOwners"
               type="text"
-              value={searchTerm}
+              value={searchTerm || selectedOptions}
               onChange={handleInputChange}
               onFocus={handleInputFocus}
-              placeholder={summaryText}
-              className={`font-primary text-[15px] font-normal w-full bg-transparent border-none focus:outline-none text-start overflow-hidden whitespace-nowrap overflow-ellipsis ${
-                searchTerm ? "mt-[9px]" : ""
+              className={`font-primary text-[15px] text-primary font-normal w-full bg-transparent border-none focus:outline-none text-start overflow-hidden whitespace-nowrap overflow-ellipsis ${
+                searchTerm || selectedOptions ? "mt-[15px]" : "text-primary"
               }`}
             />
             <label
               htmlFor="numOwners"
-              className={`${
-                searchTerm
-                  ? "absolute cursor-pointer font-normal left-0 top-[8px] pl-[0.6rem] pr-[0.1rem] text-[12px] leading-3 transition-all w-full text-start peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-focus:top-[8px]  peer-focus:text-[12px] peer-focus:leading-3 font-primary text-secondary"
-                  : "hidden"
-              } `}
+              className={`absolute cursor-pointer font-normal left-[11px] bg-transparent transition-all text-start w-fit ${
+                searchTerm || selectedOptions
+                  ? "top-[9px] text-[12px] leading-3 text-secondary"
+                  : "top-[16px] text-[15px] leading-4 text-gray-400"
+              }`}
             >
               Sahip Sayısı
             </label>
@@ -127,6 +135,12 @@ function OwnersNumber() {
           />
         </summary>
         <ul className="p-2 px-0 z-[1] shadow menu dropdown-content bg-base-100 flex flex-col flex-nowrap justify-start w-full mt-0.5 rounded-lg max-h-[210px] overflow-y-auto">
+          <li onClick={clearSearchTerm}>
+            <label className="flex items-center w-full pr-4 px-[10px] py-2.5 text-primary text-[15px] rounded-none">
+              <span className="text-red font-semibold text-[15px]">✕</span>
+              Sıfırla
+            </label>
+          </li>
           {filteredOwnersNumber.map((item) => (
             <li key={item.id} className="flex items-center">
               <label className="flex items-center justify-between w-full pr-4 px-[10px] py-2.5 text-secondary font-primary rounded-none">

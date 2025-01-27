@@ -1,15 +1,14 @@
 import axios from "axios";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
 import chivronBottom from "../../assets/icons/chivron-bottom-gray.svg";
-import { useContext } from "react";
 import FilterContext from "../../context/filterContext/FilterContext";
 
 function GearBox() {
-  const [gearBoxs, setGearBoxs] = useState([]);
   const { checkedGearBox, setCheckedGearBox, setCheckedGearBoxIds } =
     useContext(FilterContext);
   const detailsRef = useRef(null);
   const inputRef = useRef(null);
+  const [gearBoxs, setGearBoxs] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -21,14 +20,25 @@ function GearBox() {
       ...prevItems,
       [item]: !prevItems[item],
     }));
+
     setCheckedGearBoxIds((prevItems) => {
       if (prevItems.includes(itemId)) {
-        return prevItems.filter((item) => item !== itemId);
+        return prevItems.filter((id) => id !== itemId);
       } else {
         return [...prevItems, itemId];
       }
     });
+
     setSearchTerm(""); // Clear search term after selection
+  };
+
+  const clearSearchTerm = () => {
+    setSearchTerm("");
+    setCheckedGearBox({});
+    setCheckedGearBoxIds([]);
+    if (detailsRef.current) {
+      detailsRef.current.removeAttribute("open");
+    }
   };
 
   const handleInputFocus = () => {
@@ -64,12 +74,10 @@ function GearBox() {
     getGearBoxs();
   }, []);
 
-  const selectedOptions = Object.keys(checkedGearBox).filter(
-    (item) => checkedGearBox[item]
-  );
+  const selectedOptions = Object.keys(checkedGearBox)
+    .filter((key) => checkedGearBox[key])
+    .join(", ");
 
-  const summaryText =
-    selectedOptions.length === 0 ? "Şanzıman" : selectedOptions.join(", ");
   useEffect(() => {
     if (isOpen) {
       inputRef.current.focus();
@@ -79,14 +87,14 @@ function GearBox() {
   }, [isOpen]);
 
   return (
-    <div className="h-full">
+    <div className="w-full h-full">
       <details
         ref={detailsRef}
         className="w-full h-full dropdown"
         onToggle={(e) => setIsOpen(e.target.open)}
       >
         <summary
-          className={`flex items-center justify-between w-full h-full px-[10px] bg-white border rounded-lg btn shadow-none hover:bg-white  ${
+          className={`flex items-center justify-between w-full h-full px-[10px] bg-white border rounded-lg btn shadow-none hover:bg-white ${
             isOpen
               ? "border-[#8F93AD] hover:!border-[#8F93AD]"
               : "border-gray-300"
@@ -94,24 +102,23 @@ function GearBox() {
         >
           <div className="max-w-[80%]">
             <input
-              id="gearBox"
               ref={inputRef}
+              id="gearBox"
               type="text"
-              value={searchTerm}
+              value={searchTerm || selectedOptions}
               onChange={handleInputChange}
               onFocus={handleInputFocus}
-              placeholder={summaryText}
-              className={`font-primary text-[15px] font-normal w-full bg-transparent border-none focus:outline-none text-start overflow-hidden whitespace-nowrap overflow-ellipsis ${
-                searchTerm ? "mt-[9px]" : ""
+              className={`font-primary text-[15px] text-primary font-normal w-full bg-transparent border-none focus:outline-none text-start overflow-hidden whitespace-nowrap overflow-ellipsis ${
+                searchTerm || selectedOptions ? "mt-[15px]" : "text-primary"
               }`}
             />
             <label
               htmlFor="gearBox"
-              className={`${
-                searchTerm
-                  ? "absolute cursor-pointer font-normal left-0 top-[8px] pl-[0.6rem] pr-[0.1rem] text-[12px] leading-3 transition-all duration-300 w-full text-start peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-focus:top-[8px]  peer-focus:text-[12px] peer-focus:leading-3 font-primary text-secondary"
-                  : "hidden"
-              } `}
+              className={`absolute cursor-pointer font-normal left-[11px] bg-transparent transition-all text-start w-fit ${
+                searchTerm || selectedOptions
+                  ? "top-[9px] text-[12px] leading-3 text-secondary"
+                  : "top-[16px] text-[15px] leading-4 text-gray-400"
+              }`}
             >
               Şanzıman
             </label>
@@ -125,6 +132,12 @@ function GearBox() {
           />
         </summary>
         <ul className="p-2 px-0 z-[1] shadow menu dropdown-content bg-base-100 flex flex-col flex-nowrap justify-start w-full mt-0.5 rounded-lg max-h-[210px] overflow-y-auto">
+          <li onClick={clearSearchTerm}>
+            <label className="flex items-center w-full pr-4 px-[10px] py-2.5 text-primary text-[15px] rounded-none">
+              <span className="text-red font-semibold text-[15px]">✕</span>
+              Sıfırla
+            </label>
+          </li>
           {filteredGearBoxs.map((item) => (
             <li key={item.id} className="flex items-center">
               <label className="flex items-center justify-between w-full pr-4 px-[10px] py-2.5 text-secondary font-primary rounded-none">

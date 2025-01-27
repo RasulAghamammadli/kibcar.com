@@ -11,7 +11,6 @@ function Model() {
   const [searchTerm, setSearchTerm] = useState("");
   const detailsRef = useRef(null);
   const inputRef = useRef(null);
-  const initialCheckedModelState = {};
 
   const handleCheckboxChange = (event) => {
     const item = event.target.name;
@@ -21,6 +20,7 @@ function Model() {
       ...prevItems,
       [item]: !prevItems[item],
     }));
+
     setCheckedModelsIds((prevItems) => {
       if (prevItems.includes(modelId)) {
         return prevItems.filter((item) => item !== modelId);
@@ -28,18 +28,18 @@ function Model() {
         return [...prevItems, modelId];
       }
     });
-    // Clear the search term after each selection
-    if (!item) {
-      setSearchTerm("");
-    } else {
-      setSearchTerm(item);
-    }
+
+    setSearchTerm("");
   };
 
   // clear searchTerm
   const clearSearchTerm = () => {
     setSearchTerm("");
-    setCheckedModels([]);
+    setCheckedModels({});
+    setCheckedModelsIds([]);
+    if (detailsRef.current) {
+      detailsRef.current.removeAttribute("open");
+    }
   };
 
   const handleInputFocus = () => {
@@ -62,11 +62,6 @@ function Model() {
   );
 
   useEffect(() => {
-    setCheckedModels(initialCheckedModelState);
-    setCheckedModels([]);
-  }, [brandId]);
-
-  useEffect(() => {
     async function getModels() {
       try {
         const response = await axios.get(
@@ -79,7 +74,13 @@ function Model() {
         console.log(error);
       }
     }
-    getModels();
+
+    if (brandId) {
+      getModels();
+    } else {
+      setModels([]);
+      clearSearchTerm();
+    }
   }, [brandId]);
 
   useEffect(() => {
@@ -89,6 +90,10 @@ function Model() {
       inputRef.current.blur();
     }
   }, [isOpen]);
+
+  const selectedModels = Object.keys(checkedModels)
+    .filter((key) => checkedModels[key])
+    .join(", ");
 
   return (
     <div className="h-full">
@@ -115,18 +120,18 @@ function Model() {
               ref={inputRef}
               id="model"
               type="text"
-              value={searchTerm}
+              value={searchTerm || selectedModels}
               onChange={handleInputChange}
               onFocus={handleInputFocus}
               className={`font-primary text-[15px] text-primary font-normal w-full bg-transparent border-none focus:outline-none text-start overflow-hidden whitespace-nowrap overflow-ellipsis ${
-                searchTerm ? "mt-[15px]" : "text-primary"
+                searchTerm || selectedModels ? "mt-[15px]" : "text-primary"
               }`}
               disabled={!brandId}
             />
             <label
               htmlFor="model"
-              className={`absolute cursor-pointer font-normal left-[11px] bg-white transition-all text-start w-fit ${
-                searchTerm
+              className={`absolute cursor-pointer font-normal left-[11px] bg-transparent transition-all text-start w-fit ${
+                searchTerm || selectedModels
                   ? "top-[9px] text-[12px] leading-3 text-secondary"
                   : "top-[18px] text-[15px] leading-3 text-gray-400"
               }`}
@@ -151,7 +156,7 @@ function Model() {
           </li>
           {filteredModels.map((model) => (
             <li key={model.id} className="flex items-center">
-              <label className="flex items-center justify-between w-full pr-4 px-[10px] py-2.5 text-secondary rounded-none font-primary">
+              <label className="flex items-center justify-between w-full pr-4 px-[10px] py-2.5 text-secondary font-primary rounded-none">
                 <span className="text-primary font-primary text-[15px]">
                   {model.name}
                 </span>

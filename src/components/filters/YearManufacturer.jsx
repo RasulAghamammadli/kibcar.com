@@ -4,8 +4,8 @@ import chivronBottom from "../../assets/icons/chivron-bottom-gray.svg";
 import FilterContext from "../../context/filterContext/FilterContext";
 
 function YearManufacturer() {
-  const { selectedYearManufactured, setSelectedYearManufactured } =
-    useContext(FilterContext);
+  const { setSelectedYearManufactured } = useContext(FilterContext);
+  const [yearName, setYearName] = useState("");
   const [years, setYears] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,6 +14,7 @@ function YearManufacturer() {
 
   const handleSelection = (item) => {
     setSelectedYearManufactured(item.name);
+    setYearName(item.name);
     setSearchTerm(item.name);
     closeDropdown();
   };
@@ -23,11 +24,18 @@ function YearManufacturer() {
     if (!isOpen) {
       setIsOpen(true);
     }
+    if (e.target.value === "") {
+      setYearName("");
+    }
   };
 
-  // clear searchTerm
   const clearSearchTerm = () => {
     setSearchTerm("");
+    setYearName("");
+    setSelectedYearManufactured("");
+    if (detailsRef.current) {
+      detailsRef.current.removeAttribute("open");
+    }
   };
 
   const closeDropdown = () => {
@@ -53,9 +61,12 @@ function YearManufacturer() {
     }
   };
 
-  const filteredYears = years.filter((year) =>
-    year.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredYears =
+    searchTerm && searchTerm !== yearName
+      ? years.filter((year) =>
+          year.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      : years;
 
   useEffect(() => {
     async function getVehicleYears() {
@@ -63,7 +74,7 @@ function YearManufacturer() {
         const response = await axios.get(
           `${import.meta.env.VITE_REACT_APP_API_URL}/api/vehicle-years`
         );
-        setYears(response.data);
+        setYears(response.data.reverse());
       } catch (error) {
         console.log(error);
       }
@@ -71,7 +82,6 @@ function YearManufacturer() {
     getVehicleYears();
   }, []);
 
-  // outside close
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (detailsRef.current && !detailsRef.current.contains(event.target)) {
@@ -93,7 +103,7 @@ function YearManufacturer() {
         onClick={handleDetailsClick}
       >
         <summary
-          className={`flex items-center justify-between w-full h-full px-[10px] bg-white border rounded-lg rounded-r-none btn shadow-none hover:bg-white  ${
+          className={`flex items-center justify-between w-full h-full px-[10px] bg-white border rounded-lg rounded-r-none btn shadow-none hover:bg-white ${
             isOpen
               ? "border-[#8F93AD] hover:!border-[#8F93AD]"
               : "border-gray-300"
@@ -112,7 +122,7 @@ function YearManufacturer() {
             />
             <label
               htmlFor="minYear"
-              className={`absolute cursor-pointer font-normal left-[11px] bg-white transition-all text-start w-fit ${
+              className={`absolute cursor-pointer font-normal left-[11px] bg-transparent transition-all text-start w-fit ${
                 searchTerm
                   ? "top-[9px] text-[12px] leading-3 text-secondary"
                   : "top-[18px] text-[15px] leading-3 text-gray-400"
@@ -136,9 +146,16 @@ function YearManufacturer() {
               Sıfırla
             </label>
           </li>
-          {filteredYears.reverse().map((item) => (
+          {filteredYears.map((item) => (
             <li key={item.id} onClick={() => handleSelection(item)}>
-              <a href="" className="rounded-none px-[10px] text-primary">
+              <a
+                href=""
+                className={`rounded-none px-[10px] text-primary ${
+                  item.name === yearName
+                    ? "text-red font-semibold hover:text-red"
+                    : ""
+                }`}
+              >
                 {item.name}
               </a>
             </li>

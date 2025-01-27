@@ -94,7 +94,7 @@ function DealershipDetails() {
           <AdDetails ad={adContent?.data} />
         </div>
         {dealership?.length === 0 ? (
-          <p className="lg:my-[60px] px-[10px] py-[50px] lg:p-0 bg-white font-semibold text-[20px] lg:bg-transparent">
+          <p className="container lg:my-[60px] px-[10px] py-[50px] lg:p-0 bg-white font-semibold text-[20px] lg:bg-transparent">
             Bu bayilik henüz ilan yayınlamadı!
           </p>
         ) : (

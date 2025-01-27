@@ -6,6 +6,7 @@ import FilterContext from "../../context/filterContext/FilterContext";
 function VolumeMin() {
   const [engineVolumes, setEngineVolumes] = useState([]);
   const { selectedVolumeMin, setSelectedVolumeMin } = useContext(FilterContext);
+  const [volumeName, setVolumeName] = useState("");
   const detailsRef = useRef(null);
   const inputRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -14,6 +15,7 @@ function VolumeMin() {
   const handleSelection = (item) => {
     setSelectedVolumeMin(item.name);
     setSearchTerm(item.name);
+    setVolumeName(item.name);
     closeDropdown();
   };
 
@@ -22,11 +24,19 @@ function VolumeMin() {
     if (!isOpen) {
       setIsOpen(true);
     }
+    if (e.target.value === "") {
+      setVolumeName("");
+    }
   };
 
   // clear searchTerm
   const clearSearchTerm = () => {
     setSearchTerm("");
+    setVolumeName("");
+    setSelectedVolumeMin("");
+    if (detailsRef.current) {
+      detailsRef.current.removeAttribute("open");
+    }
   };
 
   const closeDropdown = () => {
@@ -66,9 +76,12 @@ function VolumeMin() {
     getEngineVolumes();
   }, []);
 
-  const filteredEngineVolumes = engineVolumes.filter((volume) =>
-    volume.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredEngineVolumes =
+    searchTerm && searchTerm !== volumeName
+      ? engineVolumes.filter((volume) =>
+          volume.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      : engineVolumes;
 
   // outside close
   useEffect(() => {
@@ -111,7 +124,7 @@ function VolumeMin() {
             />
             <label
               htmlFor="volumeMin"
-              className={`absolute cursor-pointer font-normal left-[11px] bg-white transition-all text-start w-[70%] overflow-hidden whitespace-nowrap overflow-ellipsis ${
+              className={`absolute cursor-pointer font-normal left-[11px] bg-transparent transition-all text-start w-[70%] overflow-hidden whitespace-nowrap overflow-ellipsis ${
                 searchTerm
                   ? "top-[7px] text-[12px] leading-4 text-secondary"
                   : "top-[15px] text-[15px] leading-5 text-gray-400"
@@ -137,7 +150,14 @@ function VolumeMin() {
           </li>
           {filteredEngineVolumes.map((item) => (
             <li key={item.id} onClick={() => handleSelection(item)}>
-              <a href="" className="rounded-none px-[10px] text-primary">
+              <a
+                href=""
+                className={`rounded-none px-[10px] text-primary ${
+                  item.name === volumeName
+                    ? "text-red font-semibold hover:text-red"
+                    : ""
+                }`}
+              >
                 {item.name}
               </a>
             </li>

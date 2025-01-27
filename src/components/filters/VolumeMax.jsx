@@ -6,6 +6,7 @@ import FilterContext from "../../context/filterContext/FilterContext";
 function VolumeMax() {
   const [engineVolumes, setEngineVolumes] = useState([]);
   const { selectedVolumeMax, setSelectedVolumeMax } = useContext(FilterContext);
+  const [volumeName, setVolumeName] = useState("");
   const detailsRef = useRef(null);
   const inputRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -14,6 +15,7 @@ function VolumeMax() {
   const handleSelection = (item) => {
     setSelectedVolumeMax(item.name);
     setSearchTerm(item.name);
+    setVolumeName(item.name);
     closeDropdown();
   };
 
@@ -22,11 +24,19 @@ function VolumeMax() {
     if (!isOpen) {
       setIsOpen(true);
     }
+    if (e.target.value === "") {
+      setVolumeName("");
+    }
   };
 
   // clear searchTerm
   const clearSearchTerm = () => {
     setSearchTerm("");
+    setVolumeName("");
+    setSelectedVolumeMax("");
+    if (detailsRef.current) {
+      detailsRef.current.removeAttribute("open");
+    }
   };
 
   const closeDropdown = () => {
@@ -66,9 +76,12 @@ function VolumeMax() {
     getEngineVolumes();
   }, []);
 
-  const filteredEngineVolumes = engineVolumes.filter((volume) =>
-    volume.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredEngineVolumes =
+    searchTerm && searchTerm !== volumeName
+      ? engineVolumes.filter((volume) =>
+          volume.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      : engineVolumes;
 
   // outside close
   useEffect(() => {
@@ -111,7 +124,7 @@ function VolumeMax() {
             />
             <label
               htmlFor="volumeMax"
-              className={`absolute cursor-pointer font-normal left-[11px] bg-white transition-all text-start w-fit ${
+              className={`absolute cursor-pointer font-normal left-[11px] bg-transparent transition-all text-start w-fit ${
                 searchTerm
                   ? "top-[9px] text-[12px] leading-3 text-secondary"
                   : "top-[18px] text-[15px] leading-3 text-gray-400"
@@ -137,7 +150,14 @@ function VolumeMax() {
           </li>
           {filteredEngineVolumes.map((item) => (
             <li key={item.id} onClick={() => handleSelection(item)}>
-              <a href="" className="rounded-none px-[10px] text-primary">
+              <a
+                href=""
+                className={`rounded-none px-[10px] text-primary ${
+                  item.name === volumeName
+                    ? "text-red font-semibold hover:text-red"
+                    : ""
+                }`}
+              >
                 {item.name}
               </a>
             </li>

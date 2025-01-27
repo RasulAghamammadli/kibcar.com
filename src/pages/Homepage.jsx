@@ -380,7 +380,7 @@ function Homepage() {
         <VipAnnouncement announcements={ads} title={"Tüm İlanlar"} />
       )}
       {isLoading && <Spinner />}
-      {!isLoading && ads.length === 0 && <NoAds />}
+      {!isLoading && ads.length === 0 && premiumAds.length === 0 && <NoAds />}
     </main>
   );
 }

@@ -1,48 +1,80 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
-import Modal from "./Modal";
-import ForgetPinForm from "./ForgetPinForm";
+
+// components
 import AnimatedButtonWrapper from "./AnimatedButtonWrapper";
 
 function DeleteAdForm({ onCloseModal, showNewModal }) {
+  const { id } = useParams();
   const [deleteAdErrorMsg, setDeleteAdErrorMsg] = useState("");
   const [deletePin, setDeletePin] = useState("");
-  const handleDeleteApi = async () => {
-    if (deletePin === "") {
-      setDeleteAdErrorMsg("Önce PIN'i girin!");
+  const navigate = useNavigate();
+
+  // PIN check API
+  const handleCheckPin = async () => {
+    if (deletePin.trim() === "") {
+      setDeleteAdErrorMsg("Lütfen PIN'i yazın!");
       return;
     }
+
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_REACT_APP_API_URL}/api/announcements/delete`,
+        `${
+          import.meta.env.VITE_REACT_APP_API_URL
+        }/api/announcements/pin-code/check`,
         {
+          announcement_id: id,
           pin_code: deletePin,
         }
       );
 
-      if (response.data.success == true) {
-        Navigate("/");
-        onCloseModal?.();
-        // setDeleteAd(false);
-      } else {
-        setDeleteAdErrorMsg("Yanlış PIN!");
+      if (response.data.success === true) {
+        await handleDeleteApi();
       }
     } catch (error) {
-      //   setDeleteAd(true);
-      console.log(error);
+      console.error(error.response?.data?.message || error.message);
+      setDeleteAdErrorMsg("PIN kodu yanlış!");
+    }
+  };
+
+  // Ad delete API
+  const handleDeleteApi = async () => {
+    try {
+      const response = await axios.delete(
+        `${import.meta.env.VITE_REACT_APP_API_URL}/api/announcements/${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: {
+            pin_code: deletePin,
+          },
+        }
+      );
+
+      if (response.status === 204) {
+        onCloseModal?.();
+        navigate("/delete-success");
+      } else {
+        setDeleteAdErrorMsg("İlan silinirken bir hata oluştu.");
+      }
+    } catch (error) {
+      console.error(error.response?.data?.message || error.message);
+      setDeleteAdErrorMsg("Bir hata oluştu. Lütfen tekrar deneyin.");
     }
   };
 
   const handleDeletePinChange = (e) => {
     setDeletePin(e.target.value);
+    setDeleteAdErrorMsg("");
   };
 
   return (
     <div className="min-w-[330px] max-w-[440px]">
       <div className="p-[20px] bg-[#F00000] rounded-t-lg relative">
         <p className="font-primary font-semibold text-[16px] text-center text-white">
-          Kimliğinizi doğrulayın
+          İlanı sil
         </p>
       </div>
       <div className="p-[20px]">
@@ -51,9 +83,6 @@ function DeleteAdForm({ onCloseModal, showNewModal }) {
             Lütfen ilanın silinmesini onaylamak için PIN kodunu girin. PIN
             kodunu, ilan sitede yayınlandığında kibcar.com'dan size gönderilen
             e-postada bulabilirsiniz.
-          </p>
-          <p className="text-[#333] text-[14px]">
-            {/* You can get the OTP code from the letter sent to you on gmail */}
           </p>
         </div>
         <div>
@@ -68,10 +97,9 @@ function DeleteAdForm({ onCloseModal, showNewModal }) {
             className="px-4 py-[12px] border rounded w-full lg:min-w-[220px] max-w-[150px] outline-none focus:border-[red] transition-all duration-200"
             placeholder="PIN girin"
           />
-
           <AnimatedButtonWrapper>
             <button
-              onClick={handleDeleteApi}
+              onClick={handleCheckPin}
               className="btn-search text-white rounded-md bg-red hover:bg-[#882111] shadow-none hover:shadow-none px-[10px] py-[12px] w-full font-primary text-[14px] font-normal"
             >
               <p>Onayla</p>

@@ -26,10 +26,7 @@ function Footer() {
   const location = useLocation();
   const isCarDetailsRoute = location.pathname.startsWith("/car-details/");
   return (
-    <div className="bg-[#F1F3F7]  ">
-      {/* className={`bg-[#E2E2E2]  py-5 ${
-          isCarDetailsRoute ? "mt-[0px]" : "mt-[120px]"
-        }`} */}
+    <div className="bg-[#F1F3F7]">
       <div className={`py-5`}>
         <div className="container">
           <div className="flex justify-between items-center pb-[20px] border-b-[2px] border-[#eaebf2]">

@@ -1,25 +1,49 @@
 import { useState } from "react";
+import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+
+// components
 import AnimatedButtonWrapper from "./AnimatedButtonWrapper";
 
 function EditAdForm({ onCloseModal, showNewModal }) {
-  const navigate = useNavigate();
-
   const { id } = useParams();
   const [errorMsg, setErrorMsg] = useState("");
-  const [pin, setPin] = useState("");
+  const [edtiPin, setEditPin] = useState("");
+  const navigate = useNavigate();
 
-  const handlePinChange = (e) => {
-    setPin(e.target.value);
-  };
+  // PIN check API
+  const handleCheckPin = async () => {
+    if (edtiPin.trim() === "") {
+      setErrorMsg("Lütfen PIN'i yazın!");
+      return;
+    }
 
-  const onConfirm = () => {
-    if (pin != 1111) {
-      setErrorMsg("Yanlış PIN!");
-    } else {
-      navigate(`/edit-advertisement/${id}`);
+    try {
+      const response = await axios.post(
+        `${
+          import.meta.env.VITE_REACT_APP_API_URL
+        }/api/announcements/pin-code/check`,
+        {
+          announcement_id: id,
+          pin_code: edtiPin,
+        }
+      );
+
+      if (response.data.success === true) {
+        navigate(`/edit-advertisement/${id}`);
+        onCloseModal();
+      }
+    } catch (error) {
+      console.error(error.response?.data?.message || error.message);
+      setErrorMsg("PIN kodu yanlış!");
     }
   };
+
+  const handlePinChange = (e) => {
+    setEditPin(e.target.value);
+    setErrorMsg("");
+  };
+
   return (
     <div className="min-w-[330px] max-w-[440px]">
       <div className="p-[20px] bg-[#F00000] rounded-t-lg relative">
@@ -47,14 +71,14 @@ function EditAdForm({ onCloseModal, showNewModal }) {
           <input
             type="text"
             name="pin"
-            value={pin}
+            value={edtiPin}
             onChange={handlePinChange}
             className="px-4 py-[12px] border rounded w-full lg:min-w-[220px] outline-none focus:border-[red] transition-all duration-200"
             placeholder="PIN girin"
           />
           <AnimatedButtonWrapper>
             <button
-              onClick={onConfirm}
+              onClick={handleCheckPin}
               className="btn-search text-white rounded-md bg-red hover:bg-[#882111] shadow-none hover:shadow-none px-[10px] py-[12px] w-full font-primary text-[14px] font-normal"
             >
               <p>Onayla</p>

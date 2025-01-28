@@ -29,11 +29,12 @@ import Spinner from "./components/Spinner";
 import Rules from "./pages/Rules";
 import Terms from "./pages/Terms";
 import PaidServices from "./pages/PaidServices";
+import Success from "./pages/Success";
+import DeleteSuccess from "./pages/DeleteSuccess";
 import NotFound from "./pages/NotFound";
 import DetailNotFound from "./pages/DetailNotFound";
 
 import { CarProvider } from "./context/CarContext";
-import Success from "./pages/Success";
 
 function App() {
   const [width] = useState(window.innerWidth);
@@ -74,6 +75,7 @@ function App() {
                   />
                   <Route path="/car-details/:id" element={<CarDetails />} />
                   <Route path="/success" element={<Success />} />
+                  <Route path="/delete-success" element={<DeleteSuccess />} />
                   <Route path="/not-found" element={<DetailNotFound />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>

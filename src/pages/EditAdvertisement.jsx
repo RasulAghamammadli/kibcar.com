@@ -554,10 +554,10 @@ function EditAdvertisement() {
         }
 
         if (response.data.success == true) {
-          //show success alet
+          // show success alet
           toast.dismiss();
           toast.success(
-            "Your announcement added and we will notify you once approved",
+            "İlanınız eklendi ve onaylandığında sizi bilgilendireceğiz",
             {
               position: "bottom-right",
               autoClose: false,

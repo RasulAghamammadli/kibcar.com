@@ -172,7 +172,6 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
                 {car.additional_information}
               </div>
             )}
-
             <div className="flex flex-row flex-wrap gap-x-[20px] gap-y-3 pt-[20px] pb-[30px] border-b border-solid border-[#e2e2e2]">
               {car.features.map((feature) => {
                 return (

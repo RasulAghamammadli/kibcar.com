@@ -171,7 +171,7 @@ function Homepage() {
         className="py-[30px] bg-[#EBEDF3]"
       >
         <div className="container">
-          <div className="grid grid-cols-12  gap-[10px] ">
+          <div className="grid grid-cols-12 gap-[10px] ">
             <div className="xl:col-span-3 lg:col-span-4 md:col-span-6 col-span-12 h-[48px]">
               <Brand />
             </div>
@@ -269,8 +269,6 @@ function Homepage() {
                 <VolumeMax />
               </div>
             </div>
-            {/* <div className="xl:col-span-3 md:col-span-6 col-span-12 h-[48px]">
-            </div> */}
             <div className="xl:col-span-4 md:col-span-4 col-span-12 h-[48px]">
               <Power />
             </div>

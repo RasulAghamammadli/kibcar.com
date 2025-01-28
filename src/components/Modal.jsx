@@ -77,11 +77,13 @@ function Modal({ children }) {
     </ModalContext.Provider>
   );
 }
+
 function Open({ children, windowName }) {
   const { open } = useContext(ModalContext);
   const openWindowByName = () => open(windowName);
   return cloneElement(children, { onClick: openWindowByName });
 }
+
 function Window({ children, name, svgColor = "#f8f8f8" }) {
   const { showModalName, close, showNewModal, sharedData, setSharedData } =
     useContext(ModalContext);

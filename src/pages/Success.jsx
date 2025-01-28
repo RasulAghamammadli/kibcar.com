@@ -21,7 +21,7 @@ const Success = () => {
           <p className="text-gray-600 my-2">
             Güvenli online ödemenizi tamamladığınız için teşekkür ederiz.
           </p>
-          <p>İyi günler!</p>
+          <p className="text-gray-600">İyi günler!</p>
           <div className="py-8 text-center">
             <Link
               to="/"

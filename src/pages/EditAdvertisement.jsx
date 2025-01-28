@@ -6,7 +6,6 @@ import frontView from "../assets/images/front-view.svg";
 import insideView from "../assets/images/inside-view.svg";
 import addMore from "../assets/images/add-more.svg";
 import { IoIosClose } from "react-icons/io";
-import PaymentModal from "../components/PaymentModal";
 import OtpModal from "../components/OtpModal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -29,8 +28,6 @@ function EditAdvertisement() {
   const [markets, setMarkets] = useState([]);
   const [owners, setOwners] = useState([]);
   const [cities, setCities] = useState([]);
-
-  const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [carFeatures, setCarFeatures] = useState([]);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
@@ -546,7 +543,6 @@ function EditAdvertisement() {
 
         if (response.data.action == "premium") {
           setPaymentToken(response.data.token);
-          setShowPaymentModal(true);
         }
 
         if (response.data.action == "otp") {
@@ -1567,14 +1563,6 @@ function EditAdvertisement() {
           </div>
         </div>
       </div>
-      {showPaymentModal && (
-        <PaymentModal
-          token={paymentToken}
-          onClose={() => setShowPaymentModal(false)}
-          onPaymentResult={handlePaymentResult}
-        />
-      )}
-
       {showOtpModal && (
         <OtpModal
           verifyOtp={verifyOtp}

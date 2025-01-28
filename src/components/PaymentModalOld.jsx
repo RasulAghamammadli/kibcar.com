@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import AnimatedButtonWrapper from "./AnimatedButtonWrapper";
 
-function PaymentModal({ onClose, onPaymentResult, token }) {
+function PaymentModalOld({ onClose, onPaymentResult, token }) {
   const [paymentInfo, setPaymentInfo] = useState("");
 
   const handlePayment = () => {
@@ -51,4 +51,4 @@ function PaymentModal({ onClose, onPaymentResult, token }) {
   );
 }
 
-export default PaymentModal;
+export default PaymentModalOld;

@@ -21,6 +21,8 @@ import { IoFlagOutline } from "react-icons/io5";
 import ComplainForm from "../../ComplainForm";
 import FullscreenMobile from "./FullScreenMobile";
 import GetPinMethods from "../../GetPinMethods";
+import EmailConfirm from "../../EmailConfirm";
+import SuccessSendEmail from "../../SuccessSendEmail";
 import PremiumVipModal from "../../PremiumVipModal";
 
 function DetailsMobile({
@@ -349,8 +351,14 @@ function DetailsMobile({
                         PIN'i unuttum
                       </button>
                     </Modal.Open>
-                    <Modal.Window name="forget-pin">
+                    <Modal.Window name="via-sms">
                       <ForgetPinForm car={car} />
+                    </Modal.Window>
+                    <Modal.Window name="email-confirm">
+                      <EmailConfirm />
+                    </Modal.Window>
+                    <Modal.Window name="success-send-email">
+                      <SuccessSendEmail />
                     </Modal.Window>
                     <Modal.Window name="pin-methods">
                       <GetPinMethods />

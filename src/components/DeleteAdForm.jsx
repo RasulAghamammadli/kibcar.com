@@ -106,15 +106,15 @@ function DeleteAdForm({ onCloseModal, showNewModal }) {
             </button>
           </AnimatedButtonWrapper>
         </div>
+        <p className="mt-2 ml-1 text-[14px] error text-red">
+          {deleteAdErrorMsg}
+        </p>
         <button
           onClick={() => showNewModal("pin-methods")}
-          className="mt-2 ml-1 text-[15px] underline text-link"
+          className="mt-1 ml-1 text-[15px] underline text-link"
         >
           PIN kodunuzu mu unuttunuz?
         </button>
-        <p className="mt-1 ml-1 text-[14px] error text-red">
-          {deleteAdErrorMsg}
-        </p>
       </div>
     </div>
   );

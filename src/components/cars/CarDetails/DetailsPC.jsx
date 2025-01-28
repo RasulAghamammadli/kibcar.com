@@ -23,7 +23,8 @@ import ComplainForm from "../../ComplainForm";
 import ReadMore from "../../ReadMore";
 import { FaClock, FaMapMarkerAlt } from "react-icons/fa";
 import GetPinMethods from "../../GetPinMethods";
-import PaymentModal from "../../PaymentModal";
+import EmailConfirm from "../../EmailConfirm";
+import SuccessSendEmail from "../../SuccessSendEmail";
 import PremiumVipModal from "../../PremiumVipModal";
 
 function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
@@ -209,14 +210,17 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
                         PIN'i unuttum
                       </button>
                     </Modal.Open>
-                    <Modal.Window name="forget-pin">
+                    <Modal.Window name="via-sms">
                       <ForgetPinForm car={car} />
+                    </Modal.Window>
+                    <Modal.Window name="email-confirm">
+                      <EmailConfirm />
+                    </Modal.Window>
+                    <Modal.Window name="success-send-email">
+                      <SuccessSendEmail />
                     </Modal.Window>
                     <Modal.Window name="pin-methods">
                       <GetPinMethods />
-                    </Modal.Window>
-                    <Modal.Window name="payment-modal">
-                      <PaymentModal />
                     </Modal.Window>
                   </Modal>
                 )}

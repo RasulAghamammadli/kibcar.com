@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
-const EmailConfirm = ({ showNewModal }) => {
+const ViaEmail = ({ showNewModal }) => {
   const { id } = useParams();
   const [errorMsg, setErrorMsg] = useState("");
   const [email, setEmail] = useState("");
@@ -58,11 +58,9 @@ const EmailConfirm = ({ showNewModal }) => {
         </p>
       </div>
       <div className="p-[20px] py-[15px]">
-        <div>
-          <p className="text-[#333] text-[14px] pb-2 leading-snug">
-            Lütfen e-posta adresinizi giriniz.
-          </p>
-        </div>
+        <p className="text-[#333] text-[14px] pb-2 leading-snug">
+          Lütfen e-posta adresinizi giriniz.
+        </p>
         <div className="flex justify-between gap-x-[20px] text-[14px]">
           <input
             type="email"
@@ -91,4 +89,4 @@ const EmailConfirm = ({ showNewModal }) => {
   );
 };
 
-export default EmailConfirm;
+export default ViaEmail;

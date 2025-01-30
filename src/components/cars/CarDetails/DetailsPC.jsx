@@ -17,13 +17,13 @@ import {
 import Modal from "../../Modal";
 import DeleteAdForm from "../../DeleteAdForm";
 import EditAdForm from "../../EditAdForm";
-import ForgetPinForm from "../../ForgetPinForm";
 import { IoFlagOutline } from "react-icons/io5";
 import ComplainForm from "../../ComplainForm";
 import ReadMore from "../../ReadMore";
 import { FaClock, FaMapMarkerAlt } from "react-icons/fa";
 import GetPinMethods from "../../GetPinMethods";
-import EmailConfirm from "../../EmailConfirm";
+import ViaSms from "../../ViaSms";
+import ViaEmail from "../../ViaEmail";
 import SuccessSendEmail from "../../SuccessSendEmail";
 import PremiumVipModal from "../../PremiumVipModal";
 
@@ -210,17 +210,17 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
                         PIN'i unuttum
                       </button>
                     </Modal.Open>
-                    <Modal.Window name="via-sms">
-                      <ForgetPinForm car={car} />
+                    <Modal.Window name="pin-methods">
+                      <GetPinMethods />
                     </Modal.Window>
-                    <Modal.Window name="email-confirm">
-                      <EmailConfirm />
+                    <Modal.Window name="via-sms">
+                      <ViaSms car={car} />
+                    </Modal.Window>
+                    <Modal.Window name="via-email">
+                      <ViaEmail />
                     </Modal.Window>
                     <Modal.Window name="success-send-email">
                       <SuccessSendEmail />
-                    </Modal.Window>
-                    <Modal.Window name="pin-methods">
-                      <GetPinMethods />
                     </Modal.Window>
                   </Modal>
                 )}

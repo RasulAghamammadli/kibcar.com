@@ -16,12 +16,12 @@ import ReadMore from "../../ReadMore";
 import Modal from "../../Modal";
 import EditAdForm from "../../EditAdForm";
 import DeleteAdForm from "../../DeleteAdForm";
-import ForgetPinForm from "../../ForgetPinForm";
 import { IoFlagOutline } from "react-icons/io5";
 import ComplainForm from "../../ComplainForm";
 import FullscreenMobile from "./FullScreenMobile";
 import GetPinMethods from "../../GetPinMethods";
-import EmailConfirm from "../../EmailConfirm";
+import ViaSms from "../../ViaSms";
+import ViaEmail from "../../ViaEmail";
 import SuccessSendEmail from "../../SuccessSendEmail";
 import PremiumVipModal from "../../PremiumVipModal";
 
@@ -351,17 +351,17 @@ function DetailsMobile({
                         PIN'i unuttum
                       </button>
                     </Modal.Open>
-                    <Modal.Window name="via-sms">
-                      <ForgetPinForm car={car} />
+                    <Modal.Window name="pin-methods">
+                      <GetPinMethods />
                     </Modal.Window>
-                    <Modal.Window name="email-confirm">
-                      <EmailConfirm />
+                    <Modal.Window name="via-sms">
+                      <ViaSms car={car} />
+                    </Modal.Window>
+                    <Modal.Window name="via-email">
+                      <ViaEmail />
                     </Modal.Window>
                     <Modal.Window name="success-send-email">
                       <SuccessSendEmail />
-                    </Modal.Window>
-                    <Modal.Window name="pin-methods">
-                      <GetPinMethods />
                     </Modal.Window>
                   </Modal>
                 )}

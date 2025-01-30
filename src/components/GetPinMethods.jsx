@@ -12,7 +12,7 @@ function GetPinMethods({ onCloseModal, showNewModal, setSharedData }) {
     if (value === "sms") {
       showNewModal("via-sms");
     } else if (value === "email") {
-      showNewModal("email-confirm");
+      showNewModal("via-email");
     }
   };
 
@@ -71,7 +71,7 @@ function GetPinMethods({ onCloseModal, showNewModal, setSharedData }) {
               value="email"
               checked={selectedOption === "email"}
               onChange={() => handleOptionChange("email")}
-              onClick={() => showNewModal("email-confirm")}
+              onClick={() => showNewModal("via-email")}
               className="form-radio accent-red h-5 w-5 cursor-pointer"
             />
             <span className="ml-2 text-base">E-posta adresi yoluyla</span>

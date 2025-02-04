@@ -15,14 +15,13 @@ const ViaSms = ({ car }) => {
           import.meta.env.VITE_REACT_APP_API_URL
         }/api/announcements/forget-pin`,
         {
-          announcement_id: id,
+          announcement_id: Number(id),
           pin_method: "phone",
         }
       );
 
       if (response.data.success === true) {
         const token = response.data.token;
-        console.log("Token:", token);
 
         // iframe url
         const paytrIframeUrl = `https://www.paytr.com/odeme/guvenli/${token}`;

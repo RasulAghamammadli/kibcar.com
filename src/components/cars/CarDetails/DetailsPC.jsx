@@ -25,7 +25,8 @@ import GetPinMethods from "../../GetPinMethods";
 import ViaSms from "../../ViaSms";
 import ViaEmail from "../../ViaEmail";
 import SuccessSendEmail from "../../SuccessSendEmail";
-import PremiumVipModal from "../../PremiumVipModal";
+import PremiumPayment from "../../PremiumPayment";
+import VipPayment from "../../VipPayment";
 
 function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
   const [number, setNumber] = useState(false);
@@ -475,12 +476,10 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
           </div>
         </div>
       </div>
-      {/* <RecentAnnouncement carDetail={true} /> */}
 
       {/* Payment Modal */}
-      {activeModal && (
-        <PremiumVipModal type={activeModal} onClose={closeModal} car={car} />
-      )}
+      {activeModal === "premium" && <PremiumPayment onClose={closeModal} />}
+      {activeModal === "vip" && <VipPayment onClose={closeModal} car={car} />}
     </div>
   );
 }

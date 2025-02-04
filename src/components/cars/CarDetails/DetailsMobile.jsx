@@ -23,7 +23,8 @@ import GetPinMethods from "../../GetPinMethods";
 import ViaSms from "../../ViaSms";
 import ViaEmail from "../../ViaEmail";
 import SuccessSendEmail from "../../SuccessSendEmail";
-import PremiumVipModal from "../../PremiumVipModal";
+import PremiumPayment from "../../PremiumPayment";
+import VipPayment from "../../VipPayment";
 
 function DetailsMobile({
   car,
@@ -387,9 +388,8 @@ function DetailsMobile({
       </div>
 
       {/* Payment Modal */}
-      {activeModal && (
-        <PremiumVipModal type={activeModal} onClose={closeModal} car={car} />
-      )}
+      {activeModal === "premium" && <PremiumPayment onClose={closeModal} />}
+      {activeModal === "vip" && <VipPayment onClose={closeModal} car={car} />}
     </div>
   );
 }

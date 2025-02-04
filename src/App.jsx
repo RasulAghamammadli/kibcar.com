@@ -30,6 +30,7 @@ import Rules from "./pages/Rules";
 import Terms from "./pages/Terms";
 import PaidServices from "./pages/PaidServices";
 import Success from "./pages/Success";
+import Fail from "./pages/Fail";
 import DeleteSuccess from "./pages/DeleteSuccess";
 import NotFound from "./pages/NotFound";
 import DetailNotFound from "./pages/DetailNotFound";
@@ -75,6 +76,7 @@ function App() {
                   />
                   <Route path="/car-details/:id" element={<CarDetails />} />
                   <Route path="/success" element={<Success />} />
+                  <Route path="/fail" element={<Fail />} />
                   <Route path="/delete-success" element={<DeleteSuccess />} />
                   <Route path="/not-found" element={<DetailNotFound />} />
                   <Route path="*" element={<NotFound />} />

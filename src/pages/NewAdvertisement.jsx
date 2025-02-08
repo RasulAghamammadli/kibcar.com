@@ -608,18 +608,18 @@ function NewAdvertisement() {
     saveAnnouncement(otp);
   }
 
-  const deleteOpt = async () => {
-    try {
-      const res = await axios.post(
-        `${import.meta.env.VITE_REACT_APP_API_URL}/api/announcements/otp/${
-          formData.userTel
-        }`
-      );
-      console.log(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const deleteOpt = async () => {
+  //   try {
+  //     const res = await axios.post(
+  //       `${import.meta.env.VITE_REACT_APP_API_URL}/api/announcements/otp/${
+  //         formData.userTel
+  //       }`
+  //     );
+  //     console.log(res.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <form ref={formRef} action="" onSubmit={handleFormSubmit}>
@@ -1597,13 +1597,13 @@ function NewAdvertisement() {
                     </button>
                   </AnimatedButtonWrapper>
                 </div>
-                <button
+                {/* <button
                   className="py-3 bg-green w-20"
                   type="button"
                   onClick={deleteOpt}
                 >
                   reset limit
-                </button>
+                </button> */}
                 <div className="text-secondary mb-10">
                   Bir ilan vererek{" "}
                   <Link to="" className="text-link">

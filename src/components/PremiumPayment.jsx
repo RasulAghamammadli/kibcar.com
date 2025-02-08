@@ -174,7 +174,7 @@ const PremiumPayment = ({ onClose }) => {
         </div>
       ) : (
         <div
-          className="bg-white rounded-lg shadow-lg min-w-[330px] max-w-[455px] max-sm:max-w-[100%] max-sm:rounded-none max-sm:h-[100dvh]"
+          className="bg-white rounded-lg shadow-lg min-w-[330px] max-w-[600px] max-sm:max-w-[100%] max-sm:rounded-none max-sm:h-[100dvh]"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex items-center p-6 px-[30px] pl-[22px] relative rounded-t-lg border border-b-[#f6f7fa] max-sm:p-[14px] max-sm:rounded-none max-sm:justify-center">
@@ -207,7 +207,7 @@ const PremiumPayment = ({ onClose }) => {
             src={iframeUrl}
             title="PayTR Payment"
             frameBorder="0"
-            className="w-[455px] h-[80dvh] max-sm:w-[100vw] max-sm:h-[100dvh]"
+            className="w-[600px] h-[80dvh] max-sm:w-[100vw] max-sm:h-[100dvh]"
           ></iframe>
         </div>
       )}

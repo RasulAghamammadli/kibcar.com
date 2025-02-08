@@ -1,29 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Fail = () => {
+const CreateSuccess = () => {
   return (
     <div className="bg-gray-100">
-      <div className="bg-white p-6 md:mx-auto">
+      <div className="bg-white p-6  md:mx-auto">
         <svg
           viewBox="0 0 24 24"
-          className="text-[#b61616] w-16 h-16 mx-auto my-6"
+          className="text-[#16b616] w-16 h-16 mx-auto my-6"
         >
           <path
             fill="currentColor"
-            d="M12 0A12 12 0 1 0 24 12 12.014 12.014 0 0 0 12 0Zm4.95 16.95a1 1 0 0 1-1.414 0L12 13.414l-3.536 3.536a1 1 0 0 1-1.414-1.414L10.586 12 7.05 8.464a1 1 0 1 1 1.414-1.414L12 10.586l3.536-3.536a1 1 0 1 1 1.414 1.414L13.414 12l3.536 3.536a1 1 0 0 1 0 1.414Z"
+            d="M12,0A12,12,0,1,0,24,12,12.014,12.014,0,0,0,12,0Zm6.927,8.2-6.845,9.289a1.011,1.011,0,0,1-1.43.188L5.764,13.769a1,1,0,1,1,1.25-1.562l4.076,3.261,6.227-8.451A1,1,0,1,1,18.927,8.2Z"
           ></path>
         </svg>
         <div className="text-center">
           <h3 className="md:text-2xl text-[30px] mb-[20px] text-gray-900 font-semibold text-center">
-            Ödeme Başarısız!
+            İlan başarıyla oluşturuldu!
           </h3>
-          <p className="text-gray-600 my-2">
-            Ödemeniz işlenirken bir hata oluştu. Lütfen tekrar deneyin.
+          <p className="text-gray-600 my-2 px-2">
+            KibCar.com'a eklediğiniz ilan şu anda moderatörlerimizin onayını
+            beklemektedir. İlanınızın kurallarımıza uygun olup olmadığını
+            kontrol ediyoruz ve en kısa sürede yayına alacağız.
           </p>
-          <p className="text-gray-600">
-            Sorun devam ederse bizimle iletişime geçin.
-          </p>
+          <p>İyi günler!</p>
           <div className="py-8 text-center">
             <Link
               to="/"
@@ -38,4 +38,4 @@ const Fail = () => {
   );
 };
 
-export default Fail;
+export default CreateSuccess;

@@ -1465,8 +1465,7 @@ function EditAdvertisement() {
                 <div className="bg-[#f6f7fa] p-4 rounded-lg mb-6">
                   <p className="text-[14] text-[#ff586d]">Yasaktır</p>
                   <p className="font-semibold mt-2">
-                    Ekran görüntüleri, çerçeveli fotoğraflar ve ekran
-                    görüntüleri yasaktır.
+                    Ekran görüntüleri ve çerçeveli fotoğraflar yasaktır.
                   </p>
                 </div>
                 <p

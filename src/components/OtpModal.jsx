@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import OtpCloseModal from "../assets/icons/close-modal.svg";
 import AnimatedButtonWrapper from "./AnimatedButtonWrapper";
 
-function OtpModal({ onClose, resendOtp, verifyOtp }) {
+function OtpModal({ onClose, resendOtp, handleOtpVerification }) {
   const [otp, setOtp] = useState("");
   const [showResendMsg, setShowResendMsg] = useState(false);
   const [resendDisabled, setResendDisabled] = useState(false);
   const [timer, setTimer] = useState(60);
+  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
     let interval;
@@ -40,7 +41,11 @@ function OtpModal({ onClose, resendOtp, verifyOtp }) {
   };
 
   const handleVerify = () => {
-    verifyOtp(otp);
+    if (otp) {
+      handleOtpVerification(otp);
+    } else {
+      setErrorMsg("Lütfen OTP'yi girin");
+    }
   };
 
   const handleResend = () => {
@@ -55,7 +60,7 @@ function OtpModal({ onClose, resendOtp, verifyOtp }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black bg-opacity-25"></div>
 
-      <div className="z-10 bg-white rounded-lg shadow-lg w-full max-w-[450px]">
+      <div className="z-10 bg-white rounded-lg shadow-lg min-w-[330px] max-w-[450px] mx-[15px]">
         <div className="py-[16px] px-[20px] bg-[#F00000] rounded-t-lg relative">
           <p className="font-primary font-medium text-[14px] text-center text-white">
             Kimliğinizi doğrulayın
@@ -77,7 +82,9 @@ function OtpModal({ onClose, resendOtp, verifyOtp }) {
             </p>
           </div>
           <div>
-            <p className="text-[#6B6B6B] text-[14px] mb-[15px]">Ad OTP:</p>
+            <p className="text-[#6B6B6B] text-[14px] mb-[15px]">
+              OTP'yi girin:
+            </p>
           </div>
           <div className="flex gap-x-[20px]">
             <input
@@ -85,11 +92,12 @@ function OtpModal({ onClose, resendOtp, verifyOtp }) {
               name="otp"
               value={otp}
               onChange={handleChange}
-              className="px-4 py-[12px] border rounded w-full"
-              placeholder="Enter OTP"
+              className="px-4 py-[12px] border rounded w-full outline-none focus:border-[red] transition-all duration-200"
+              placeholder="OTP'yi girin"
             />
             <AnimatedButtonWrapper>
               <button
+                type="button"
                 className="px-4 py-[12px] w-full font-bold text-white bg-red rounded-md"
                 onClick={handleVerify}
               >
@@ -97,6 +105,7 @@ function OtpModal({ onClose, resendOtp, verifyOtp }) {
               </button>
             </AnimatedButtonWrapper>
           </div>
+          <p className="mt-2 ml-1 text-[14px] error text-red">{errorMsg}</p>
           <div className="flex justify-between mt-4">
             <span className="pb-4 py-2 font-primary font-medium text-[#6B6B6B] text-[14px] rounded inline-block">
               OTP'yi almadınız mı?

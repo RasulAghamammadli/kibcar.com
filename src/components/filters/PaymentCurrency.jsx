@@ -10,9 +10,6 @@ function PaymentCurrency() {
 
   const handleSelection = (item) => {
     setSelectedCurrency(item.name);
-    if (detailsRef.current) {
-      detailsRef.current.removeAttribute("open");
-    }
     setIsOpen(false);
   };
 
@@ -26,29 +23,31 @@ function PaymentCurrency() {
     setSelectedCurrency("USD");
   }, []);
 
-  const handleToggle = () => {
-    setIsOpen(!isOpen);
-  };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (detailsRef.current && !detailsRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="w-[40%] h-full">
-      <details
-        ref={detailsRef}
-        className="w-full h-full dropdown"
-        onToggle={handleToggle}
-      >
-        <summary
+      <div ref={detailsRef} className="relative w-full h-full">
+        <button
           className={`flex items-center justify-between w-full h-full px-[10px] bg-white border rounded-lg btn shadow-none hover:bg-white ${
-            isOpen
-              ? "border-[#8F93AD]  hover:!border-[#8F93AD]"
-              : "border-gray-300"
+            isOpen ? "border-[#8F93AD]" : "border-gray-300"
           }`}
+          onClick={() => setIsOpen(!isOpen)}
         >
-          <div>
-            <p className="font-primary text-[14px] font-normal">
-              {selectedCurrency || "Currency"}
-            </p>
-          </div>
+          <p className="font-primary text-[14px] font-normal">
+            {selectedCurrency || "Currency"}
+          </p>
           <img
             src={chivronBottom}
             alt="chivron-Bottom"
@@ -56,15 +55,19 @@ function PaymentCurrency() {
               isOpen ? "rotate-180" : ""
             }`}
           />
-        </summary>
-        <ul className="p-2 px-0 shadow menu dropdown-content z-[1] bg-base-100 flex justify-start w-full mt-0.5 rounded-lg ">
-          {currencies.map((item) => (
-            <li key={item.id} onClick={() => handleSelection(item)}>
-              <a className="rounded-none px-[10px]">{item.name}</a>
-            </li>
-          ))}
-        </ul>
-      </details>
+        </button>
+        {isOpen && (
+          <ul className="absolute left-0 right-0 p-2 px-0 shadow menu bg-base-100 flex justify-start w-full mt-0.5 rounded-lg">
+            {currencies.map((item) => (
+              <li key={item.id} onClick={() => handleSelection(item)}>
+                <a className="rounded-none px-[10px] block w-full text-left">
+                  {item.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }

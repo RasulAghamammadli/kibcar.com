@@ -11,7 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
 import AnimatedButtonWrapper from "../components/AnimatedButtonWrapper";
-import AdLimitModal from "../components/LimitedModal";
+import LimitedModal from "../components/LimitedModal";
 
 function NewAdvertisement() {
   const navigate = useNavigate();
@@ -54,8 +54,6 @@ function NewAdvertisement() {
       setSelectedFeatures(selectedFeatures.filter((id) => id !== featureId));
     }
   };
-  const [paymentStatus, setPaymentStatus] = useState("");
-  const [paymentToken, setPaymentToken] = useState("");
   const [PictureErrorMsg, setPictureErrorMsg] = useState("");
 
   const verifyOtp = async (otp) => {
@@ -470,138 +468,121 @@ function NewAdvertisement() {
     </div>
   );
 
+  // limited modal states
   const [modalType, setModalType] = useState(null);
+  const [paymentToken, setPaymentToken] = useState(null);
 
-  const handle403Error = () => {
+  const handleLimitedModal = () => {
     setModalType("limited");
   };
   const closeModal = () => {
     setModalType(null);
   };
 
+  async function saveAnnouncement(otp) {
+    try {
+      // Form Data
+      const params = {
+        vehicle_category: formData.banType,
+        fuel_type: formData.fuelType,
+        gear: formData.gear,
+        vehicle_transmission: formData.gearBox,
+        vehicle_year: formData.year,
+        vehicle_prior_owner: formData.howManyDoYouOwn,
+        vehicle_status: formData.carStatus,
+        mileage: formData.march,
+        mileage_measurement_unit: formData.marchNum,
+        vehicle_color: formData.color,
+        price: formData.price,
+        vehicle_engine_volume: formData.engineVolume,
+        engine_power: formData.enginePower,
+        vehicle_market: formData.marketAssembled,
+        number_of_seats: formData.seatNum,
+        loan: formData.credit,
+        barter: formData.barter,
+        is_crashed: formData.hasStroke,
+        is_painted: formData.hasColor,
+        for_spare_parts: formData.needRepair,
+        vin_code: formData.vinCode,
+        additional_information: formData.moreInfo,
+        vehicle_front_view_image: formData.vehicle_front_view_image,
+        vehicle_back_view_image: formData.vehicle_back_view_image,
+        vehicle_front_panel_image: formData.vehicle_front_panel_image,
+        brand_model: formData.model,
+        city: formData.userCity,
+        price_currency: formData.currencyValue,
+        name: formData.userName,
+        email: formData.userEmail,
+        phone: formData.userTel,
+        images: formData.imagesFiles,
+        brand: formData.brand,
+        vehicle_features: selectedFeatures,
+        otp: otp,
+      };
+
+      const headers = { "Content-Type": "multipart/form-data" };
+
+      const response = await axios.post(
+        `${import.meta.env.VITE_REACT_APP_API_URL}/api/announcements`,
+        params,
+        { headers }
+      );
+
+      if (response?.status === 201) {
+        navigate("/create-success");
+      } else if (response?.status === 200) {
+        setPaymentToken(response?.data?.token);
+        setShowOtpModal(false);
+        handleLimitedModal();
+      }
+    } catch (error) {
+      console.error("Announcement error:", error);
+      if (error?.response?.status === 403) {
+        toast.error("Doğru OTP'yi girin.", {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
+      } else if (error) {
+        toast.error("Bir hata oluştu, lütfen tekrar deneyin.", {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
+      }
+    }
+  }
+
   function handleFormSubmit(e) {
     e.preventDefault();
-    async function saveAnnouncement() {
-      try {
-        const images = formData.uploadedImages.slice(3).map((file) => {
-          const filename = file.name;
-          return new File([file], filename, {
-            type: file.type,
-          });
-        });
 
-        console.log(formData.imagesFiles);
-        const params = {
-          vehicle_category: formData.banType,
-          fuel_type: formData.fuelType,
-          gear: formData.gear,
-          vehicle_transmission: formData.gearBox,
-          vehicle_year: formData.year,
-          vehicle_prior_owner: formData.howManyDoYouOwn,
-          vehicle_status: formData.carStatus,
-          mileage: formData.march,
-          mileage_measurement_unit: formData.marchNum,
-          vehicle_color: formData.color,
-          price: formData.price,
-          vehicle_engine_volume: formData.engineVolume,
-          engine_power: formData.enginePower,
-          vehicle_market: formData.marketAssembled,
-          number_of_seats: formData.seatNum,
-          loan: formData.credit,
-          barter: formData.barter,
-          is_crashed: formData.hasStroke,
-          is_painted: formData.hasColor,
-          for_spare_parts: formData.needRepair,
-          vin_code: formData.vinCode,
-          additional_information: formData.moreInfo,
-          vehicle_front_view_image: formData.vehicle_front_view_image,
-          vehicle_back_view_image: formData.vehicle_back_view_image,
-          vehicle_front_panel_image: formData.vehicle_front_panel_image,
-          brand_model: formData.model,
-          city: formData.userCity,
-          price_currency: formData.currencyValue,
-          name: formData.userName,
-          email: formData.userEmail,
-          phone: formData.userTel,
-          images: formData.imagesFiles,
-          brand: formData.brand,
-          vehicle_features: selectedFeatures,
-        };
-        const headers = {
-          "Content-Type": "multipart/form-data",
-        };
+    async function requestOtp() {
+      try {
+        // phone
+        const params = { phone: formData.userTel };
 
         const response = await axios.post(
-          `${import.meta.env.VITE_REACT_APP_API_URL}/api/announcements`,
-          params,
-          {
-            headers: headers,
-          }
+          `${
+            import.meta.env.VITE_REACT_APP_API_URL
+          }/api/announcements/otp/request`,
+          params
         );
 
-        if (response.data.action == "extra-slot") {
-          // send the ad data to get  payment token && show payment modal with the token
-          try {
-            console.log(response.data.action);
-            const res = await axios.post(
-              `${
-                import.meta.env.VITE_REACT_APP_API_URL
-              }/api/announcements/extra-slot`,
-              params,
-              {
-                headers: headers,
-              }
-            );
-            if (res.status == "200") {
-              console.log(res.data.token);
-              setPaymentToken(res.data.token);
-              setShowPaymentModal(true);
-            }
-          } catch (error) {
-            if (error.response && error.response.status === 403) {
-              console.error(error);
-            } else {
-              console.error(error);
-            }
-          }
-        }
-
-        if (response.data.action == "show-otp-verification") {
-          // show otp modal &&
-          // setShowOtpModal(true);
-          console.log(response.data.action);
+        if (response.data.success === true) {
           setShowOtpModal(true);
-        }
-
-        if (response.data.success == true) {
-          //show success alet
-          toast.dismiss();
-          toast.success(
-            "Your announcement added and we will notify you once approved",
-            {
-              position: "bottom-right",
-              autoClose: false,
-            }
-          );
-          setFormData(initialData);
-          setTimeout(() => {
-            navigate("/");
-          }, 2000);
+        } else {
+          // phone empty or err
+          toast.error(response.data.message, {
+            position: "bottom-right",
+            autoClose: 3000,
+          });
         }
       } catch (error) {
-        if (error.response.data.errors) {
-          toast.dismiss();
-          for (let errorKey in error.response.data.errors) {
-            error.response.data.errors[errorKey].forEach((v) => {
-              toast.error(v, {
-                position: "bottom-right",
-                autoClose: false,
-              });
-            });
-          }
-        }
-        if (error.response?.status === 403) {
-          handle403Error();
+        console.error("OTP request error:", error);
+        if (error?.status === 400) {
+          // reached limit
+          toast.error("Bugün için OTP isteklerinin sınırına ulaştınız.", {
+            position: "bottom-right",
+            autoClose: 3000,
+          });
         }
       }
     }
@@ -609,19 +590,36 @@ function NewAdvertisement() {
     const errorMessage = validateImageCount(formData.uploadedImages);
     const picSection = document.getElementById("picturesSection");
     const errorMsg = document.getElementById("error");
+
     if (errorMessage) {
       setPictureErrorMsg(errorMessage);
       errorMsg.classList.remove("hidden");
       picSection.scrollIntoView({ behavior: "smooth" });
-      return; // Stop the request from being sent
-    } else if (error) {
       return;
     } else {
       errorMsg.classList.add("hidden");
-      saveAnnouncement();
-      console.log(formData);
+      // OTP request
+      requestOtp();
     }
   }
+
+  // OTP Modal verification
+  function handleOtpVerification(otp) {
+    saveAnnouncement(otp);
+  }
+
+  const deleteOpt = async () => {
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_REACT_APP_API_URL}/api/announcements/otp/${
+          formData.userTel
+        }`
+      );
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <form ref={formRef} action="" onSubmit={handleFormSubmit}>
@@ -829,14 +827,14 @@ function NewAdvertisement() {
                         required
                         className="w-4 h-4 accent-red"
                         onChange={handleChange}
-                        id="mil"
+                        id="mi"
                         type="radio"
                         name="marchNum"
-                        value="mil"
+                        value="mi"
                       />
                       <label
                         className="text-[14px] font-secondary"
-                        htmlFor="mil"
+                        htmlFor="mi"
                       >
                         mil
                       </label>
@@ -1471,8 +1469,7 @@ function NewAdvertisement() {
                 <div className="bg-[#f6f7fa] p-4 rounded-lg mb-6">
                   <p className="text-[14] text-[#ff586d]">Yasaktır</p>
                   <p className="font-semibold mt-2">
-                    Ekran görüntüleri, çerçeveli fotoğraflar ve ekran
-                    görüntüleri yasaktır.
+                    Ekran görüntüleri ve çerçeveli fotoğraflar yasaktır.
                   </p>
                 </div>
                 <p
@@ -1590,7 +1587,7 @@ function NewAdvertisement() {
                   </div>
                 </div>
                 {error && <p className="text-red">{error}</p>}
-                <div className="max-w-[700px] mt-30 flex justify-end">
+                <div className="max-w-[696px] mt-30 flex justify-end">
                   <AnimatedButtonWrapper>
                     <button
                       className="md:min-w-[452px] min-w-full text-[14px] font-primary text-white  py-[18px] px-[20px] outline-none rounded-md font-medium bg-red"
@@ -1600,6 +1597,13 @@ function NewAdvertisement() {
                     </button>
                   </AnimatedButtonWrapper>
                 </div>
+                <button
+                  className="py-3 bg-green w-20"
+                  type="button"
+                  onClick={deleteOpt}
+                >
+                  reset limit
+                </button>
                 <div className="text-secondary mb-10">
                   Bir ilan vererek{" "}
                   <Link to="" className="text-link">
@@ -1622,10 +1626,13 @@ function NewAdvertisement() {
           verifyOtp={verifyOtp}
           resendOtp={resendOtp}
           onClose={() => setShowOtpModal(false)}
+          handleOtpVerification={handleOtpVerification}
         />
       )}
 
-      {modalType === "limited" && <AdLimitModal onClose={closeModal} />}
+      {modalType === "limited" && (
+        <LimitedModal onClose={closeModal} paymentToken={paymentToken} />
+      )}
 
       <ToastContainer />
     </form>

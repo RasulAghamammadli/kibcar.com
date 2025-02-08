@@ -146,9 +146,7 @@ function DetailsMobile({
               {car.mileage_measurement_unit}
             </h2>
             <div to={""} className="grid grid-cols-12 space-x-2 my-[15px] ">
-              {!car.is_premium_announcement && (
-                <>
-                  {/* <Link className="col-span-4">
+              {/* <Link className="col-span-4">
                     <CreativeButton
                       title="İleriye götür"
                       price="3"
@@ -172,62 +170,60 @@ function DetailsMobile({
                       }
                     />
                   </Link> */}
-                  <button
-                    type="button"
-                    className="col-span-6"
-                    onClick={openVipModal}
-                  >
-                    <CreativeButton
-                      title="Vip"
-                      price="100"
-                      icon={
-                        <svg
-                          width="26"
-                          height="24"
-                          fill="none"
-                          viewBox="-5 -5 26 24"
-                          x="333"
-                          y="312"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            clipRule="evenodd"
-                            d="M11.75.5h-7.5L.5 5.143 8 13.5l7.5-8.357L11.75.5zM7.39 8.53L5.374 3.177l1.535-.002 1.128 3.96 1.175-3.96 1.413.002-2.02 5.35-1.215.001z"
-                            fill="#FF3D00"
-                          />
-                        </svg>
-                      }
-                    />
-                  </button>
-                  <button
-                    type="button"
-                    className="col-span-6"
-                    onClick={openPremiumModal}
-                  >
-                    <CreativeButton
-                      title="Premium"
-                      price="140"
-                      icon={
-                        <svg
-                          width="25"
-                          height="24"
-                          fill="none"
-                          viewBox="-5 -5 25 24"
-                          x="359"
-                          y="312"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M10.56 5.7L7.5.5 4.44 5.7 0 3.1l1.875 7.15v3.25h11.25v-3.25L15 3.1l-4.44 2.6z"
-                            fill="#FF9F2B"
-                          />
-                        </svg>
-                      }
-                    />
-                  </button>
-                </>
-              )}
+              <button
+                type="button"
+                className="col-span-6"
+                onClick={openVipModal}
+              >
+                <CreativeButton
+                  title="Vip"
+                  price="100"
+                  icon={
+                    <svg
+                      width="26"
+                      height="24"
+                      fill="none"
+                      viewBox="-5 -5 26 24"
+                      x="333"
+                      y="312"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M11.75.5h-7.5L.5 5.143 8 13.5l7.5-8.357L11.75.5zM7.39 8.53L5.374 3.177l1.535-.002 1.128 3.96 1.175-3.96 1.413.002-2.02 5.35-1.215.001z"
+                        fill="#FF3D00"
+                      />
+                    </svg>
+                  }
+                />
+              </button>
+              <button
+                type="button"
+                className="col-span-6"
+                onClick={openPremiumModal}
+              >
+                <CreativeButton
+                  title="Premium"
+                  price="140"
+                  icon={
+                    <svg
+                      width="25"
+                      height="24"
+                      fill="none"
+                      viewBox="-5 -5 25 24"
+                      x="359"
+                      y="312"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M10.56 5.7L7.5.5 4.44 5.7 0 3.1l1.875 7.15v3.25h11.25v-3.25L15 3.1l-4.44 2.6z"
+                        fill="#FF9F2B"
+                      />
+                    </svg>
+                  }
+                />
+              </button>
             </div>
             <CarDetailsCom car={car} />
             <div className="py-[15px]">

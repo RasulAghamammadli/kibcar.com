@@ -71,6 +71,7 @@ const ViaEmail = ({ showNewModal }) => {
             placeholder="E-posta adresi"
           />
           <button
+            type="button"
             onClick={handleConfirmEmail}
             className="text-white rounded-md max-w-[100px] bg-[#4c88f9] hover:bg-[#2a59af] shadow-none hover:shadow-none px-[10px] py-[12px] w-full font-primary text-[14px] font-normal transition-all duration-200"
           >
@@ -79,6 +80,7 @@ const ViaEmail = ({ showNewModal }) => {
         </div>
         <p className="mt-2 ml-1 text-[14px] error text-red">{errorMsg}</p>
         <button
+          type="button"
           onClick={() => showNewModal("pin-methods")}
           className="mt-1 ml-1 text-[15px] underline text-link"
         >

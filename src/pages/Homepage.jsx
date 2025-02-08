@@ -75,6 +75,7 @@ function Homepage() {
         const response = await axios.get(
           `${import.meta.env.VITE_REACT_APP_API_URL}/api/announcements/filter`
         );
+
         setPremiumAds(response.data.premiumAnnouncements);
         setAds(response.data.announcements);
         setAdsCount(
@@ -145,7 +146,6 @@ function Homepage() {
             response.data.announcementsCount +
               response.data.premiumAnnouncementsCount
           );
-          // console.log(JSON.stringify(response.data));
         })
         .catch(function (error) {
           console.log(error);
@@ -159,9 +159,6 @@ function Homepage() {
     resetFilters();
     setKey((prevKey) => prevKey + 1);
   }
-
-  console.log(premiumAds, "premium");
-  console.log(ads, "ads");
 
   return (
     <main key={key} className="flex-1">

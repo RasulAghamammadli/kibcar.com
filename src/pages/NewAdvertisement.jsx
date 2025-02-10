@@ -29,10 +29,11 @@ function NewAdvertisement() {
   const [owners, setOwners] = useState([]);
   const [cities, setCities] = useState([]);
 
-  const [showOtpModal, setShowOtpModal] = useState(false);
+  const [showOtpModal, setShowOtpModal] = useState(true);
   const [carFeatures, setCarFeatures] = useState([]);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
   const [error, setError] = useState("");
+
   const handleInput = (e) => {
     const value = e.target.value.replace(/[^0-9]/g, ""); // Only keep numbers
     setFormData((prev) => ({
@@ -47,6 +48,7 @@ function NewAdvertisement() {
       setError("");
     }
   };
+
   const handleCheckboxChangeForCarFeatures = (featureId) => (event) => {
     if (event.target.checked) {
       setSelectedFeatures([...selectedFeatures, featureId]);
@@ -55,28 +57,6 @@ function NewAdvertisement() {
     }
   };
   const [PictureErrorMsg, setPictureErrorMsg] = useState("");
-
-  const verifyOtp = async (otp) => {
-    try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_REACT_APP_API_URL}/api/guests/otp/verify`,
-        {
-          otp: otp,
-          phone: formData.userTel,
-        }
-      );
-
-      if (response.data.success == true) {
-        setShowOtpModal(false);
-
-        // formRef.current.dispatchEvent(
-        //   new Event("submit", { cancelable: true, bubbles: true })
-        // );
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const resendOtp = async () => {
     try {
@@ -95,10 +75,6 @@ function NewAdvertisement() {
       console.log(error);
       return false;
     }
-  };
-
-  const handlePaymentResult = (status) => {
-    console.log(status);
   };
 
   useEffect(() => {
@@ -556,7 +532,7 @@ function NewAdvertisement() {
 
     async function requestOtp() {
       try {
-        // phone
+        // phone param
         const params = { phone: formData.userTel };
 
         const response = await axios.post(
@@ -608,18 +584,18 @@ function NewAdvertisement() {
     saveAnnouncement(otp);
   }
 
-  // const deleteOpt = async () => {
-  //   try {
-  //     const res = await axios.post(
-  //       `${import.meta.env.VITE_REACT_APP_API_URL}/api/announcements/otp/${
-  //         formData.userTel
-  //       }`
-  //     );
-  //     console.log(res.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const deleteOpt = async () => {
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_REACT_APP_API_URL}/api/announcements/otp/${
+          formData.userTel
+        }`
+      );
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <form ref={formRef} action="" onSubmit={handleFormSubmit}>
@@ -1623,7 +1599,6 @@ function NewAdvertisement() {
 
       {showOtpModal && (
         <OtpModal
-          verifyOtp={verifyOtp}
           resendOtp={resendOtp}
           onClose={() => setShowOtpModal(false)}
           handleOtpVerification={handleOtpVerification}

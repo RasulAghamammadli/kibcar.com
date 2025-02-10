@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 const LimitedModal = ({ onClose, paymentToken }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isSelected, setIsSelected] = useState(true);
-  const [isPaymentStarted, setIsPaymentStarted] = useState(false);
   const [iframeUrl, setIframeUrl] = useState("");
 
   useEffect(() => {
@@ -23,7 +22,6 @@ const LimitedModal = ({ onClose, paymentToken }) => {
       // iframe url
       const paytrIframeUrl = `https://www.paytr.com/odeme/guvenli/${paymentToken}`;
       setIframeUrl(paytrIframeUrl);
-      setIsPaymentStarted(true);
     } else {
       console.error("Ödeme tokeni bulunamadı.");
     }
@@ -76,7 +74,7 @@ const LimitedModal = ({ onClose, paymentToken }) => {
                 onChange={() => setIsSelected(!isSelected)}
               />
               <div
-                className={`w-[22px] h-[22px] rounded-full border flex items-center justify-center transition ${
+                className={`w-[20px] h-[20px] rounded-full border flex items-center justify-center transition ${
                   isSelected ? "border-[#007eff]" : "border-[#eaebf2]"
                 }`}
               >

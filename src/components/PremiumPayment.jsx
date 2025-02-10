@@ -8,7 +8,6 @@ const PremiumPayment = ({ onClose }) => {
   const [isSelected, setIsSelected] = useState(true);
   const [selectedOption, setSelectedOption] = useState(2);
   const [iframeUrl, setIframeUrl] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
     if (window.innerWidth < 575) {
@@ -54,7 +53,6 @@ const PremiumPayment = ({ onClose }) => {
       }
     } catch (error) {
       console.error(error.response?.data?.message || error.message);
-      setErrorMsg("Ödeme sırasında bir hata oluştu, lütfen tekrar deneyiniz.");
     }
   };
 
@@ -117,7 +115,7 @@ const PremiumPayment = ({ onClose }) => {
                   onChange={() => setSelectedOption(index)}
                 />
                 <div
-                  className={`w-[22px] h-[22px] rounded-full border flex items-center justify-center transition ${
+                  className={`w-[20px] h-[20px] rounded-full border flex items-center justify-center transition ${
                     selectedOption === index
                       ? "border-[#007eff]"
                       : "border-[#eaebf2]"
@@ -147,7 +145,7 @@ const PremiumPayment = ({ onClose }) => {
                 onChange={() => setIsSelected(!isSelected)}
               />
               <div
-                className={`w-[22px] h-[22px] rounded-full border flex items-center justify-center transition ${
+                className={`w-[20px] h-[20px] rounded-full border flex items-center justify-center transition ${
                   isSelected ? "border-[#007eff]" : "border-[#eaebf2]"
                 }`}
               >

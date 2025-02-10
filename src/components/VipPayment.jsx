@@ -93,7 +93,7 @@ const VipPayment = ({ onClose, car }) => {
                 onChange={() => setSelectedOption(index)}
               />
               <div
-                className={`w-[22px] h-[22px] rounded-full border flex items-center justify-center transition ${
+                className={`w-[20px] h-[20px] rounded-full border flex items-center justify-center transition ${
                   selectedOption === index
                     ? "border-[#007eff]"
                     : "border-[#eaebf2]"
@@ -121,7 +121,7 @@ const VipPayment = ({ onClose, car }) => {
               onChange={() => setIsSelected(!isSelected)}
             />
             <div
-              className={`w-[22px] h-[22px] rounded-full border flex items-center justify-center transition ${
+              className={`w-[20px] h-[20px] rounded-full border flex items-center justify-center transition ${
                 isSelected ? "border-[#007eff]" : "border-[#eaebf2]"
               }`}
             >

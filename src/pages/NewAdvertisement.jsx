@@ -29,7 +29,7 @@ function NewAdvertisement() {
   const [owners, setOwners] = useState([]);
   const [cities, setCities] = useState([]);
 
-  const [showOtpModal, setShowOtpModal] = useState(true);
+  const [showOtpModal, setShowOtpModal] = useState(false);
   const [carFeatures, setCarFeatures] = useState([]);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
   const [error, setError] = useState("");

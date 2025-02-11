@@ -58,25 +58,6 @@ function NewAdvertisement() {
   };
   const [PictureErrorMsg, setPictureErrorMsg] = useState("");
 
-  const resendOtp = async () => {
-    try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_REACT_APP_API_URL}/api/guests/otp/resend`,
-        {
-          phone: formData.userTel,
-        }
-      );
-
-      if (response.data.success == true) {
-        console.log("otp resent check your mobile");
-        return true;
-      }
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
-  };
-
   useEffect(() => {
     async function getDefaultOptions() {
       try {
@@ -344,6 +325,7 @@ function NewAdvertisement() {
           <div>
             <div className="flex justify-between">
               <button
+                type="button"
                 onClick={() => removeImage(index)}
                 className="!text-[35px] text-red z-40"
               >
@@ -351,6 +333,7 @@ function NewAdvertisement() {
               </button>
               <div className="flex gap-x-3">
                 <button
+                  type="button"
                   onClick={(e) => {
                     e.preventDefault();
                     rotateImage(index, "clockwise");
@@ -360,6 +343,7 @@ function NewAdvertisement() {
                   ↻
                 </button>
                 <button
+                  type="button"
                   onClick={(e) => {
                     e.preventDefault();
                     rotateImage(index, "counterclockwise");
@@ -455,7 +439,8 @@ function NewAdvertisement() {
     setModalType(null);
   };
 
-  async function saveAnnouncement(otp) {
+  // create announcement
+  const saveAnnouncement = async (otp) => {
     try {
       // Form Data
       const params = {
@@ -518,6 +503,11 @@ function NewAdvertisement() {
           position: "bottom-right",
           autoClose: 3000,
         });
+      } else if (error?.response?.status === 422) {
+        toast.error("Telefon numarası biçimi yanlıştır.", {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
       } else if (error) {
         toast.error("Bir hata oluştu, lütfen tekrar deneyin.", {
           position: "bottom-right",
@@ -525,12 +515,14 @@ function NewAdvertisement() {
         });
       }
     }
-  }
+  };
 
-  function handleFormSubmit(e) {
+  // form submit
+  const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    async function requestOtp() {
+    // OTP request
+    const requestOtp = async () => {
       try {
         // phone param
         const params = { phone: formData.userTel };
@@ -542,10 +534,9 @@ function NewAdvertisement() {
           params
         );
 
-        if (response.data.success === true) {
+        if (response.status === 202 && response.data.success === true) {
           setShowOtpModal(true);
         } else {
-          // phone empty or err
           toast.error(response.data.message, {
             position: "bottom-right",
             autoClose: 3000,
@@ -553,15 +544,34 @@ function NewAdvertisement() {
         }
       } catch (error) {
         console.error("OTP request error:", error);
-        if (error?.status === 400) {
-          // reached limit
-          toast.error("Bugün için OTP isteklerinin sınırına ulaştınız.", {
+
+        if (error.response) {
+          const { status } = error.response;
+
+          if (status === 500) {
+            toast.error("Telefon numarası gereklidir.", {
+              position: "bottom-right",
+              autoClose: 3000,
+            });
+          } else if (status === 400) {
+            toast.error("Bugün için OTP isteklerinin sınırına ulaştınız.", {
+              position: "bottom-right",
+              autoClose: 3000,
+            });
+          } else {
+            toast.error("Bir hata oluştu, lütfen tekrar deneyin.", {
+              position: "bottom-right",
+              autoClose: 3000,
+            });
+          }
+        } else {
+          toast.error("Bağlantı hatası, lütfen internetinizi kontrol edin.", {
             position: "bottom-right",
             autoClose: 3000,
           });
         }
       }
-    }
+    };
 
     const errorMessage = validateImageCount(formData.uploadedImages);
     const picSection = document.getElementById("picturesSection");
@@ -577,14 +587,100 @@ function NewAdvertisement() {
       // OTP request
       requestOtp();
     }
-  }
+  };
 
   // OTP Modal verification
-  function handleOtpVerification(otp) {
+  const handleOtpVerification = (otp) => {
     saveAnnouncement(otp);
-  }
+  };
 
-  const deleteOpt = async () => {
+  // Resend OTP
+  const resendOtp = async () => {
+    try {
+      const params = { phone: formData.userTel };
+
+      const response = await axios.post(
+        `${
+          import.meta.env.VITE_REACT_APP_API_URL
+        }/api/announcements/otp/resend`,
+        params
+      );
+
+      if (response.data.success) {
+        toast.success("OTP tekrar gönderildi.", {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
+      } else {
+        handleOtpResendError(response);
+      }
+    } catch (error) {
+      if (error.response) {
+        handleOtpResendError(error.response);
+      } else {
+        console.error("OTP yeniden gönderme hatası:", error);
+        toast.error("Bir hata oluştu, lütfen tekrar deneyin.", {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
+      }
+    }
+  };
+
+  // handle resend otp errors
+  const handleOtpResendError = (response) => {
+    const { status, data } = response;
+    const { message, action, purpose, minRecentAge, maxRecentAge, expAge } =
+      data;
+
+    if (status === 422) {
+      toast.error("Telefon numarası gereklidir.", {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
+      return;
+    }
+
+    if (action === "request-otp-verification") {
+      if (purpose === "not-requested") {
+        toast.error("OTP talebi yapılmadı. Lütfen önce OTP isteyin.", {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
+      } else if (purpose === "retry-limit") {
+        toast.error("OTP gönderme sınırına ulaştınız.", {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
+      } else if (purpose === "expired") {
+        toast.error("OTP süresi doldu, lütfen tekrar isteyin.", {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
+      }
+    } else if (action === "wait") {
+      toast.warning(message, {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
+    } else {
+      toast.error(message, {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
+    }
+
+    // time info when otp resend success
+    if (status === 202) {
+      console.log(`OTP tekrar gönderildi! 
+      - Min Age: ${minRecentAge}
+      - Max Age: ${maxRecentAge}
+      - Expiry: ${expAge}`);
+    }
+  };
+
+  // reset all cache
+  const deleteOtp = async () => {
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_REACT_APP_API_URL}/api/announcements/otp/${
@@ -598,7 +694,7 @@ function NewAdvertisement() {
   };
 
   return (
-    <form ref={formRef} action="" onSubmit={handleFormSubmit}>
+    <form ref={formRef} action="">
       <div className="container">
         <div>
           <div className="bg-[#f1f3f7] border-y border-[#eaebf2] p-[20px]">
@@ -1566,20 +1662,21 @@ function NewAdvertisement() {
                 <div className="max-w-[696px] mt-30 flex justify-end">
                   <AnimatedButtonWrapper>
                     <button
+                      onClick={handleFormSubmit}
                       className="md:min-w-[452px] min-w-full text-[14px] font-primary text-white  py-[18px] px-[20px] outline-none rounded-md font-medium bg-red"
-                      type="submit"
+                      type="button"
                     >
                       <p>Devam Et</p>
                     </button>
                   </AnimatedButtonWrapper>
                 </div>
-                {/* <button
+                <button
                   className="py-3 bg-green w-20"
                   type="button"
-                  onClick={deleteOpt}
+                  onClick={deleteOtp}
                 >
                   reset limit
-                </button> */}
+                </button>
                 <div className="text-secondary mb-10">
                   Bir ilan vererek{" "}
                   <Link to="" className="text-link">
@@ -1599,9 +1696,9 @@ function NewAdvertisement() {
 
       {showOtpModal && (
         <OtpModal
-          resendOtp={resendOtp}
           onClose={() => setShowOtpModal(false)}
           handleOtpVerification={handleOtpVerification}
+          resendOtp={resendOtp}
         />
       )}
 

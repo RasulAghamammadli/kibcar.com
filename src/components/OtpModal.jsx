@@ -1,151 +1,3 @@
-// import React, { useState, useRef, useEffect } from "react";
-// import OtpCloseModal from "../assets/icons/close-modal.svg";
-
-// function OtpModal({ onClose, handleOtpVerification, resendOtp }) {
-//   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-//   const [timeLeft, setTimeLeft] = useState(120);
-//   const [errorMsg, setErrorMsg] = useState("");
-//   const inputRefs = useRef([]);
-
-//   // otp inputs
-//   const handleChange = (index, event) => {
-//     const value = event.target.value.replace(/[^0-9]/g, "");
-//     if (value.length > 1) return;
-
-//     const newOtp = [...otp];
-//     newOtp[index] = value;
-//     setOtp(newOtp);
-
-//     if (value && index < 5) {
-//       inputRefs.current[index + 1]?.focus();
-//     }
-
-//     if (newOtp.every((digit) => digit !== "")) {
-//       handleVerify(newOtp.join(""));
-//     }
-//   };
-
-//   // backspace
-//   const handleKeyDown = (index, event) => {
-//     if (event.key === "Backspace" && !otp[index] && index > 0) {
-//       inputRefs.current[index - 1]?.focus();
-//     }
-//   };
-
-//   // verify otp
-//   const handleVerify = (otpValue) => {
-//     if (otpValue) {
-//       handleOtpVerification(otpValue);
-//     } else {
-//       setErrorMsg("Lütfen OTP'yi girin");
-//     }
-//   };
-
-//   // resend otp
-//   const handleResendOtp = async () => {
-//     try {
-//       await resendOtp();
-//       setTimeLeft(120);
-//       setOtp(["", "", "", "", "", ""]);
-//     } catch (error) {
-//       console.error("OTP tekrar gönderme hatası:", error);
-//     }
-//   };
-
-//   // format time
-//   const formatTime = (seconds) => {
-//     const minutes = Math.floor(seconds / 60);
-//     const secs = seconds % 60;
-//     return `0${minutes}:${secs < 10 ? `0${secs}` : secs}`;
-//   };
-
-//   // first input focus
-//   useEffect(() => {
-//     if (inputRefs.current[0]) {
-//       inputRefs.current[0].focus();
-//     }
-//   }, []);
-
-//   // otp timer
-//   useEffect(() => {
-//     if (timeLeft > 0) {
-//       const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
-//       return () => clearTimeout(timer);
-//     }
-//   }, [timeLeft]);
-
-//   return (
-//     <div className="fixed inset-0 z-50 flex items-center justify-center">
-//       <div className="absolute inset-0 bg-black bg-opacity-25"></div>
-//       <div className="z-10 bg-white rounded-lg shadow-lg min-w-[330px] max-w-[450px] mx-[15px]">
-//         <div className="py-[16px] px-[20px] bg-[#F00000] rounded-t-lg relative">
-//           <p className="font-primary font-medium text-[14px] text-center text-white">
-//             Kimliğinizi doğrulayın
-//           </p>
-//           <img
-//             onClick={onClose}
-//             className="absolute top-[50%] right-[26px] translate-y-[-50%] cursor-pointer"
-//             src={OtpCloseModal}
-//             alt="OtpCloseModal"
-//           />
-//         </div>
-//         <div className="p-[20px]">
-//           <div className="mb-[15px]">
-//             <p className="text-[#6B6B6B] text-[14px]">
-//               Devam etmek için OTP'yi girin.
-//             </p>
-//             <p className="text-[#6B6B6B] text-[14px]">
-//               OTP kodunu telefon numaranıza gelen mesajdan alabilirsiniz.
-//             </p>
-//           </div>
-//           <div className="flex justify-between text-[14px] mb-[15px]">
-//             <p className="text-[#6B6B6B]">OTP'yi girin:</p>
-//           </div>
-//           <div className="flex justify-between gap-2 px-5 max-sm:px-0">
-//             {otp.map((digit, index) => (
-//               <input
-//                 key={index}
-//                 ref={(el) => (inputRefs.current[index] = el)}
-//                 type="text"
-//                 maxLength="1"
-//                 value={digit}
-//                 onChange={(event) => handleChange(index, event)}
-//                 onKeyDown={(event) => handleKeyDown(index, event)}
-//                 className="w-11 h-11 text-center border border-[#E4E4E4] rounded outline-none focus:border-link transition-all duration-100 text-[16px] max-sm:w-10 max-sm:h-10"
-//               />
-//             ))}
-//           </div>
-//           <div className="text-[14px] text-[#6B6B6B] mt-[15px]">
-//             {timeLeft !== 0 ? (
-//               <>
-//                 <span onClick={handleResendOtp}>Kalan süre:</span>
-//                 <span className="text-link ml-1 font-semibold">
-//                   {formatTime(timeLeft)}
-//                 </span>
-//               </>
-//             ) : (
-//               <p>
-//                 Süre bitdi,{" "}
-//                 <span
-//                   onClick={handleResendOtp}
-//                   className="text-link underline hover:no-underline cursor-pointer font-semibold"
-//                 >
-//                   OTP'yi yeniden gönder
-//                 </span>
-//               </p>
-//             )}
-//           </div>
-//           {errorMsg && (
-//             <p className="mt-2 text-[14px] error text-red">{errorMsg}</p>
-//           )}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default OtpModal;
-
 import React, { useState, useRef, useEffect } from "react";
 import OtpCloseModal from "../assets/icons/close-modal.svg";
 
@@ -198,7 +50,7 @@ function OtpModal({ onClose, handleOtpVerification, resendOtp }) {
     setIsResending(true);
     try {
       await resendOtp();
-      setTimeLeft(120);
+      // setTimeLeft(120);
       setOtp(["", "", "", "", "", ""]);
     } catch (error) {
       console.error("OTP tekrar gönderme hatası:", error);
@@ -294,6 +146,7 @@ function OtpModal({ onClose, handleOtpVerification, resendOtp }) {
           {errorMsg && (
             <p className="mt-2 text-[14px] text-red-500">{errorMsg}</p>
           )}
+          <p onClick={handleResendOtp}>salam</p>
         </div>
       </div>
     </div>

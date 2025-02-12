@@ -497,9 +497,19 @@ function NewAdvertisement() {
         handleLimitedModal();
       }
     } catch (error) {
-      console.error("Announcement error:", error);
-      if (error?.response?.status === 403) {
+      console.error("Announcement error:", error.response);
+      if (error?.response?.data?.cause === "FALSE_OTP") {
         toast.error("Doğru OTP'yi girin.", {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
+      } else if (error?.response?.data?.cause === "NOT_REQUESTED") {
+        toast.error("OTP talebi yapılmadı. Lütfen önce OTP isteyin.", {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
+      } else if (error?.response?.data?.cause === "EXPIRED") {
+        toast.error("OTP süresi doldu, lütfen tekrar isteyin.", {
           position: "bottom-right",
           autoClose: 3000,
         });
@@ -534,6 +544,8 @@ function NewAdvertisement() {
           params
         );
 
+        console.log(response, "otp");
+
         if (response.status === 202 && response.data.success === true) {
           setShowOtpModal(true);
         } else {
@@ -547,7 +559,6 @@ function NewAdvertisement() {
 
         if (error.response) {
           const { status } = error.response;
-
           if (status === 500) {
             toast.error("Telefon numarası gereklidir.", {
               position: "bottom-right",
@@ -615,6 +626,8 @@ function NewAdvertisement() {
         handleOtpResendError(response);
       }
     } catch (error) {
+      console.log(error.response, "errrr");
+
       if (error.response) {
         handleOtpResendError(error.response);
       } else {

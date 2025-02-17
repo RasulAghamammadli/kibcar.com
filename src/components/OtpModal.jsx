@@ -1,9 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
 import OtpCloseModal from "../assets/icons/close-modal.svg";
 
-function OtpModal({ onClose, handleOtpVerification, resendOtp }) {
+function OtpModal({
+  onClose,
+  handleOtpVerification,
+  resendOtp,
+  otpExpAge,
+  newOtpExpAge,
+}) {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-  const [timeLeft, setTimeLeft] = useState(120);
+  const [timeLeft, setTimeLeft] = useState(otpExpAge);
   const [errorMsg, setErrorMsg] = useState("");
   const [isResending, setIsResending] = useState(false);
   const inputRefs = useRef([]);
@@ -46,11 +52,9 @@ function OtpModal({ onClose, handleOtpVerification, resendOtp }) {
   // Resend OTP
   const handleResendOtp = async () => {
     if (isResending) return; // stop dblClick (dblRequest)
-
     setIsResending(true);
     try {
       await resendOtp();
-      // setTimeLeft(120);
       setOtp(["", "", "", "", "", ""]);
     } catch (error) {
       console.error("OTP tekrar gönderme hatası:", error);
@@ -66,7 +70,13 @@ function OtpModal({ onClose, handleOtpVerification, resendOtp }) {
     return `0${minutes}:${secs < 10 ? `0${secs}` : secs}`;
   };
 
-  // İlk input'a focus
+  // Set new OTP expiration time
+  useEffect(() => {
+    setTimeLeft(newOtpExpAge);
+    // console.log(newOtpExpAge, "newOtpExpAge");
+  }, [newOtpExpAge]);
+
+  // First input focus
   useEffect(() => {
     inputRefs.current[0]?.focus();
   }, []);
@@ -124,7 +134,7 @@ function OtpModal({ onClose, handleOtpVerification, resendOtp }) {
             ))}
           </div>
           <div className="text-[14px] text-[#6B6B6B] mt-[15px]">
-            {timeLeft !== 0 ? (
+            {timeLeft > 0 ? (
               <>
                 <span>Kalan süre:</span>
                 <span className="text-link ml-1 font-semibold">
@@ -146,7 +156,6 @@ function OtpModal({ onClose, handleOtpVerification, resendOtp }) {
           {errorMsg && (
             <p className="mt-2 text-[14px] text-red-500">{errorMsg}</p>
           )}
-          <p onClick={handleResendOtp}>salam</p>
         </div>
       </div>
     </div>

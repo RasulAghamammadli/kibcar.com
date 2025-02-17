@@ -30,6 +30,8 @@ function NewAdvertisement() {
   const [cities, setCities] = useState([]);
 
   const [showOtpModal, setShowOtpModal] = useState(false);
+  const [otpExpAge, setOtpExpAge] = useState(0);
+  const [newOtpExpAge, setNewOtpExpAge] = useState(0);
   const [carFeatures, setCarFeatures] = useState([]);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
   const [error, setError] = useState("");
@@ -514,7 +516,7 @@ function NewAdvertisement() {
           autoClose: 3000,
         });
       } else if (error?.response?.status === 422) {
-        toast.error("Telefon numarası biçimi yanlıştır.", {
+        toast.error(error?.response?.data?.message, {
           position: "bottom-right",
           autoClose: 3000,
         });
@@ -544,10 +546,16 @@ function NewAdvertisement() {
           params
         );
 
-        console.log(response, "otp");
-
         if (response.status === 202 && response.data.success === true) {
+          const currentTimestamp = Math.floor(Date.now() / 1000);
+          const remainingTime = response.data.expAge - currentTimestamp;
+
+          setOtpExpAge(remainingTime > 0 ? remainingTime : 0);
           setShowOtpModal(true);
+          toast.success("OTP gönderildi.", {
+            position: "bottom-right",
+            autoClose: 3000,
+          });
         } else {
           toast.error(response.data.message, {
             position: "bottom-right",
@@ -618,6 +626,10 @@ function NewAdvertisement() {
       );
 
       if (response.data.success) {
+        const currentTimestamp = Math.floor(Date.now() / 1000);
+        const remainingTime = response.data.expAge - currentTimestamp;
+        console.log(remainingTime, "remainingTime");
+        setNewOtpExpAge(remainingTime > 0 ? remainingTime : 0);
         toast.success("OTP tekrar gönderildi.", {
           position: "bottom-right",
           autoClose: 3000,
@@ -626,8 +638,6 @@ function NewAdvertisement() {
         handleOtpResendError(response);
       }
     } catch (error) {
-      console.log(error.response, "errrr");
-
       if (error.response) {
         handleOtpResendError(error.response);
       } else {
@@ -640,11 +650,13 @@ function NewAdvertisement() {
     }
   };
 
+  // console.log(otpExpAge, "otpExpAge,parent");
+  // console.log(newOtpExpAge, "newOtpExpAge,parent");
+
   // handle resend otp errors
   const handleOtpResendError = (response) => {
     const { status, data } = response;
-    const { message, action, purpose, minRecentAge, maxRecentAge, expAge } =
-      data;
+    const { message, cause } = data;
 
     if (status === 422) {
       toast.error("Telefon numarası gereklidir.", {
@@ -653,42 +665,36 @@ function NewAdvertisement() {
       });
       return;
     }
-
-    if (action === "request-otp-verification") {
-      if (purpose === "not-requested") {
-        toast.error("OTP talebi yapılmadı. Lütfen önce OTP isteyin.", {
-          position: "bottom-right",
-          autoClose: 3000,
-        });
-      } else if (purpose === "retry-limit") {
-        toast.error("OTP gönderme sınırına ulaştınız.", {
-          position: "bottom-right",
-          autoClose: 3000,
-        });
-      } else if (purpose === "expired") {
-        toast.error("OTP süresi doldu, lütfen tekrar isteyin.", {
-          position: "bottom-right",
-          autoClose: 3000,
-        });
-      }
-    } else if (action === "wait") {
-      toast.warning(message, {
+    if (cause === "NOT_REQUESTED") {
+      toast.error("OTP talebi yapılmadı. Lütfen önce OTP isteyin.", {
         position: "bottom-right",
         autoClose: 3000,
       });
+    } else if (cause === "RETRY_LIMIT") {
+      toast.error("OTP yeniden gönderme sınırına ulaştınız.", {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
+    } else if (cause === "TOO_LATE") {
+      toast.error("OTP süresi doldu, lütfen tekrar isteyin.", {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
+    } else if (cause === "TOO_EARLY") {
+      const secondsMatch = message.match(/\d+/);
+      const waitSeconds = secondsMatch ? parseInt(secondsMatch[0], 10) : 0;
+      toast.warning(
+        `OTP'yi ${waitSeconds} saniye içinde tekrar gönderebilirsiniz`,
+        {
+          position: "bottom-right",
+          autoClose: 3000,
+        }
+      );
     } else {
-      toast.error(message, {
+      toast.error("Bilinmeyen bir hata oluştu.", {
         position: "bottom-right",
         autoClose: 3000,
       });
-    }
-
-    // time info when otp resend success
-    if (status === 202) {
-      console.log(`OTP tekrar gönderildi! 
-      - Min Age: ${minRecentAge}
-      - Max Age: ${maxRecentAge}
-      - Expiry: ${expAge}`);
     }
   };
 
@@ -1712,6 +1718,8 @@ function NewAdvertisement() {
           onClose={() => setShowOtpModal(false)}
           handleOtpVerification={handleOtpVerification}
           resendOtp={resendOtp}
+          otpExpAge={otpExpAge}
+          newOtpExpAge={newOtpExpAge}
         />
       )}
 

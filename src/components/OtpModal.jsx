@@ -5,11 +5,11 @@ function OtpModal({
   onClose,
   handleOtpVerification,
   resendOtp,
-  otpExpAge,
-  newOtpExpAge,
+  otpExpTime,
+  retryOtp,
 }) {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-  const [timeLeft, setTimeLeft] = useState(otpExpAge);
+  const [timeLeft, setTimeLeft] = useState(120);
   const [errorMsg, setErrorMsg] = useState("");
   const [isResending, setIsResending] = useState(false);
   const inputRefs = useRef([]);
@@ -70,11 +70,14 @@ function OtpModal({
     return `0${minutes}:${secs < 10 ? `0${secs}` : secs}`;
   };
 
-  // Set new OTP expiration time
+  // OTP Expire Time
   useEffect(() => {
-    setTimeLeft(newOtpExpAge);
-    // console.log(newOtpExpAge, "newOtpExpAge");
-  }, [newOtpExpAge]);
+    if (otpExpTime) {
+      const now = Math.floor(Date.now() / 1000);
+      const remainingTime = otpExpTime - now;
+      setTimeLeft(remainingTime > 0 ? remainingTime : 0);
+    }
+  }, [otpExpTime]);
 
   // First input focus
   useEffect(() => {
@@ -126,6 +129,10 @@ function OtpModal({
                 ref={(el) => (inputRefs.current[index] = el)}
                 type="text"
                 maxLength="1"
+                inputMode="numeric"
+                pattern="\d*"
+                autoComplete="one-time-code"
+                aria-label={`OTP karakteri ${index + 1}`}
                 value={digit}
                 onChange={(event) => handleChange(index, event)}
                 onKeyDown={(event) => handleKeyDown(index, event)}
@@ -135,12 +142,16 @@ function OtpModal({
           </div>
           <div className="text-[14px] text-[#6B6B6B] mt-[15px]">
             {timeLeft > 0 ? (
-              <>
-                <span>Kalan süre:</span>
-                <span className="text-link ml-1 font-semibold">
+              <p>
+                Kalan süre:{" "}
+                <span className="text-link font-semibold">
                   {formatTime(timeLeft)}
                 </span>
-              </>
+              </p>
+            ) : retryOtp === "RETRY_LIMIT" ? (
+              <p className="text-[14px] text-red">
+                OTP yeniden gönderme sınırına ulaştınız, lütfen geri dönün.
+              </p>
             ) : (
               <p>
                 Süre bitti,{" "}
@@ -153,9 +164,7 @@ function OtpModal({
               </p>
             )}
           </div>
-          {errorMsg && (
-            <p className="mt-2 text-[14px] text-red-500">{errorMsg}</p>
-          )}
+          {errorMsg && <p className="mt-2 text-[14px] text-red">{errorMsg}</p>}
         </div>
       </div>
     </div>

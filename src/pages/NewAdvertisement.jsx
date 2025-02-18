@@ -30,8 +30,10 @@ function NewAdvertisement() {
   const [cities, setCities] = useState([]);
 
   const [showOtpModal, setShowOtpModal] = useState(false);
-  const [otpExpAge, setOtpExpAge] = useState(0);
-  const [newOtpExpAge, setNewOtpExpAge] = useState(0);
+  const [modalType, setModalType] = useState(null);
+  const [paymentToken, setPaymentToken] = useState(null);
+  const [otpExpTime, setOtpExpTime] = useState(null);
+  const [retryOtp, setRetryOtp] = useState("");
   const [carFeatures, setCarFeatures] = useState([]);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
   const [error, setError] = useState("");
@@ -430,10 +432,7 @@ function NewAdvertisement() {
     </div>
   );
 
-  // limited modal states
-  const [modalType, setModalType] = useState(null);
-  const [paymentToken, setPaymentToken] = useState(null);
-
+  // handle limited modal
   const handleLimitedModal = () => {
     setModalType("limited");
   };
@@ -547,10 +546,7 @@ function NewAdvertisement() {
         );
 
         if (response.status === 202 && response.data.success === true) {
-          const currentTimestamp = Math.floor(Date.now() / 1000);
-          const remainingTime = response.data.expAge - currentTimestamp;
-
-          setOtpExpAge(remainingTime > 0 ? remainingTime : 0);
+          setOtpExpTime(response.data.expAge);
           setShowOtpModal(true);
           toast.success("OTP gönderildi.", {
             position: "bottom-right",
@@ -626,10 +622,7 @@ function NewAdvertisement() {
       );
 
       if (response.data.success) {
-        const currentTimestamp = Math.floor(Date.now() / 1000);
-        const remainingTime = response.data.expAge - currentTimestamp;
-        console.log(remainingTime, "remainingTime");
-        setNewOtpExpAge(remainingTime > 0 ? remainingTime : 0);
+        setOtpExpTime(response.data.expAge);
         toast.success("OTP tekrar gönderildi.", {
           position: "bottom-right",
           autoClose: 3000,
@@ -650,9 +643,6 @@ function NewAdvertisement() {
     }
   };
 
-  // console.log(otpExpAge, "otpExpAge,parent");
-  // console.log(newOtpExpAge, "newOtpExpAge,parent");
-
   // handle resend otp errors
   const handleOtpResendError = (response) => {
     const { status, data } = response;
@@ -671,6 +661,7 @@ function NewAdvertisement() {
         autoClose: 3000,
       });
     } else if (cause === "RETRY_LIMIT") {
+      setRetryOtp("RETRY_LIMIT");
       toast.error("OTP yeniden gönderme sınırına ulaştınız.", {
         position: "bottom-right",
         autoClose: 3000,
@@ -1718,8 +1709,8 @@ function NewAdvertisement() {
           onClose={() => setShowOtpModal(false)}
           handleOtpVerification={handleOtpVerification}
           resendOtp={resendOtp}
-          otpExpAge={otpExpAge}
-          newOtpExpAge={newOtpExpAge}
+          otpExpTime={otpExpTime}
+          retryOtp={retryOtp}
         />
       )}
 

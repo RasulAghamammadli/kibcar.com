@@ -1,8 +1,5 @@
-import barter from "../../assets/icons/barter.png";
 import { useEffect, useState } from "react";
-import { RedHeartIcon, GrayHeartIcon } from "../layout/IconHover";
 import { Link } from "react-router-dom";
-import premiumImage from "../../assets/icons/premium.png";
 
 function CarCard({
   fakeRender,
@@ -15,6 +12,7 @@ function CarCard({
     brand_model,
     vehicle_year,
     mileage,
+    mileage_in_km,
     engine_power,
     date,
     vehicle_front_view_image,
@@ -78,6 +76,7 @@ function CarCard({
       brand_model,
       vehicle_year,
       mileage,
+      mileage_in_km,
       engine_power,
       date,
       vehicle_front_view_image,
@@ -258,7 +257,7 @@ function CarCard({
         </p>
 
         <p className="text-[14px]  text-primary leading-[17px] mb-[2px] overflow-hidden whitespace-nowrap overflow-ellipsis">
-          {`${vehicle_year.name}, ${engine_volume_liters} L, ${mileage} km`}{" "}
+          {`${vehicle_year.name}, ${engine_volume_liters} L, ${mileage_in_km} km`}{" "}
         </p>
 
         <p className="text-secondary font-normal !text-[12px] leading-[17px] overflow-hidden whitespace-nowrap overflow-ellipsis">{`${published_at}, ${city?.name}`}</p>

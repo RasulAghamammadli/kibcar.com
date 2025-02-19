@@ -8,12 +8,12 @@ import AnimatedButtonWrapper from "./AnimatedButtonWrapper";
 function EditAdForm({ onCloseModal, showNewModal }) {
   const { id } = useParams();
   const [errorMsg, setErrorMsg] = useState("");
-  const [edtiPin, setEditPin] = useState("");
+  const [editPin, setEditPin] = useState("");
   const navigate = useNavigate();
 
   // PIN check API
   const handleCheckPin = async () => {
-    if (edtiPin.trim() === "") {
+    if (editPin.trim() === "") {
       setErrorMsg("Lütfen PIN'i yazın!");
       return;
     }
@@ -25,12 +25,12 @@ function EditAdForm({ onCloseModal, showNewModal }) {
         }/api/announcements/pin-code/check`,
         {
           announcement_id: id,
-          pin_code: edtiPin,
+          pin_code: editPin,
         }
       );
 
       if (response.data.success === true) {
-        navigate(`/edit-advertisement/${id}`);
+        navigate(`/edit-advertisement/${id}`, { state: { pin_code: editPin } });
         onCloseModal();
       }
     } catch (error) {
@@ -71,7 +71,7 @@ function EditAdForm({ onCloseModal, showNewModal }) {
           <input
             type="text"
             name="pin"
-            value={edtiPin}
+            value={editPin}
             onChange={handlePinChange}
             className="px-4 py-[12px] border rounded w-full lg:min-w-[220px] outline-none focus:border-[red] transition-all duration-200"
             placeholder="PIN girin"

@@ -9,12 +9,20 @@ import { IoIosClose } from "react-icons/io";
 import OtpModal from "../components/OtpModal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  Navigate,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import AnimatedButtonWrapper from "../components/AnimatedButtonWrapper";
 
 function EditAdvertisement() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const pin_code = location.state?.pin_code; // pin_code from the previous page
   const formRef = useRef(null);
   const [brands, setBrands] = useState([]);
   const [brandModels, setBrandModels] = useState([]);
@@ -27,8 +35,6 @@ function EditAdvertisement() {
   const [engineVolumes, setEngineVolumes] = useState([]);
   const [markets, setMarkets] = useState([]);
   const [owners, setOwners] = useState([]);
-  const [cities, setCities] = useState([]);
-  const [showOtpModal, setShowOtpModal] = useState(false);
   const [carFeatures, setCarFeatures] = useState([]);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
 
@@ -39,8 +45,7 @@ function EditAdvertisement() {
       setSelectedFeatures(selectedFeatures.filter((id) => id !== featureId));
     }
   };
-  const [paymentStatus, setPaymentStatus] = useState("");
-  const [paymentToken, setPaymentToken] = useState("");
+
   const [PictureErrorMsg, setPictureErrorMsg] = useState("");
   const [car, setCar] = useState(null);
 
@@ -88,9 +93,10 @@ function EditAdvertisement() {
     seatHeating: false,
     sideCurtains: false,
     userName: "",
-    userCity: "Select",
+    city: "Select",
     userEmail: "",
     userTel: "",
+    pin_code: "",
     uploadedImages: [],
     images: [],
     vehicle_front_view_image: null,
@@ -98,7 +104,9 @@ function EditAdvertisement() {
     vehicle_front_panel_image: null,
     imagesFiles: [],
   };
+
   const [formData, setFormData] = useState(initialData);
+
   useEffect(() => {
     async function getCar(id) {
       try {
@@ -117,6 +125,8 @@ function EditAdvertisement() {
           vehicle_back_view_image: carData.vehicle_back_view_image,
         };
 
+        console.log(carData);
+
         setFormData({
           brand: carData.brand.id,
           fuelType: carData.fuel_type.id,
@@ -125,7 +135,7 @@ function EditAdvertisement() {
           banType: carData.vehicle_category.id,
           gearBox: carData.vehicle_transmission.id,
           march: carData.mileage,
-          marchNum: "km",
+          marchNum: carData.mileage_measurement_unit,
           year: carData.vehicle_year.id,
           color: carData.vehicle_color.id,
           engineVolume: carData.vehicle_engine_volume.id,
@@ -164,7 +174,7 @@ function EditAdvertisement() {
           vehicle_front_view_image: null,
           vehicle_back_view_image: null,
           vehicle_front_panel_image: null,
-          pin_code: null,
+          pin_code: pin_code,
           city: carData.city?.id,
           carStatus: carData.vehicle_status,
           imagesFiles: [],
@@ -240,6 +250,7 @@ function EditAdvertisement() {
     getDefaultOptions();
     getCar(id);
   }, [id]);
+
   useEffect(() => {
     async function getModels() {
       try {
@@ -264,6 +275,7 @@ function EditAdvertisement() {
       [name]: value,
     });
   }
+
   function handleCheckboxChange(e) {
     const { name, checked } = e.target;
     setFormData({
@@ -271,7 +283,9 @@ function EditAdvertisement() {
       [name]: checked,
     });
   }
+
   const placeholderImages = [frontView, backView, insideView];
+
   function validateImageCount(uploadedImages) {
     const minImages = 3;
     const maxImages = 21;
@@ -285,6 +299,7 @@ function EditAdvertisement() {
 
     return ""; // No error
   }
+
   const handleImageUpload = (event, index) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
@@ -481,18 +496,16 @@ function EditAdvertisement() {
     </div>
   );
 
-  function handleFormSubmit(e) {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
     async function saveAnnouncement() {
       try {
+        // Preparing images
         const images = formData.uploadedImages.slice(3).map((file) => {
           const filename = file.name;
-          return new File([file], filename, {
-            type: file.type,
-          });
+          return new File([file], filename, { type: file.type });
         });
 
-        console.log(formData.imagesFiles);
         const params = {
           vehicle_category: formData.banType,
           fuel_type: formData.fuelType,
@@ -500,84 +513,77 @@ function EditAdvertisement() {
           vehicle_transmission: formData.gearBox,
           vehicle_year: formData.year,
           vehicle_prior_owner: formData.howManyDoYouOwn,
-          vehicle_status: formData.carStatus,
+          vehicle_status: formData.carStatus ? 1 : 0,
           mileage: formData.march,
           mileage_measurement_unit: formData.marchNum,
           vehicle_color: formData.color,
           price: formData.price,
+          price_currency: formData.currencyValue.toLocaleLowerCase(),
           vehicle_engine_volume: formData.engineVolume,
           engine_power: formData.enginePower,
           vehicle_market: formData.marketAssembled,
           number_of_seats: formData.seatNum,
-          loan: formData.credit,
-          barter: formData.barter,
-          is_crashed: formData.hasStroke,
-          is_painted: formData.hasColor,
-          for_spare_parts: formData.needRepair,
+          loan: formData.credit ? 1 : 0,
+          barter: formData.barter ? 1 : 0,
+          is_crashed: formData.hasStroke ? 1 : 0,
+          is_painted: formData.hasColor ? 1 : 0,
+          for_spare_parts: formData.needRepair ? 1 : 0,
           vin_code: formData.vinCode,
           additional_information: formData.moreInfo,
           vehicle_front_view_image: formData.vehicle_front_view_image,
           vehicle_back_view_image: formData.vehicle_back_view_image,
           vehicle_front_panel_image: formData.vehicle_front_panel_image,
-          brand_model: formData.model,
-          city: formData.userCity,
-          price_currency: formData.currencyValue,
-          name: formData.userName,
-          email: formData.userEmail,
-          phone: formData.userTel,
-          images: formData.imagesFiles,
           brand: formData.brand,
+          brand_model: formData.model,
+          city: formData.city,
+          pin_code: formData.pin_code,
+          images: formData.imagesFiles,
           vehicle_features: selectedFeatures,
         };
+
         const headers = {
           "Content-Type": "multipart/form-data",
         };
 
         const response = await axios.post(
-          `${import.meta.env.VITE_REACT_APP_API_URL}/api/announcements`,
+          `${
+            import.meta.env.VITE_REACT_APP_API_URL
+          }/api/announcements/${id}/update`,
           params,
-          {
-            headers: headers,
-          }
+          { headers }
         );
 
-        if (response.data.action == "premium") {
-          setPaymentToken(response.data.token);
-        }
-
-        if (response.data.action == "otp") {
-          setShowOtpModal(true);
-        }
-
-        if (response.data.success == true) {
-          // show success alet
+        if (response.data.success) {
           toast.dismiss();
           toast.success(
-            "İlanınız eklendi ve onaylandığında sizi bilgilendireceğiz",
+            "İlanınız güncellendi ve onaylandığında sizi bilgilendireceğiz",
             {
               position: "bottom-right",
               autoClose: false,
             }
           );
-          setFormData(initialData);
-          setTimeout(() => {
-            navigate("/");
-          }, 2000);
+          setFormData(initialData); // Reset form
+          // setTimeout(() => {
+          //   navigate("/");
+          // }, 2000);
+          alert("salammmm");
         }
       } catch (error) {
-        if (error.response.data.errors) {
+        if (error.response && error.response.data.errors) {
           toast.dismiss();
           for (let errorKey in error.response.data.errors) {
             error.response.data.errors[errorKey].forEach((v) => {
               toast.error(v, {
                 position: "bottom-right",
-                autoClose: false,
+                autoClose: 3000,
               });
             });
           }
         }
       }
     }
+
+    // Image validation
     const errorMessage = validateImageCount(formData.uploadedImages);
     const picSection = document.getElementById("picturesSection");
     const errorMsg = document.getElementById("error");
@@ -591,7 +597,7 @@ function EditAdvertisement() {
       saveAnnouncement();
       console.log(formData);
     }
-  }
+  };
 
   return (
     <form ref={formRef} action="" onSubmit={handleFormSubmit}>
@@ -800,15 +806,15 @@ function EditAdvertisement() {
                         required
                         className="w-4 h-4 accent-red"
                         onChange={handleChange}
-                        id="mil"
+                        id="mi"
                         type="radio"
                         name="marchNum"
-                        value="mil"
-                        checked={formData.marchNum === "mil"}
+                        value="mi"
+                        checked={formData.marchNum === "mi"}
                       />
                       <label
                         className="text-[14px] font-secondary"
-                        htmlFor="mil"
+                        htmlFor="mi"
                       >
                         mil
                       </label>
@@ -1124,7 +1130,7 @@ function EditAdvertisement() {
                       id="carStatusNew"
                       type="radio"
                       name="carStatus"
-                      checked={formData.carStatus == "NEW"}
+                      checked={formData.carStatus === "NEW"}
                       value="NEW"
                       onChange={handleChange}
                       required
@@ -1143,7 +1149,7 @@ function EditAdvertisement() {
                       id="carStatusUsed"
                       type="radio"
                       name="carStatus"
-                      checked={formData.carStatus == "USED"}
+                      checked={formData.carStatus === "USED"}
                       value="USED"
                       onChange={handleChange}
                       required
@@ -1562,13 +1568,6 @@ function EditAdvertisement() {
           </div>
         </div>
       </div>
-      {showOtpModal && (
-        <OtpModal
-          verifyOtp={verifyOtp}
-          resendOtp={resendOtp}
-          onClose={() => setShowOtpModal(false)}
-        />
-      )}
 
       <ToastContainer />
     </form>

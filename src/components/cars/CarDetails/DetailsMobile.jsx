@@ -143,7 +143,7 @@ function DetailsMobile({
               {car.brand.name} {car.brand_model.name},{" "}
               {car.engine_volume_liters + " L"}, {car.vehicle_year.name} yıl,{" "}
               {Number(car.mileage).toLocaleString()}{" "}
-              {car.mileage_measurement_unit}
+              {car.mileage_measurement_unit === "mi" ? "mil" : "km"}
             </h2>
             <div to={""} className="grid grid-cols-12 space-x-2 my-[15px] ">
               {/* <Link className="col-span-4">

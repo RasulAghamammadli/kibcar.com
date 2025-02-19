@@ -218,6 +218,7 @@ function NewAdvertisement() {
   }
 
   const placeholderImages = [frontView, backView, insideView];
+
   function validateImageCount(uploadedImages) {
     const minImages = 3;
     const maxImages = 21;
@@ -231,6 +232,7 @@ function NewAdvertisement() {
 
     return ""; // No error
   }
+
   const handleImageUpload = (event, index) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
@@ -1571,7 +1573,7 @@ function NewAdvertisement() {
           <div className="grid grid-cols-12 mt-[30px] md:ml-6">
             <div className="col-span-12">
               <h2 className="uppercase font-secondary text-[26px] font-bold leading-8 text-primary">
-                İletişim
+                İletİşİm
               </h2>
               <p className="mt-[10px] font-primary text-secondary">
                 İlan yayımlandıktan sonra iletişim bilgileri değiştirilemez.

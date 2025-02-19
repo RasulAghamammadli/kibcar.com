@@ -85,7 +85,11 @@ function CarDetailsCom({ car }) {
             {/* {numberOfSeats} */}
             {car.number_of_seats != null ? car.number_of_seats : "-"}
           </p>
-          <p className="font-primary text-[14px] text-[#212c3a]">1</p>
+          <p className="font-primary text-[14px] text-[#212c3a]">
+            {car.vehicle_prior_owner.id === 4
+              ? "4 ve daha fazla"
+              : car.vehicle_prior_owner.id}
+          </p>
           <p className="font-primary text-[14px] text-[#212c3a]">
             {car.vehicle_market.name ? car.vehicle_market.name : "-"}
           </p>

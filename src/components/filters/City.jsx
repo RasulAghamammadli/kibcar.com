@@ -101,7 +101,7 @@ function City() {
               : "border-gray-300"
           }`}
         >
-          <div className="max-w-[80%]">
+          <div className="max-w-[80%] max-sm:w-full">
             <input
               ref={inputRef}
               id="city"

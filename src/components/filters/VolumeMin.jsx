@@ -115,7 +115,7 @@ function VolumeMin() {
             <input
               id="volumeMin"
               ref={inputRef}
-              type="text"
+              type="number"
               value={searchTerm}
               onChange={handleInputChange}
               className={`font-primary text-[15px] text-primary font-normal w-full bg-transparent border-none focus:outline-none text-start overflow-hidden whitespace-nowrap overflow-ellipsis ${

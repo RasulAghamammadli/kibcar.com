@@ -57,7 +57,7 @@ function PaymentCurrency() {
           />
         </button>
         {isOpen && (
-          <ul className="absolute left-0 right-0 p-2 px-0 shadow menu bg-base-100 flex justify-start w-full mt-0.5 rounded-lg">
+          <ul className="absolute z-[1] left-0 right-0 p-2 px-0 shadow menu bg-base-100 flex justify-start w-full mt-0.5 rounded-lg">
             {currencies.map((item) => (
               <li key={item.id} onClick={() => handleSelection(item)}>
                 <a className="rounded-none px-[10px] block w-full text-left">

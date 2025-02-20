@@ -199,6 +199,7 @@ export const FilterProvider = ({ children }) => {
   function handleMoreFilters() {
     setMoreFilters(!moreFilters);
   }
+
   return (
     <FilterContext.Provider
       value={{

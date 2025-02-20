@@ -94,22 +94,28 @@ function Homepage() {
   const showFilterPayload = async () => {
     try {
       const data = {
-        barter: filterContextData.paymentOptions.barter,
+        barter: filterContextData.paymentOptions.barter
+          ? filterContextData.paymentOptions.barter
+          : null,
         brand: filterContextData.brandId?.brand,
         min_price: filterContextData.minPrice,
         max_price: filterContextData.maxPrice,
         brand_model: filterContextData.checkedModelsIds,
-        city: filterContextData.checkedCityIds, // Todo: Uncomment or remove this line based on your requirement
+        city: filterContextData.checkedCityIds,
         fuel_type: filterContextData.checkedFuelTypeIds,
         is_crashed: filterContextData.paymentOptions.noPunctuation
-          ? !filterContextData.paymentOptions.noPunctuation
+          ? filterContextData.paymentOptions.noPunctuation
           : null,
         is_painted: filterContextData.paymentOptions.notColored
-          ? !filterContextData.paymentOptions.notColored
+          ? filterContextData.paymentOptions.notColored
           : null,
-        for_spare_parts: filterContextData.paymentOptions.accidentalCars,
+        for_spare_parts: filterContextData.paymentOptions.accidentalCars
+          ? filterContextData.paymentOptions.accidentalCars
+          : null,
         gear: filterContextData.checkedGearIds,
-        loan: filterContextData.paymentOptions.credit,
+        loan: filterContextData.paymentOptions.credit
+          ? filterContextData.paymentOptions.credit
+          : null,
         max_engine_power: filterContextData.maxPower,
         min_engine_power: filterContextData.minPower,
         max_mileage: filterContextData.maxMileage,
@@ -119,14 +125,14 @@ function Homepage() {
         max_vehicle_year: filterContextData.selectedMaxYearManufactured,
         min_vehicle_year: filterContextData.selectedYearManufactured,
         number_of_seats: filterContextData.checkedSeatsNumberIds,
-        price_currency: filterContextData.selectedCurrency,
+        // price_currency: filterContextData.selectedCurrency,
         vehicle_category: filterContextData.checkedBanTypeIds,
         vehicle_color: filterContextData.checkedColorIds,
         vehicle_market: filterContextData.checkedMarketAssembledIds,
         vehicle_prior_owner: filterContextData.checkedOwnersNumberIds,
-        vehicle_status: filterContextData.selectedType,
+        // vehicle_status: filterContextData.selectedType,
         vehicle_transmission: filterContextData.checkedGearBoxIds,
-        ownership_type: filterContextData.selectedCarType,
+        // ownership_type: filterContextData.selectedCarType,
         features: filterContextData.featuresIds,
       };
 

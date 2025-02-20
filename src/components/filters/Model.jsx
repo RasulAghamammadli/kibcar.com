@@ -115,7 +115,7 @@ function Model() {
           }`}
           disabled={!brandId}
         >
-          <div className="max-w-[80%]">
+          <div className="max-w-[80%] max-sm:w-full">
             <input
               ref={inputRef}
               id="model"

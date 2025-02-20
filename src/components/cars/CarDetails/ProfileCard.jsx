@@ -1,6 +1,6 @@
 function ProfileCard({ car }) {
   return (
-    <div className="flex justify-between items-center mt-4 pt-4 border-t border-[#eaebf2]">
+    <div className="flex justify-between items-center pt-4 border-[#eaebf2]">
       <div>
         <p>{car?.guest_contact?.name}</p>
         <p className="text-secondary text-[14px]">{car?.city?.name}</p>

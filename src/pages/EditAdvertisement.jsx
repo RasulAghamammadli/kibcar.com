@@ -94,8 +94,6 @@ function EditAdvertisement() {
     sideCurtains: false,
     userName: "",
     city: "Select",
-    userEmail: "",
-    userTel: "",
     pin_code: "",
     uploadedImages: [],
     images: [],
@@ -125,8 +123,6 @@ function EditAdvertisement() {
           vehicle_back_view_image: carData.vehicle_back_view_image,
         };
 
-        console.log(carData);
-
         setFormData({
           brand: carData.brand.id,
           fuelType: carData.fuel_type.id,
@@ -144,12 +140,12 @@ function EditAdvertisement() {
           enginePower: carData.engine_power,
           howManyDoYouOwn: carData.vehicle_prior_owner.id,
           marketAssembled: carData.vehicle_market.id,
-          hasStroke: carData.is_crashed == 1 ? true : false,
-          hasColor: carData.is_painted == 1 ? true : false,
-          needRepair: carData.for_spare_parts == 1 ? true : false,
+          hasStroke: carData.is_crashed === 1 ? true : false,
+          hasColor: carData.is_painted === 1 ? true : false,
+          needRepair: carData.for_spare_parts === 1 ? true : false,
           seatNum: carData.number_of_seats,
-          credit: carData.loan == 1 ? true : false,
-          barter: carData.barter == 1 ? true : false,
+          credit: carData.loan === 1 ? true : false,
+          barter: carData.barter === 1 ? true : false,
           vinCode: carData.vin_code,
           moreInfo: carData.additional_information,
           alloyWheels: false,
@@ -182,8 +178,6 @@ function EditAdvertisement() {
 
         setCar(response.data.data);
         setSelectedFeatures(featureIds);
-
-        console.log(formData);
       } catch (error) {
         console.log(error);
         navigate("/not-found");
@@ -506,6 +500,13 @@ function EditAdvertisement() {
           return new File([file], filename, { type: file.type });
         });
 
+        // car status map
+        const carStatusMap = {
+          NEW: 0,
+          USED: 1,
+        };
+
+        // params
         const params = {
           vehicle_category: formData.banType,
           fuel_type: formData.fuelType,
@@ -513,7 +514,7 @@ function EditAdvertisement() {
           vehicle_transmission: formData.gearBox,
           vehicle_year: formData.year,
           vehicle_prior_owner: formData.howManyDoYouOwn,
-          vehicle_status: formData.carStatus ? 1 : 0,
+          vehicle_status: carStatusMap[formData.carStatus],
           mileage: formData.march,
           mileage_measurement_unit: formData.marchNum,
           vehicle_color: formData.color,
@@ -553,32 +554,35 @@ function EditAdvertisement() {
           { headers }
         );
 
-        if (response.data.success) {
-          toast.dismiss();
-          toast.success(
-            "İlanınız güncellendi ve onaylandığında sizi bilgilendireceğiz",
-            {
-              position: "bottom-right",
-              autoClose: false,
-            }
-          );
+        if (response.status === 200 && response.data.success === true) {
+          navigate("/edit-success");
           setFormData(initialData); // Reset form
-          // setTimeout(() => {
-          //   navigate("/");
-          // }, 2000);
-          alert("salammmm");
         }
       } catch (error) {
-        if (error.response && error.response.data.errors) {
-          toast.dismiss();
-          for (let errorKey in error.response.data.errors) {
-            error.response.data.errors[errorKey].forEach((v) => {
-              toast.error(v, {
-                position: "bottom-right",
-                autoClose: 3000,
-              });
-            });
-          }
+        console.log("İlan düzenleme hatası:", error.response);
+        if (
+          error.response.status === 403 &&
+          error.response.data.message ===
+            "You reached limit of updates for this announcement for today"
+        ) {
+          toast.error("Bugün bu ilan için güncelleme sınırına ulaştınız", {
+            position: "bottom-right",
+            autoClose: 3000,
+          });
+        } else if (
+          error.response.status === 403 &&
+          error.response.data.message ===
+            "You don't have access to change this announcement"
+        ) {
+          toast.error("Bu ilanı değiştirme erişiminiz yok", {
+            position: "bottom-right",
+            autoClose: 3000,
+          });
+        } else if (error.response.status === 404) {
+          toast.error("Bu PIN koduyla ilan bulunamadı.", {
+            position: "bottom-right",
+            autoClose: 3000,
+          });
         }
       }
     }
@@ -595,7 +599,6 @@ function EditAdvertisement() {
     } else {
       errorMsg.classList.add("hidden");
       saveAnnouncement();
-      console.log(formData);
     }
   };
 
@@ -917,16 +920,16 @@ function EditAdvertisement() {
                       <input
                         className="w-4 h-4 accent-red"
                         onChange={handleChange}
-                        id="stg"
+                        id="STG"
                         type="radio"
                         name="currencyValue"
-                        value="stg"
+                        value="STG"
                         checked={formData.currencyValue === "STG"}
                         required
                       />
                       <label
                         className="text-[14px] font-secondary"
-                        htmlFor="stg"
+                        htmlFor="STG"
                       >
                         STG
                       </label>
@@ -935,16 +938,16 @@ function EditAdvertisement() {
                       <input
                         className="w-4 h-4 accent-red"
                         onChange={handleChange}
-                        id="usd"
+                        id="USD"
                         type="radio"
                         name="currencyValue"
-                        value="usd"
+                        value="USD"
                         checked={formData.currencyValue === "USD"}
                         required
                       />
                       <label
                         className="text-[14px] font-secondary"
-                        htmlFor="usd"
+                        htmlFor="USD"
                       >
                         USD
                       </label>
@@ -953,16 +956,16 @@ function EditAdvertisement() {
                       <input
                         className="w-4 h-4 accent-red"
                         onChange={handleChange}
-                        id="eur"
+                        id="EUR"
                         type="radio"
                         name="currencyValue"
-                        value="eur"
+                        value="EUR"
                         checked={formData.currencyValue === "EUR"}
                         required
                       />
                       <label
                         className="text-[14px] font-secondary"
-                        htmlFor="eur"
+                        htmlFor="EUR"
                       >
                         EUR
                       </label>
@@ -1126,8 +1129,8 @@ function EditAdvertisement() {
                 <div className="md:flex-nowrap  flex-wrap gap-y-3 md:gap-y-0  md:min-w-[452px] w-full gap-x-5 flex md:ml-2">
                   <div className="flex items-center gap-x-2">
                     <input
-                      className="w-4 h-4 accent-red "
-                      id="carStatusNew"
+                      className="w-4 h-4 accent-red"
+                      id="NEW"
                       type="radio"
                       name="carStatus"
                       checked={formData.carStatus === "NEW"}
@@ -1138,7 +1141,7 @@ function EditAdvertisement() {
 
                     <label
                       className="text-[14px] font-normal text-primary"
-                      htmlFor="carStatusNew"
+                      htmlFor="NEW"
                     >
                       Yeni
                     </label>
@@ -1146,7 +1149,7 @@ function EditAdvertisement() {
                   <div className="flex items-center gap-x-2">
                     <input
                       className="w-4 h-4 accent-red"
-                      id="carStatusUsed"
+                      id="USED"
                       type="radio"
                       name="carStatus"
                       checked={formData.carStatus === "USED"}
@@ -1157,7 +1160,7 @@ function EditAdvertisement() {
 
                     <label
                       className="text-[14px] font-normal text-primary"
-                      htmlFor="carStatusUsed"
+                      htmlFor="USED"
                     >
                       İkinci el
                     </label>
@@ -1488,33 +1491,6 @@ function EditAdvertisement() {
               </div>
             </div>
           </div>
-          {/* <div className="grid grid-cols-12 gap-[30px] mt-[80px]">
-            <div className="col-span-12 lg:col-span-6">
-              <ul className="flex flex-col gap-y-[30px] picture-list ml-5">
-                <li>
-                  Photos must be taken in the territory of the Republic of
-                  Azerbaijan
-                </li>
-                <li>
-                  Photos must be of good quality. The vehicle should be
-                  well-lit, there should be no logos and other inscriptions on
-                  the pictures. Screenshots are not accepted.
-                </li>
-              </ul>
-            </div>
-            <div className="col-span-12 lg:col-span-6">
-              <ul className="flex flex-col gap-y-[30px] picture-list ml-5 lg:ml-0 ">
-                <li>
-                  Photos taken at the dealership must be uploaded from the
-                  registered dealership's account.
-                </li>
-                <li>
-                  A vehicle sold by a private owner must not be photographed in
-                  or near the showroom/official service area.
-                </li>
-              </ul>
-            </div>
-          </div> */}
           <div className="grid grid-cols-12 mt-[30px]">
             <div className="col-span-12">
               <h2 className="uppercase font-secondary text-[26px] font-bold leading-8 text-primary">
@@ -1542,13 +1518,13 @@ function EditAdvertisement() {
                     required
                   />
                 </div>
-                <div className="max-w-[700px] mt-30 flex justify-end">
+                <div className="max-w-[696px] mt-30 flex justify-end">
                   <AnimatedButtonWrapper>
                     <button
-                      className="md:min-w-[455px] min-w-full text-[14px] font-primary  text-white btn-search rounded-lg bg-red hover:bg-[#882111] shadow-none hover:shadow-none py-[18px] px-[20px] font-normal flex items-center justify-center"
+                      className="md:min-w-[452px] min-w-full text-[14px] font-primary text-white py-[18px] px-[20px] outline-none rounded-md font-medium bg-red"
                       type="submit"
                     >
-                      Devam Et
+                      <p>Devam Et</p>
                     </button>
                   </AnimatedButtonWrapper>
                 </div>

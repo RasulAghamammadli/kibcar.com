@@ -168,25 +168,27 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
             <li>Güncellendi: {car.updated_date}</li>
           </ul>
           <CarDetailsCom car={car} />
-          <div className="flex flex-col gap-y-[10px] mt-[30px] ">
+          <div className="flex flex-col">
             {car.additional_information && (
-              <div className="border-b border-solid border-[#E2E2E2] pb-[30px]">
+              <div className="border-b border-solid border-[#E2E2E2] pb-[30px] mt-[30px]">
                 {car.additional_information}
               </div>
             )}
-            <div className="flex flex-row flex-wrap gap-x-[20px] gap-y-3 pt-[20px] pb-[30px] border-b border-solid border-[#e2e2e2]">
-              {car.features.map((feature) => {
-                return (
-                  <p
-                    key={feature.id}
-                    className="bg-[#F6F7FA] p-[10px] rounded-[35px] leading-[17px] text-[15px] font-secondary"
-                  >
-                    {feature.name}
-                  </p>
-                );
-              })}
-            </div>
-            <div className="flex items-center justify-between mt-[20px]">
+            {car.features.length > 0 && (
+              <div className="flex flex-row flex-wrap gap-x-[20px] gap-y-3 pt-[30px] pb-[30px] border-b border-solid border-[#e2e2e2]">
+                {car.features.map((feature) => {
+                  return (
+                    <p
+                      key={feature.id}
+                      className="bg-[#F6F7FA] p-[10px] rounded-[35px] leading-[17px] text-[15px] font-secondary"
+                    >
+                      {feature.name}
+                    </p>
+                  );
+                })}
+              </div>
+            )}
+            <div className="flex items-center justify-between mt-[30px]">
               <div className="flex gap-x-[20px]">
                 {car.car_dealership === null && (
                   <Modal>

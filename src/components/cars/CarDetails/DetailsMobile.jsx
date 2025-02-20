@@ -226,28 +226,30 @@ function DetailsMobile({
               </button>
             </div>
             <CarDetailsCom car={car} />
-            <div className="py-[15px]">
-              {car.additional_information && (
+            {car.additional_information && (
+              <div className="py-[15px] border-b border-[#E2E2E2]">
                 <ReadMore text={car.additional_information} maxLength={200} />
-              )}
-            </div>
-            <div className="flex flex-row flex-wrap gap-x-[20px] gap-y-3 pt-[15px] border-t border-solid border-[#e2e2e2]">
-              {car.features.map((feature) => {
-                return (
-                  <p
-                    key={feature.id}
-                    className="bg-[#F6F7FA] p-[10px] rounded-[35px] leading-[17px] text-[15px] font-secondary"
-                  >
-                    {feature.name}
-                  </p>
-                );
-              })}
-            </div>
+              </div>
+            )}
+            {car.features.length > 0 && (
+              <div className="flex flex-row flex-wrap gap-x-[20px] gap-y-3 pt-[15px] pb-[15px] border-b border-solid border-[#e2e2e2]">
+                {car.features.map((feature) => {
+                  return (
+                    <p
+                      key={feature.id}
+                      className="bg-[#F6F7FA] p-[10px] rounded-[35px] leading-[17px] text-[15px] font-secondary"
+                    >
+                      {feature.name}
+                    </p>
+                  );
+                })}
+              </div>
+            )}
             {!car.car_dealership ? (
               <ProfileCard car={car} />
             ) : (
               <>
-                <div className="flex items-center justify-between mb-[15px] mt-4 pt-4 border-t border-[#eaebf2]">
+                <div className="flex items-center justify-between mb-[15px] pt-4 ">
                   <div>
                     <p>{car.car_dealership.name}</p>
                     {/* <p className="text-[15px] font-primary  uppercase text-[#8d94ad]">
@@ -323,9 +325,9 @@ function DetailsMobile({
                 {car.updated_date}
               </p>
             </div>
-            <div className="flex items-center justify-between mt-[20px]">
-              <div className="flex gap-x-[20px] pb-[15px] w-[100%] border-b border-[#E2E2E2]">
-                {car.car_dealership === null && (
+            <div className="flex items-center justify-between border-b border-[#E2E2E2] pb-[15px]">
+              {car.car_dealership === null && (
+                <div className="flex gap-x-[20px] pt-[20px] w-[100%] ">
                   <Modal>
                     <Modal.Open windowName="edit">
                       <button className="font-primary text-[14px] underline text-[#212c3a] hover:text-link">
@@ -361,8 +363,8 @@ function DetailsMobile({
                       <SuccessSendEmail />
                     </Modal.Window>
                   </Modal>
-                )}
-              </div>
+                </div>
+              )}
             </div>
             <div className="py-[15px]">
               <Modal>

@@ -1675,20 +1675,20 @@ function NewAdvertisement() {
                   <AnimatedButtonWrapper>
                     <button
                       onClick={handleFormSubmit}
-                      className="md:min-w-[452px] min-w-full text-[14px] font-primary text-white  py-[18px] px-[20px] outline-none rounded-md font-medium bg-red"
+                      className="md:min-w-[452px] min-w-full text-[14px] font-primary text-white py-[18px] px-[20px] outline-none rounded-md font-medium bg-red"
                       type="button"
                     >
                       <p>Devam Et</p>
                     </button>
                   </AnimatedButtonWrapper>
                 </div>
-                <button
+                {/* <button
                   className="py-3 bg-green w-20"
                   type="button"
                   onClick={deleteOtp}
                 >
                   reset limit
-                </button>
+                </button> */}
                 <div className="text-secondary mb-10">
                   Bir ilan vererek{" "}
                   <Link to="" className="text-link">

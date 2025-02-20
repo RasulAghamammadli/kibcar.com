@@ -32,6 +32,7 @@ import PaidServices from "./pages/PaidServices";
 import Success from "./pages/Success";
 import Fail from "./pages/Fail";
 import CreateSuccess from "./pages/CreateSuccess";
+import EditSuccess from "./pages/EditSuccess";
 import DeleteSuccess from "./pages/DeleteSuccess";
 import NotFound from "./pages/NotFound";
 import DetailNotFound from "./pages/DetailNotFound";
@@ -79,6 +80,7 @@ function App() {
                   <Route path="/success" element={<Success />} />
                   <Route path="/fail" element={<Fail />} />
                   <Route path="/create-success" element={<CreateSuccess />} />
+                  <Route path="/edit-success" element={<EditSuccess />} />
                   <Route path="/delete-success" element={<DeleteSuccess />} />
                   <Route path="/not-found" element={<DetailNotFound />} />
                   <Route path="*" element={<NotFound />} />

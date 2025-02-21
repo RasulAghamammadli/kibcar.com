@@ -40,6 +40,7 @@ function PaymentCurrency() {
     <div className="w-[40%] h-full">
       <div ref={detailsRef} className="relative w-full h-full">
         <button
+          type="button"
           className={`flex items-center justify-between w-full h-full px-[10px] bg-white border rounded-lg btn shadow-none hover:bg-white ${
             isOpen ? "border-[#8F93AD]" : "border-gray-300"
           }`}
@@ -60,7 +61,13 @@ function PaymentCurrency() {
           <ul className="absolute z-[1] left-0 right-0 p-2 px-0 shadow menu bg-base-100 flex justify-start w-full mt-0.5 rounded-lg">
             {currencies.map((item) => (
               <li key={item.id} onClick={() => handleSelection(item)}>
-                <a className="rounded-none px-[10px] block w-full text-left">
+                <a
+                  className={`rounded-none px-[10px] block w-full text-left ${
+                    selectedCurrency === item.name
+                      ? "text-red font-semibold hover:text-red"
+                      : ""
+                  }`}
+                >
                   {item.name}
                 </a>
               </li>

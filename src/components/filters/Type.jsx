@@ -7,8 +7,16 @@ function Type() {
   const handleChange = (value) => {
     setSelectedType(value);
   };
-  useEffect(() => setSelectedType("tümü"), []);
-  const options = ["tümü", "yeni", "kullanılmış"];
+
+  useEffect(() => setSelectedType("all"), []);
+
+  const options = ["all", "new", "drove"];
+
+  const optionLabels = {
+    all: "Tümü",
+    new: "Yeni",
+    drove: "Kullanılmış",
+  };
 
   return (
     <div className="flex justify-between border border-gray-300 rounded-lg h-full">
@@ -30,7 +38,7 @@ function Type() {
             onChange={() => {}}
             className="hidden"
           />
-          {option.charAt(0).toUpperCase() + option.slice(1)}
+          {optionLabels[option]}
         </label>
       ))}
     </div>

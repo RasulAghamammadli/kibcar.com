@@ -116,9 +116,10 @@ function YearManufacturer() {
               type="number"
               value={searchTerm}
               onChange={handleInputChange}
-              className={`font-primary text-[15px] text-primary font-normal w-full bg-transparent border-none focus:outline-none text-start overflow-hidden whitespace-nowrap overflow-ellipsis ${
+              className={`cursor-pointer font-primary text-[15px] text-primary font-normal w-full bg-transparent border-none focus:outline-none text-start overflow-hidden whitespace-nowrap overflow-ellipsis ${
                 searchTerm ? "mt-[15px]" : "text-primary"
               }`}
+              readOnly
             />
             <label
               htmlFor="minYear"
@@ -139,7 +140,7 @@ function YearManufacturer() {
             }`}
           />
         </summary>
-        <ul className="p-2 px-0 z-[1] shadow menu dropdown-content bg-base-100 flex flex-col flex-nowrap justify-start w-full mt-0.5 rounded-lg max-h-[210px] overflow-y-auto">
+        <ul className="p-2 px-0 z-[1] shadow menu dropdown-content bg-base-100 flex flex-col flex-nowrap justify-start w-full mt-0.5 rounded-lg max-h-[335px] overflow-y-auto max-sm:max-h-[235px]">
           <li onClick={clearSearchTerm}>
             <label className="flex items-center w-full pr-4 px-[10px] py-2.5 text-primary text-[15px] rounded-none">
               <span className="text-red font-semibold text-[15px]">✕</span>

@@ -7,8 +7,15 @@ function CarType() {
     setSelectedCarType(value);
   };
 
-  const options = ["tümü", "bayiler", "kişisel"];
-  useEffect(() => setSelectedCarType("tümü"), []);
+  useEffect(() => setSelectedCarType("all"), []);
+
+  const options = ["all", "Car Dealerships", "Personal"];
+
+  const optionLabels = {
+    all: "Tümü",
+    "Car Dealerships": "Bayiler",
+    Personal: "Kişisel",
+  };
 
   return (
     <div className="flex justify-between border border-gray-300 rounded-lg h-full">
@@ -30,7 +37,7 @@ function CarType() {
             onChange={() => {}}
             className="hidden"
           />
-          {option.charAt(0).toUpperCase() + option.slice(1)}
+          {optionLabels[option]}
         </label>
       ))}
     </div>

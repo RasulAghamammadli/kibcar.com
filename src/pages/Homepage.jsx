@@ -125,14 +125,20 @@ function Homepage() {
         max_vehicle_year: filterContextData.selectedMaxYearManufactured,
         min_vehicle_year: filterContextData.selectedYearManufactured,
         number_of_seats: filterContextData.checkedSeatsNumberIds,
-        // price_currency: filterContextData.selectedCurrency,
+        price_currency: filterContextData.selectedCurrency,
         vehicle_category: filterContextData.checkedBanTypeIds,
         vehicle_color: filterContextData.checkedColorIds,
         vehicle_market: filterContextData.checkedMarketAssembledIds,
         vehicle_prior_owner: filterContextData.checkedOwnersNumberIds,
-        // vehicle_status: filterContextData.selectedType,
+        vehicle_status:
+          filterContextData.selectedType !== "all"
+            ? filterContextData.selectedType
+            : null,
         vehicle_transmission: filterContextData.checkedGearBoxIds,
-        // ownership_type: filterContextData.selectedCarType,
+        ownership_type:
+          filterContextData.selectedCarType !== "all"
+            ? filterContextData.selectedCarType
+            : null,
         features: filterContextData.featuresIds,
       };
 

@@ -12,6 +12,7 @@ function Brand() {
   const [searchTerm, setSearchTerm] = useState("");
   const detailsRef = useRef(null);
   const inputRef = useRef(null);
+  const hasUserSelected = useRef(false);
 
   const handleSelection = (item) => {
     setBrandId({
@@ -19,15 +20,26 @@ function Brand() {
     });
     setBrandName(item.name);
     setSearchTerm(item.name);
+    hasUserSelected.current = true;
     closeDropdown();
   };
 
   const handleInputChange = (e) => {
-    setSearchTerm(e.target.value);
+    const value = e.target.value;
+
+    // if selected brand is not equal to the value of the input
+    if (hasUserSelected.current) {
+      setSearchTerm(brandName);
+      return;
+    }
+
+    setSearchTerm(value);
+    hasUserSelected.current = false;
+
     if (!isOpen) {
       setIsOpen(true);
     }
-    if (e.target.value === "") {
+    if (value === "") {
       setBrandName("");
       setBrandId("");
     }
@@ -38,6 +50,7 @@ function Brand() {
     setSearchTerm("");
     setBrandName("");
     setBrandId("");
+    hasUserSelected.current = false;
     if (detailsRef.current) {
       detailsRef.current.removeAttribute("open");
     }
@@ -49,6 +62,10 @@ function Brand() {
       detailsRef.current.removeAttribute("open");
     }
     inputRef.current.blur();
+
+    if (!hasUserSelected.current) {
+      setSearchTerm("");
+    }
   };
 
   const handleDetailsClick = (e) => {
@@ -145,7 +162,7 @@ function Brand() {
             }`}
           />
         </summary>
-        <ul className="p-2 px-0 z-[1] shadow menu dropdown-content bg-base-100 flex flex-col flex-nowrap justify-start w-full mt-0.5 rounded-lg max-h-[210px] overflow-y-auto">
+        <ul className="p-2 px-0 z-[1] shadow menu dropdown-content bg-base-100 flex flex-col flex-nowrap justify-start w-full mt-0.5 rounded-lg max-h-[335px] overflow-y-auto max-sm:max-h-[235px]">
           <li onClick={clearSearchTerm}>
             <label className="flex items-center w-full pr-4 px-[10px] py-2.5 text-primary text-[15px] rounded-none">
               <span className="text-red font-semibold text-[15px]">✕</span>

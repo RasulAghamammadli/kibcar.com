@@ -1,10 +1,18 @@
-import axios from "axios";
 import { useRef, useState, useEffect, useContext } from "react";
 import chivronBottom from "../../assets/icons/chivron-bottom-gray.svg";
 import FilterContext from "../../context/filterContext/FilterContext";
 
 function SeatsNumber() {
-  const [seatNumbers, setSeatNumbers] = useState([]);
+  const [seatNumbers, setSeatNumbers] = useState([
+    { id: "1", name: "1" },
+    { id: "2", name: "2" },
+    { id: "3", name: "3" },
+    { id: "4", name: "4" },
+    { id: "5", name: "5" },
+    { id: "6", name: "6" },
+    { id: "7", name: "7" },
+    { id: "8", name: "8+" },
+  ]);
   const {
     checkedSeatsNumber,
     setCheckedSeatsNumber,
@@ -64,20 +72,6 @@ function SeatsNumber() {
   );
 
   useEffect(() => {
-    async function getSeatNumbers() {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_REACT_APP_API_URL}/api/gears`
-        );
-        setSeatNumbers(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getSeatNumbers();
-  }, []);
-
-  useEffect(() => {
     if (isOpen) {
       inputRef.current.focus();
     } else {
@@ -111,9 +105,10 @@ function SeatsNumber() {
               value={searchTerm || selectedOptions}
               onChange={handleInputChange}
               onFocus={handleInputFocus}
-              className={`font-primary text-[15px] text-primary font-normal w-full bg-transparent border-none focus:outline-none text-start overflow-hidden whitespace-nowrap overflow-ellipsis ${
+              className={`cursor-pointer font-primary text-[15px] text-primary font-normal w-full bg-transparent border-none focus:outline-none text-start overflow-hidden whitespace-nowrap overflow-ellipsis ${
                 searchTerm || selectedOptions ? "mt-[15px]" : "text-primary"
               }`}
+              readOnly
             />
             <label
               htmlFor="seatNumber"
@@ -134,7 +129,7 @@ function SeatsNumber() {
             }`}
           />
         </summary>
-        <ul className="p-2 px-0 z-[1] shadow menu dropdown-content bg-base-100 flex flex-col flex-nowrap justify-start w-full mt-0.5 rounded-lg max-h-[210px] overflow-y-auto">
+        <ul className="p-2 px-0 z-[1] shadow menu dropdown-content bg-base-100 flex flex-col flex-nowrap justify-start w-full mt-0.5 rounded-lg max-h-[335px] overflow-y-auto max-sm:max-h-[235px]">
           <li onClick={clearSearchTerm}>
             <label className="flex items-center w-full pr-4 px-[10px] py-2.5 text-primary text-[15px] rounded-none">
               <span className="text-red font-semibold text-[15px]">✕</span>

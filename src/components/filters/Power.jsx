@@ -13,6 +13,7 @@ const Power = () => {
           id="minPower"
           value={minPower}
           onChange={(e) => setMinPower(e.target.value)}
+          onWheel={(e) => e.target.blur()}
           className="peer cursor-pointer placeholder-transparent overflow-hidden w-full text-gray-900 text-[15px] focus:outline-none mt-[9px] "
           placeholder="Power"
         />
@@ -30,6 +31,7 @@ const Power = () => {
           id="maxPower"
           value={maxPower}
           onChange={(e) => setMaxPower(e.target.value)}
+          onWheel={(e) => e.target.blur()}
           className="peer cursor-pointer placeholder-transparent w-full text-[15px] text-gray-900 focus:outline-none mt-[9px]"
           placeholder="Max"
         />

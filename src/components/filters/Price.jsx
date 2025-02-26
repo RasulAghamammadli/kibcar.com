@@ -13,6 +13,7 @@ const Price = () => {
           id="minPrice"
           value={minPrice}
           onChange={(e) => setMinPrice(e.target.value)}
+          onWheel={(e) => e.target.blur()}
           className="peer cursor-pointer placeholder-transparent overflow-hidden w-full text-gray-900 text-[15px] focus:outline-none mt-[9px] "
           placeholder="Minimum Price"
         />
@@ -30,6 +31,7 @@ const Price = () => {
           id="maxPrice"
           value={maxPrice}
           onChange={(e) => setMaxPrice(e.target.value)}
+          onWheel={(e) => e.target.blur()}
           className="peer cursor-pointer placeholder-transparent w-full text-[15px] text-gray-900 focus:outline-none mt-[9px]"
           placeholder="Maximum Price"
         />

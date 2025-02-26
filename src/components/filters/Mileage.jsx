@@ -14,6 +14,7 @@ const Mileage = () => {
           id="minMileage"
           value={minMileage}
           onChange={(e) => setMinMileage(e.target.value)}
+          onWheel={(e) => e.target.blur()}
           className="peer cursor-pointer placeholder-transparent overflow-hidden w-full text-gray-900 text-[15px] focus:outline-none mt-[9px] "
           placeholder="Mileage"
         />
@@ -31,6 +32,7 @@ const Mileage = () => {
           id="maxMileage"
           value={maxMileage}
           onChange={(e) => setMaxMileage(e.target.value)}
+          onWheel={(e) => e.target.blur()}
           className="peer cursor-pointer placeholder-transparent w-full text-[15px] text-gray-900 focus:outline-none mt-[9px]"
           placeholder="Max"
         />

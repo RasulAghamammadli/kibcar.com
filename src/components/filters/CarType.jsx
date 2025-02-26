@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react";
 import FilterContext from "../../context/filterContext/FilterContext";
+
 function CarType() {
   const { selectedCarType, setSelectedCarType } = useContext(FilterContext);
 

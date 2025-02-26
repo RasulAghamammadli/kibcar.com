@@ -5,7 +5,7 @@ import { useContext } from "react";
 import FilterContext from "../../context/filterContext/FilterContext";
 
 function Brand() {
-  const { setBrandId, brandId } = useContext(FilterContext);
+  const { setBrandId } = useContext(FilterContext);
   const [brandName, setBrandName] = useState("");
   const [brands, setBrands] = useState([]);
   const [isOpen, setIsOpen] = useState(false);

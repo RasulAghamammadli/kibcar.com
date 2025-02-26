@@ -59,12 +59,12 @@ function CarDetails() {
             thumbnail: response.data.data.vehicle_front_view_image,
           },
           {
-            original: response.data.data.vehicle_front_panel_image,
-            thumbnail: response.data.data.vehicle_front_panel_image,
-          },
-          {
             original: response.data.data.vehicle_back_view_image,
             thumbnail: response.data.data.vehicle_back_view_image,
+          },
+          {
+            original: response.data.data.vehicle_front_panel_image,
+            thumbnail: response.data.data.vehicle_front_panel_image,
           },
         ];
 

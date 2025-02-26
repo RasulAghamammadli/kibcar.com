@@ -66,7 +66,7 @@ function FullscreenMobile({
           </button>
         </div>
         <div
-          className={`${styles.counter} visible opacity-[1] bottom-0 left-0 translate-x-0 bg-transparent text-[14px]`}
+          className={`${styles.counter} visible opacity-[1] bottom-0 px-0 left-0 translate-x-0 bg-transparent text-[14px]`}
         >
           {currentSlide + 1} / {carImages.length}
         </div>

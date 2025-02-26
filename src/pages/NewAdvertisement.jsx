@@ -93,7 +93,7 @@ function NewAdvertisement() {
         const yearsRes = await axios.get(
           `${import.meta.env.VITE_REACT_APP_API_URL}/api/vehicle-years`
         );
-        setYears(yearsRes.data);
+        setYears(yearsRes.data.reverse());
 
         const banTypeRes = await axios.get(
           `${import.meta.env.VITE_REACT_APP_API_URL}/api/vehicle-categories`
@@ -245,31 +245,37 @@ function NewAdvertisement() {
         type: file.type,
         name: filename,
       };
+
+      // updated form data
+      let updatedFormData = { ...formData };
+
       // Directly use the file object
-      if (index == 0) {
-        formData.vehicle_front_view_image = new File([file], filename, {
+      if (index === 0) {
+        updatedFormData.vehicle_front_view_image = new File([file], filename, {
           type: file.type,
         });
-      } else if (index == 1) {
-        formData.vehicle_back_view_image = new File([file], filename, {
+      } else if (index === 1) {
+        updatedFormData.vehicle_back_view_image = new File([file], filename, {
           type: file.type,
         });
-      } else if (index == 2) {
-        formData.vehicle_front_panel_image = new File([file], filename, {
+      } else if (index === 2) {
+        updatedFormData.vehicle_front_panel_image = new File([file], filename, {
           type: file.type,
         });
       } else {
-        formData.imagesFiles = new File([file], filename, {
-          type: file.type,
-        });
+        // add images to imagesFiles
+        updatedFormData.imagesFiles = [
+          ...formData.imagesFiles,
+          new File([file], filename, { type: file.type }),
+        ];
       }
-      // Replace or add new uploaded image
+
       let updatedImages = [...formData.uploadedImages];
       updatedImages[index] = newImage;
-      setFormData({
-        ...formData,
-        uploadedImages: updatedImages,
-      });
+
+      updatedFormData.uploadedImages = updatedImages;
+
+      setFormData(updatedFormData);
     }
   };
 
@@ -478,11 +484,15 @@ function NewAdvertisement() {
         name: formData.userName,
         email: formData.userEmail,
         phone: formData.userTel,
-        images: formData.imagesFiles,
         brand: formData.brand,
         vehicle_features: selectedFeatures,
         otp: otp,
       };
+
+      // images files
+      formData.imagesFiles.forEach((file, index) => {
+        params[`images_${index}`] = file;
+      });
 
       const headers = { "Content-Type": "multipart/form-data" };
 
@@ -1682,13 +1692,13 @@ function NewAdvertisement() {
                     </button>
                   </AnimatedButtonWrapper>
                 </div>
-                {/* <button
+                <button
                   className="py-3 bg-green w-20"
                   type="button"
                   onClick={deleteOtp}
                 >
                   reset limit
-                </button> */}
+                </button>
                 <div className="text-secondary mb-10">
                   Bir ilan vererek{" "}
                   <Link to="" className="text-link">

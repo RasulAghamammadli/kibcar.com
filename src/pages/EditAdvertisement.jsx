@@ -494,12 +494,6 @@ function EditAdvertisement() {
     e.preventDefault();
     async function saveAnnouncement() {
       try {
-        // Preparing images
-        const images = formData.uploadedImages.slice(3).map((file) => {
-          const filename = file.name;
-          return new File([file], filename, { type: file.type });
-        });
-
         // car status map
         const carStatusMap = {
           NEW: 0,

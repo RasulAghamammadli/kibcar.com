@@ -41,7 +41,9 @@ function CarSlider({ carImages, setShowFullSlider }) {
                 onClick={() => setShowFullSlider(true)}
                 className="flex items-center rounded-[4px] justify-center absolute top-0 left-0 w-[70px] h-[50px] mt-2  bg-[linear-gradient(0deg,rgba(0,0,0,0.51),rgba(0,0,0,0.51))]"
               >
-                <p className="text-[10px] text-white">{`+${carImages.length} resim`}</p>
+                <p className="text-[10px] text-white">{`+${
+                  carImages.length - 7
+                } resim`}</p>
               </div>
             ) : (
               <div

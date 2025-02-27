@@ -217,17 +217,21 @@ function NewAdvertisement() {
     });
   }
 
-  const placeholderImages = [frontView, backView, insideView];
-
   function validateImageCount(uploadedImages) {
     const minImages = 3;
     const maxImages = 21;
-    const numberOfUploadedImages = uploadedImages.length;
+    const numberOfUploadedImages = uploadedImages;
 
     if (numberOfUploadedImages < minImages) {
       return `Lütfen en az ${minImages} adet resim yükleyin.`;
     } else if (numberOfUploadedImages > maxImages) {
       return `En fazla ${maxImages} resim yükleyebilirsiniz.`;
+    } else if (
+      formData.vehicle_front_view_image === null ||
+      formData.vehicle_back_view_image === null ||
+      formData.vehicle_front_panel_image === null
+    ) {
+      return "Ön, arka ve iç görünüm resimlerini yüklemeniz gerekiyor.";
     }
 
     return ""; // No error
@@ -448,6 +452,12 @@ function NewAdvertisement() {
     setModalType(null);
   };
 
+  console.log(formData.imagesFiles, "main");
+  console.log(formData.uploadedImages.length, "length");
+  // console.log(formData.vehicle_front_view_image);
+  // console.log(formData.vehicle_back_view_image);
+  // console.log(formData.vehicle_front_panel_image);
+
   // create announcement
   const saveAnnouncement = async (otp) => {
     try {
@@ -600,7 +610,7 @@ function NewAdvertisement() {
       }
     };
 
-    const errorMessage = validateImageCount(formData.uploadedImages);
+    const errorMessage = validateImageCount(formData.uploadedImages.length);
     const picSection = document.getElementById("picturesSection");
     const errorMsg = document.getElementById("error");
 
@@ -1692,13 +1702,13 @@ function NewAdvertisement() {
                     </button>
                   </AnimatedButtonWrapper>
                 </div>
-                <button
+                {/* <button
                   className="py-3 bg-green w-20"
                   type="button"
                   onClick={deleteOtp}
                 >
                   reset limit
-                </button>
+                </button> */}
                 <div className="text-secondary mb-10">
                   Bir ilan vererek{" "}
                   <Link to="" className="text-link">

@@ -240,7 +240,7 @@ function CarCard({
             </div>
           </div>
         </div>
-        <div className="h-[145px] ">
+        <div className="h-[145px]">
           <img
             className="h-full w-full rounded-t-[12px] object-cover"
             src={vehicle_front_view_image}

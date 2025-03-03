@@ -83,7 +83,7 @@ function CarSlider({ carImages, setShowFullSlider }) {
             onClick={() => setShowFullSlider(true)}
           >
             <div className="flex justify-center absolute top-0 h-full left-0 w-full z-10 ">
-              <img src={item.original} className="object-cover" />
+              <img src={item.original} className="object-contain" />
             </div>
             <div
               className="absolute top-0 left-0 w-full h-full  bg-cover bg-center bg-no-repeat blur-2xl  z-0"

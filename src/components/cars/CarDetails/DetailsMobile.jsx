@@ -296,7 +296,16 @@ function DetailsMobile({
                   ? formatPhoneNumber(car.car_dealership.phone1)
                   : formatPhoneNumber(car.creator.guest_phone.phone)}
               </a>
-              <a className="text-[15px]  text-link underline">Ara</a>
+              <a
+                href={`tel:${
+                  car.user
+                    ? formatPhoneNumber(car.car_dealership.phone1)
+                    : formatPhoneNumber(car.creator.guest_phone.phone)
+                }`}
+                className="text-[15px] text-link underline"
+              >
+                Ara
+              </a>
               {/* <AttentionNote /> */}
             </div>
             <div className="pb-[15px] border-b border-solid border-[#E2E2E2]">

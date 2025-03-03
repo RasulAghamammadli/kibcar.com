@@ -3,6 +3,7 @@ import { useState } from "react";
 function Rules() {
   const [width] = useState(window.innerWidth);
   const showMobileCom = width < 971;
+
   return (
     <div className="">
       <div className={`${!showMobileCom ? "container" : ""}`}>
@@ -30,7 +31,7 @@ function Rules() {
               kibcar.com
             </a>{" "}
             sitesine ilan yerleştirilmesi bu{" "}
-            <a href="/" className="text-link underline">
+            <a href="/terms-and-conditions" className="text-link underline">
               Kullanıcı Sözleşmesi
             </a>{" "}
             (bundan sonra "Sözleşme" olarak anılacaktır) ile düzenlenir. Sitede

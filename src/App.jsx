@@ -1,20 +1,16 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useState } from "react";
 const HomePage = React.lazy(() => import("./pages/Homepage"));
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { FilterProvider } from "./context/filterContext/FilterContext";
+import { CarProvider } from "./context/CarContext";
+
 import Nav from "./components/layout/Nav";
 // import Homepage from "./pages/Homepage";
-import { FilterProvider } from "./context/filterContext/FilterContext";
 import Footer from "./components/layout/Footer";
 import DealershipOwners from "./pages/DealershipOwners";
 import DealershipDetails from "./components/dealership/DealershipDetails";
 import Faq from "./pages/Faq";
-import Favorite from "./pages/Favourite";
+import Favorite from "./pages/Favorite";
 import NewAdvertisement from "./pages/NewAdvertisement";
 import CarDetails from "./pages/CarDetails";
 import EditAdvertisement from "./pages/EditAdvertisement";
@@ -36,8 +32,6 @@ import EditSuccess from "./pages/EditSuccess";
 import DeleteSuccess from "./pages/DeleteSuccess";
 import NotFound from "./pages/NotFound";
 import DetailNotFound from "./pages/DetailNotFound";
-
-import { CarProvider } from "./context/CarContext";
 
 function App() {
   const [width] = useState(window.innerWidth);

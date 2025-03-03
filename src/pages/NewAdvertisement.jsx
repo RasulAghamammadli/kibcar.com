@@ -314,15 +314,36 @@ function NewAdvertisement() {
   };
 
   const removeImage = (index) => {
-    const updatedImages = formData.uploadedImages.map((image, i) => {
-      return i === index ? null : image;
-    });
+    let updatedFormData = { ...formData };
+    let updatedImages = [...formData.uploadedImages];
 
-    console.log(updatedImages);
-    setFormData({
-      ...formData,
-      uploadedImages: updatedImages,
-    });
+    // Remove images for the first three fixed slots (keep as null)
+    if (index === 0) {
+      updatedFormData.vehicle_front_view_image = null;
+      updatedImages[0] = null;
+    } else if (index === 1) {
+      updatedFormData.vehicle_back_view_image = null;
+      updatedImages[1] = null;
+    } else if (index === 2) {
+      updatedFormData.vehicle_front_panel_image = null;
+      updatedImages[2] = null;
+    } else {
+      // Remove dynamic images completely
+      let updatedFiles = [...formData.imagesFiles];
+      let fileIndex = index - 3;
+      if (updatedFiles[fileIndex]) {
+        updatedFiles.splice(fileIndex, 1);
+        updatedImages.splice(index, 1);
+      }
+      updatedFormData.imagesFiles = updatedFiles;
+    }
+
+    // Preserve null for the first three fixed slots
+    updatedFormData.uploadedImages = updatedImages.map((img, idx) =>
+      idx < 3 ? img ?? null : img
+    );
+
+    setFormData(updatedFormData);
   };
 
   const imageSlots = formData.uploadedImages.map((image, index) => {
@@ -448,15 +469,10 @@ function NewAdvertisement() {
   const handleLimitedModal = () => {
     setModalType("limited");
   };
+
   const closeModal = () => {
     setModalType(null);
   };
-
-  console.log(formData.imagesFiles, "main");
-  console.log(formData.uploadedImages.length, "length");
-  // console.log(formData.vehicle_front_view_image);
-  // console.log(formData.vehicle_back_view_image);
-  // console.log(formData.vehicle_front_panel_image);
 
   // create announcement
   const saveAnnouncement = async (otp) => {
@@ -1711,11 +1727,11 @@ function NewAdvertisement() {
                 </button> */}
                 <div className="text-secondary mb-10">
                   Bir ilan vererek{" "}
-                  <Link to="" className="text-link">
+                  <Link to="/terms-and-conditions" className="text-link">
                     Kullanıcı Sözleşmesini
                   </Link>{" "}
                   ve kibcar.com{" "}
-                  <Link to="" className="text-link">
+                  <Link to="/rules" className="text-link">
                     Kurallarını
                   </Link>{" "}
                   kabul etmiş olursunuz.

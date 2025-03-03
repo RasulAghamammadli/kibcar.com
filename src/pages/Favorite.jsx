@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import favCarIcon from "../assets/icons/fav-car.svg";
 import CarCard from "../components/cars/CarCard";
 
-function Favourite() {
+function Favorite() {
   const [car, setCar] = useState([]);
   const [rerender, setRerender] = useState(false);
-
-  console.log(car);
 
   function readCarData() {
     // Retrieve data from localStorage
@@ -55,4 +53,4 @@ function Favourite() {
   );
 }
 
-export default Favourite;
+export default Favorite;

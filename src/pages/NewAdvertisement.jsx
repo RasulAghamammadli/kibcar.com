@@ -1730,13 +1730,13 @@ function NewAdvertisement() {
                     </button>
                   </AnimatedButtonWrapper>
                 </div>
-                <button
+                {/* <button
                   className="py-3 bg-green w-20"
                   type="button"
                   onClick={deleteOtp}
                 >
                   reset limit
-                </button>
+                </button> */}
                 <div className="text-secondary mb-10">
                   Bir ilan vererek{" "}
                   <Link to="/terms-and-conditions" className="text-link">

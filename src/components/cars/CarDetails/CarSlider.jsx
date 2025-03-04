@@ -22,6 +22,7 @@ const NextArrow = ({ onClick }) => {
     />
   );
 };
+
 function CarSlider({ carImages, setShowFullSlider }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef(null);
@@ -33,13 +34,12 @@ function CarSlider({ carImages, setShowFullSlider }) {
             <div
               className="w-full h-full bg-cover bg-center bg-no-repeat rounded-[4px]"
               style={{ backgroundImage: `url(${carImages[i].original})` }}
-              // onClick={() => setShowFullSlider(true)}
             ></div>
             {i === 7 ? (
               <div
                 onMouseMove={() => handleMouseEnter(i)}
                 onClick={() => setShowFullSlider(true)}
-                className="flex items-center rounded-[4px] justify-center absolute top-0 left-0 w-[70px] h-[50px] mt-2  bg-[linear-gradient(0deg,rgba(0,0,0,0.51),rgba(0,0,0,0.51))]"
+                className="flex items-center rounded-[4px] justify-center absolute top-0 left-0 w-[70px] h-[50px] mt-2 bg-[linear-gradient(0deg,rgba(0,0,0,0.51),rgba(0,0,0,0.51))]"
               >
                 <p className="text-[10px] text-white">{`+${
                   carImages.length - 7
@@ -67,6 +67,7 @@ function CarSlider({ carImages, setShowFullSlider }) {
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
   };
+
   const handleMouseEnter = (index) => {
     if (index !== currentSlide) {
       sliderRef.current.slickGoTo(index);

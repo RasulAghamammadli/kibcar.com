@@ -147,7 +147,7 @@ CarDetailsCom.propTypes = {
       name: PropTypes.string.isRequired,
     }).isRequired,
     vehicle_status: PropTypes.string.isRequired,
-    number_of_seats: PropTypes.string.isRequired,
+    number_of_seats: PropTypes.string,
     vehicle_market: PropTypes.shape({
       name: PropTypes.string.isRequired,
     }).isRequired,

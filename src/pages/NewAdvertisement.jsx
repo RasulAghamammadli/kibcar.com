@@ -511,9 +511,19 @@ function NewAdvertisement() {
         email: formData.userEmail,
         phone: formData.userTel,
         brand: formData.brand,
-        vehicle_features: selectedFeatures,
+        // vehicle_features: selectedFeatures,
         otp: otp,
       };
+
+      // features
+      // selectedFeatures.forEach((id) => {
+      //   params[`features[]`] = params[`features[]`]
+      //     ? [...params[`features[]`], id]
+      //     : [id];
+      // });
+      // selectedFeatures.forEach((id, index) => {
+      //   params[`features_${index}`] = id;
+      // });
 
       // images files
       formData.imagesFiles.forEach((file, index) => {
@@ -1575,7 +1585,9 @@ function NewAdvertisement() {
                       />
                       <span className="checkmark"></span>
                     </label>
-                    <label htmlFor={feature.id}>{feature.name}</label>{" "}
+                    <label htmlFor={feature.id} className="cursor-pointer">
+                      {feature.name}
+                    </label>{" "}
                     {/* Use dynamic label */}
                   </div>
                 </div>
@@ -1718,13 +1730,13 @@ function NewAdvertisement() {
                     </button>
                   </AnimatedButtonWrapper>
                 </div>
-                {/* <button
+                <button
                   className="py-3 bg-green w-20"
                   type="button"
                   onClick={deleteOtp}
                 >
                   reset limit
-                </button> */}
+                </button>
                 <div className="text-secondary mb-10">
                   Bir ilan vererek{" "}
                   <Link to="/terms-and-conditions" className="text-link">

@@ -7,6 +7,7 @@ import {
   BsShare,
   BsArrowLeft,
 } from "react-icons/bs";
+import logoMobile from "../../assets/images/logo-mobile.png";
 import PropTypes from "prop-types";
 import { useCarContext } from "../../context/CarContext";
 
@@ -79,7 +80,7 @@ function MobileNav({ title }) {
   }
 
   return (
-    <header className="py-[15px] bg-[#F6F7FA] border-b border-[#eaebf2]">
+    <header className="py-[15px] bg-[#fff] border-b border-[#eaebf2]">
       <nav className="container">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-2">
@@ -92,7 +93,7 @@ function MobileNav({ title }) {
               to="/"
               className="text-black font-bold text-lg tracking-wider font-primary"
             >
-              {title}
+              <img src={logoMobile} alt="" className="w-[90px] h-[25px]" />
             </Link>
           </div>
           <div className="flex items-center space-x-4">

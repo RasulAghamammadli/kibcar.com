@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../assets/icons/logo.png";
-import cellularLogo from "../../assets/icons/cellur-logo.png";
-import { RedHeartIcon, GrayHeartIcon } from "./IconHover";
+
+// images
+import logo from "../../assets/images/logo.png";
+
+// icons
 import newLogo from "../../assets/icons/new-logo.svg";
 import { PiInstagramLogoFill } from "react-icons/pi";
 import { FaHeart } from "react-icons/fa";
@@ -63,7 +65,7 @@ function Nav() {
                   to={"/"}
                   className=" text-white font-bold text-lg tracking-wider font-primary"
                 >
-                  KIBCAR
+                  <img src={logo} alt="" className="w-[100px]" />
                 </Link>
                 <div className="flex items-center space-x-4 md:space-x-[30px]">
                   <Link

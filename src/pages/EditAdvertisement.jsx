@@ -625,11 +625,12 @@ function EditAdvertisement() {
                 <select
                   name="brand"
                   id="brand"
-                  className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                  className="cursor-not-allowed w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
                   onChange={handleChange}
                   value={formData.brand}
                   placeholder="Select brand"
                   required
+                  disabled
                 >
                   <option value="" disabled>
                     Seç
@@ -674,10 +675,11 @@ function EditAdvertisement() {
                 <select
                   name="model"
                   id="Model"
-                  className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                  className="cursor-not-allowed w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
                   onChange={handleChange}
                   value={formData.model}
                   required
+                  disabled
                 >
                   <option value={""} disabled>
                     Seç
@@ -852,10 +854,11 @@ function EditAdvertisement() {
                 <select
                   name="color"
                   id="color"
-                  className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                  className="cursor-not-allowed w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
                   onChange={handleChange}
                   value={formData.color}
                   required
+                  disabled
                 >
                   <option value={""} disabled>
                     Seç

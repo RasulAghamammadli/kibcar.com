@@ -78,7 +78,7 @@ function Nav() {
                     to={"/dealership-owners"}
                     className="font-primary text-[14px]  font-normal leading-5  text-white"
                   >
-                    Bayiler
+                    Galeriler
                   </Link>
                   <Link
                     to={"/lease"}

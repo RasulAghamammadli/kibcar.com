@@ -303,23 +303,13 @@ textarea {
 @media (max-width: 423px) {
   .btn-search {
     justify-content: center;
-    max-width: 160px;
-    min-width: 125px;
-    margin-left: 10px;
-    padding-right: 0;
-    padding-left: 0;
+    width: auto;
+    padding-right: 12px;
+    padding-left: 12px;
+    margin-left: 0;
   }
   .reset-btn {
     margin-right: 10px;
-  }
-}
-
-@media (max-width: 358px) {
-  .btn-search {
-    max-width: auto;
-    min-width: auto;
-    padding-right: 10px;
-    padding-left: 10px;
   }
 }
 

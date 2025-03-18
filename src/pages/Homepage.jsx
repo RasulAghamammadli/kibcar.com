@@ -185,7 +185,9 @@ function Homepage() {
               <Brand />
             </div>
             <div
-              className={`xl:col-span-3 lg:col-span-4 md:col-span-6 col-span-12 h-[48px]`}
+              className={`xl:col-span-3 lg:col-span-4 md:col-span-6 col-span-12 h-[48px] ${
+                hideMoreMobile && !moreFilters ? "hidden" : ""
+              }`}
             >
               <Model />
             </div>
@@ -333,8 +335,8 @@ function Homepage() {
               <VehicleFeatures />
             </div>
           </div>
-          <div className="grid grid-cols-12 gap-[30px]">
-            <div className="col-span-12  mt-[20px] ">
+          <div className="grid grid-cols-12 gap-[30px] max-sm:grid-cols-10">
+            <div className="col-span-12 mt-[20px] max-sm:col-span-10">
               <div className="flex flex-wrap items-center justify-between md:flex-nowrap md:gy-0 ">
                 <span className="font-primary text-primary text-[14px] inline-block ">
                   <h2 className="flex items-center font-normal text-primary text-[14px] md:text-[14px] font-primary">
@@ -344,7 +346,7 @@ function Homepage() {
                     </Link>
                   </h2>
                 </span>
-                <div className="flex flex-wrap items-center md:flex-nowrap md:gy-0 gap-y-4 ">
+                <div className="button-side flex flex-wrap gap-y-3 items-center max-sm:w-full max-sm:justify-between">
                   <div className="flex items-center">
                     <button
                       onClick={handleResetForm}
@@ -368,7 +370,7 @@ function Homepage() {
                     <AnimatedButtonWrapper>
                       <button
                         onClick={showFilterPayload}
-                        className="btn-search text-white rounded-lg bg-red hover:bg-[#882111] shadow-none hover:shadow-none py-[14px] px-[35px] font-primary text-[14px] font-normal md:ml-14 ml-[20px] flex items-center"
+                        className="btn-search text-white rounded-lg bg-red hover:bg-[#882111] shadow-none hover:shadow-none py-[14px] px-[35px] font-primary text-[14px] font-normal md:ml-14 ml-[20px] flex items-center max-sm:ml-[0px]"
                       >
                         <p>İlanları Göster</p>
                       </button>

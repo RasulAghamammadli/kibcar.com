@@ -4,6 +4,9 @@ import chivronBottom from "../../assets/icons/chivron-bottom-gray.svg";
 import { useContext } from "react";
 import FilterContext from "../../context/filterContext/FilterContext";
 
+// icons
+import brandIcon from "../../assets/icons/brand.png";
+
 function Brand() {
   const { setBrandId } = useContext(FilterContext);
   const [brandName, setBrandName] = useState("");
@@ -126,13 +129,20 @@ function Brand() {
         onClick={handleDetailsClick}
       >
         <summary
-          className={`flex items-center justify-between w-full h-full px-[10px] bg-white border rounded-lg btn shadow-none hover:bg-white ${
+          className={`flex items-center justify-between w-full h-full px-[10px] bg-white border rounded-lg btn shadow-none hover:bg-white max-sm:pl-[37px] ${
             isOpen
               ? "border-[#8F93AD] hover:!border-[#8F93AD]"
               : "border-gray-300"
-          }`}
+          } ${searchTerm ? "max-sm:pl-[11px]" : ""}`}
         >
           <div className="max-w-[80%] max-sm:w-full">
+            <img
+              src={brandIcon}
+              alt=""
+              className={`absolute left-[12px] top-[17px] w-[18px] h-[12px] hidden ${
+                searchTerm ? "hidden" : "max-sm:block"
+              }`}
+            />
             <input
               ref={inputRef}
               id="brand"
@@ -145,10 +155,10 @@ function Brand() {
             />
             <label
               htmlFor="brand"
-              className={`absolute cursor-pointer font-normal left-[11px] bg-transparent transition-all text-start w-fit ${
+              className={`absolute cursor-pointer font-normal left-[11px] bg-transparent transition-all text-start w-fit max-sm:duration-100 ${
                 searchTerm
-                  ? "top-[9px] text-[12px] leading-3 text-secondary"
-                  : "top-[18px] text-[15px] leading-3 text-gray-400"
+                  ? "top-[9px] text-[12px] leading-3 text-secondary max-sm:left-[11px]"
+                  : "top-[18px] text-[15px] leading-3 text-gray-400 max-sm:left-[38px]"
               }`}
             >
               Marka

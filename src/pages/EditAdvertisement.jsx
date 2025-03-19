@@ -6,7 +6,6 @@ import frontView from "../assets/images/front-view.svg";
 import insideView from "../assets/images/inside-view.svg";
 import addMore from "../assets/images/add-more.svg";
 import { IoIosClose } from "react-icons/io";
-import OtpModal from "../components/OtpModal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
@@ -278,8 +277,6 @@ function EditAdvertisement() {
     });
   }
 
-  const placeholderImages = [frontView, backView, insideView];
-
   function validateImageCount(uploadedImages) {
     const minImages = 3;
     const maxImages = 21;
@@ -328,20 +325,6 @@ function EditAdvertisement() {
       setFormData({
         ...formData,
         uploadedImages: updatedImages,
-      });
-    }
-  };
-
-  const addImage = (event) => {
-    if (event.target.files) {
-      const files = Array.from(event.target.files);
-      const newImages = files.map((file) => ({
-        src: URL.createObjectURL(file),
-        flipped: 0,
-      }));
-      setFormData({
-        ...formData,
-        uploadedImages: [...formData.uploadedImages, ...newImages],
       });
     }
   };
@@ -532,9 +515,12 @@ function EditAdvertisement() {
           brand_model: formData.model,
           city: formData.city,
           pin_code: formData.pin_code,
-          images: formData.imagesFiles,
-          vehicle_features: selectedFeatures,
         };
+
+        // vehicle features
+        selectedFeatures.forEach((id, index) => {
+          params[`vehicle_features_${index}`] = id;
+        });
 
         const headers = {
           "Content-Type": "multipart/form-data",
@@ -1457,7 +1443,9 @@ function EditAdvertisement() {
                       />
                       <span className="checkmark"></span>
                     </label>
-                    <label htmlFor={feature.id}>{feature.name}</label>{" "}
+                    <label htmlFor={feature.id} className="cursor-pointer">
+                      {feature.name}
+                    </label>{" "}
                     {/* Use dynamic label */}
                   </div>
                 </div>

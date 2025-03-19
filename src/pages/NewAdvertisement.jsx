@@ -60,6 +60,7 @@ function NewAdvertisement() {
       setSelectedFeatures(selectedFeatures.filter((id) => id !== featureId));
     }
   };
+
   const [PictureErrorMsg, setPictureErrorMsg] = useState("");
 
   useEffect(() => {
@@ -231,7 +232,7 @@ function NewAdvertisement() {
       formData.vehicle_back_view_image === null ||
       formData.vehicle_front_panel_image === null
     ) {
-      return "Ön, arka ve iç görünüm resimlerini yüklemeniz gerekiyor.";
+      return "Ön, arka ve iç görünüm resimlerini eklemeniz gerekiyor.";
     }
 
     return ""; // No error
@@ -280,20 +281,6 @@ function NewAdvertisement() {
       updatedFormData.uploadedImages = updatedImages;
 
       setFormData(updatedFormData);
-    }
-  };
-
-  const addImage = (event) => {
-    if (event.target.files) {
-      const files = Array.from(event.target.files);
-      const newImages = files.map((file) => ({
-        src: URL.createObjectURL(file),
-        flipped: 0,
-      }));
-      setFormData({
-        ...formData,
-        uploadedImages: [...formData.uploadedImages, ...newImages],
-      });
     }
   };
 
@@ -511,19 +498,13 @@ function NewAdvertisement() {
         email: formData.userEmail,
         phone: formData.userTel,
         brand: formData.brand,
-        // vehicle_features: selectedFeatures,
         otp: otp,
       };
 
-      // features
-      // selectedFeatures.forEach((id) => {
-      //   params[`features[]`] = params[`features[]`]
-      //     ? [...params[`features[]`], id]
-      //     : [id];
-      // });
-      // selectedFeatures.forEach((id, index) => {
-      //   params[`features_${index}`] = id;
-      // });
+      // vehicle features
+      selectedFeatures.forEach((id, index) => {
+        params[`vehicle_features_${index}`] = id;
+      });
 
       // images files
       formData.imagesFiles.forEach((file, index) => {
@@ -1730,13 +1711,13 @@ function NewAdvertisement() {
                     </button>
                   </AnimatedButtonWrapper>
                 </div>
-                {/* <button
+                <button
                   className="py-3 bg-green w-20"
                   type="button"
                   onClick={deleteOtp}
                 >
                   reset limit
-                </button> */}
+                </button>
                 <div className="text-secondary mb-10">
                   Bir ilan vererek{" "}
                   <Link to="/terms-and-conditions" className="text-link">

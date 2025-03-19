@@ -100,6 +100,7 @@ function EditAdvertisement() {
     vehicle_back_view_image: null,
     vehicle_front_panel_image: null,
     imagesFiles: [],
+    removedImages: [],
   };
 
   const [formData, setFormData] = useState(initialData);
@@ -172,7 +173,8 @@ function EditAdvertisement() {
           pin_code: pin_code,
           city: carData.city?.id,
           carStatus: carData.vehicle_status,
-          imagesFiles: [],
+          imagesFiles: carImages,
+          removedImages: [],
         });
 
         setCar(response.data.data);
@@ -280,12 +282,18 @@ function EditAdvertisement() {
   function validateImageCount(uploadedImages) {
     const minImages = 3;
     const maxImages = 21;
-    const numberOfUploadedImages = uploadedImages.length;
+    const numberOfUploadedImages = uploadedImages;
 
     if (numberOfUploadedImages < minImages) {
-      return `Please upload at least ${minImages} images.`;
+      return `Lütfen en az ${minImages} adet resim yükleyin.`;
     } else if (numberOfUploadedImages > maxImages) {
-      return `You can only upload up to ${maxImages} images.`;
+      return `En fazla ${maxImages} resim yükleyebilirsiniz.`;
+    } else if (
+      formData.vehicle_front_view_image === null ||
+      formData.vehicle_back_view_image === null ||
+      formData.vehicle_front_panel_image === null
+    ) {
+      return "Ön, arka ve iç görünüm resimlerini eklemeniz gerekiyor.";
     }
 
     return ""; // No error
@@ -303,29 +311,37 @@ function EditAdvertisement() {
         type: file.type,
         name: filename,
       };
+
+      // updated form data
+      let updatedFormData = { ...formData };
+
       // Directly use the file object
-      if (index == 0) {
-        formData.vehicle_front_view_image = new File([file], filename, {
+      if (index === 0) {
+        updatedFormData.vehicle_front_view_image = new File([file], filename, {
           type: file.type,
         });
-      } else if (index == 1) {
-        formData.vehicle_back_view_image = new File([file], filename, {
+      } else if (index === 1) {
+        updatedFormData.vehicle_back_view_image = new File([file], filename, {
           type: file.type,
         });
-      } else if (index == 2) {
-        formData.vehicle_front_panel_image = new File([file], filename, {
+      } else if (index === 2) {
+        updatedFormData.vehicle_front_panel_image = new File([file], filename, {
           type: file.type,
         });
       } else {
-        formData.imagesFiles = [...formData.imagesFiles, file];
+        // add images to imagesFiles
+        updatedFormData.imagesFiles = [
+          ...formData.imagesFiles,
+          new File([file], filename, { type: file.type }),
+        ];
       }
-      // Replace or add new uploaded image
+
       let updatedImages = [...formData.uploadedImages];
       updatedImages[index] = newImage;
-      setFormData({
-        ...formData,
-        uploadedImages: updatedImages,
-      });
+
+      updatedFormData.uploadedImages = updatedImages;
+
+      setFormData(updatedFormData);
     }
   };
 
@@ -346,14 +362,45 @@ function EditAdvertisement() {
   };
 
   const removeImage = (index) => {
-    const updatedImages = formData.uploadedImages.map((image, i) => {
-      return i === index ? null : image;
-    });
+    let updatedFormData = { ...formData };
+    let updatedImages = [...formData.uploadedImages];
+    let removedImage = formData.uploadedImages[index];
+    let updatedRemovedImages = [...formData.removedImages];
 
-    console.log(updatedImages);
+    if (removedImage?.id) {
+      updatedRemovedImages.push(removedImage.id);
+    }
+
+    if (index === 0) {
+      updatedFormData.vehicle_front_view_image = null;
+      updatedImages[0] = null;
+    } else if (index === 1) {
+      updatedFormData.vehicle_back_view_image = null;
+      updatedImages[1] = null;
+    } else if (index === 2) {
+      updatedFormData.vehicle_front_panel_image = null;
+      updatedImages[2] = null;
+    } else {
+      // Remove dynamic images completely
+      let updatedFiles = [...formData.imagesFiles];
+      let fileIndex = index - 3;
+      if (updatedFiles[fileIndex]) {
+        updatedFiles.splice(fileIndex, 1);
+        updatedImages.splice(index, 1);
+      }
+      updatedFormData.imagesFiles = updatedFiles;
+    }
+
+    // Preserve null for the first three fixed slots
+    updatedFormData.uploadedImages = updatedImages.map((img, idx) =>
+      idx < 3 ? img ?? null : img
+    );
+
     setFormData({
-      ...formData,
+      ...updatedFormData,
       uploadedImages: updatedImages,
+      imagesFiles: updatedFormData.imagesFiles,
+      removedImages: updatedRemovedImages,
     });
   };
 
@@ -520,6 +567,16 @@ function EditAdvertisement() {
         // vehicle features
         selectedFeatures.forEach((id, index) => {
           params[`vehicle_features_${index}`] = id;
+        });
+
+        // images files
+        formData.imagesFiles.forEach((file, index) => {
+          params[`images_${index}`] = file;
+        });
+
+        // removed images
+        formData.removedImages.forEach((id, index) => {
+          params[`removeImages_${index}`] = id;
         });
 
         const headers = {

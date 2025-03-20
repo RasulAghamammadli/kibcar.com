@@ -167,9 +167,9 @@ function EditAdvertisement() {
             { src: featuredImagesArr.vehicle_front_panel_image },
             ...carImages,
           ],
-          vehicle_front_view_image: null,
-          vehicle_back_view_image: null,
-          vehicle_front_panel_image: null,
+          vehicle_front_view_image: carData.vehicle_front_view_image,
+          vehicle_front_panel_image: carData.vehicle_front_panel_image,
+          vehicle_back_view_image: carData.vehicle_back_view_image,
           pin_code: pin_code,
           city: carData.city?.id,
           carStatus: carData.vehicle_status,
@@ -288,7 +288,8 @@ function EditAdvertisement() {
       return `Lütfen en az ${minImages} adet resim yükleyin.`;
     } else if (numberOfUploadedImages > maxImages) {
       return `En fazla ${maxImages} resim yükleyebilirsiniz.`;
-    } else if (
+    }
+    if (
       formData.vehicle_front_view_image === null ||
       formData.vehicle_back_view_image === null ||
       formData.vehicle_front_panel_image === null
@@ -520,6 +521,8 @@ function EditAdvertisement() {
     </div>
   );
 
+  console.log(formData.imagesFiles, "imagesFiles");
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     async function saveAnnouncement() {
@@ -555,14 +558,24 @@ function EditAdvertisement() {
           for_spare_parts: formData.needRepair ? 1 : 0,
           vin_code: formData.vinCode,
           additional_information: formData.moreInfo,
-          vehicle_front_view_image: formData.vehicle_front_view_image,
-          vehicle_back_view_image: formData.vehicle_back_view_image,
-          vehicle_front_panel_image: formData.vehicle_front_panel_image,
           brand: formData.brand,
           brand_model: formData.model,
           city: formData.city,
           pin_code: formData.pin_code,
         };
+
+        // Add only file images
+        const imageFields = [
+          "vehicle_front_view_image",
+          "vehicle_back_view_image",
+          "vehicle_front_panel_image",
+        ];
+
+        imageFields.forEach((key) => {
+          if (formData[key] instanceof File) {
+            params[key] = formData[key];
+          }
+        });
 
         // vehicle features
         selectedFeatures.forEach((id, index) => {
@@ -570,8 +583,13 @@ function EditAdvertisement() {
         });
 
         // images files
-        formData.imagesFiles.forEach((file, index) => {
-          params[`images_${index}`] = file;
+        let fileIndex = 0;
+
+        formData.imagesFiles.forEach((file) => {
+          if (file instanceof File) {
+            params[`images_${fileIndex}`] = file;
+            fileIndex++;
+          }
         });
 
         // removed images
@@ -625,7 +643,7 @@ function EditAdvertisement() {
     }
 
     // Image validation
-    const errorMessage = validateImageCount(formData.uploadedImages);
+    const errorMessage = validateImageCount(formData.uploadedImages.length);
     const picSection = document.getElementById("picturesSection");
     const errorMsg = document.getElementById("error");
     if (errorMessage) {

@@ -521,8 +521,6 @@ function EditAdvertisement() {
     </div>
   );
 
-  console.log(formData.imagesFiles, "imagesFiles");
-
   const handleFormSubmit = (e) => {
     e.preventDefault();
     async function saveAnnouncement() {

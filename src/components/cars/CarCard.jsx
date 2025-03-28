@@ -250,7 +250,7 @@ function CarCard({
       </div>
       <div className="p-[10px] rounded-b-[12px] bg-white shadow-md">
         <h2 className="text-[15px] font-bold text-primary leading-[17px] mb-[2px] overflow-hidden whitespace-nowrap overflow-ellipsis">
-          {` ${Number(price).toLocaleString()} - ${price_currency}`}
+          {` ${Number(price).toLocaleString()} ${price_currency}`}
         </h2>
         <p className="text-primary text-[14px] leading-[17px] mb-[2px] overflow-hidden whitespace-nowrap overflow-ellipsis">
           {`${brand.name} ${brand_model.name}`}

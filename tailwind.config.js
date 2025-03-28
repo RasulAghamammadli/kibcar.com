@@ -15,6 +15,7 @@ export default {
         link: "#4C88F9",
         red: "#ca0f16",
         green: "#7ED321",
+        imgActions: "rgba(255, 255, 255, 0.5)",
       },
       boxShadow: {
         "3xl": "0 10px 40px rgba(0, 0, 0, 0.1)",

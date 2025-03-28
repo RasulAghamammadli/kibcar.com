@@ -338,20 +338,20 @@ function NewAdvertisement() {
       return (
         <div
           key={Math.random() * 1000}
-          className="col-span-6  md:w-[185px] h-[140px] relative rounded-[25px]  m-2"
+          className="col-span-6  md:w-[185px] h-[150px] relative rounded-[25px]"
         >
           <img
             src={image.src}
             alt={`Uploaded image ${index}`}
-            className="object-cover w-full h-full"
+            className="object-cover w-full h-full rounded-[7px]"
             style={{ transform: `rotate(${image.flipped}deg)` }}
           />
-          <div>
-            <div className="flex justify-between">
+          <div className="absolute w-full h-full left-0 top-0">
+            <div>
               <button
                 type="button"
                 onClick={() => removeImage(index)}
-                className="!text-[35px] text-red z-40"
+                className="absolute top-[5px] right-[5px] !text-[35px] text-red z-40 w-[25px] h-[25px] bg-imgActions rounded-full flex items-center justify-center transition-all duration-200 hover:bg-[#ffff66]"
               >
                 <IoIosClose />
               </button>
@@ -362,7 +362,7 @@ function NewAdvertisement() {
                     e.preventDefault();
                     rotateImage(index, "clockwise");
                   }}
-                  className=" text-red !text-[24px] z-40"
+                  className="absolute bottom-[5px] right-[5px] !text-[24px] text-red z-40 w-[25px] h-[25px] bg-imgActions rounded-full flex items-center justify-center transition-all duration-200 hover:bg-[#ffff66]"
                 >
                   ↻
                 </button>
@@ -372,7 +372,7 @@ function NewAdvertisement() {
                     e.preventDefault();
                     rotateImage(index, "counterclockwise");
                   }}
-                  className=" text-red !text-[24px] z-40"
+                  className="absolute bottom-[5px] left-[5px] !text-[24px] text-red z-40 w-[25px] h-[25px] bg-imgActions rounded-full flex items-center justify-center transition-all duration-200 hover:bg-[#ffff66]"
                 >
                   ↺
                 </button>
@@ -397,7 +397,7 @@ function NewAdvertisement() {
         <div className="col-span-6">
           <div
             key={`placeholder-${index}`}
-            className="md:w-[185px] h-[140px] relative flex rounded-[7px] items-center justify-center bg-[#F6F7FA] m-2 border border-[#eaebf2] hover:border-[#3273ec] transition-all duration-200"
+            className="md:w-[185px] h-[150px] relative flex rounded-[7px] items-center justify-center bg-[#F6F7FA] mb-2 border border-[#eaebf2] hover:border-[#3273ec] transition-all duration-200"
           >
             <input
               type="file"
@@ -427,7 +427,7 @@ function NewAdvertisement() {
   imageSlots.push(
     <div
       key="add-more"
-      className="col-span-6 cursor-pointer md:w-[185px] h-[140px] relative flex rounded-[7px] items-center justify-center bg-[#F6F7FA] m-2 hover:bg-[#ebedf3] transition-all duration-200"
+      className="col-span-6 cursor-pointer md:w-[185px] h-[150px] relative flex rounded-[7px] items-center justify-center bg-[#F6F7FA] hover:bg-[#ebedf3] transition-all duration-200"
       onClick={() => document.getElementById("file-upload-add-more").click()}
     >
       <input
@@ -1592,7 +1592,7 @@ function NewAdvertisement() {
                   {PictureErrorMsg}
                 </p>
                 <div>
-                  <div className="grid grid-cols-12 md:flex md:flex-wrap gap-y-6 lg:gap-x-8">
+                  <div className="grid grid-cols-12 md:flex md:flex-wrap gap-[10px]">
                     {imageSlots}
                   </div>
                 </div>

@@ -131,7 +131,7 @@ function VolumeMin() {
                   : "top-[15px] text-[15px] leading-5 text-gray-400"
               }`}
             >
-              Hacim (cm<sup>3</sup>), min.
+              Hacim (sm<sup>3</sup>), min.
             </label>
           </div>
           <img

@@ -129,11 +129,11 @@ function Brand() {
         onClick={handleDetailsClick}
       >
         <summary
-          className={`flex items-center justify-between w-full h-full px-[10px] bg-white border rounded-lg btn shadow-none hover:bg-white max-sm:pl-[37px] ${
+          className={`flex items-center justify-between w-full h-full px-[10px] bg-white border rounded-lg btn shadow-none hover:bg-white ${
             isOpen
               ? "border-[#8F93AD] hover:!border-[#8F93AD]"
               : "border-gray-300"
-          } ${searchTerm ? "max-sm:pl-[11px]" : ""}`}
+          } ${searchTerm ? "max-sm:pl-[11px]" : "max-sm:pl-[37px]"}`}
         >
           <div className="max-w-[80%] max-sm:w-full">
             <img

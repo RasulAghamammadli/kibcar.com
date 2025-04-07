@@ -5,7 +5,7 @@ import {
   BsHeart,
   BsHeartFill,
   BsShare,
-  BsArrowLeft,
+  BsChevronLeft,
 } from "react-icons/bs";
 import logoMobile from "../../assets/images/logo-mobile.png";
 import PropTypes from "prop-types";
@@ -17,6 +17,7 @@ function MobileNav({ title }) {
   const location = useLocation();
   const navigate = useNavigate();
   const isHomePage = location.pathname === "/";
+  const isNewAdPage = location.pathname === "/new-advertisement";
   const isCarDetails = location.pathname.includes("/car-details");
 
   useEffect(() => {
@@ -80,21 +81,37 @@ function MobileNav({ title }) {
   }
 
   return (
-    <header className="py-[15px] bg-[#fff] border-b border-[#eaebf2]">
+    <header className="py-[16px] bg-[#fff] border-b border-[#eaebf2]">
       <nav className="container">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center space-x-2">
+        <div
+          className={`flex items-center ${
+            isNewAdPage ? "justify-center" : "justify-between"
+          }`}
+        >
+          <div className="flex items-center">
             {!isHomePage && (
-              <button onClick={handleBackClick} className="text-gray-600 mr-2">
-                <BsArrowLeft size="20px" />
+              <button
+                onClick={handleBackClick}
+                className="absolute text-gray-600 left-[12px]"
+              >
+                <BsChevronLeft size="20px" />
               </button>
             )}
             <Link
               to="/"
-              className="text-black font-bold text-lg tracking-wider font-primary"
+              className={`text-black font-bold text-lg tracking-wider font-primary ${
+                isNewAdPage ? "hidden" : "block"
+              }`}
             >
-              <img src={logoMobile} alt="" className="w-[90px] h-[25px]" />
+              <img
+                src={logoMobile}
+                alt=""
+                className={`w-[90px] h-[25px] ${!isHomePage ? "ml-8" : ""}`}
+              />
             </Link>
+            {isNewAdPage && (
+              <h1 className="text-[#212c3a] text-[16px] font-medium">Yeni ilan</h1>
+            )}
           </div>
           <div className="flex items-center space-x-4">
             {isCarDetails && (

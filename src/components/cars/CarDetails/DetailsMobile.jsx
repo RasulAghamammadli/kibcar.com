@@ -26,7 +26,7 @@ import SuccessSendEmail from "../../SuccessSendEmail";
 import PremiumPayment from "../../PremiumPayment";
 import VipPayment from "../../VipPayment";
 
-function DetailsMobile({
+function  DetailsMobile({
   car,
   showFullSlider,
   setShowFullSlider,

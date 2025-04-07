@@ -1,17 +1,27 @@
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
+// images & icons
 import backView from "../assets/images/back-view.svg";
 import frontView from "../assets/images/front-view.svg";
 import insideView from "../assets/images/inside-view.svg";
 import addMore from "../assets/images/add-more.svg";
 import { IoIosClose } from "react-icons/io";
-import OtpModal from "../components/OtpModal";
 import { ToastContainer, toast } from "react-toastify";
+
+// components
 import "react-toastify/dist/ReactToastify.css";
-import { Link, useNavigate } from "react-router-dom";
 import AnimatedButtonWrapper from "../components/AnimatedButtonWrapper";
+import OtpModal from "../components/OtpModal";
 import LimitedModal from "../components/LimitedModal";
+
+// components for mobile view
+import MobileSelect from "../components/MobileSelect";
+import MobileNumberInput from "../components/MobileNumberInput";
+import MobileMarchSelect from "../components/MobileMarchSelect";
+import MobileOptionSelector from "../components/MobileOptionSelector";
+import MobileFeatureSelector from "../components/MobileFeatureSelector";
 
 function NewAdvertisement() {
   const navigate = useNavigate();
@@ -37,6 +47,45 @@ function NewAdvertisement() {
   const [carFeatures, setCarFeatures] = useState([]);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
   const [error, setError] = useState("");
+
+  const seatNumbers = [
+    {
+      id: 1,
+      name: "1",
+    },
+    {
+      id: 2,
+      name: "2",
+    },
+    {
+      id: 3,
+      name: "3",
+    },
+    {
+      id: 4,
+      name: "4",
+    },
+    {
+      id: 5,
+      name: "5",
+    },
+    {
+      id: 6,
+      name: "6",
+    },
+    {
+      id: 7,
+      name: "7",
+    },
+    {
+      id: 8,
+      name: "8+",
+    },
+    {
+      id: 0,
+      name: "Bahsedilmesin",
+    },
+  ];
 
   const handleInput = (e) => {
     const value = e.target.value.replace(/[^0-9]/g, ""); // Only keep numbers
@@ -200,7 +249,26 @@ function NewAdvertisement() {
       }
     }
     getModels();
+
+    // model is cleared when brand is empty
+    setFormData((prevData) => ({
+      ...prevData,
+      model: "",
+    }));
   }, [formData.brand]);
+
+  useEffect(() => {
+    if (
+      !formData.seatNum &&
+      seatNumbers.length > 0 &&
+      window.innerWidth <= 576
+    ) {
+      setFormData((prev) => ({
+        ...prev,
+        seatNum: seatNumbers[seatNumbers.length - 1].id,
+      }));
+    }
+  }, [formData.seatNum]);
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -338,7 +406,7 @@ function NewAdvertisement() {
       return (
         <div
           key={Math.random() * 1000}
-          className="col-span-6  md:w-[185px] h-[150px] relative rounded-[25px]"
+          className="col-span-6 md:w-[185px] h-[150px] bg-[#F6F7FA] border border-[#eaebf2] relative rounded-[7px] overflow-hidden max-sm:col-span-4 max-sm:max-h-[110px]"
         >
           <img
             src={image.src}
@@ -346,7 +414,7 @@ function NewAdvertisement() {
             className="object-cover w-full h-full rounded-[7px]"
             style={{ transform: `rotate(${image.flipped}deg)` }}
           />
-          <div className="absolute w-full h-full left-0 top-0">
+          <div className="absolute w-[100%] h-[150px] left-0 top-0 max-sm:h-[110px] max-sm:w-full">
             <div>
               <button
                 type="button"
@@ -394,10 +462,10 @@ function NewAdvertisement() {
       imageSlots.splice(
         index,
         0,
-        <div className="col-span-6">
+        <div className="col-span-6 max-sm:col-span-4">
           <div
             key={`placeholder-${index}`}
-            className="md:w-[185px] h-[150px] relative flex rounded-[7px] items-center justify-center bg-[#F6F7FA] mb-2 border border-[#eaebf2] hover:border-[#3273ec] transition-all duration-200"
+            className="md:w-[185px] h-[150px] relative flex rounded-[7px] items-center justify-center bg-[#F6F7FA] mb-2 border border-[#eaebf2] hover:border-[#3273ec] transition-all duration-200 max-sm:max-h-[110px] max-sm:mb-[2px]"
           >
             <input
               type="file"
@@ -417,7 +485,9 @@ function NewAdvertisement() {
               />
             </div>
           </div>
-          <p className="text-secondary text-center">{placeholder.tag}</p>
+          <p className="text-secondary text-center max-sm:text-[12px]">
+            {placeholder.tag}
+          </p>
         </div>
       );
     }
@@ -427,7 +497,11 @@ function NewAdvertisement() {
   imageSlots.push(
     <div
       key="add-more"
-      className="col-span-6 cursor-pointer md:w-[185px] h-[150px] relative flex rounded-[7px] items-center justify-center bg-[#F6F7FA] hover:bg-[#ebedf3] transition-all duration-200"
+      className={`col-span-6 cursor-pointer md:w-[185px] h-[150px] relative flex rounded-[7px] items-center justify-center bg-[#F6F7FA] hover:bg-[#ebedf3] transition-all duration-100 max-sm:border max-sm:border-[#f1f3f7]  ${
+        formData.imagesFiles.length === 0
+          ? "max-sm:h-[50px] max-sm:col-span-12"
+          : "max-sm:h-[110px] max-sm:col-span-4"
+      }`}
       onClick={() => document.getElementById("file-upload-add-more").click()}
     >
       <input
@@ -445,8 +519,18 @@ function NewAdvertisement() {
         accept="image/*"
         multiple
       />
-      <div className="flex flex-col justify-center items-center gap-2 text-[#4C88F9]">
-        <img src={addMore} alt="Add more" className="w-[40px] m-auto lg:m-0" />
+      <div
+        className={`flex flex-col justify-center items-center gap-2 text-[#4C88F9] max-sm:text-[14px] ${
+          formData.imagesFiles.length === 0 ? "max-sm:flex-row" : ""
+        }`}
+      >
+        <img
+          src={addMore}
+          alt="Add more"
+          className={`w-[40px] m-auto lg:m-0 ${
+            formData.imagesFiles.length === 0 ? "max-sm:w-[20px]" : ""
+          }`}
+        />
         Fotoğraf Ekle
       </div>
     </div>
@@ -732,16 +816,20 @@ function NewAdvertisement() {
     }
   };
 
+  console.log(formData.seatNum);
+  console.log(selectedFeatures);
+
   return (
     <form ref={formRef} action="">
-      <div className="container">
+      {/* web view */}
+      <div className="container max-sm:hidden">
         <div>
           <div className="bg-[#f1f3f7] border-y border-[#eaebf2] p-[20px]">
             <h2 className="uppercase font-secondary text-[16px] font-bold leading-8 text-primary">
               YENİ İLAN YARAT
             </h2>
           </div>
-          <ul className="ml-3 flex flex-col space-y-[6px] items-start mt-[30px] mb-[25px] list-outside advertisement-list font-primary text-[14px] ">
+          <ul className="ml-3 flex flex-col space-y-[6px] items-start mt-[30px] mb-[25px] list-outside advertisement-list font-primary text-[14px]">
             <li>Bir araç üç ayda bir kez ücretsiz yayınlanabiliyor.</li>
             <li>
               Üç ay içinde tekrarlanan veya benzer ilanlara (marka/model, renk)
@@ -761,7 +849,7 @@ function NewAdvertisement() {
                 <select
                   name="brand"
                   id="brand"
-                  className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                  className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal max-sm:hidden"
                   onChange={handleChange}
                   value={formData.brand}
                   placeholder="Select brand"
@@ -771,6 +859,30 @@ function NewAdvertisement() {
                     Seç
                   </option>
                   {brands.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="col-span-12 md:col-span-6">
+              <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
+                <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
+                  Model
+                </label>
+                <select
+                  name="model"
+                  id="model"
+                  className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                  onChange={handleChange}
+                  value={formData.model}
+                  required
+                >
+                  <option value={""} disabled>
+                    Seç
+                  </option>
+                  {brandModels.map((item) => (
                     <option key={item.id} value={item.id}>
                       {item.name}
                     </option>
@@ -805,31 +917,7 @@ function NewAdvertisement() {
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  Model
-                </label>
-                <select
-                  name="model"
-                  id="Model"
-                  className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
-                  onChange={handleChange}
-                  value={formData.model}
-                  required
-                >
-                  <option value={""} disabled>
-                    Seç
-                  </option>
-                  {brandModels.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <div className="col-span-12 md:col-span-6">
-              <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
-                <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  Vites
+                  Çekiş
                 </label>
                 <select
                   name="gear"
@@ -877,7 +965,7 @@ function NewAdvertisement() {
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  Şanzıman
+                  Vites
                 </label>
                 <select
                   name="gearBox"
@@ -1005,7 +1093,7 @@ function NewAdvertisement() {
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  Hacim (cm.3)
+                  Hacim, sm³
                 </label>
                 <select
                   name="engineVolume"
@@ -1102,7 +1190,7 @@ function NewAdvertisement() {
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  Güç (bg)
+                  Güç, (bg)
                 </label>
                 <input
                   className="md:max-w-[452px] w-full py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal focus:outline-0"
@@ -1163,7 +1251,6 @@ function NewAdvertisement() {
                 </select>
               </div>
             </div>
-
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0  justify-between md:gap-[10px] md:flex-row flex-col mt-6">
                 <label className="font-primary text-[14px] font-normal min-w-[165px] max-w-[165px]">
@@ -1247,7 +1334,6 @@ function NewAdvertisement() {
                 </div>
               </div>
             </div>
-
             <div className="col-span-12">
               <div className="flex space-y-2 md:space-y-0  justify-between md:gap-[50px] md:flex-row flex-col ">
                 <label className="font-primary text-[14px] font-normal md:min-w-[12%]">
@@ -1580,8 +1666,8 @@ function NewAdvertisement() {
                   Resimler
                 </h2>
                 <div className="bg-[#f6f7fa] p-4 rounded-lg mb-6">
-                  <p className="text-[14] text-[#ff586d]">Yasaktır</p>
-                  <p className="font-semibold mt-2">
+                  <p className="text-[14px] text-[#ff586d]">Yasaktır</p>
+                  <p className="font-semibold mt-2 text-[#212c3a]">
                     Ekran görüntüleri ve çerçeveli fotoğraflar yasaktır.
                   </p>
                 </div>
@@ -1734,7 +1820,200 @@ function NewAdvertisement() {
           </div>
         </div>
       </div>
+      {/* web view */}
 
+      {/* mobile view */}
+      <div className="hidden flex-col max-sm:flex">
+        {/* <div className="bg-[#f1f3f7] border-y border-[#eaebf2] py-[2px] px-[15px]">
+          <h2 className="uppercase font-secondary font-bold text-primary leading-6 text-[12px]">
+            YENİ İLAN YARAT
+          </h2>
+        </div>
+        <ul className="flex flex-col space-y-[6px] items-start list-outside advertisement-list font-primary mt-[10px] mb-[10px] ml-0 pr-[15px] text-[12px]">
+          <li>Bir araç üç ayda bir kez ücretsiz yayınlanabiliyor.</li>
+          <li>
+            Üç ay içinde tekrarlanan veya benzer ilanlara (marka/model, renk)
+            ödeme yapılır.
+          </li>
+          <li>
+            İlanınızı sitenin ön saflarında görmek için "Tanıtım" hizmetini
+            kullanın.
+          </li>
+        </ul> */}
+        <div className="flex flex-col">
+          <div className="px-[15px] border-b border-b-[#E4E4E4]">
+            <MobileSelect
+              label="Marka *"
+              name="brand"
+              options={brands}
+              formData={formData}
+              handleChange={handleChange}
+            />
+            <MobileSelect
+              label="Model *"
+              name="model"
+              options={brandModels}
+              formData={formData}
+              handleChange={handleChange}
+            />
+          </div>
+          <div className="h-[10px] bg-[#f6f7fa]"></div>
+          <div
+            id="picturesSection"
+            className="bg-white px-[15px] py-[10px] border border-t-[#eaebf2] border-b-[#eaebf2]"
+          >
+            <div className="flex flex-col">
+              <div className="flex flex-col bg-[#f6f7fa] p-[10px] rounded-[7px] mb-[15px]">
+                <p className="text-[12px] text-[#ff586d]">Yasaktır</p>
+                <p className="font-semibold text-[12px] text-[#212c3a]">
+                  Ekran görüntüleri ve çerçeveli fotoğraflar yasaktır.
+                </p>
+              </div>
+              <p
+                id="error"
+                className="px-[10px] text-[12px] font-semibold text-red mb-[15px] break-words hidden"
+              >
+                {PictureErrorMsg}
+              </p>
+              <div>
+                <div className="grid grid-cols-12 gap-[10px]">{imageSlots}</div>
+              </div>
+            </div>
+          </div>
+          <div className="h-[10px] bg-[#f6f7fa]"></div>
+          <div className="flex flex-col px-[15px] border border-t-[#eaebf2] border-b-[#eaebf2]">
+            <MobileSelect
+              label="Gövde Tipi *"
+              name="banType"
+              options={banTypes}
+              formData={formData}
+              handleChange={handleChange}
+            />
+            <div className="flex items-center justify-between gap-[15px]">
+              <div className="w-[80%]">
+                <MobileNumberInput
+                  label="Yürüyüş *"
+                  name="march"
+                  formData={formData}
+                  handleChange={handleChange}
+                />
+              </div>
+              <div className="w-[20%]">
+                <MobileMarchSelect
+                  label="Yürüyüş"
+                  name="marchNum"
+                  formData={formData}
+                  handleChange={handleChange}
+                />
+              </div>
+            </div>
+            <MobileSelect
+              label="Yıl *"
+              name="year"
+              options={years}
+              formData={formData}
+              handleChange={handleChange}
+            />
+            <MobileNumberInput
+              label="Güç, (bg) *"
+              name="enginePower"
+              formData={formData}
+              handleChange={handleChange}
+            />
+            <MobileSelect
+              label="Hacim, sm³ *"
+              name="engineVolume"
+              options={engineVolumes}
+              formData={formData}
+              handleChange={handleChange}
+            />
+            <MobileSelect
+              label="Renk *"
+              name="color"
+              options={colors}
+              formData={formData}
+              handleChange={handleChange}
+            />
+            <MobileSelect
+              label="Hangi pazar için atandı"
+              name="marketAssembled"
+              options={markets}
+              formData={formData}
+              handleChange={handleChange}
+            />
+          </div>
+          <div className="h-[10px] bg-[#f6f7fa]"></div>
+          <div className="p-[15px] pb-[10px] border border-t-[#eaebf2] border-b-[#eaebf2]">
+            <h3 className="text-[14px] text-[#8d94ad] mb-[15px]">
+              Yakıt tipi *
+            </h3>
+            <MobileOptionSelector
+              options={fuelTypes}
+              selectedOption={formData.fuelType}
+              handleChange={(value) =>
+                setFormData((prev) => ({ ...prev, fuelType: value }))
+              }
+            />
+          </div>
+          <div className="h-[10px] bg-[#f6f7fa]"></div>
+          <div className="p-[15px] pb-[10px] border border-t-[#eaebf2] border-b-[#eaebf2]">
+            <h3 className="text-[14px] text-[#8d94ad] mb-[15px]">Çekiş *</h3>
+            <MobileOptionSelector
+              options={gears}
+              selectedOption={formData.gear}
+              handleChange={(value) =>
+                setFormData((prev) => ({ ...prev, gear: value }))
+              }
+            />
+          </div>
+          <div className="h-[10px] bg-[#f6f7fa]"></div>
+          <div className="p-[15px] pb-[10px] border border-t-[#eaebf2] border-b-[#eaebf2]">
+            <h3 className="text-[14px] text-[#8d94ad] mb-[15px]">Vites *</h3>
+            <MobileOptionSelector
+              options={gearBoxs}
+              selectedOption={formData.gearBox}
+              handleChange={(value) =>
+                setFormData((prev) => ({ ...prev, gearBox: value }))
+              }
+            />
+          </div>
+          <div className="h-[10px] bg-[#f6f7fa]"></div>
+          <div className="p-[15px] pb-[10px] border border-t-[#eaebf2] border-b-[#eaebf2]">
+            <h3 className="text-[14px] text-[#8d94ad] mb-[15px]">
+              Koltuk sayısı
+            </h3>
+            <MobileOptionSelector
+              options={seatNumbers}
+              selectedOption={formData.seatNum}
+              handleChange={(value) =>
+                setFormData((prev) => ({ ...prev, seatNum: value }))
+              }
+            />
+          </div>
+          <div className="h-[10px] bg-[#f6f7fa]"></div>
+          <div className="p-[15px] pb-[10px] border border-t-[#eaebf2] border-b-[#eaebf2]">
+            <h3 className="text-[14px] text-[#8d94ad] mb-[15px]">
+              Araç tedarikçileri
+            </h3>
+            <MobileFeatureSelector
+              options={carFeatures}
+              selectedOptions={selectedFeatures}
+              handleChange={(featureId, isChecked) => {
+                if (isChecked) {
+                  setSelectedFeatures([...selectedFeatures, featureId]);
+                } else {
+                  setSelectedFeatures(
+                    selectedFeatures.filter((id) => id !== featureId)
+                  );
+                }
+              }}
+            />
+          </div>
+        </div>
+      </div>
+      {/* mobile view */}
+
+      {/* Modals and toasts */}
       {showOtpModal && (
         <OtpModal
           onClose={() => setShowOtpModal(false)}

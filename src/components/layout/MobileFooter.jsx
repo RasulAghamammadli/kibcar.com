@@ -30,7 +30,7 @@ function MobileFooter() {
           <div className="flex flex-col gap-[8px] pb-[15px] ">
             {links.map((link) => (
               <Link
-                className="font-primary text-[14px] font-normal"
+                className="font-primary text-[14px] font-normal w-fit"
                 key={link.name}
                 to={link.href}
               >

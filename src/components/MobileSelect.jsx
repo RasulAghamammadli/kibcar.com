@@ -65,6 +65,7 @@ const MobileSelect = ({ label, name, options, formData, handleChange }) => {
           }  ${
             name === "model" ||
             name === "marketAssembled" ||
+            name === "userCity" ||
             (name === "brand" && !formData.brand)
               ? "border-none"
               : "border-b-[#eaebf2]"
@@ -102,19 +103,21 @@ const MobileSelect = ({ label, name, options, formData, handleChange }) => {
       {isOpen && (
         <div
           className={`fixed inset-0 bg-black/30 flex justify-center z-50 transition-all duration-200 ${
-            name === "brand" || name === "model" ? "items-center" : "items-end"
+            name === "brand" || name === "model" || name === "userCity"
+              ? "items-center"
+              : "items-end"
           }`}
           onClick={handleClose}
         >
           <div
             className={`relative bg-white w-full overflow-y-auto shadow-lg px-[15px] opacity-100 transition-all duration-200 ${
-              name === "brand" || name === "model"
+              name === "brand" || name === "model" || name === "userCity"
                 ? "h-[100dvh] "
                 : "max-h-[88dvh] rounded-tl-lg rounded-tr-lg"
             }`}
             onClick={(e) => e.stopPropagation()}
           >
-            {name === "brand" || name === "model" ? (
+            {name === "brand" || name === "model" || name === "userCity" ? (
               <div className="fixed w-full top-0 left-0 bg-white px-[15px] py-[12px] z-10 border-b border-[#f1f3f7]">
                 <h2 className="font-medium w-full leading-0 text-center mb-[10px]">
                   {label.replace(/\*$/, "")}
@@ -133,7 +136,9 @@ const MobileSelect = ({ label, name, options, formData, handleChange }) => {
                   <input
                     type="text"
                     placeholder={
-                      name === "brand" ? "Örneğin, BMW" : "Model ara"
+                      (name === "brand" && "Örneğin, BMW") ||
+                      (name === "model" && "Model ara") ||
+                      (name === "userCity" && "Şehir ara")
                     }
                     className="w-full h-[40px] pl-[36px] pr-[10px] text-[15px] text-[#0b0b0b] bg-[#f6f7fa] rounded-[7px] border border-[#f6f7fa] focus:outline-none placeholder:text-[#8b96ad]"
                     value={searchTerm}
@@ -160,10 +165,12 @@ const MobileSelect = ({ label, name, options, formData, handleChange }) => {
 
             <ul
               className={`overflow-y-auto pb-[70px] ${
-                name === "brand" || name === "model" ? "mt-[100px]" : ""
+                name === "brand" || name === "model" || name === "userCity"
+                  ? "mt-[100px]"
+                  : ""
               }`}
             >
-              {name === "brand" || name === "model" ? (
+              {name === "brand" || name === "model" || name === "userCity" ? (
                 <>
                   {filteredOptions.map((option) => (
                     <li

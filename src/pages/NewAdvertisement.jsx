@@ -22,6 +22,7 @@ import MobileNumberInput from "../components/MobileNumberInput";
 import MobileMarchSelect from "../components/MobileMarchSelect";
 import MobileOptionSelector from "../components/MobileOptionSelector";
 import MobileFeatureSelector from "../components/MobileFeatureSelector";
+import MobileSwitchOption from "../components/MobileSwitchOption";
 
 function NewAdvertisement() {
   const navigate = useNavigate();
@@ -221,7 +222,7 @@ function NewAdvertisement() {
     seatHeating: false,
     sideCurtains: false,
     userName: "",
-    userCity: "Select",
+    userCity: "",
     userEmail: "",
     userTel: "",
     uploadedImages: [],
@@ -816,8 +817,7 @@ function NewAdvertisement() {
     }
   };
 
-  console.log(formData.seatNum);
-  console.log(selectedFeatures);
+  console.log(formData.userCity);
 
   return (
     <form ref={formRef} action="">
@@ -1611,7 +1611,7 @@ function NewAdvertisement() {
             <div className="col-span-12">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between lg:gap-[10px] xl:gap-[53mt-[117px]px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal min-w-[165px] max-w-[165px]">
-                  Ek Bilgiler
+                  Ek bilgiler
                 </label>
                 <div className="w-full min-h-[132px] md:min-w-[452px] ">
                   <textarea
@@ -2009,6 +2009,84 @@ function NewAdvertisement() {
               }}
             />
           </div>
+          <div className="h-[10px] bg-[#f6f7fa]"></div>
+          <div className="p-[15px] pb-[10px] border border-t-[#eaebf2] border-b-[#eaebf2]">
+            <h3 className="text-[14px] text-[#8d94ad] mb-[15px]">
+              Kaç tane sahip oldunuz *
+            </h3>
+            <MobileOptionSelector
+              options={owners}
+              selectedOption={formData.howManyDoYouOwn}
+              handleChange={(value) =>
+                setFormData((prev) => ({ ...prev, howManyDoYouOwn: value }))
+              }
+            />
+          </div>
+          <div className="h-[10px] bg-[#f6f7fa]"></div>
+          <div className="flex flex-col border border-t-[#eaebf2] border-b-[#eaebf2]">
+            <MobileSwitchOption
+              id="needRepair"
+              title="Kaza veya yedek parça için"
+              description="Onarım ihtiyacında veya genel hasar"
+              checked={formData.needRepair}
+              handleCheckboxChange={handleCheckboxChange}
+            />
+            <MobileSwitchOption
+              id="hasStroke"
+              title="Motor arızası var"
+              description="Bir veya daha fazla parça değiştirilmiş veya tamir edilmiş"
+              checked={formData.hasStroke}
+              handleCheckboxChange={handleCheckboxChange}
+            />
+            <MobileSwitchOption
+              id="hasColor"
+              title="Boyalıdır"
+              description="Bir veya daha fazla parça boyanmış ya da kozmetik işlem yapılmış"
+              checked={formData.hasColor}
+              handleCheckboxChange={handleCheckboxChange}
+            />
+          </div>
+          <div className="h-[10px] bg-[#f6f7fa]"></div>
+          <div className="px-[15px] border border-t-[#eaebf2] border-b-[#eaebf2]">
+            <label className="block text-[#8d94ad] text-[14px] pt-[10px]">
+              Ek bilgiler
+            </label>
+            <textarea
+              type="textarea"
+              value={formData.moreInfo}
+              name="moreInfo"
+              id="moreInfo"
+              placeholder="Avantajları ve önemli noktaları vurgulayın"
+              className="w-full h-[125px] mt-[15px] mb-[8px] resize-none overflow-y-auto focus:outline-0 bg-[#f6f7fa] p-[15px] rounded-[7px] text-[15px] leading-4 text-[#212c3a] placeholder:text-[#8d94ad] placeholder:text-[15px]"
+              onChange={handleChange}
+            ></textarea>
+          </div>
+          <div className="h-[10px] bg-[#f6f7fa]"></div>
+          <div className="vinvin">
+            <label className="font-primary text-[14px] font-normal min-w-[165px] max-w-[165px]">
+              VIN kodu
+            </label>
+            <input
+              type="text"
+              value={formData.vinCode}
+              name="vinCode"
+              id="vinCode"
+              className="w-full focus:outline-0 md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="h-[10px] bg-[#f6f7fa]"></div>
+          <div className="px-[15px] border-b border-b-[#E4E4E4]">
+            <MobileSelect
+              label="Şehir *"
+              name="userCity"
+              options={cities}
+              formData={formData}
+              handleChange={handleChange}
+            />
+          </div>
+          <div className="h-[10px] bg-[#f6f7fa]"></div>
         </div>
       </div>
       {/* mobile view */}

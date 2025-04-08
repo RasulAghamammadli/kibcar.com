@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 // icons
 import chevronDown from "../assets/icons/mobile-chevron-down.svg";
 
-const MobileMarchSelect = ({ label, name, formData, handleChange }) => {
+const MobileMarchSelector = ({ label, name, formData, handleChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(formData.marchNum || "km");
 
@@ -27,7 +27,7 @@ const MobileMarchSelect = ({ label, name, formData, handleChange }) => {
 
   return (
     <>
-      <div className="relative hidden max-sm:flex">
+      <div className="relative flex">
         <input
           type="text"
           id={name}
@@ -104,4 +104,4 @@ const MobileMarchSelect = ({ label, name, formData, handleChange }) => {
   );
 };
 
-export default MobileMarchSelect;
+export default MobileMarchSelector;

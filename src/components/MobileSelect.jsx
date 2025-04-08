@@ -42,8 +42,8 @@ const MobileSelect = ({ label, name, options, formData, handleChange }) => {
   return (
     <>
       <div
-        className={`relative hidden max-sm:flex ${
-          name === "model" && !formData.brand ? "max-sm:hidden" : ""
+        className={`relative flex ${
+          name === "model" && !formData.brand ? "hidden" : ""
         }`}
       >
         {name === "brand" && formData[name] === "" ? (

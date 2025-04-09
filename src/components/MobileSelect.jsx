@@ -7,7 +7,14 @@ import chevronDown from "../assets/icons/mobile-chevron-down.svg";
 import search from "../assets/icons/advanced-select-search.svg";
 import clear from "../assets/icons/mobile-cancel.svg";
 
-const MobileSelect = ({ label, name, options, formData, handleChange }) => {
+const MobileSelect = ({
+  label,
+  name,
+  options,
+  formData,
+  handleChange,
+  error,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [isSelected, setIsSelected] = useState(false);
@@ -74,6 +81,7 @@ const MobileSelect = ({ label, name, options, formData, handleChange }) => {
           onClick={() => setIsOpen(true)}
           readOnly
         />
+        {error && <p className="text-[13px] text-red mt-1">{error}</p>}
         <label
           htmlFor={name}
           className={`absolute text-[#8d94ad] transition-all duration-200 cursor-pointer ${

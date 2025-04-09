@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import * as Yup from "yup";
 
 // images & icons
 import backView from "../assets/images/back-view.svg";
@@ -26,6 +27,61 @@ import MobileSwitchOption from "../components/MobileSwitchOption";
 import MobileTextInput from "../components/MobileTextInput";
 import MobileCurrencySelector from "../components/MobileCurrencySelector";
 import MobileButtonOption from "../components/MobileButtonOption";
+
+// validation
+const validationSchema = Yup.object().shape({
+  vehicle_category: Yup.number().required("Bu alan zorunludur."),
+  fuel_type: Yup.number().required("Bu alan zorunludur."),
+  gear: Yup.string().required("Bu alan zorunludur."),
+  vehicle_transmission: Yup.number().required("Bu alan zorunludur."),
+  vehicle_year: Yup.number().required("Bu alan zorunludur."),
+  vehicle_prior_owner: Yup.number().required("Bu alan zorunludur."),
+  vehicle_status: Yup.string()
+    .oneOf(["new", "used", "damaged"])
+    .required("Bir durum seçin."),
+  mileage: Yup.number()
+    .required("Bu alan zorunludur.")
+    .min(0, "Kilometre 0'dan küçük olamaz."),
+  vehicle_color: Yup.number().required("Bu alan zorunludur."),
+  price: Yup.number()
+    .required("Bu alan zorunludur.")
+    .min(0, "Fiyat 0'dan küçük olamaz."),
+  vehicle_engine_volume: Yup.number().required("Bu alan zorunludur."),
+  engine_power: Yup.number()
+    .required("Bu alan zorunludur.")
+    .min(0, "Motor gücü 0'dan küçük olamaz."),
+  vehicle_market: Yup.number().required("Bu alan zorunludur."),
+  number_of_seats: Yup.number().required("Bu alan zorunludur."),
+  loan: Yup.boolean().nullable(),
+  barter: Yup.boolean().nullable(),
+  is_crashed: Yup.boolean().nullable(),
+  is_painted: Yup.boolean().nullable(),
+  for_spare_parts: Yup.boolean().nullable(),
+  vin_code: Yup.string().required("Bu alan zorunludur."),
+  additional_information: Yup.string().nullable(),
+  vehicle_front_view_image: Yup.mixed().nullable(),
+  vehicle_back_view_image: Yup.mixed().required("Bu alan zorunludur."),
+  vehicle_front_panel_image: Yup.mixed().required("Bu alan zorunludur."),
+  brand: Yup.string().required("Bir marka seçin."),
+  brand_model: Yup.string().required("Bir model seçin."),
+  city: Yup.number().required("Bir şehir seçin."),
+  mileage_measurement_unit: Yup.string()
+    .oneOf(["km", "mi"])
+    .required("Bir birim seçin."),
+  price_currency: Yup.string()
+    .oneOf(["usd", "stg", "eur"])
+    .required("Bir para birimi seçin."),
+  name: Yup.string().max(255).required("Bu alan zorunludur."),
+  email: Yup.string()
+    .email("Geçerli bir e-posta adresi girin.")
+    .required("Bu alan zorunludur."),
+  phone: Yup.string()
+    .matches(/^[1-9][0-9]{9}$/, "Telefon numarası geçersiz.")
+    .required("Bu alan zorunludur."),
+  images: Yup.array().of(Yup.mixed().nullable()),
+  // otp: Yup.string().required("Bu alan zorunludur."),
+  vehicle_features: Yup.array().of(Yup.number().nullable()),
+});
 
 function NewAdvertisement() {
   // mobile
@@ -56,6 +112,7 @@ function NewAdvertisement() {
   const [carFeatures, setCarFeatures] = useState([]);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
   const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
 
   const seatNumbers = [
     {
@@ -662,8 +719,35 @@ function NewAdvertisement() {
   };
 
   // form submit
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      // validation
+      await validationSchema.validate(formData, { abortEarly: false });
+
+      requestOtp();
+    } catch (err) {
+      if (err.name === "ValidationError") {
+        const validationErrors = {};
+        err.inner.forEach((error) => {
+          validationErrors[error.path] = error.message;
+        });
+        setErrors(validationErrors);
+
+        // scroll error input
+        // const firstErrorField = err.inner[0]?.path;
+
+        // if (firstErrorField && inputRefs[firstErrorField]?.current) {
+        //   inputRefs[firstErrorField].current.scrollIntoView({
+        //     behavior: "smooth",
+        //     block: "center",
+        //   });
+        // }
+      } else {
+        console.error("Beklenmeyen validasyon hatası:", err);
+      }
+    }
 
     // OTP request
     const requestOtp = async () => {
@@ -733,7 +817,7 @@ function NewAdvertisement() {
     } else {
       errorMsg.classList.add("hidden");
       // OTP request
-      requestOtp();
+      // requestOtp();
     }
   };
 
@@ -836,7 +920,7 @@ function NewAdvertisement() {
     }
   };
 
-  console.log(formData.userTel);
+  console.log(errors);
 
   return (
     <form ref={formRef} action="">
@@ -1217,24 +1301,31 @@ function NewAdvertisement() {
                   <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
                     Marka
                   </label>
-                  <select
-                    name="brand"
-                    id="brand"
-                    className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
-                    onChange={handleChange}
-                    value={formData.brand}
-                    placeholder="Select brand"
-                    required
-                  >
-                    <option value="" disabled>
-                      Seç
-                    </option>
-                    {brands.map((item) => (
-                      <option key={item.id} value={item.id}>
-                        {item.name}
+                  <div className="w-full relative">
+                    <select
+                      name="brand"
+                      id="brand"
+                      className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                      onChange={handleChange}
+                      value={formData.brand}
+                      placeholder="Select brand"
+                      required
+                    >
+                      <option value="" disabled>
+                        Seç
                       </option>
-                    ))}
-                  </select>
+                      {brands.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.brand && (
+                      <p className="absolute left-[2px] text-red text-[12px]">
+                        {errors.brand}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="col-span-12 md:col-span-6">
@@ -1242,23 +1333,30 @@ function NewAdvertisement() {
                   <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
                     Model
                   </label>
-                  <select
-                    name="model"
-                    id="model"
-                    className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
-                    onChange={handleChange}
-                    value={formData.model}
-                    required
-                  >
-                    <option value={""} disabled>
-                      Seç
-                    </option>
-                    {brandModels.map((item) => (
-                      <option key={item.id} value={item.id}>
-                        {item.name}
+                  <div className="w-full relative">
+                    <select
+                      name="model"
+                      id="model"
+                      className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                      onChange={handleChange}
+                      value={formData.model}
+                      required
+                    >
+                      <option value={""} disabled>
+                        Seç
                       </option>
-                    ))}
-                  </select>
+                      {brandModels.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.brand_model && (
+                      <p className="absolute left-[2px] text-red text-[12px]">
+                        {errors.brand_model}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="col-span-12 md:col-span-6">
@@ -1266,23 +1364,30 @@ function NewAdvertisement() {
                   <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
                     Yakıt tipi
                   </label>
-                  <select
-                    name="fuelType"
-                    id="fuelType"
-                    className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
-                    onChange={handleChange}
-                    value={formData.fuelType}
-                    required
-                  >
-                    <option value={""} disabled>
-                      Seç
-                    </option>
-                    {fuelTypes.map((item) => (
-                      <option key={item.id} value={item.id}>
-                        {item.name}
+                  <div className="w-full relative">
+                    <select
+                      name="fuelType"
+                      id="fuelType"
+                      className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                      onChange={handleChange}
+                      value={formData.fuelType}
+                      required
+                    >
+                      <option value={""} disabled>
+                        Seç
                       </option>
-                    ))}
-                  </select>
+                      {fuelTypes.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.fuel_type && (
+                      <p className="absolute left-[2px] text-red text-[12px]">
+                        {errors.fuel_type}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="col-span-12 md:col-span-6">
@@ -1290,23 +1395,30 @@ function NewAdvertisement() {
                   <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
                     Çekiş
                   </label>
-                  <select
-                    name="gear"
-                    id="gear"
-                    className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
-                    onChange={handleChange}
-                    value={formData.gear}
-                    required
-                  >
-                    <option value={""} disabled>
-                      Seç
-                    </option>
-                    {gears.map((item) => (
-                      <option key={item.id} value={item.id}>
-                        {item.name}
+                  <div className="w-full relative">
+                    <select
+                      name="gear"
+                      id="gear"
+                      className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                      onChange={handleChange}
+                      value={formData.gear}
+                      required
+                    >
+                      <option value={""} disabled>
+                        Seç
                       </option>
-                    ))}
-                  </select>
+                      {gears.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.gear && (
+                      <p className="absolute left-[2px] text-red text-[12px]">
+                        {errors.gear}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="col-span-12 md:col-span-6">
@@ -1314,23 +1426,30 @@ function NewAdvertisement() {
                   <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
                     Gövde Tipi
                   </label>
-                  <select
-                    name="banType"
-                    id="banType"
-                    className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
-                    onChange={handleChange}
-                    value={formData.banType}
-                    required
-                  >
-                    <option value={""} disabled>
-                      Seç
-                    </option>
-                    {banTypes.map((item) => (
-                      <option key={item.id} value={item.id}>
-                        {item.name}
+                  <div className="w-full relative">
+                    <select
+                      name="banType"
+                      id="banType"
+                      className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                      onChange={handleChange}
+                      value={formData.banType}
+                      required
+                    >
+                      <option value={""} disabled>
+                        Seç
                       </option>
-                    ))}
-                  </select>
+                      {banTypes.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.vehicle_category && (
+                      <p className="absolute left-[2px] text-red text-[12px]">
+                        {errors.vehicle_category}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="col-span-12 md:col-span-6">
@@ -1338,23 +1457,30 @@ function NewAdvertisement() {
                   <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
                     Vites
                   </label>
-                  <select
-                    name="gearBox"
-                    id="gearBox"
-                    className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
-                    onChange={handleChange}
-                    value={formData.gearBox}
-                    required
-                  >
-                    <option value="" disabled>
-                      Seç
-                    </option>
-                    {gearBoxs.map((item) => (
-                      <option key={item.id} value={item.id}>
-                        {item.name}
+                  <div className="w-full relative">
+                    <select
+                      name="gearBox"
+                      id="gearBox"
+                      className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                      onChange={handleChange}
+                      value={formData.gearBox}
+                      required
+                    >
+                      <option value="" disabled>
+                        Seç
                       </option>
-                    ))}
-                  </select>
+                      {gearBoxs.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.vehicle_transmission && (
+                      <p className="absolute left-[2px] text-red text-[12px]">
+                        {errors.vehicle_transmission}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="col-span-12 md:col-span-6">

@@ -40,7 +40,7 @@ const MobileTextInput = ({
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         onWheel={name === "userTel" ? handleWheel : null}
-        className={`w-full h-[54px] pr-[34px] text-[#212c3a] bg-white text-[15px] cursor-pointer outline-none
+        className={`w-full h-[54px] pr-[34px] text-[#212c3a] rounded-none bg-white text-[15px] cursor-pointer outline-none
             ${
               isLabelFloating
                 ? "pt-[31px] pb-[8px] leading-0"

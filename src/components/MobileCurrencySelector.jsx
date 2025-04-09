@@ -36,7 +36,7 @@ const MobileCurrencySelector = ({ label, name, formData, handleChange }) => {
           id={name}
           name={name}
           value={options.find((o) => o.id === selectedValue)?.name || ""}
-          className="w-full h-[54px] text-[#212c3a] bg-white border-b border-b-[#eaebf2] text-[15px] cursor-pointer outline-none py-[16px] pl-[10px]"
+          className="w-full h-[54px] text-[#212c3a] bg-white border-b border-b-[#eaebf2] rounded-none text-[15px] cursor-pointer outline-none py-[16px] pl-[10px]"
           onClick={() => setIsOpen(true)}
           readOnly
         />

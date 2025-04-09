@@ -35,7 +35,7 @@ const MobileNumberInput = ({ label, name, formData, handleChange }) => {
             }
           }
         }}
-        className={`w-full h-[54px] pr-[34px] text-[#212c3a] bg-white border-b border-b-[#eaebf2] text-[15px] cursor-pointer outline-none ${
+        className={`w-full h-[54px] pr-[34px] text-[#212c3a] bg-white border-b border-b-[#eaebf2] rounded-none text-[15px] cursor-pointer outline-none ${
           isLabelFloating
             ? "pt-[31px] pb-[8px] leading-0"
             : "pt-[16px] py-[16px]"

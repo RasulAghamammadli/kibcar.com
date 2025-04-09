@@ -24,7 +24,7 @@ const links = [
 ];
 function MobileFooter() {
   return (
-    <div className="bg-[#F1F3F7]  ">
+    <div className="bg-[#F1F3F7] border border-t-[#eaebf2]">
       <div className={`py-5`}>
         <div className="container">
           <div className="flex flex-col gap-[8px] pb-[15px] ">

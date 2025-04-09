@@ -110,7 +110,9 @@ function MobileNav({ title }) {
               />
             </Link>
             {isNewAdPage && (
-              <h1 className="text-[#212c3a] text-[16px] font-medium">Yeni ilan</h1>
+              <h1 className="text-[#212c3a] text-[16px] font-medium">
+                Yeni ilan
+              </h1>
             )}
           </div>
           <div className="flex items-center space-x-4">

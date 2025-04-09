@@ -50,7 +50,8 @@ const MobileSelect = ({ label, name, options, formData, handleChange }) => {
           <img
             src={car}
             alt=""
-            className="absolute left-0 top-[10px] cursor-pointer"
+            className="absolute left-0 top-[9px] cursor-pointer"
+            onClick={() => setIsOpen(true)}
           />
         ) : null}
         <input
@@ -58,7 +59,7 @@ const MobileSelect = ({ label, name, options, formData, handleChange }) => {
           id={name}
           name={name}
           value={options.find((o) => o.id === formData[name])?.name || ""}
-          className={`w-full h-[54px] text-[#212c3a] bg-white border-b text-[15px] cursor-pointer outline-none ${
+          className={`w-full h-[54px] text-[#212c3a] bg-white rounded-none border-b text-[15px] cursor-pointer outline-none ${
             formData[name]
               ? "pt-[31px] pb-[8px] leading-0"
               : "pt-[16px] py-[16px]"

@@ -16,7 +16,7 @@ import AnimatedButtonWrapper from "../components/AnimatedButtonWrapper";
 import OtpModal from "../components/OtpModal";
 import LimitedModal from "../components/LimitedModal";
 
-// components for mobile view
+// components for mobile
 import MobileSelect from "../components/MobileSelect";
 import MobileNumberInput from "../components/MobileNumberInput";
 import MobileMarchSelector from "../components/MobileMarchSelector";
@@ -1080,7 +1080,7 @@ function NewAdvertisement() {
                 name="moreInfo"
                 id="moreInfo"
                 placeholder="Avantajları ve önemli noktaları vurgulayın"
-                className="w-full h-[125px] mt-[15px] mb-[8px] resize-none overflow-y-auto focus:outline-0 bg-[#f6f7fa] p-[15px] rounded-[7px] text-[15px] leading-4 text-[#212c3a] placeholder:text-[#8d94ad] placeholder:text-[15px]"
+                className="w-full h-[125px] mt-[15px] mb-[8px] resize-none overflow-y-auto outline-none focus:outline-none bg-[#f6f7fa] p-[15px] rounded-[7px] text-[15px] leading-4 text-[#212c3a] placeholder:text-[#8d94ad] placeholder:text-[15px]"
                 onChange={handleChange}
               ></textarea>
             </div>

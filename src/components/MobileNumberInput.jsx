@@ -8,8 +8,8 @@ const MobileNumberInput = ({ label, name, formData, handleChange }) => {
   const isLabelFloating = isFocused || formData[name];
 
   // stop scroll
-  const handleWheel = (event) => {
-    event.target.blur();
+  const handleWheel = (e) => {
+    e.target.blur();
   };
 
   const handleClear = () => {

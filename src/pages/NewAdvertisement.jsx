@@ -29,29 +29,36 @@ import MobileCurrencySelector from "../components/MobileCurrencySelector";
 import MobileButtonOption from "../components/MobileButtonOption";
 
 // validation
+const nullableNumber = () =>
+  Yup.number()
+    .transform((value, originalValue) =>
+      originalValue === "" ? null : Number(originalValue)
+    )
+    .nullable();
+
 const validationSchema = Yup.object().shape({
-  vehicle_category: Yup.number().required("Bu alan zorunludur."),
-  fuel_type: Yup.number().required("Bu alan zorunludur."),
-  gear: Yup.string().required("Bu alan zorunludur."),
-  vehicle_transmission: Yup.number().required("Bu alan zorunludur."),
-  vehicle_year: Yup.number().required("Bu alan zorunludur."),
-  vehicle_prior_owner: Yup.number().required("Bu alan zorunludur."),
-  vehicle_status: Yup.string()
-    .oneOf(["new", "used", "damaged"])
-    .required("Bir durum seçin."),
-  mileage: Yup.number()
+  brand: nullableNumber().required("Bir marka seçin."),
+  brand_model: nullableNumber().required("Bir model seçin."),
+  vehicle_category: nullableNumber().required("Bu alan zorunludur."),
+  fuel_type: nullableNumber().required("Bu alan zorunludur."),
+  gear: nullableNumber().required("Bu alan zorunludur."),
+  vehicle_transmission: nullableNumber().required("Bu alan zorunludur."),
+  vehicle_year: nullableNumber().required("Bu alan zorunludur."),
+  vehicle_prior_owner: nullableNumber().required("Bu alan zorunludur."),
+  vehicle_status: Yup.string().required("Bir araç durumu seçin."),
+  mileage: nullableNumber()
     .required("Bu alan zorunludur.")
-    .min(0, "Kilometre 0'dan küçük olamaz."),
-  vehicle_color: Yup.number().required("Bu alan zorunludur."),
-  price: Yup.number()
+    .min(0, "0'dan küçük olamaz."),
+  vehicle_color: nullableNumber().required("Bu alan zorunludur."),
+  price: nullableNumber()
     .required("Bu alan zorunludur.")
-    .min(0, "Fiyat 0'dan küçük olamaz."),
-  vehicle_engine_volume: Yup.number().required("Bu alan zorunludur."),
-  engine_power: Yup.number()
+    .min(1, "0'dan büyük olmalı."),
+  vehicle_engine_volume: nullableNumber().required("Bu alan zorunludur."),
+  engine_power: nullableNumber()
     .required("Bu alan zorunludur.")
-    .min(0, "Motor gücü 0'dan küçük olamaz."),
-  vehicle_market: Yup.number().required("Bu alan zorunludur."),
-  number_of_seats: Yup.number().required("Bu alan zorunludur."),
+    .min(1, "0'dan büyük olmalı."),
+  vehicle_market: nullableNumber().required("Bu alan zorunludur."),
+  number_of_seats: nullableNumber().required("Bu alan zorunludur."),
   loan: Yup.boolean().nullable(),
   barter: Yup.boolean().nullable(),
   is_crashed: Yup.boolean().nullable(),
@@ -59,19 +66,12 @@ const validationSchema = Yup.object().shape({
   for_spare_parts: Yup.boolean().nullable(),
   vin_code: Yup.string().required("Bu alan zorunludur."),
   additional_information: Yup.string().nullable(),
-  vehicle_front_view_image: Yup.mixed().nullable(),
-  vehicle_back_view_image: Yup.mixed().required("Bu alan zorunludur."),
-  vehicle_front_panel_image: Yup.mixed().required("Bu alan zorunludur."),
-  brand: Yup.string().required("Bir marka seçin."),
-  brand_model: Yup.string().required("Bir model seçin."),
-  city: Yup.number().required("Bir şehir seçin."),
-  mileage_measurement_unit: Yup.string()
-    .oneOf(["km", "mi"])
-    .required("Bir birim seçin."),
-  price_currency: Yup.string()
-    .oneOf(["usd", "stg", "eur"])
-    .required("Bir para birimi seçin."),
-  name: Yup.string().max(255).required("Bu alan zorunludur."),
+  city: nullableNumber().required("Bir şehir seçin."),
+  mileage_measurement_unit: Yup.string().required("Bir birim seçin."),
+  price_currency: Yup.string().required("Bir para birimi seçin."),
+  name: Yup.string()
+    .max(255, "İsim alanı en fazla 255 karakter olabilir.")
+    .required("Bu alan zorunludur."),
   email: Yup.string()
     .email("Geçerli bir e-posta adresi girin.")
     .required("Bu alan zorunludur."),
@@ -79,7 +79,6 @@ const validationSchema = Yup.object().shape({
     .matches(/^[1-9][0-9]{9}$/, "Telefon numarası geçersiz.")
     .required("Bu alan zorunludur."),
   images: Yup.array().of(Yup.mixed().nullable()),
-  // otp: Yup.string().required("Bu alan zorunludur."),
   vehicle_features: Yup.array().of(Yup.number().nullable()),
 });
 
@@ -111,7 +110,6 @@ function NewAdvertisement() {
   const [retryOtp, setRetryOtp] = useState("");
   const [carFeatures, setCarFeatures] = useState([]);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
-  const [error, setError] = useState("");
   const [errors, setErrors] = useState({});
 
   const seatNumbers = [
@@ -168,15 +166,8 @@ function NewAdvertisement() {
     const value = e.target.value.replace(/[^0-9]/g, "").slice(0, 10); // Only keep numbers
     setFormData((prev) => ({
       ...prev,
-      userTel: value,
+      phone: value,
     }));
-
-    // Set error based on regex
-    if (!/^[1-9][0-9]{9}$/.test(value)) {
-      setError("Lütfen geçerli bir 10 haneli telefon numarası girin.");
-    } else {
-      setError("");
-    }
   };
 
   const handleCheckboxChangeForCarFeatures = (featureId) => (event) => {
@@ -260,49 +251,37 @@ function NewAdvertisement() {
 
   const initialData = {
     brand: "",
-    fuelType: "",
-    model: "",
+    brand_model: "",
+    vehicle_category: "",
+    fuel_type: "",
     gear: "",
-    banType: "",
-    gearBox: "",
-    march: "",
-    marchNum: "",
-    year: "",
-    color: "",
-    engineVolume: "",
+    vehicle_transmission: "",
+    vehicle_year: "",
+    vehicle_prior_owner: "",
+    vehicle_status: "",
+    mileage: "",
+    vehicle_color: "",
     price: "",
-    currencyValue: "",
-    enginePower: "",
-    howManyDoYouOwn: "",
-    marketAssembled: "",
-    hasStroke: false,
-    hasColor: false,
-    needRepair: false,
-    seatNum: "",
-    carStatus: "",
-    credit: false,
+    vehicle_engine_volume: "",
+    engine_power: "",
+    vehicle_market: "",
+    number_of_seats: "",
+    loan: false,
     barter: false,
-    vinCode: "",
-    moreInfo: "",
-    alloyWheels: false,
-    centralLocking: false,
-    leatherSalon: false,
-    seatVentilation: false,
-    usa: false,
-    parkingRadar: false,
-    xenonLamps: false,
-    hatch: false,
-    airConditioning: false,
-    nearViewCamera: false,
-    rainSensor: false,
-    seatHeating: false,
-    sideCurtains: false,
-    userName: "",
-    userCity: "",
-    userEmail: "",
-    userTel: "",
-    uploadedImages: [],
+    is_crashed: false,
+    is_painted: false,
+    for_spare_parts: false,
+    vin_code: "",
+    additional_information: "",
+    city: "",
+    mileage_measurement_unit: "",
+    price_currency: "",
+    name: "",
+    email: "",
+    phone: "",
+    vehicle_features: [],
     images: [],
+    uploadedImages: [],
     vehicle_front_view_image: null,
     vehicle_back_view_image: null,
     vehicle_front_panel_image: null,
@@ -330,28 +309,40 @@ function NewAdvertisement() {
     // model is cleared when brand is empty
     setFormData((prevData) => ({
       ...prevData,
-      model: "",
+      brand_model: "",
     }));
   }, [formData.brand]);
 
   useEffect(() => {
     if (
-      !formData.seatNum &&
+      !formData.number_of_seats &&
       seatNumbers.length > 0 &&
       window.innerWidth <= 576
     ) {
       setFormData((prev) => ({
         ...prev,
-        seatNum: seatNumbers[seatNumbers.length - 1].id,
+        number_of_seats: seatNumbers[seatNumbers.length - 1].id,
       }));
     }
-  }, [formData.seatNum]);
+  }, [formData.number_of_seats]);
 
   function handleChange(e) {
     const { name, value } = e.target;
+
+    const onlyDigitsRegex = /^\d*$/;
+    const onlyDigitsFields = ["price", "mileage", "engine_power", "phone"];
+
+    if (onlyDigitsFields.includes(name)) {
+      if (!onlyDigitsRegex.test(value)) {
+        return;
+      }
+    }
+
+    const parsedValue = !isNaN(value) && value !== "" ? Number(value) : value;
+
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: parsedValue,
     });
   }
 
@@ -368,16 +359,69 @@ function NewAdvertisement() {
     const maxImages = 21;
     const numberOfUploadedImages = uploadedImages;
 
+    // max and min 
     if (numberOfUploadedImages < minImages) {
-      return `Lütfen en az ${minImages} adet resim yükleyin.`;
+      return `Lütfen en az ${minImages} adet resim ekleyin.`;
     } else if (numberOfUploadedImages > maxImages) {
-      return `En fazla ${maxImages} resim yükleyebilirsiniz.`;
+      return `En fazla ${maxImages} resim ekleyebilirsiniz.`;
     } else if (
       formData.vehicle_front_view_image === null ||
       formData.vehicle_back_view_image === null ||
       formData.vehicle_front_panel_image === null
     ) {
       return "Ön, arka ve iç görünüm resimlerini eklemeniz gerekiyor.";
+    }
+
+    // photo format and size validation
+    const allowedTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/jpg",
+      "image/gif",
+      "image/svg+xml",
+    ];
+    const maxSize = 2 * 1024 * 1024; // 2MB (2048KB)
+
+    // validate all imagesFiles
+    if (formData.imagesFiles && formData.imagesFiles.length > 0) {
+      for (let i = 0; i < formData.imagesFiles.length; i++) {
+        const image = formData.imagesFiles[i];
+
+        // format validation
+        if (!allowedTypes.includes(image.type)) {
+          return `Sadece JPEG, PNG, JPG, GIF ve SVG formatları kabul edilmektedir. Hatalı resim: ${image.name}`;
+        }
+
+        // size validation
+        if (image.size > maxSize) {
+          return `Resim boyutu 2MB'dan küçük olmalıdır. Hatalı resim: ${
+            image.name
+          } (${(image.size / (1024 * 1024)).toFixed(2)}MB)`;
+        }
+      }
+    }
+
+    // special images validation
+    const specialImages = [
+      formData.vehicle_front_view_image,
+      formData.vehicle_back_view_image,
+      formData.vehicle_front_panel_image,
+    ];
+
+    for (const image of specialImages) {
+      if (image && image !== null) {
+        // format validation
+        if (!allowedTypes.includes(image.type)) {
+          return `Sadece JPEG, PNG, JPG, GIF ve SVG formatları kabul edilmektedir. Hatalı resim: ${image.name}`;
+        }
+
+        // size validation
+        if (image.size > maxSize) {
+          return `Resim boyutu 2MB'dan küçük olmalıdır. Hatalı resim: ${
+            image.name
+          } (${(image.size / (1024 * 1024)).toFixed(2)}MB)`;
+        }
+      }
     }
 
     return ""; // No error
@@ -622,43 +666,48 @@ function NewAdvertisement() {
     setModalType(null);
   };
 
+  // stop scroll
+  const handleWheel = (e) => {
+    e.target.blur();
+  };
+
   // create announcement
   const saveAnnouncement = async (otp) => {
     try {
       // Form Data
       const params = {
-        vehicle_category: formData.banType,
-        fuel_type: formData.fuelType,
+        brand: formData.brand,
+        brand_model: formData.brand_model,
+        vehicle_category: formData.vehicle_category,
+        fuel_type: formData.fuel_type,
         gear: formData.gear,
-        vehicle_transmission: formData.gearBox,
-        vehicle_year: formData.year,
-        vehicle_prior_owner: formData.howManyDoYouOwn,
-        vehicle_status: formData.carStatus,
-        mileage: formData.march,
-        mileage_measurement_unit: formData.marchNum,
-        vehicle_color: formData.color,
+        vehicle_transmission: formData.vehicle_transmission,
+        vehicle_year: formData.vehicle_year,
+        vehicle_prior_owner: formData.vehicle_prior_owner,
+        vehicle_status: formData.vehicle_status,
+        mileage: formData.mileage,
+        mileage_measurement_unit: formData.mileage_measurement_unit,
+        vehicle_color: formData.vehicle_color,
         price: formData.price,
-        vehicle_engine_volume: formData.engineVolume,
-        engine_power: formData.enginePower,
-        vehicle_market: formData.marketAssembled,
-        number_of_seats: formData.seatNum,
-        loan: formData.credit,
+        vehicle_engine_volume: formData.vehicle_engine_volume,
+        engine_power: formData.engine_power,
+        vehicle_market: formData.vehicle_market,
+        number_of_seats: formData.number_of_seats,
+        loan: formData.loan,
         barter: formData.barter,
-        is_crashed: formData.hasStroke,
-        is_painted: formData.hasColor,
-        for_spare_parts: formData.needRepair,
-        vin_code: formData.vinCode,
-        additional_information: formData.moreInfo,
+        is_crashed: formData.is_crashed,
+        is_painted: formData.is_painted,
+        for_spare_parts: formData.for_spare_parts,
+        vin_code: formData.vin_code,
+        additional_information: formData.additional_information,
         vehicle_front_view_image: formData.vehicle_front_view_image,
         vehicle_back_view_image: formData.vehicle_back_view_image,
         vehicle_front_panel_image: formData.vehicle_front_panel_image,
-        brand_model: formData.model,
-        city: formData.userCity,
-        price_currency: formData.currencyValue,
-        name: formData.userName,
-        email: formData.userEmail,
-        phone: formData.userTel,
-        brand: formData.brand,
+        city: formData.city,
+        price_currency: formData.price_currency,
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
         otp: otp,
       };
 
@@ -718,106 +767,117 @@ function NewAdvertisement() {
     }
   };
 
+  // OTP request
+  const requestOtp = async () => {
+    try {
+      // phone param
+      const params = { phone: formData.phone };
+
+      const response = await axios.post(
+        `${
+          import.meta.env.VITE_REACT_APP_API_URL
+        }/api/announcements/otp/request`,
+        params
+      );
+
+      if (response.status === 202 && response.data.success === true) {
+        setOtpExpTime(response.data.expAge);
+        setShowOtpModal(true);
+        toast.success("OTP gönderildi.", {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
+      } else {
+        toast.error(response.data.message, {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
+      }
+    } catch (error) {
+      console.error("OTP request error:", error);
+
+      if (error.response) {
+        const { status } = error.response;
+        if (status === 500) {
+          toast.error("Telefon numarası gereklidir.", {
+            position: "bottom-right",
+            autoClose: 3000,
+          });
+        } else if (status === 400) {
+          toast.error("Bugün için OTP isteklerinin sınırına ulaştınız.", {
+            position: "bottom-right",
+            autoClose: 3000,
+          });
+        } else {
+          toast.error("Bir hata oluştu, lütfen tekrar deneyin.", {
+            position: "bottom-right",
+            autoClose: 3000,
+          });
+        }
+      } else {
+        toast.error("Bağlantı hatası, lütfen internetinizi kontrol edin.", {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
+      }
+    }
+  };
+
   // form submit
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      // validation
-      await validationSchema.validate(formData, { abortEarly: false });
-
-      requestOtp();
-    } catch (err) {
-      if (err.name === "ValidationError") {
-        const validationErrors = {};
-        err.inner.forEach((error) => {
-          validationErrors[error.path] = error.message;
-        });
-        setErrors(validationErrors);
-
-        // scroll error input
-        // const firstErrorField = err.inner[0]?.path;
-
-        // if (firstErrorField && inputRefs[firstErrorField]?.current) {
-        //   inputRefs[firstErrorField].current.scrollIntoView({
-        //     behavior: "smooth",
-        //     block: "center",
-        //   });
-        // }
-      } else {
-        console.error("Beklenmeyen validasyon hatası:", err);
-      }
-    }
-
-    // OTP request
-    const requestOtp = async () => {
-      try {
-        // phone param
-        const params = { phone: formData.userTel };
-
-        const response = await axios.post(
-          `${
-            import.meta.env.VITE_REACT_APP_API_URL
-          }/api/announcements/otp/request`,
-          params
-        );
-
-        if (response.status === 202 && response.data.success === true) {
-          setOtpExpTime(response.data.expAge);
-          setShowOtpModal(true);
-          toast.success("OTP gönderildi.", {
-            position: "bottom-right",
-            autoClose: 3000,
-          });
-        } else {
-          toast.error(response.data.message, {
-            position: "bottom-right",
-            autoClose: 3000,
-          });
-        }
-      } catch (error) {
-        console.error("OTP request error:", error);
-
-        if (error.response) {
-          const { status } = error.response;
-          if (status === 500) {
-            toast.error("Telefon numarası gereklidir.", {
-              position: "bottom-right",
-              autoClose: 3000,
-            });
-          } else if (status === 400) {
-            toast.error("Bugün için OTP isteklerinin sınırına ulaştınız.", {
-              position: "bottom-right",
-              autoClose: 3000,
-            });
-          } else {
-            toast.error("Bir hata oluştu, lütfen tekrar deneyin.", {
-              position: "bottom-right",
-              autoClose: 3000,
-            });
-          }
-        } else {
-          toast.error("Bağlantı hatası, lütfen internetinizi kontrol edin.", {
-            position: "bottom-right",
-            autoClose: 3000,
-          });
-        }
-      }
-    };
-
+    // Image validation
     const errorMessage = validateImageCount(formData.uploadedImages.length);
     const picSection = document.getElementById("picturesSection");
     const errorMsg = document.getElementById("error");
 
+    let imageValid = true;
     if (errorMessage) {
       setPictureErrorMsg(errorMessage);
       errorMsg.classList.remove("hidden");
       picSection.scrollIntoView({ behavior: "smooth" });
-      return;
+      imageValid = false;
     } else {
       errorMsg.classList.add("hidden");
-      // OTP request
-      // requestOtp();
+    }
+
+    // Form validation
+    let formValid = true;
+    try {
+      // validate form data
+      await validationSchema.validate(formData, { abortEarly: false });
+      setErrors({});
+    } catch (validationError) {
+      formValid = false;
+      if (validationError.inner) {
+        const newErrors = {};
+        validationError.inner.forEach((err) => {
+          newErrors[err.path] = err.message;
+        });
+        setErrors(newErrors);
+
+        // scroll to the first error field
+        const firstErrorField = validationError.inner[0]?.path;
+        const firstErrorElement = document.querySelector(
+          `[name="${firstErrorField}"]`
+        );
+        if (firstErrorElement) {
+          firstErrorElement.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+
+          firstErrorElement.focus();
+        }
+      }
+    }
+
+    console.log("Form valid:", formValid, "Image valid:", imageValid);
+
+    // if valid
+    if (formValid && imageValid) {
+      await requestOtp();
     }
   };
 
@@ -829,7 +889,7 @@ function NewAdvertisement() {
   // Resend OTP
   const resendOtp = async () => {
     try {
-      const params = { phone: formData.userTel };
+      const params = { phone: formData.phone };
 
       const response = await axios.post(
         `${
@@ -911,7 +971,7 @@ function NewAdvertisement() {
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_REACT_APP_API_URL}/api/announcements/otp/${
-          formData.userTel
+          formData.phone
         }`
       );
       console.log(res.data);
@@ -920,7 +980,7 @@ function NewAdvertisement() {
     }
   };
 
-  console.log(errors);
+  console.log(formData);
 
   return (
     <form ref={formRef} action="">
@@ -1246,7 +1306,6 @@ function NewAdvertisement() {
                 formData={formData}
                 handleChange={handleChange}
                 handleInput={handleInput}
-                error={error}
               />
             </div>
             <div className="px-[15px] py-[20px] flex flex-col bg-[#f6f7fa] border-b border-b-[#eaebf2]">
@@ -1335,11 +1394,11 @@ function NewAdvertisement() {
                   </label>
                   <div className="w-full relative">
                     <select
-                      name="model"
-                      id="model"
+                      name="brand_model"
+                      id="brand_model"
                       className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
                       onChange={handleChange}
-                      value={formData.model}
+                      value={formData.brand_model}
                       required
                     >
                       <option value={""} disabled>
@@ -1366,11 +1425,11 @@ function NewAdvertisement() {
                   </label>
                   <div className="w-full relative">
                     <select
-                      name="fuelType"
-                      id="fuelType"
+                      name="fuel_type"
+                      id="fuel_type"
                       className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
                       onChange={handleChange}
-                      value={formData.fuelType}
+                      value={formData.fuel_type}
                       required
                     >
                       <option value={""} disabled>
@@ -1428,11 +1487,11 @@ function NewAdvertisement() {
                   </label>
                   <div className="w-full relative">
                     <select
-                      name="banType"
-                      id="banType"
+                      name="vehicle_category"
+                      id="vehicle_category"
                       className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
                       onChange={handleChange}
-                      value={formData.banType}
+                      value={formData.vehicle_category}
                       required
                     >
                       <option value={""} disabled>
@@ -1459,11 +1518,11 @@ function NewAdvertisement() {
                   </label>
                   <div className="w-full relative">
                     <select
-                      name="gearBox"
-                      id="gearBox"
+                      name="vehicle_transmission"
+                      id="vehicle_transmission"
                       className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
                       onChange={handleChange}
-                      value={formData.gearBox}
+                      value={formData.vehicle_transmission}
                       required
                     >
                       <option value="" disabled>
@@ -1489,18 +1548,24 @@ function NewAdvertisement() {
                     Yürüyüş
                   </label>
                   <div className="flex items-center justify-between gap-x-8 md:max-w-[452px] w-full">
-                    <div className="w-1/2 md:w-auto">
+                    <div className="w-1/2 md:w-auto relative">
                       <input
-                        name="march"
-                        type="number"
-                        id="march"
+                        id="mileage"
+                        name="mileage"
+                        type="text"
                         className="w-full py-[10px] px-[15px] outline-none bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                        onWheel={handleWheel}
                         onChange={handleChange}
-                        value={formData.march}
+                        value={formData.mileage}
                         required
                       />
+                      {errors.mileage && (
+                        <p className="absolute left-[2px] text-red text-[12px]">
+                          {errors.mileage}
+                        </p>
+                      )}
                     </div>
-                    <div className="md:max-w-[177px] flex space-x-4 items-center justify-end">
+                    <div className="relative md:max-w-[177px] flex gap-6 items-center justify-end">
                       <div className="flex items-center gap-x-2">
                         <input
                           required
@@ -1508,7 +1573,7 @@ function NewAdvertisement() {
                           onChange={handleChange}
                           id="km"
                           type="radio"
-                          name="marchNum"
+                          name="mileage_measurement_unit"
                           value="km"
                         />
                         <label
@@ -1525,7 +1590,7 @@ function NewAdvertisement() {
                           onChange={handleChange}
                           id="mi"
                           type="radio"
-                          name="marchNum"
+                          name="mileage_measurement_unit"
                           value="mi"
                         />
                         <label
@@ -1535,6 +1600,11 @@ function NewAdvertisement() {
                           mil
                         </label>
                       </div>
+                      {errors.mileage_measurement_unit && (
+                        <p className="absolute left-0 top-[31px] text-red text-[12px]">
+                          {errors.mileage_measurement_unit}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -1544,23 +1614,30 @@ function NewAdvertisement() {
                   <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
                     Yıl
                   </label>
-                  <select
-                    name="year"
-                    id="year"
-                    className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
-                    onChange={handleChange}
-                    value={formData.year}
-                    required
-                  >
-                    <option value={""} disabled>
-                      Seç
-                    </option>
-                    {years.map((item) => (
-                      <option key={item.id} value={item.id}>
-                        {item.name}
+                  <div className="relative w-full">
+                    <select
+                      name="vehicle_year"
+                      id="vehicle_year"
+                      className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                      onChange={handleChange}
+                      value={formData.vehicle_year}
+                      required
+                    >
+                      <option value={""} disabled>
+                        Seç
                       </option>
-                    ))}
-                  </select>
+                      {years.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.vehicle_year && (
+                      <p className="absolute left-[2px] text-red text-[12px]">
+                        {errors.vehicle_year}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="col-span-12 md:col-span-6">
@@ -1568,23 +1645,30 @@ function NewAdvertisement() {
                   <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
                     Renk
                   </label>
-                  <select
-                    name="color"
-                    id="color"
-                    className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
-                    onChange={handleChange}
-                    value={formData.color}
-                    required
-                  >
-                    <option value={""} disabled>
-                      Seç
-                    </option>
-                    {colors.map((item) => (
-                      <option key={item.id} value={item.id}>
-                        {item.name}
+                  <div className="relative w-full">
+                    <select
+                      name="vehicle_color"
+                      id="vehicle_color"
+                      className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                      onChange={handleChange}
+                      value={formData.vehicle_color}
+                      required
+                    >
+                      <option value={""} disabled>
+                        Seç
                       </option>
-                    ))}
-                  </select>
+                      {colors.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.vehicle_color && (
+                      <p className="absolute left-[2px] text-red text-[12px]">
+                        {errors.vehicle_color}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="col-span-12 md:col-span-6">
@@ -1592,23 +1676,30 @@ function NewAdvertisement() {
                   <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
                     Hacim, sm³
                   </label>
-                  <select
-                    name="engineVolume"
-                    id="engineVolume"
-                    className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
-                    onChange={handleChange}
-                    value={formData.engineVolume}
-                    required
-                  >
-                    <option value={""} disabled>
-                      Seç
-                    </option>
-                    {engineVolumes.map((item) => (
-                      <option key={item.id} value={item.id}>
-                        {item.name}
+                  <div className="relative w-full">
+                    <select
+                      name="vehicle_engine_volume"
+                      id="vehicle_engine_volume"
+                      className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                      onChange={handleChange}
+                      value={formData.vehicle_engine_volume}
+                      required
+                    >
+                      <option value={""} disabled>
+                        Seç
                       </option>
-                    ))}
-                  </select>
+                      {engineVolumes.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.vehicle_engine_volume && (
+                      <p className="absolute left-[2px] text-red text-[12px]">
+                        {errors.vehicle_engine_volume}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="col-span-12 md:col-span-6">
@@ -1617,25 +1708,31 @@ function NewAdvertisement() {
                     Fiyat
                   </label>
                   <div className="flex items-center justify-between gap-x-4 md:max-w-[452px] w-full">
-                    <div className="w-1/2 md:w-auto">
+                    <div className="relative w-1/2 md:w-auto">
                       <input
-                        name="price"
-                        type="number"
                         id="price"
+                        name="price"
+                        type="text"
                         className="w-full py-[10px] px-[15px] outline-none bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                        onWheel={handleWheel}
                         onChange={handleChange}
                         value={formData.price}
                         required
                       />
+                      {errors.price && (
+                        <p className="absolute left-[2px] text-red text-[12px]">
+                          {errors.price}
+                        </p>
+                      )}
                     </div>
-                    <div className="md:max-w-[220px] flex space-x-4 items-center justify-end">
-                      <div className="flex items-center gap-x-2">
+                    <div className="relative md:max-w-[220px] flex gap-2 items-center justify-end">
+                      <div className="flex items-center gap-x-1">
                         <input
                           className="w-4 h-4 accent-red"
                           onChange={handleChange}
                           id="usd"
                           type="radio"
-                          name="currencyValue"
+                          name="price_currency"
                           value="usd"
                           required
                         />
@@ -1646,13 +1743,13 @@ function NewAdvertisement() {
                           USD
                         </label>
                       </div>
-                      <div className="flex items-center gap-x-2">
+                      <div className="flex items-center gap-x-1">
                         <input
                           className="w-4 h-4 accent-red"
                           onChange={handleChange}
                           id="eur"
                           type="radio"
-                          name="currencyValue"
+                          name="price_currency"
                           value="eur"
                           required
                         />
@@ -1663,13 +1760,13 @@ function NewAdvertisement() {
                           EUR
                         </label>
                       </div>
-                      <div className="flex items-center gap-x-2">
+                      <div className="flex items-center gap-x-1">
                         <input
                           className="w-4 h-4 accent-red"
                           onChange={handleChange}
                           id="stg"
                           type="radio"
-                          name="currencyValue"
+                          name="price_currency"
                           value="stg"
                           required
                         />
@@ -1680,6 +1777,11 @@ function NewAdvertisement() {
                           STG
                         </label>
                       </div>
+                      {errors.price_currency && (
+                        <p className="absolute left-0 top-[31px] text-red text-[12px]">
+                          {errors.price_currency}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -1689,15 +1791,23 @@ function NewAdvertisement() {
                   <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
                     Güç, (bg)
                   </label>
-                  <input
-                    className="md:max-w-[452px] w-full py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal focus:outline-0"
-                    type="number"
-                    name="enginePower"
-                    id="enginePower"
-                    value={formData.enginePower}
-                    onChange={handleChange}
-                    required
-                  />
+                  <div className="relative w-full">
+                    <input
+                      className="md:max-w-[452px] w-full py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal focus:outline-0"
+                      type="text"
+                      name="engine_power"
+                      id="engine_power"
+                      value={formData.engine_power}
+                      onWheel={handleWheel}
+                      onChange={handleChange}
+                      required
+                    />
+                    {errors.engine_power && (
+                      <p className="absolute left-[2px] text-red text-[12px]">
+                        {errors.engine_power}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="col-span-12 md:col-span-6">
@@ -1705,23 +1815,30 @@ function NewAdvertisement() {
                   <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
                     Kaç tane sahip oldunuz?
                   </label>
-                  <select
-                    name="howManyDoYouOwn"
-                    id="howManyDoYouOwn"
-                    className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
-                    onChange={handleChange}
-                    value={formData.howManyDoYouOwn}
-                    required
-                  >
-                    <option value="" disabled>
-                      Seç
-                    </option>
-                    {owners.map((item) => (
-                      <option key={item.id} value={item.id}>
-                        {item.name}
+                  <div className="relative w-full">
+                    <select
+                      name="vehicle_prior_owner"
+                      id="vehicle_prior_owner"
+                      className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                      onChange={handleChange}
+                      value={formData.vehicle_prior_owner}
+                      required
+                    >
+                      <option value="" disabled>
+                        Seç
                       </option>
-                    ))}
-                  </select>
+                      {owners.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.vehicle_prior_owner && (
+                      <p className="absolute left-[2px] text-red text-[12px]">
+                        {errors.vehicle_prior_owner}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="col-span-12 md:col-span-6">
@@ -1729,23 +1846,30 @@ function NewAdvertisement() {
                   <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
                     Hangi pazar için atandı
                   </label>
-                  <select
-                    name="marketAssembled"
-                    id="marketAssembled"
-                    className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
-                    onChange={handleChange}
-                    value={formData.marketAssembled}
-                    required
-                  >
-                    <option value="" disabled>
-                      Seç
-                    </option>
-                    {markets.map((item) => (
-                      <option key={item.id} value={item.id}>
-                        {item.name}
+                  <div className="relative w-full">
+                    <select
+                      name="vehicle_market"
+                      id="vehicle_market"
+                      className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                      onChange={handleChange}
+                      value={formData.vehicle_market}
+                      required
+                    >
+                      <option value="" disabled>
+                        Seç
                       </option>
-                    ))}
-                  </select>
+                      {markets.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.vehicle_market && (
+                      <p className="absolute left-[2px] text-red text-[12px]">
+                        {errors.vehicle_market}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="col-span-12 md:col-span-6">
@@ -1758,17 +1882,17 @@ function NewAdvertisement() {
                       <div className="mt-[2px]">
                         <label className="custom-checkbox">
                           <input
-                            checked={formData.needRepair}
+                            checked={formData.for_spare_parts}
                             onChange={handleCheckboxChange}
                             type="checkbox"
-                            name="needRepair"
-                            id="needRepair"
+                            name="for_spare_parts"
+                            id="for_spare_parts"
                           />
                           <span className="checkmark"></span>
                         </label>
                       </div>
                       <div>
-                        <label htmlFor="needRepair">
+                        <label htmlFor="for_spare_parts">
                           <h3 className="font-primary text-[14px] font-normal text-primary ">
                             Kaza veya yedek parça için
                           </h3>
@@ -1782,17 +1906,17 @@ function NewAdvertisement() {
                       <div className="mt-[2px]">
                         <label className="custom-checkbox">
                           <input
-                            checked={formData.hasStroke}
+                            checked={formData.is_crashed}
                             onChange={handleCheckboxChange}
                             type="checkbox"
-                            name="hasStroke"
-                            id="hasStroke"
+                            name="is_crashed"
+                            id="is_crashed"
                           />
                           <span className="checkmark"></span>
                         </label>
                       </div>
                       <div>
-                        <label htmlFor="hasStroke">
+                        <label htmlFor="is_crashed">
                           <h3 className="font-primary text-[14px] font-normal text-primary ">
                             Motor arızası var
                           </h3>
@@ -1807,17 +1931,17 @@ function NewAdvertisement() {
                       <div className="mt-[2px]">
                         <label className="custom-checkbox">
                           <input
-                            checked={formData.hasColor}
+                            checked={formData.is_painted}
                             onChange={handleCheckboxChange}
                             type="checkbox"
-                            name="hasColor"
-                            id="hasColor"
+                            name="is_painted"
+                            id="is_painted"
                           />
                           <span className="checkmark"></span>
                         </label>
                       </div>
                       <div>
-                        <label htmlFor="hasColor">
+                        <label htmlFor="is_painted">
                           <h3 className="font-primary text-[14px] font-normal text-primary ">
                             Boyalıdır
                           </h3>
@@ -1836,20 +1960,20 @@ function NewAdvertisement() {
                   <label className="font-primary text-[14px] font-normal md:min-w-[12%]">
                     Araç Durumu
                   </label>
-                  <div className="md:flex-nowrap  flex-wrap gap-y-3 md:gap-y-0  md:min-w-[452px] w-full gap-x-5 flex md:ml-2">
+                  <div className="relative md:flex-nowrap  flex-wrap gap-y-3 md:gap-y-0  md:min-w-[452px] w-full gap-x-5 flex md:ml-2">
                     <div className=" flex items-center gap-x-2">
                       <input
                         className="w-4 h-4 accent-red"
-                        id="carStatusNew"
+                        id="vehicle_status_new"
                         type="radio"
-                        name="carStatus"
+                        name="vehicle_status"
                         value="0"
                         onChange={handleChange}
                         required
                       />
                       <label
                         className="text-[14px] font-normal text-primary"
-                        htmlFor="carStatusNew"
+                        htmlFor="vehicle_status_new"
                       >
                         Yeni
                       </label>
@@ -1857,9 +1981,9 @@ function NewAdvertisement() {
                     <div className="flex items-center gap-x-2">
                       <input
                         className="w-4 h-4  accent-red"
-                        id="carStatusUsed"
+                        id="vehicle_status_used"
                         type="radio"
-                        name="carStatus"
+                        name="vehicle_status"
                         value="1"
                         onChange={handleChange}
                         required
@@ -1867,11 +1991,16 @@ function NewAdvertisement() {
 
                       <label
                         className="text-[14px] font-normal text-primary"
-                        htmlFor="carStatusUsed"
+                        htmlFor="vehicle_status_used"
                       >
                         İkinci el
                       </label>
                     </div>
+                    {errors.vehicle_status && (
+                      <p className="absolute left-0 top-6 text-red text-[12px]">
+                        {errors.vehicle_status}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -1880,13 +2009,13 @@ function NewAdvertisement() {
                   <label className="font-primary text-[14px] font-normal md:min-w-[12%]">
                     Koltuk sayısı
                   </label>
-                  <div className="md:flex-nowrap  flex-wrap gap-y-3 md:gap-y-0  md:min-w-[452px] w-full gap-x-5 flex md:ml-2">
+                  <div className="relative md:flex-nowrap  flex-wrap gap-y-3 md:gap-y-0  md:min-w-[452px] w-full gap-x-5 flex md:ml-2">
                     <div className="flex items-center gap-x-2">
                       <input
                         className="w-4 h-4 accent-red"
                         id="seatNum1"
                         type="radio"
-                        name="seatNum"
+                        name="number_of_seats"
                         value="1"
                         onChange={handleChange}
                         required
@@ -1903,7 +2032,7 @@ function NewAdvertisement() {
                         className="w-4 h-4 accent-red"
                         id="seatNum2"
                         type="radio"
-                        name="seatNum"
+                        name="number_of_seats"
                         value="2"
                         onChange={handleChange}
                         required
@@ -1920,7 +2049,7 @@ function NewAdvertisement() {
                         className="w-4 h-4 accent-red"
                         id="seatNum3"
                         type="radio"
-                        name="seatNum"
+                        name="number_of_seats"
                         value="3"
                         onChange={handleChange}
                         required
@@ -1937,7 +2066,7 @@ function NewAdvertisement() {
                         className="w-4 h-4 accent-red"
                         id="seatNum4"
                         type="radio"
-                        name="seatNum"
+                        name="number_of_seats"
                         value="4"
                         onChange={handleChange}
                         required
@@ -1954,7 +2083,7 @@ function NewAdvertisement() {
                         className="w-4 h-4 accent-red"
                         id="seatNum5"
                         type="radio"
-                        name="seatNum"
+                        name="number_of_seats"
                         value="5"
                         onChange={handleChange}
                         required
@@ -1971,7 +2100,7 @@ function NewAdvertisement() {
                         className="w-4 h-4 accent-red"
                         id="seatNum6"
                         type="radio"
-                        name="seatNum"
+                        name="number_of_seats"
                         value="6"
                         onChange={handleChange}
                         required
@@ -1988,7 +2117,7 @@ function NewAdvertisement() {
                         className="w-4 h-4 accent-red"
                         id="seatNum7"
                         type="radio"
-                        name="seatNum"
+                        name="number_of_seats"
                         value="7"
                         onChange={handleChange}
                         required
@@ -2005,7 +2134,7 @@ function NewAdvertisement() {
                         className="w-4 h-4 accent-red"
                         id="seatNum8"
                         type="radio"
-                        name="seatNum"
+                        name="number_of_seats"
                         value="8"
                         onChange={handleChange}
                         required
@@ -2022,7 +2151,7 @@ function NewAdvertisement() {
                         className="w-4 h-4 accent-red"
                         id="seatVal"
                         type="radio"
-                        name="seatNum"
+                        name="number_of_seats"
                         value="0"
                         onChange={handleChange}
                         required
@@ -2034,6 +2163,11 @@ function NewAdvertisement() {
                         Bahsedilmesin
                       </label>
                     </div>
+                    {errors.number_of_seats && (
+                      <p className="absolute left-0 top-6 text-red text-[12px]">
+                        {errors.number_of_seats}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -2044,17 +2178,17 @@ function NewAdvertisement() {
                     <div className="mt-[4px] cursor-pointer">
                       <label className="custom-checkbox">
                         <input
-                          checked={formData.credit}
+                          checked={formData.loan}
                           onChange={handleCheckboxChange}
                           type="checkbox"
-                          name="credit"
-                          id="credit"
+                          name="loan"
+                          id="loan"
                         />
                         <span className="checkmark"></span>
                       </label>
                     </div>
                     <div>
-                      <label htmlFor="credit">
+                      <label htmlFor="loan">
                         <h3 className="font-primary cursor-pointer text-[14px] font-normal text-primary ">
                           Kredi ile
                         </h3>
@@ -2094,15 +2228,22 @@ function NewAdvertisement() {
                   <label className="font-primary text-[14px] font-normal min-w-[165px] max-w-[165px]">
                     VIN kodu
                   </label>
-                  <input
-                    type="text"
-                    value={formData.vinCode}
-                    name="vinCode"
-                    id="vinCode"
-                    className="w-full focus:outline-0 md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
-                    onChange={handleChange}
-                    required
-                  />
+                  <div className="relative w-full">
+                    <input
+                      type="text"
+                      value={formData.vin_code}
+                      name="vin_code"
+                      id="vin_code"
+                      className="w-full focus:outline-0 md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                      onChange={handleChange}
+                      required
+                    />
+                    {errors.vin_code && (
+                      <p className="absolute left-[2px] text-red text-[12px]">
+                        {errors.vin_code}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="col-span-12">
@@ -2113,9 +2254,9 @@ function NewAdvertisement() {
                   <div className="w-full min-h-[132px] md:min-w-[452px] ">
                     <textarea
                       type="textarea"
-                      value={formData.moreInfo}
-                      name="moreInfo"
-                      id="moreInfo"
+                      value={formData.additional_information}
+                      name="additional_information"
+                      id="additional_information"
                       className="w-full min-h-[132px]  focus:outline-0 md:min-w-[452px] bg-white  py-[10px] px-[15px] rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
                       onChange={handleChange}
                     ></textarea>
@@ -2194,72 +2335,96 @@ function NewAdvertisement() {
                   <div className="flex flex-col items-start md:flex-row md:items-center gap-y-3">
                     <label
                       className="md:min-w-[244px] md:max-w-[244px] w-full"
-                      htmlFor="userName"
+                      htmlFor="name"
                     >
                       Adınız
                     </label>
-                    <input
-                      className="md:max-w-[452px] w-full py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal focus:outline-0"
-                      type="text"
-                      name="userName"
-                      id="userName"
-                      placeholder="Adınız"
-                      value={formData.userName}
-                      onChange={handleChange}
-                      required
-                    />
+                    <div className="relative w-full">
+                      <input
+                        className="md:max-w-[452px] w-full py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal focus:outline-0"
+                        type="text"
+                        name="name"
+                        id="name"
+                        placeholder="Adınız"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                      />
+                      {errors.name && (
+                        <p className="absolute left-[2px] text-red text-[12px]">
+                          {errors.name}
+                        </p>
+                      )}
+                    </div>
                   </div>
                   <div className="flex flex-col items-start md:flex-row md:items-center">
                     <label
                       className="md:min-w-[244px] md:max-w-[244px] w-full"
-                      htmlFor="userCity"
+                      htmlFor="city"
                     >
                       Şehir
                     </label>
-                    <select
-                      className="md:max-w-[452px] w-full py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal focus:outline-0"
-                      name="userCity"
-                      id="userCity"
-                      placeholder="Şehir"
-                      value={formData.userCity}
-                      onChange={handleChange}
-                      required
-                    >
-                      <option value="Select">Seç</option>
-                      {cities.map((item) => (
-                        <option key={item.id} value={item.id}>
-                          {item.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="flex flex-col items-start md:flex-row md:items-center gap-y-3">
-                    <label
-                      className="md:min-w-[244px] md:max-w-[244px] w-full"
-                      htmlFor="userEmail"
-                    >
-                      E-posta
-                    </label>
-                    <div className="flex flex-col md:max-w-[452px] w-full">
-                      <input
+                    <div className="relative w-full">
+                      <select
                         className="md:max-w-[452px] w-full py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal focus:outline-0"
-                        type="email"
-                        name="userEmail"
-                        id="userEmail"
-                        placeholder="E-posta"
-                        value={formData.userEmail}
+                        name="city"
+                        id="city"
+                        placeholder="Şehir"
+                        value={formData.city}
                         onChange={handleChange}
                         required
-                      />
-                      <p className="text-secondary ml-1 text-sm">
-                        Sitede gösterilmeyecek
-                      </p>
+                      >
+                        <option value="" disabled>
+                          Seç
+                        </option>
+                        {cities.map((item) => (
+                          <option key={item.id} value={item.id}>
+                            {item.name}
+                          </option>
+                        ))}
+                      </select>
+                      {errors.city && (
+                        <p className="absolute left-[2px] text-red text-[12px]">
+                          {errors.city}
+                        </p>
+                      )}
                     </div>
                   </div>
                   <div className="flex flex-col items-start md:flex-row md:items-center gap-y-3">
                     <label
                       className="md:min-w-[244px] md:max-w-[244px] w-full"
-                      htmlFor="userTel"
+                      htmlFor="email"
+                    >
+                      E-posta
+                    </label>
+                    <div className="flex flex-col md:max-w-[452px] w-full">
+                      <div className="relative w-full">
+                        <input
+                          className="md:max-w-[452px] w-full py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal focus:outline-0"
+                          type="email"
+                          name="email"
+                          id="email"
+                          placeholder="E-posta"
+                          value={formData.email}
+                          onChange={handleChange}
+                          required
+                        />
+                        {errors.email ? (
+                          <p className="absolute left-[2px] text-red text-[12px]">
+                            {errors.email}
+                          </p>
+                        ) : (
+                          <p className="text-secondary ml-1 text-sm">
+                            Sitede gösterilmeyecek
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-start md:flex-row md:items-center gap-y-3">
+                    <label
+                      className="md:min-w-[244px] md:max-w-[244px] w-full"
+                      htmlFor="phone"
                     >
                       Telefon numarası
                     </label>
@@ -2269,20 +2434,24 @@ function NewAdvertisement() {
                       </span>
                       <input
                         className="w-full py-[10px] px-[15px] pl-14 bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal focus:outline-0"
-                        type="number"
-                        name="userTel"
-                        id="userTel"
+                        type="text"
+                        name="phone"
+                        id="phone"
                         placeholder="1234567890"
-                        value={formData.userTel}
+                        value={formData.phone}
                         maxLength="10"
                         minLength="10"
                         // onChange={handleChange}
                         onInput={handleInput}
                         required
                       />
+                      {errors.phone && (
+                        <p className="absolute left-[2px] text-red text-[12px]">
+                          {errors.phone}
+                        </p>
+                      )}
                     </div>
                   </div>
-                  {error && <p className="text-red">{error}</p>}
                   <div className="max-w-[696px] mt-30 flex justify-end">
                     <AnimatedButtonWrapper>
                       <button

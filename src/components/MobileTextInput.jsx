@@ -10,7 +10,6 @@ const MobileTextInput = ({
   formData,
   handleChange,
   handleInput,
-  error,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const isLabelFloating = isFocused || formData[name];
@@ -47,19 +46,9 @@ const MobileTextInput = ({
                 : "pt-[16px] py-[16px]"
             }
             ${name === "vinCode" ? "border-b-0" : "border-b border-b-[#eaebf2]"}
-            ${
-              name === "userTel"
-                ? error && formData[name]
-                  ? "border-b border-b-[#eaebf2] pl-[34px]"
-                  : "border-b-0 pl-[34px]"
-                : ""
-            }
           `}
         required
       />
-      {error && formData[name] && (
-        <span className="text-[12px] text-red py-[4px]">{error}</span>
-      )}
       <label
         htmlFor={name}
         className={`absolute text-[#8d94ad] transition-all duration-200 cursor-pointer ${

@@ -48,9 +48,11 @@ function EditAdvertisement() {
   const [PictureErrorMsg, setPictureErrorMsg] = useState("");
   const [car, setCar] = useState(null);
 
-  if (!/^\d+$/.test(id)) {
-    return <Navigate to="/not-found" />;
-  }
+  useEffect(() => {
+    if (!pin_code || !/^\d+$/.test(id)) {
+      navigate("/not-found");
+    }
+  }, [pin_code]);
 
   const initialData = {
     brand: "",

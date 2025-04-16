@@ -37,47 +37,47 @@ const nullableNumber = () =>
     .nullable();
 
 const validationSchema = Yup.object().shape({
-  brand: nullableNumber().required("Bir marka seçin."),
-  brand_model: nullableNumber().required("Bir model seçin."),
-  vehicle_category: nullableNumber().required("Bu alan zorunludur."),
-  fuel_type: nullableNumber().required("Bu alan zorunludur."),
-  gear: nullableNumber().required("Bu alan zorunludur."),
-  vehicle_transmission: nullableNumber().required("Bu alan zorunludur."),
-  vehicle_year: nullableNumber().required("Bu alan zorunludur."),
-  vehicle_prior_owner: nullableNumber().required("Bu alan zorunludur."),
-  vehicle_status: Yup.string().required("Bir araç durumu seçin."),
+  brand: nullableNumber().required("Bir marka seçin"),
+  brand_model: nullableNumber().required("Bir model seçin"),
+  vehicle_category: nullableNumber().required("Bu alan zorunludur"),
+  fuel_type: nullableNumber().required("Bu alan zorunludur"),
+  gear: nullableNumber().required("Bu alan zorunludur"),
+  vehicle_transmission: nullableNumber().required("Bu alan zorunludur"),
+  vehicle_year: nullableNumber().required("Bu alan zorunludur"),
+  vehicle_prior_owner: nullableNumber().required("Bu alan zorunludur"),
+  vehicle_status: Yup.string().required("Bir araç durumu seçin"),
   mileage: nullableNumber()
-    .required("Bu alan zorunludur.")
-    .min(0, "0'dan küçük olamaz."),
-  vehicle_color: nullableNumber().required("Bu alan zorunludur."),
+    .required("Bu alan zorunludur")
+    .min(0, "0'dan küçük olamaz"),
+  vehicle_color: nullableNumber().required("Bu alan zorunludur"),
   price: nullableNumber()
-    .required("Bu alan zorunludur.")
-    .min(1, "0'dan büyük olmalı."),
-  vehicle_engine_volume: nullableNumber().required("Bu alan zorunludur."),
+    .required("Bu alan zorunludur")
+    .min(500, "500'den büyük veya eşit olmalı"),
+  vehicle_engine_volume: nullableNumber().required("Bu alan zorunludur"),
   engine_power: nullableNumber()
-    .required("Bu alan zorunludur.")
-    .min(1, "0'dan büyük olmalı."),
-  vehicle_market: nullableNumber().required("Bu alan zorunludur."),
-  number_of_seats: nullableNumber().required("Bu alan zorunludur."),
+    .required("Bu alan zorunludur")
+    .min(1, "0'dan büyük olmalı"),
+  vehicle_market: nullableNumber().required("Bu alan zorunludur"),
+  number_of_seats: nullableNumber().required("Bu alan zorunludur"),
   loan: Yup.boolean().nullable(),
   barter: Yup.boolean().nullable(),
   is_crashed: Yup.boolean().nullable(),
   is_painted: Yup.boolean().nullable(),
   for_spare_parts: Yup.boolean().nullable(),
-  vin_code: Yup.string().required("Bu alan zorunludur."),
+  vin_code: Yup.string().required("Bu alan zorunludur"),
   additional_information: Yup.string().nullable(),
-  city: nullableNumber().required("Bir şehir seçin."),
-  mileage_measurement_unit: Yup.string().required("Bir birim seçin."),
-  price_currency: Yup.string().required("Bir para birimi seçin."),
+  city: nullableNumber().required("Bir şehir seçin"),
+  mileage_measurement_unit: Yup.string().required("Bir birim seçin"),
+  price_currency: Yup.string().required("Bir para birimi seçin"),
   name: Yup.string()
-    .max(255, "İsim alanı en fazla 255 karakter olabilir.")
-    .required("Bu alan zorunludur."),
+    .max(255, "İsim alanı en fazla 255 karakter olabilir")
+    .required("Bu alan zorunludur"),
   email: Yup.string()
-    .email("Geçerli bir e-posta adresi girin.")
-    .required("Bu alan zorunludur."),
+    .email("Geçerli bir e-posta adresi girin")
+    .required("Bu alan zorunludur"),
   phone: Yup.string()
-    .matches(/^[1-9][0-9]{9}$/, "Telefon numarası geçersiz.")
-    .required("Bu alan zorunludur."),
+    .matches(/^[1-9][0-9]{9}$/, "Telefon numarası geçersiz")
+    .required("Bu alan zorunludur"),
   images: Yup.array().of(Yup.mixed().nullable()),
   vehicle_features: Yup.array().of(Yup.number().nullable()),
 });
@@ -359,7 +359,7 @@ function NewAdvertisement() {
     const maxImages = 21;
     const numberOfUploadedImages = uploadedImages;
 
-    // max and min 
+    // max and min
     if (numberOfUploadedImages < minImages) {
       return `Lütfen en az ${minImages} adet resim ekleyin.`;
     } else if (numberOfUploadedImages > maxImages) {
@@ -873,8 +873,6 @@ function NewAdvertisement() {
       }
     }
 
-    console.log("Form valid:", formValid, "Image valid:", imageValid);
-
     // if valid
     if (formValid && imageValid) {
       await requestOtp();
@@ -979,8 +977,6 @@ function NewAdvertisement() {
       console.log(error);
     }
   };
-
-  console.log(formData);
 
   return (
     <form ref={formRef} action="">
@@ -1367,7 +1363,6 @@ function NewAdvertisement() {
                       className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
                       onChange={handleChange}
                       value={formData.brand}
-                      placeholder="Select brand"
                       required
                     >
                       <option value="" disabled>
@@ -1601,7 +1596,7 @@ function NewAdvertisement() {
                         </label>
                       </div>
                       {errors.mileage_measurement_unit && (
-                        <p className="absolute left-0 top-[31px] text-red text-[12px]">
+                        <p className="absolute right-0 top-[31px] text-red text-[12px]">
                           {errors.mileage_measurement_unit}
                         </p>
                       )}
@@ -1720,7 +1715,7 @@ function NewAdvertisement() {
                         required
                       />
                       {errors.price && (
-                        <p className="absolute left-[2px] text-red text-[12px]">
+                        <p className="absolute top-[46px] left-[2px] leading-3 text-red text-[12px]">
                           {errors.price}
                         </p>
                       )}
@@ -1778,7 +1773,7 @@ function NewAdvertisement() {
                         </label>
                       </div>
                       {errors.price_currency && (
-                        <p className="absolute left-0 top-[31px] text-red text-[12px]">
+                        <p className="absolute right-0 top-[32px] text-red text-[12px]">
                           {errors.price_currency}
                         </p>
                       )}

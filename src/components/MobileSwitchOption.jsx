@@ -26,7 +26,7 @@ const MobileSwitchOption = ({
       </div>
       <p
         className={`whitespace-normal text-[#8d94ad] text-[14px] leading-[17px] pb-[10px] border-b border-[#eaebf2] ${
-          id === "hasColor" ? "border-b-0" : ""
+          id === "is_painted" ? "border-b-0" : ""
         }`}
       >
         {description}

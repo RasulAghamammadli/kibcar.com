@@ -10,6 +10,7 @@ const MobileTextInput = ({
   formData,
   handleChange,
   handleInput,
+  error,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const isLabelFloating = isFocused || formData[name];
@@ -25,7 +26,7 @@ const MobileTextInput = ({
 
   return (
     <div className="relative flex flex-col">
-      {name === "userTel" && (isFocused || formData[name]) ? (
+      {name === "phone" && (isFocused || formData[name]) ? (
         <span className="absolute top-[31px] text-[#212c3a] text-[15px] leading-4 pointer-events-none">
           +90
         </span>
@@ -35,17 +36,24 @@ const MobileTextInput = ({
         id={name}
         name={name}
         value={formData[name] || ""}
-        onChange={name === "userTel" ? handleInput : handleChange}
+        onChange={name === "phone" ? handleInput : handleChange}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        onWheel={name === "userTel" ? handleWheel : null}
+        onWheel={name === "phone" ? handleWheel : null}
         className={`w-full h-[54px] pr-[34px] text-[#212c3a] rounded-none bg-white text-[15px] cursor-pointer outline-none
             ${
               isLabelFloating
                 ? "pt-[31px] pb-[8px] leading-0"
                 : "pt-[16px] py-[16px]"
             }
-            ${name === "vinCode" ? "border-b-0" : "border-b border-b-[#eaebf2]"}
+            ${
+              error
+                ? "border-b border-b-[#ff586d]"
+                : name === "vin_code" || name === "phone"
+                ? "border-b-0"
+                : "border-b border-b-[#eaebf2]"
+            }
+            ${name === "phone" ? "pl-[34px]" : ""}
           `}
         required
       />

@@ -965,18 +965,18 @@ function NewAdvertisement() {
   };
 
   // reset all cache
-  const deleteOtp = async () => {
-    try {
-      const res = await axios.post(
-        `${import.meta.env.VITE_REACT_APP_API_URL}/api/announcements/otp/${
-          formData.phone
-        }`
-      );
-      console.log(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const deleteOtp = async () => {
+  //   try {
+  //     const res = await axios.post(
+  //       `${import.meta.env.VITE_REACT_APP_API_URL}/api/announcements/otp/${
+  //         formData.phone
+  //       }`
+  //     );
+  //     console.log(res.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <form ref={formRef} action="">
@@ -990,14 +990,26 @@ function NewAdvertisement() {
                 options={brands}
                 formData={formData}
                 handleChange={handleChange}
+                error={errors.brand}
               />
+              {errors.brand && (
+                <p className="text-[13px] leading-4 py-[2px] text-[#ff586d]">
+                  {errors.brand}
+                </p>
+              )}
               <MobileSelect
                 label="Model *"
-                name="model"
+                name="brand_model"
                 options={brandModels}
                 formData={formData}
                 handleChange={handleChange}
+                error={errors.brand_model}
               />
+              {errors.brand_model && formData.brand && (
+                <p className="text-[13px] leading-4 py-[2px] text-[#ff586d]">
+                  {errors.brand_model}
+                </p>
+              )}
             </div>
             <div className="h-[10px] bg-[#f6f7fa]"></div>
             <div
@@ -1015,7 +1027,7 @@ function NewAdvertisement() {
                 </div>
                 <p
                   id="error"
-                  className="px-[10px] text-[12px] font-semibold text-red mb-[15px] break-words hidden"
+                  className="px-[2px] text-[12px] font-semibold text-[#ff586d] mb-[15px] break-words "
                 >
                   {PictureErrorMsg}
                 </p>
@@ -1030,24 +1042,36 @@ function NewAdvertisement() {
             <div className="flex flex-col px-[15px] border border-t-[#eaebf2] border-b-[#eaebf2]">
               <MobileSelect
                 label="Gövde Tipi *"
-                name="banType"
+                name="vehicle_category"
                 options={banTypes}
                 formData={formData}
                 handleChange={handleChange}
+                error={errors.vehicle_category}
               />
-              <div className="flex items-center justify-between gap-[15px]">
+              {errors.vehicle_category && (
+                <p className="text-[13px] leading-4 py-[2px] text-[#ff586d]">
+                  {errors.vehicle_category}
+                </p>
+              )}
+              <div className="flex justify-between gap-[15px]">
                 <div className="w-[78%]">
                   <MobileNumberInput
                     label="Yürüyüş *"
-                    name="march"
+                    name="mileage"
                     formData={formData}
                     handleChange={handleChange}
+                    error={errors.mileage}
                   />
+                  {errors.mileage && (
+                    <p className="text-[13px] leading-4 py-[2px] text-[#ff586d]">
+                      {errors.mileage}
+                    </p>
+                  )}
                 </div>
                 <div className="w-[22%]">
                   <MobileMarchSelector
                     label="Yürüyüş"
-                    name="marchNum"
+                    name="mileage_measurement_unit"
                     formData={formData}
                     handleChange={handleChange}
                   />
@@ -1055,38 +1079,68 @@ function NewAdvertisement() {
               </div>
               <MobileSelect
                 label="Yıl *"
-                name="year"
+                name="vehicle_year"
                 options={years}
                 formData={formData}
                 handleChange={handleChange}
+                error={errors.vehicle_year}
               />
+              {errors.vehicle_year && (
+                <p className="text-[13px] leading-4 py-[2px] text-[#ff586d]">
+                  {errors.vehicle_year}
+                </p>
+              )}
               <MobileSelect
                 label="Hacim, sm³ *"
-                name="engineVolume"
+                name="vehicle_engine_volume"
                 options={engineVolumes}
                 formData={formData}
                 handleChange={handleChange}
+                error={errors.vehicle_engine_volume}
               />
+              {errors.vehicle_engine_volume && (
+                <p className="text-[13px] leading-4 py-[2px] text-[#ff586d]">
+                  {errors.vehicle_engine_volume}
+                </p>
+              )}
               <MobileNumberInput
                 label="Güç, (bg) *"
-                name="enginePower"
+                name="engine_power"
                 formData={formData}
                 handleChange={handleChange}
+                error={errors.engine_power}
               />
+              {errors.engine_power && (
+                <p className="text-[13px] leading-4 py-[2px] text-[#ff586d]">
+                  {errors.engine_power}
+                </p>
+              )}
               <MobileSelect
                 label="Renk *"
-                name="color"
+                name="vehicle_color"
                 options={colors}
                 formData={formData}
                 handleChange={handleChange}
+                error={errors.vehicle_color}
               />
+              {errors.vehicle_color && (
+                <p className="text-[13px] leading-4 py-[2px] text-[#ff586d]">
+                  {errors.vehicle_color}
+                </p>
+              )}
               <MobileSelect
-                label="Hangi pazar için atandı"
-                name="marketAssembled"
+                label="Hangi pazar için atandı *"
+                name="vehicle_market"
                 options={markets}
                 formData={formData}
                 handleChange={handleChange}
+                error={errors.vehicle_market}
               />
+              {errors.vehicle_market && (
+                <p className="text-[13px] leading-4 py-[2px] text-[#ff586d]">
+                  {errors.vehicle_market}
+                </p>
+              )}
             </div>
             <div className="h-[10px] bg-[#f6f7fa]"></div>
             <div className="p-[15px] pb-[10px] border border-t-[#eaebf2] border-b-[#eaebf2]">
@@ -1095,11 +1149,16 @@ function NewAdvertisement() {
               </h3>
               <MobileOptionSelector
                 options={fuelTypes}
-                selectedOption={formData.fuelType}
+                selectedOption={formData.fuel_type}
                 handleChange={(value) =>
-                  setFormData((prev) => ({ ...prev, fuelType: value }))
+                  setFormData((prev) => ({ ...prev, fuel_type: value }))
                 }
               />
+              {errors.fuel_type && (
+                <p className="text-[13px] leading-4 mt-[10px] text-[#ff586d]">
+                  {errors.fuel_type}
+                </p>
+              )}
             </div>
             <div className="h-[10px] bg-[#f6f7fa]"></div>
             <div className="p-[15px] pb-[10px] border border-t-[#eaebf2] border-b-[#eaebf2]">
@@ -1113,6 +1172,11 @@ function NewAdvertisement() {
                   setFormData((prev) => ({ ...prev, gear: value }))
                 }
               />
+              {errors.gear && (
+                <p className="text-[13px] leading-4 mt-[10px] text-[#ff586d]">
+                  {errors.gear}
+                </p>
+              )}
             </div>
             <div className="h-[10px] bg-[#f6f7fa]"></div>
             <div className="p-[15px] pb-[10px] border border-t-[#eaebf2] border-b-[#eaebf2]">
@@ -1121,11 +1185,19 @@ function NewAdvertisement() {
               </h3>
               <MobileOptionSelector
                 options={gearBoxs}
-                selectedOption={formData.gearBox}
+                selectedOption={formData.vehicle_transmission}
                 handleChange={(value) =>
-                  setFormData((prev) => ({ ...prev, gearBox: value }))
+                  setFormData((prev) => ({
+                    ...prev,
+                    vehicle_transmission: value,
+                  }))
                 }
               />
+              {errors.vehicle_transmission && (
+                <p className="text-[13px] leading-4 mt-[10px] text-[#ff586d]">
+                  {errors.vehicle_transmission}
+                </p>
+              )}
             </div>
             <div className="h-[10px] bg-[#f6f7fa]"></div>
             <div className="p-[15px] pb-[10px] border border-t-[#eaebf2] border-b-[#eaebf2]">
@@ -1134,9 +1206,9 @@ function NewAdvertisement() {
               </h3>
               <MobileOptionSelector
                 options={seatNumbers}
-                selectedOption={formData.seatNum}
+                selectedOption={formData.number_of_seats}
                 handleChange={(value) =>
-                  setFormData((prev) => ({ ...prev, seatNum: value }))
+                  setFormData((prev) => ({ ...prev, number_of_seats: value }))
                 }
               />
             </div>
@@ -1166,33 +1238,41 @@ function NewAdvertisement() {
               </h3>
               <MobileOptionSelector
                 options={owners}
-                selectedOption={formData.howManyDoYouOwn}
+                selectedOption={formData.vehicle_prior_owner}
                 handleChange={(value) =>
-                  setFormData((prev) => ({ ...prev, howManyDoYouOwn: value }))
+                  setFormData((prev) => ({
+                    ...prev,
+                    vehicle_prior_owner: value,
+                  }))
                 }
               />
+              {errors.vehicle_prior_owner && (
+                <p className="text-[13px] leading-4 mt-[10px] text-[#ff586d]">
+                  {errors.vehicle_prior_owner}
+                </p>
+              )}
             </div>
             <div className="h-[10px] bg-[#f6f7fa]"></div>
             <div className="flex flex-col border border-t-[#eaebf2] border-b-[#eaebf2]">
               <MobileSwitchOption
-                id="needRepair"
+                id="for_spare_parts"
                 title="Kaza veya yedek parça için"
                 description="Onarım ihtiyacında veya genel hasar"
-                checked={formData.needRepair}
+                checked={formData.for_spare_parts}
                 handleCheckboxChange={handleCheckboxChange}
               />
               <MobileSwitchOption
-                id="hasStroke"
+                id="is_crashed"
                 title="Motor arızası var"
                 description="Bir veya daha fazla parça değiştirilmiş veya tamir edilmiş"
-                checked={formData.hasStroke}
+                checked={formData.is_crashed}
                 handleCheckboxChange={handleCheckboxChange}
               />
               <MobileSwitchOption
-                id="hasColor"
+                id="is_painted"
                 title="Boyalıdır"
                 description="Bir veya daha fazla parça boyanmış ya da kozmetik işlem yapılmış"
-                checked={formData.hasColor}
+                checked={formData.is_painted}
                 handleCheckboxChange={handleCheckboxChange}
               />
             </div>
@@ -1203,11 +1283,16 @@ function NewAdvertisement() {
               </h3>
               <MobileOptionSelector
                 options={carStatuses}
-                selectedOption={formData.carStatus}
+                selectedOption={formData.vehicle_status}
                 handleChange={(value) =>
-                  setFormData((prev) => ({ ...prev, carStatus: value }))
+                  setFormData((prev) => ({ ...prev, vehicle_status: value }))
                 }
               />
+              {errors.vehicle_status && (
+                <p className="text-[13px] leading-4 mt-[10px] text-[#ff586d]">
+                  {errors.vehicle_status}
+                </p>
+              )}
             </div>
             <div className="h-[10px] bg-[#f6f7fa]"></div>
             <div className="px-[15px] border border-t-[#eaebf2] border-b-[#eaebf2]">
@@ -1216,9 +1301,9 @@ function NewAdvertisement() {
               </label>
               <textarea
                 type="textarea"
-                value={formData.moreInfo}
-                name="moreInfo"
-                id="moreInfo"
+                value={formData.additional_information}
+                name="additional_information"
+                id="additional_information"
                 placeholder="Avantajları ve önemli noktaları vurgulayın"
                 className="w-full h-[125px] mt-[15px] mb-[8px] resize-none overflow-y-auto outline-none focus:outline-none bg-[#f6f7fa] p-[15px] rounded-[7px] text-[15px] leading-4 text-[#212c3a] placeholder:text-[#8d94ad] placeholder:text-[15px]"
                 onChange={handleChange}
@@ -1229,26 +1314,38 @@ function NewAdvertisement() {
               <MobileTextInput
                 type="text"
                 label="VIN kodu *"
-                name="vinCode"
+                name="vin_code"
                 formData={formData}
                 handleChange={handleChange}
+                error={errors.vin_code}
               />
+              {errors.vin_code && (
+                <p className="text-[13px] leading-4 py-[2px] text-[#ff586d]">
+                  {errors.vin_code}
+                </p>
+              )}
             </div>
             <div className="h-[10px] bg-[#f6f7fa]"></div>
             <div className="px-[15px] border border-t-[#eaebf2] border-b-[#eaebf2]">
-              <div className="flex items-center justify-between gap-[15px]">
+              <div className="flex justify-between gap-[15px]">
                 <div className="w-[78%]">
                   <MobileNumberInput
                     label="Fiyat *"
                     name="price"
                     formData={formData}
                     handleChange={handleChange}
+                    error={errors.price}
                   />
+                  {errors.price && (
+                    <p className="text-[13px] leading-4 py-[2px] text-[#ff586d]">
+                      {errors.price}
+                    </p>
+                  )}
                 </div>
                 <div className="w-[22%]">
                   <MobileCurrencySelector
                     label="Fiyat"
-                    name="currencyValue"
+                    name="price_currency"
                     formData={formData}
                     handleChange={handleChange}
                   />
@@ -1256,9 +1353,9 @@ function NewAdvertisement() {
               </div>
               <div className="flex py-[10px] gap-[10px]">
                 <MobileButtonOption
-                  id="credit"
+                  id="loan"
                   text="Kredi ile"
-                  checked={formData.credit}
+                  checked={formData.loan}
                   handleCheckboxChange={handleCheckboxChange}
                 />
                 <MobileButtonOption
@@ -1273,36 +1370,60 @@ function NewAdvertisement() {
             <div className="px-[15px] border border-t-[#eaebf2] border-b-[#eaebf2]">
               <MobileSelect
                 label="Şehir *"
-                name="userCity"
+                name="city"
                 options={cities}
                 formData={formData}
                 handleChange={handleChange}
+                error={errors.city}
               />
+              {errors.city && (
+                <p className="text-[13px] leading-4 py-[2px] text-[#ff586d]">
+                  {errors.city}
+                </p>
+              )}
             </div>
             <div className="h-[10px] bg-[#f6f7fa]"></div>
             <div className="px-[15px] border border-t-[#eaebf2] border-b-[#eaebf2]">
               <MobileTextInput
                 type="text"
                 label="Adınız *"
-                name="userName"
+                name="name"
                 formData={formData}
                 handleChange={handleChange}
+                error={errors.name}
               />
+              {errors.name && (
+                <p className="text-[13px] leading-4 py-[2px] text-[#ff586d]">
+                  {errors.name}
+                </p>
+              )}
               <MobileTextInput
                 type="email"
                 label="E-posta *"
-                name="userEmail"
+                name="email"
                 formData={formData}
                 handleChange={handleChange}
+                error={errors.email}
               />
+              {errors.email && (
+                <p className="text-[13px] leading-4 py-[2px] text-[#ff586d]">
+                  {errors.email}
+                </p>
+              )}
               <MobileTextInput
-                type="number"
+                type="text"
                 label="Telefon numarası *"
-                name="userTel"
+                name="phone"
                 formData={formData}
                 handleChange={handleChange}
                 handleInput={handleInput}
+                error={errors.phone}
               />
+              {errors.phone && (
+                <p className="text-[13px] leading-4 py-[2px] text-[#ff586d]">
+                  {errors.phone}
+                </p>
+              )}
             </div>
             <div className="px-[15px] py-[20px] flex flex-col bg-[#f6f7fa] border-b border-b-[#eaebf2]">
               <AnimatedButtonWrapper>

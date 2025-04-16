@@ -6,7 +6,7 @@ import chevronDown from "../assets/icons/mobile-chevron-down.svg";
 const MobileCurrencySelector = ({ label, name, formData, handleChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(
-    formData.currencyValue || "usd"
+    formData.price_currency || "usd"
   );
 
   const options = [
@@ -23,10 +23,10 @@ const MobileCurrencySelector = ({ label, name, formData, handleChange }) => {
 
   // set default 'usd'
   useEffect(() => {
-    if (!formData.currencyValue) {
-      handleChange({ target: { name: "currencyValue", value: "usd" } });
+    if (!formData.price_currency) {
+      handleChange({ target: { name: "price_currency", value: "usd" } });
     }
-  }, [formData.currencyValue, handleChange]);
+  }, [formData.price_currency, handleChange]);
 
   return (
     <>

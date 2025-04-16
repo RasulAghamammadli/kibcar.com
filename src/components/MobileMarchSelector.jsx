@@ -20,10 +20,12 @@ const MobileMarchSelector = ({ label, name, formData, handleChange }) => {
 
   // set default 'km'
   useEffect(() => {
-    if (!formData.marchNum) {
-      handleChange({ target: { name: "marchNum", value: "km" } });
+    if (!formData.mileage_measurement_unit) {
+      handleChange({
+        target: { name: "mileage_measurement_unit", value: "km" },
+      });
     }
-  }, [formData.marchNum, handleChange]);
+  }, [formData.mileage_measurement_unit, handleChange]);
 
   return (
     <>

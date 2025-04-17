@@ -14,8 +14,8 @@ function CarType() {
 
   const optionLabels = {
     all: "Tümü",
-    "Car Dealerships": "Bayiler",
-    Personal: "Kişisel",
+    "Car Dealerships": "Galeri",
+    Personal: "Sahibinden",
   };
 
   return (
@@ -23,7 +23,7 @@ function CarType() {
       {options.map((option) => (
         <label
           key={option}
-          className={`first:rounded-l-md  even:border-x-[1px] even:border-gray-300 last:rounded-r-md py-[15px] px-[20px] cursor-pointer flex flex-1 justify-center items-center transition-all duration-100 ${
+          className={`first:rounded-l-md first:px-[4px] even:border-x-[1px] even:px-[4px] even:border-gray-300 last:rounded-r-md last:px-[25px] py-[15px] cursor-pointer flex flex-1 justify-center items-center transition-all duration-100 ${
             selectedCarType === option
               ? "bg-red text-white"
               : "bg-white text-secondary"

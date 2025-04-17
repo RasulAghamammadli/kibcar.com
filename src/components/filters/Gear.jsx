@@ -117,11 +117,11 @@ function Gear() {
               htmlFor="gear"
               className={`absolute cursor-pointer font-normal left-[11px] bg-transparent transition-all text-start w-fit ${
                 searchTerm || selectedOptions
-                  ? "top-[9px] text-[12px] leading-3 text-secondary"
-                  : "top-[18px] text-[15px] leading-3 text-gray-400"
+                  ? "top-[7px] text-[12px] leading-4 text-secondary"
+                  : "top-[16px] text-[15px] leading-4 text-gray-400"
               }`}
             >
-              Vites
+              Çekiş
             </label>
           </div>
           <img

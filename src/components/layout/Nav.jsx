@@ -36,8 +36,8 @@ function Nav() {
               <div className="flex items-center space-x-5">
                 <div className="text-[#212c3a]">
                   <span>Destek: </span>
-                  <a className="hover:text-red" href="tel:+900125057755">
-                    (012) 505-77-55
+                  <a className="hover:text-red" href="tel:+905391172222">
+                    (539) 117-22-22
                   </a>
                 </div>
                 <Link className="hover:text-red" to={"/help"}>

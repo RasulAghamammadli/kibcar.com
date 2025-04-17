@@ -16,9 +16,9 @@ function CarDetailsCom({ car }) {
         <div className="flex flex-col gap-y-[6px] mr-[20px]">
           <p className="font-primary text-[14px] text-secondary">Şehir</p>
           <p className="font-primary text-[14px] text-secondary">Marka</p>
-          <p className="font-primary text-[14px] text-secondary">Model</p>
-          <p className="font-primary text-[14px] text-secondary">Model Yılı</p>
-          <p className="font-primary text-[14px] text-secondary">Gövde Tipi</p>
+          <p className="font-primary text-[14px] text-secondary">Seri</p>
+          <p className="font-primary text-[14px] text-secondary">Yıl</p>
+          <p className="font-primary text-[14px] text-secondary">Kasa Tipi</p>
           <p className="font-primary text-[14px] text-secondary">Renk</p>
           <p className="font-primary text-[14px] text-secondary">Motor</p>
           <p className="font-primary text-[14px] text-secondary">Kilometre</p>
@@ -57,15 +57,15 @@ function CarDetailsCom({ car }) {
       </div>
       <div className="col-span-6 md:col-span-6 xl:col-span-3 mt-[6px] md:mt-[30px]">
         <div className="flex flex-col gap-y-[6px] mr-[20px]">
-          <p className="font-primary text-[14px] text-secondary">Şanzıman</p>
           <p className="font-primary text-[14px] text-secondary">Vites</p>
-          <p className="font-primary text-[14px] text-secondary">Yeni</p>
+          <p className="font-primary text-[14px] text-secondary">Çekiş</p>
+          <p className="font-primary text-[14px] text-secondary">Araç Durumu</p>
           <p className="font-primary text-[14px] text-secondary">
             Koltuk sayısı
           </p>
           <p className="font-primary text-[14px] text-secondary">Sahipler</p>
-          <p className="font-primary text-[14px] text-secondary">Pazar</p>
-          <p className="font-primary text-[14px] text-secondary">Durumu</p>
+          <p className="font-primary text-[14px] text-secondary">Üretim</p>
+          <p className="font-primary text-[14px] text-secondary">Durum Özeti</p>
         </div>
       </div>
       <div className="col-span-6 md:col-span-6 xl:col-span-3 mt-[6px] md:mt-[30px]">
@@ -79,7 +79,7 @@ function CarDetailsCom({ car }) {
             {car.gear.name ? car.gear.name : "-"}
           </p>
           <p className="font-primary text-[14px] text-[#212c3a]">
-            {car.vehicle_status == "USED" ? "Hayır" : "Evet"}
+            {car.vehicle_status === "USED" ? "İkinci El" : "Yeni"}
           </p>
           <p className="font-primary text-[14px] text-[#212c3a]">
             {/* {numberOfSeats} */}

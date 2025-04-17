@@ -217,10 +217,10 @@ function Homepage() {
                 hideMoreMobile && !moreFilters ? "hidden" : ""
               }`}
             >
-              <div className="flex justify-between h-full">
+              <div className="flex justify-between h-full lg:gap-1">
                 <PaymentCurrency />
                 <PaymentType
-                  label="Kredi"
+                  label="Kredisi Var"
                   type="credit"
                   name="paymentType"
                   setPaymentOptions={setPaymentOptions}
@@ -326,7 +326,7 @@ function Homepage() {
             <div className="col-span-12 mt-12">
               <div className="flex items-center justify-between">
                 <span className="font-primary text-primary text-[14px] inline-block min-w-[130px]">
-                  Araç Tedarikçileri
+                  Araç Donanımı
                 </span>
                 <hr className="h-[1px] w-full bg-[#e2e2e2]" />
               </div>

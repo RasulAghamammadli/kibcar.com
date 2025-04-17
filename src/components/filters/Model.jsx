@@ -136,7 +136,7 @@ function Model() {
                   : "top-[18px] text-[15px] leading-3 text-gray-400"
               }`}
             >
-              Model
+              Seri
             </label>
           </div>
           <img

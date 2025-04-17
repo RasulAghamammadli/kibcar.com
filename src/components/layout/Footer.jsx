@@ -31,7 +31,7 @@ function Footer() {
         <div className="container">
           <div className="flex justify-between items-center pb-[20px] border-b-[2px] border-[#eaebf2]">
             <Link to="/new-advertisement">
-              <p>İlan Ver</p>
+              <p>Hemen Sat!</p>
             </Link>
             <div className="flex gap-x-5">
               <a href="#">
@@ -40,16 +40,16 @@ function Footer() {
               <a href="#">
                 <img src={instaIcon} alt="insta" />
               </a>
-              <a href="mailto:kibcar@kibcar.com">
+              <a href="mailto:info@kibcar.com">
                 <div className="flex items-center gap-x-2">
                   <img src={emailIcon} alt="email" />
-                  <p>kibcar@kibcar.com</p>
+                  <p>info@kibcar.com</p>
                 </div>
               </a>
-              <a href="tel:+900125057755">
+              <a href="tel:+905391172222">
                 <div className="flex items-center gap-x-2">
                   <img src={phoneIcon} alt="phone" />
-                  <p>(012) 505-77-55</p>
+                  <p>(539) 117-22-22</p>
                 </div>
               </a>
             </div>
@@ -75,7 +75,7 @@ function Footer() {
               içeriğinden sorumlu değildir.
             </h2>
             <p className="font-primary text-[14px] font-normal text-white">
-              2023-2023 Digital Classifieds LLC. TIN: 1305631664
+              2024-2025 Kibcar.com NUM : 21739
             </p>
           </div>
         </div>

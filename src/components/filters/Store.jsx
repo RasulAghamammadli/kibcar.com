@@ -124,7 +124,7 @@ function Store() {
                   : "top-[16px] text-[15px] leading-4 text-gray-400"
               }`}
             >
-              Hangi pazar için atandığı
+              Neresi için üretildi
             </label>
           </div>
           <img

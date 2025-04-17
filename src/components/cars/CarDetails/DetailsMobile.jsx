@@ -26,7 +26,7 @@ import SuccessSendEmail from "../../SuccessSendEmail";
 import PremiumPayment from "../../PremiumPayment";
 import VipPayment from "../../VipPayment";
 
-function  DetailsMobile({
+function DetailsMobile({
   car,
   showFullSlider,
   setShowFullSlider,
@@ -128,6 +128,7 @@ function  DetailsMobile({
               isFavorite={isFavorite}
               carImages={carImages}
               slideIndex={1}
+              clearFormatPhoneNumber={clearFormatPhoneNumber}
             />
           )}
           <SliderMobile
@@ -316,7 +317,7 @@ function  DetailsMobile({
                   to={`/dealership/${car.car_dealership.id}`}
                   className="flex flex-col mt-[15px] py-[15px] text-white px-[40px] text-center font-primary bg-link rounded-md leading-[17px]"
                 >
-                  Salona git
+                  Galeriye git
                 </Link>
               )}
             </div>

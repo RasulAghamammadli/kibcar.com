@@ -11,6 +11,7 @@ function FullscreenMobile({
   car,
   handleFavoriteClick,
   isFavorite,
+  clearFormatPhoneNumber,
 }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef(null);
@@ -127,7 +128,11 @@ function FullscreenMobile({
           </p>
         </li>
         <li className="flex justify-center items-center bg-[#3db460] w-[50px] h-[50px] rounded-[100%] text-center cursor-pointer transition-colors duration-200 ease-in-out hover:bg-[#269547]">
-          <a href="#">
+          <a
+            href={`tel:${clearFormatPhoneNumber(
+              car.creator.guest_phone.phone
+            )}`}
+          >
             <svg
               width="29"
               height="28"

@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import facebookIcon from "../../assets/icons/fa-icon.svg";
 import instaIcon from "../../assets/icons/insta-icon.svg";
 import phoneIcon from "../../assets/icons/phone-icon.svg";
@@ -40,12 +40,17 @@ function MobileFooter() {
           </div>
           <div className="flex flex-col gap-[6px] py-[25px] border-y border-[#eceaf6]">
             <p>Destek Hizmeti</p>
-            <p className="font-bold">(012) 505-77-55</p>
+            <a
+              className="hover:text-red font-bold w-fit"
+              href="tel:+905391172222"
+            >
+              (539) 117-22-22
+            </a>
             <p className="text-[12px] text-secondary">
               Çalışma saatleri — Hafta içi: 09:00-19:00 | Cumartesi: 09:00-13:00
             </p>
             <div className="flex items-center gap-x-5 mt-4">
-              <a href="mailto:kibcar@kibcar.com">
+              <a href="mailto:info@kibcar.com">
                 <div className="flex justify-center items-center w-[37px] h-[37px] rounded-full bg-[#eceff6]">
                   <img src={emailIcon} alt="email" />
                 </div>

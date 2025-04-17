@@ -121,7 +121,7 @@ function GearBox() {
                   : "top-[16px] text-[15px] leading-4 text-gray-400"
               }`}
             >
-              Şanzıman
+              Vites
             </label>
           </div>
           <img

@@ -41,7 +41,7 @@ function PaymentCurrency() {
       <div ref={detailsRef} className="relative w-full h-full">
         <button
           type="button"
-          className={`flex items-center justify-between w-full h-full px-[10px] bg-white border rounded-lg btn shadow-none hover:bg-white ${
+          className={`flex items-center justify-between flex-nowrap w-full h-full px-[8px] bg-white border rounded-lg btn shadow-none hover:bg-white ${
             isOpen ? "border-[#8F93AD]" : "border-gray-300"
           }`}
           onClick={() => setIsOpen(!isOpen)}

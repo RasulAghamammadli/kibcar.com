@@ -48,7 +48,7 @@ function DealershipOwners() {
                 : "text-[14px] font-medium text-[#B62C17]"
             } `}
           >
-            RESMİ TEMSİLCİLER
+            MEVCUT GALERİLER
           </h2>
         </div>
         <div className="grid grid-cols-12 gap-[15px] lg:mt-5 lg:mb-0 lg:px-[25px]  px-[10px] mb-3">

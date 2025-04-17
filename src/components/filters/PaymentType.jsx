@@ -25,7 +25,7 @@ const PaymentType = ({ label, type, setPaymentOptions, name }) => {
           onChange={() => handleChange(type)}
         />
         <span
-          className={`py-[15px] px-[12px] rounded-lg text-[15px] leading-none cursor-pointer flex flex-1 justify-center items-center border transition-all duration-100 hover:border-[#8F93AD] ${
+          className={`py-[15px] px-[8px] rounded-lg text-[15px] leading-none cursor-pointer flex flex-1 justify-center items-center border transition-all duration-100 hover:border-[#8F93AD] ${
             !isChecked && "border-gray-300"
           } h-full ${
             isChecked ? "text-red border-red hover:border-red bg-[#ffe6e5]" : ""

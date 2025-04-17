@@ -30,6 +30,7 @@ function FullscreenMode({
   car,
   handleFavoriteClick,
   isFavorite,
+  clearFormatPhoneNumber,
 }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef(null);
@@ -114,7 +115,13 @@ function FullscreenMode({
                 fill="#fff"
               />
             </svg>
-            <a href="#">Numarayı göster</a>
+            <a
+              href={`tel:${clearFormatPhoneNumber(
+                car.creator.guest_phone.phone
+              )}`}
+            >
+              Numarayı göster
+            </a>
           </li>
           <li
             onClick={handleFavoriteClick}

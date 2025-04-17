@@ -119,7 +119,7 @@ function BanType() {
                   : "top-[16px] text-[15px] leading-4 text-gray-400"
               }`}
             >
-              Gövde Tipi
+              Kasa Tipi
             </label>
           </div>
           <img

@@ -38,7 +38,7 @@ const nullableNumber = () =>
 
 const validationSchema = Yup.object().shape({
   brand: nullableNumber().required("Bir marka seçin"),
-  brand_model: nullableNumber().required("Bir model seçin"),
+  brand_model: nullableNumber().required("Bir seri seçin"),
   vehicle_category: nullableNumber().required("Bu alan zorunludur"),
   fuel_type: nullableNumber().required("Bu alan zorunludur"),
   gear: nullableNumber().required("Bu alan zorunludur"),
@@ -76,7 +76,7 @@ const validationSchema = Yup.object().shape({
     .email("Geçerli bir e-posta adresi girin")
     .required("Bu alan zorunludur"),
   phone: Yup.string()
-    .matches(/^[1-9][0-9]{9}$/, "Telefon numarası geçersiz")
+    .matches(/^[1-9][0-9]{9}$/, "Cep telefonu numarası geçersiz")
     .required("Bu alan zorunludur"),
   images: Yup.array().of(Yup.mixed().nullable()),
   vehicle_features: Yup.array().of(Yup.number().nullable()),
@@ -998,7 +998,7 @@ function NewAdvertisement() {
                 </p>
               )}
               <MobileSelect
-                label="Model *"
+                label="Seri *"
                 name="brand_model"
                 options={brandModels}
                 formData={formData}
@@ -1041,7 +1041,7 @@ function NewAdvertisement() {
             <div className="h-[10px] bg-[#f6f7fa]"></div>
             <div className="flex flex-col px-[15px] border border-t-[#eaebf2] border-b-[#eaebf2]">
               <MobileSelect
-                label="Gövde Tipi *"
+                label="Kasa Tipi *"
                 name="vehicle_category"
                 options={banTypes}
                 formData={formData}
@@ -1056,7 +1056,7 @@ function NewAdvertisement() {
               <div className="flex justify-between gap-[15px]">
                 <div className="w-[78%]">
                   <MobileNumberInput
-                    label="Yürüyüş *"
+                    label="Odometre *"
                     name="mileage"
                     formData={formData}
                     handleChange={handleChange}
@@ -1070,7 +1070,7 @@ function NewAdvertisement() {
                 </div>
                 <div className="w-[22%]">
                   <MobileMarchSelector
-                    label="Yürüyüş"
+                    label="Odometre"
                     name="mileage_measurement_unit"
                     formData={formData}
                     handleChange={handleChange}
@@ -1091,7 +1091,7 @@ function NewAdvertisement() {
                 </p>
               )}
               <MobileSelect
-                label="Hacim, sm³ *"
+                label="Motor Hacmi, sm³ *"
                 name="vehicle_engine_volume"
                 options={engineVolumes}
                 formData={formData}
@@ -1129,7 +1129,7 @@ function NewAdvertisement() {
                 </p>
               )}
               <MobileSelect
-                label="Hangi pazar için atandı *"
+                label="Neresi için üretildi ? *"
                 name="vehicle_market"
                 options={markets}
                 formData={formData}
@@ -1215,7 +1215,7 @@ function NewAdvertisement() {
             <div className="h-[10px] bg-[#f6f7fa]"></div>
             <div className="p-[15px] pb-[10px] border border-t-[#eaebf2] border-b-[#eaebf2]">
               <h3 className="text-[14px] text-[#8d94ad] mb-[15px] leading-4">
-                Araç tedarikçileri
+                Araç Donanımı
               </h3>
               <MobileFeatureSelector
                 options={carFeatures}
@@ -1234,7 +1234,7 @@ function NewAdvertisement() {
             <div className="h-[10px] bg-[#f6f7fa]"></div>
             <div className="p-[15px] pb-[10px] border border-t-[#eaebf2] border-b-[#eaebf2]">
               <h3 className="text-[14px] text-[#8d94ad] mb-[15px] leading-4">
-                Kaç tane sahip oldunuz *
+                Kaçıncı sahibisiniz ? *
               </h3>
               <MobileOptionSelector
                 options={owners}
@@ -1354,7 +1354,7 @@ function NewAdvertisement() {
               <div className="flex py-[10px] gap-[10px]">
                 <MobileButtonOption
                   id="loan"
-                  text="Kredi ile"
+                  text="Kredisi var"
                   checked={formData.loan}
                   handleCheckboxChange={handleCheckboxChange}
                 />
@@ -1412,7 +1412,7 @@ function NewAdvertisement() {
               )}
               <MobileTextInput
                 type="text"
-                label="Telefon numarası *"
+                label="Cep Telefonu Numarası *"
                 name="phone"
                 formData={formData}
                 handleChange={handleChange}
@@ -1467,7 +1467,7 @@ function NewAdvertisement() {
                 renk) ödeme yapılır.
               </li>
               <li>
-                İlanınızı sitenin ön saflarında görmek için "Tanıtım" hizmetini
+                İlanınızı sitenin ön saflarında görmek için "Premium" hizmetini
                 kullanın.
               </li>
             </ul>
@@ -1506,7 +1506,7 @@ function NewAdvertisement() {
               <div className="col-span-12 md:col-span-6">
                 <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                   <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                    Model
+                    Seri
                   </label>
                   <div className="w-full relative">
                     <select
@@ -1599,7 +1599,7 @@ function NewAdvertisement() {
               <div className="col-span-12 md:col-span-6">
                 <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                   <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                    Gövde Tipi
+                    Kasa Tipi
                   </label>
                   <div className="w-full relative">
                     <select
@@ -1661,7 +1661,7 @@ function NewAdvertisement() {
               <div className="col-span-12 md:col-span-6">
                 <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                   <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                    Yürüyüş
+                    Odometre
                   </label>
                   <div className="flex items-center justify-between gap-x-8 md:max-w-[452px] w-full">
                     <div className="w-1/2 md:w-auto relative">
@@ -1790,7 +1790,7 @@ function NewAdvertisement() {
               <div className="col-span-12 md:col-span-6">
                 <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                   <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                    Hacim, sm³
+                    Motor Hacmi, sm³
                   </label>
                   <div className="relative w-full">
                     <select
@@ -1929,7 +1929,7 @@ function NewAdvertisement() {
               <div className="col-span-12 md:col-span-6">
                 <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                   <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                    Kaç tane sahip oldunuz?
+                    Kaçıncı sahibisiniz ?
                   </label>
                   <div className="relative w-full">
                     <select
@@ -1960,7 +1960,7 @@ function NewAdvertisement() {
               <div className="col-span-12 md:col-span-6">
                 <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                   <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                    Hangi pazar için atandı
+                    Neresi için üretildi ?
                   </label>
                   <div className="relative w-full">
                     <select
@@ -1991,7 +1991,7 @@ function NewAdvertisement() {
               <div className="col-span-12 md:col-span-6">
                 <div className="flex space-y-2 md:space-y-0  justify-between md:gap-[10px] md:flex-row flex-col mt-6">
                   <label className="font-primary text-[14px] font-normal min-w-[165px] max-w-[165px]">
-                    Durum
+                    Durumlar
                   </label>
                   <div className=" flex-col gap-[20px]">
                     <div className="flex w-full md:max-w-[452px] gap-x-5 ">
@@ -2306,7 +2306,7 @@ function NewAdvertisement() {
                     <div>
                       <label htmlFor="loan">
                         <h3 className="font-primary cursor-pointer text-[14px] font-normal text-primary ">
-                          Kredi ile
+                          Kredisi var
                         </h3>
                       </label>
                     </div>
@@ -2385,7 +2385,7 @@ function NewAdvertisement() {
             </div>
             <div className="mt-6 md:ml-6">
               <h2 className="font-secondary text-[26px] font-bold leading-8 text-primary mt-[30px] mb-4">
-                Araç Tedarikçileri
+                Araç Donanımı
               </h2>
               <div className="grid grid-cols-12 gap-y-5">
                 {carFeatures.map((feature) => (
@@ -2542,7 +2542,7 @@ function NewAdvertisement() {
                       className="md:min-w-[244px] md:max-w-[244px] w-full"
                       htmlFor="phone"
                     >
-                      Telefon numarası
+                      Cep Telefonu Numarası
                     </label>
                     <div className="relative md:max-w-[452px] w-full">
                       <span className="font-primary text-[14px] font-normal px-3 py-[10px] h-full absolute  rounded-md rounded-tr-none rounded-br-none left-0 bg-slate-100">

@@ -148,7 +148,7 @@ const MobileSelect = ({
                     type="text"
                     placeholder={
                       (name === "brand" && "Örneğin, BMW") ||
-                      (name === "brand_model" && "Model ara") ||
+                      (name === "brand_model" && "Seri ara") ||
                       (name === "city" && "Şehir ara")
                     }
                     className="w-full h-[40px] pl-[36px] pr-[10px] text-[15px] text-[#0b0b0b] bg-[#f6f7fa] rounded-[7px] border border-[#f6f7fa] focus:outline-none placeholder:text-[#8b96ad]"

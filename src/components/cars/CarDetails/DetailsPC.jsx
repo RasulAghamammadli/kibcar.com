@@ -157,6 +157,7 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
               isFavorite={isFavorite}
               carImages={carImages}
               slideIndex={1}
+              clearFormatPhoneNumber={clearFormatPhoneNumber}
             />
           )}
           <CarSlider
@@ -387,7 +388,7 @@ function DetailsPC({ car, showFullSlider, setShowFullSlider, carImages, id }) {
                   to={`/dealership/${car.car_dealership.id}`}
                   className="flex flex-col mt-[25px] py-[15px] text-white px-[40px] text-center font-primary bg-link rounded-md leading-[17px]"
                 >
-                  Salona git
+                  Galeriye git
                 </Link>
               </>
             )}

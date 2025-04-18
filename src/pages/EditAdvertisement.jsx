@@ -1,23 +1,85 @@
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import * as Yup from "yup";
 
+// images & icons
 import backView from "../assets/images/back-view.svg";
 import frontView from "../assets/images/front-view.svg";
 import insideView from "../assets/images/inside-view.svg";
 import addMore from "../assets/images/add-more.svg";
 import { IoIosClose } from "react-icons/io";
+
+// components
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  Link,
-  Navigate,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
 import AnimatedButtonWrapper from "../components/AnimatedButtonWrapper";
 
+// components for mobile
+import MobileSelect from "../components/MobileSelect";
+import MobileNumberInput from "../components/MobileNumberInput";
+import MobileMarchSelector from "../components/MobileMarchSelector";
+import MobileOptionSelector from "../components/MobileOptionSelector";
+import MobileFeatureSelector from "../components/MobileFeatureSelector";
+import MobileSwitchOption from "../components/MobileSwitchOption";
+import MobileTextInput from "../components/MobileTextInput";
+import MobileCurrencySelector from "../components/MobileCurrencySelector";
+import MobileButtonOption from "../components/MobileButtonOption";
+
+// validation
+const nullableNumber = () =>
+  Yup.number()
+    .transform((value, originalValue) =>
+      originalValue === "" ? null : Number(originalValue)
+    )
+    .nullable();
+
+const validationSchema = Yup.object().shape({
+  brand: nullableNumber().required("Bir marka seçin"),
+  brand_model: nullableNumber().required("Bir seri seçin"),
+  vehicle_category: nullableNumber().required("Bu alan zorunludur"),
+  fuel_type: nullableNumber().required("Bu alan zorunludur"),
+  gear: nullableNumber().required("Bu alan zorunludur"),
+  vehicle_transmission: nullableNumber().required("Bu alan zorunludur"),
+  vehicle_year: nullableNumber().required("Bu alan zorunludur"),
+  vehicle_prior_owner: nullableNumber().required("Bu alan zorunludur"),
+  vehicle_status: Yup.string().required("Bir araç durumu seçin"),
+  mileage: nullableNumber()
+    .required("Bu alan zorunludur")
+    .min(0, "0'dan küçük olamaz"),
+  vehicle_color: nullableNumber().required("Bu alan zorunludur"),
+  price: nullableNumber()
+    .required("Bu alan zorunludur")
+    .min(500, "500'den büyük veya eşit olmalı"),
+  vehicle_engine_volume: nullableNumber().required("Bu alan zorunludur"),
+  engine_power: nullableNumber()
+    .required("Bu alan zorunludur")
+    .min(1, "0'dan büyük olmalı"),
+  vehicle_market: nullableNumber().required("Bu alan zorunludur"),
+  number_of_seats: nullableNumber().required("Bu alan zorunludur"),
+  loan: Yup.boolean().nullable(),
+  barter: Yup.boolean().nullable(),
+  is_crashed: Yup.boolean().nullable(),
+  is_painted: Yup.boolean().nullable(),
+  for_spare_parts: Yup.boolean().nullable(),
+  vin_code: Yup.string().required("Bu alan zorunludur"),
+  additional_information: Yup.string().nullable(),
+  city: nullableNumber().required("Bir şehir seçin"),
+  mileage_measurement_unit: Yup.string().required("Bir birim seçin"),
+  price_currency: Yup.string().required("Bir para birimi seçin"),
+  name: Yup.string()
+    .max(255, "İsim alanı en fazla 255 karakter olabilir")
+    .required("Bu alan zorunludur"),
+  images: Yup.array().of(Yup.mixed().nullable()),
+  vehicle_features: Yup.array().of(Yup.number().nullable()),
+});
+
 function EditAdvertisement() {
+  // mobile
+  const [width] = useState(window.innerWidth);
+  const mobile = width < 576;
+
+  // states
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -36,6 +98,7 @@ function EditAdvertisement() {
   const [owners, setOwners] = useState([]);
   const [carFeatures, setCarFeatures] = useState([]);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
+  const [errors, setErrors] = useState({});
 
   const handleCheckboxChangeForCarFeatures = (featureId) => (event) => {
     if (event.target.checked) {
@@ -56,53 +119,40 @@ function EditAdvertisement() {
 
   const initialData = {
     brand: "",
-    fuelType: "",
-    model: "",
+    brand_model: "",
+    vehicle_category: "",
+    fuel_type: "",
     gear: "",
-    banType: "",
-    gearBox: "",
-    march: "",
-    marchNum: "",
-    year: "",
-    color: "",
-    engineVolume: "",
+    vehicle_transmission: "",
+    vehicle_year: "",
+    vehicle_prior_owner: "",
+    vehicle_status: "",
+    mileage: "",
+    vehicle_color: "",
     price: "",
-    currencyValue: "",
-    enginePower: "",
-    howManyDoYouOwn: "",
-    marketAssembled: "",
-    hasStroke: false,
-    hasColor: false,
-    needRepair: false,
-    seatNum: "",
-    carStatus: "",
-    credit: false,
+    vehicle_engine_volume: "",
+    engine_power: "",
+    vehicle_market: "",
+    number_of_seats: "",
+    loan: false,
     barter: false,
-    vinCode: "",
-    moreInfo: "",
-    alloyWheels: false,
-    centralLocking: false,
-    leatherSalon: false,
-    seatVentilation: false,
-    usa: false,
-    parkingRadar: false,
-    xenonLamps: false,
-    hatch: false,
-    airConditioning: false,
-    nearViewCamera: false,
-    rainSensor: false,
-    seatHeating: false,
-    sideCurtains: false,
-    userName: "",
-    city: "Select",
+    is_crashed: false,
+    is_painted: false,
+    for_spare_parts: false,
+    vin_code: "",
+    additional_information: "",
+    mileage_measurement_unit: "",
+    price_currency: "",
+    name: "",
+    city: "",
     pin_code: "",
-    uploadedImages: [],
+    vehicle_features: [],
     images: [],
+    uploadedImages: [],
     vehicle_front_view_image: null,
     vehicle_back_view_image: null,
     vehicle_front_panel_image: null,
     imagesFiles: [],
-    removedImages: [],
   };
 
   const [formData, setFormData] = useState(initialData);
@@ -127,42 +177,29 @@ function EditAdvertisement() {
 
         setFormData({
           brand: carData.brand.id,
-          fuelType: carData.fuel_type.id,
-          model: carData.brand_model.id,
+          brand_model: carData.brand_model.id,
+          fuel_type: carData.fuel_type.id,
           gear: carData.gear.id,
-          banType: carData.vehicle_category.id,
-          gearBox: carData.vehicle_transmission.id,
-          march: carData.mileage,
-          marchNum: carData.mileage_measurement_unit,
-          year: carData.vehicle_year.id,
-          color: carData.vehicle_color.id,
-          engineVolume: carData.vehicle_engine_volume.id,
+          vehicle_category: carData.vehicle_category.id,
+          vehicle_transmission: carData.vehicle_transmission.id,
+          mileage: carData.mileage,
+          mileage_measurement_unit: carData.mileage_measurement_unit,
+          vehicle_year: carData.vehicle_year.id,
+          vehicle_color: carData.vehicle_color.id,
+          vehicle_engine_volume: carData.vehicle_engine_volume.id,
           price: carData.price,
-          currencyValue: carData.price_currency,
-          enginePower: carData.engine_power,
-          howManyDoYouOwn: carData.vehicle_prior_owner.id,
-          marketAssembled: carData.vehicle_market.id,
-          hasStroke: carData.is_crashed === 1 ? true : false,
-          hasColor: carData.is_painted === 1 ? true : false,
-          needRepair: carData.for_spare_parts === 1 ? true : false,
-          seatNum: carData.number_of_seats,
-          credit: carData.loan === 1 ? true : false,
+          price_currency: carData.price_currency,
+          engine_power: carData.engine_power,
+          vehicle_prior_owner: carData.vehicle_prior_owner.id,
+          vehicle_market: carData.vehicle_market.id,
+          is_crashed: carData.is_crashed === 1 ? true : false,
+          is_painted: carData.is_painted === 1 ? true : false,
+          for_spare_parts: carData.for_spare_parts === 1 ? true : false,
+          number_of_seats: Number(carData.number_of_seats),
+          loan: carData.loan === 1 ? true : false,
           barter: carData.barter === 1 ? true : false,
-          vinCode: carData.vin_code,
-          moreInfo: carData.additional_information,
-          alloyWheels: false,
-          centralLocking: false,
-          leatherSalon: false,
-          seatVentilation: false,
-          usa: false,
-          parkingRadar: false,
-          xenonLamps: false,
-          hatch: false,
-          airConditioning: false,
-          nearViewCamera: false,
-          rainSensor: false,
-          seatHeating: false,
-          sideCurtains: false,
+          vin_code: carData.vin_code,
+          additional_information: carData.additional_information,
           uploadedImages: [
             { src: featuredImagesArr.vehicle_front_view_image },
             { src: featuredImagesArr.vehicle_back_view_image },
@@ -173,8 +210,9 @@ function EditAdvertisement() {
           vehicle_front_panel_image: carData.vehicle_front_panel_image,
           vehicle_back_view_image: carData.vehicle_back_view_image,
           pin_code: pin_code,
-          city: carData.city?.id,
-          carStatus: carData.vehicle_status,
+          vehicle_status: carData.vehicle_status,
+          city: carData.city.id,
+          name: carData.guest_contact.name,
           imagesFiles: carImages,
           removedImages: [],
         });
@@ -214,7 +252,7 @@ function EditAdvertisement() {
         const yearsRes = await axios.get(
           `${import.meta.env.VITE_REACT_APP_API_URL}/api/vehicle-years`
         );
-        setYears(yearsRes.data);
+        setYears(yearsRes.data.reverse());
 
         const banTypeRes = await axios.get(
           `${import.meta.env.VITE_REACT_APP_API_URL}/api/vehicle-categories`
@@ -267,11 +305,28 @@ function EditAdvertisement() {
 
   function handleChange(e) {
     const { name, value } = e.target;
+
+    const onlyDigitsRegex = /^\d*$/;
+    const onlyDigitsFields = ["price", "mileage", "engine_power", "phone"];
+
+    if (onlyDigitsFields.includes(name)) {
+      if (!onlyDigitsRegex.test(value)) {
+        return;
+      }
+    }
+
+    const parsedValue = !isNaN(value) && value !== "" ? Number(value) : value;
+
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: parsedValue,
     });
   }
+
+  // stop scroll
+  const handleWheel = (e) => {
+    e.target.blur();
+  };
 
   function handleCheckboxChange(e) {
     const { name, checked } = e.target;
@@ -286,17 +341,82 @@ function EditAdvertisement() {
     const maxImages = 21;
     const numberOfUploadedImages = uploadedImages;
 
+    // max and min
     if (numberOfUploadedImages < minImages) {
-      return `Lütfen en az ${minImages} adet resim yükleyin.`;
+      return `Lütfen en az ${minImages} adet resim ekleyin.`;
     } else if (numberOfUploadedImages > maxImages) {
-      return `En fazla ${maxImages} resim yükleyebilirsiniz.`;
+      return `En fazla ${maxImages} resim ekleyebilirsiniz.`;
     }
-    if (
+
+    // special images validation
+    const frontViewMissing =
       formData.vehicle_front_view_image === null ||
+      formData.vehicle_front_view_image === undefined;
+    const backViewMissing =
       formData.vehicle_back_view_image === null ||
-      formData.vehicle_front_panel_image === null
-    ) {
+      formData.vehicle_back_view_image === undefined;
+    const frontPanelMissing =
+      formData.vehicle_front_panel_image === null ||
+      formData.vehicle_front_panel_image === undefined;
+
+    if (frontViewMissing || backViewMissing || frontPanelMissing) {
       return "Ön, arka ve iç görünüm resimlerini eklemeniz gerekiyor.";
+    }
+
+    // photo format and size validation
+    const allowedTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/jpg",
+      "image/gif",
+      "image/svg+xml",
+    ];
+    const maxSize = 2 * 1024 * 1024; // 2MB (2048KB)
+
+    // validate all imagesFiles
+    if (formData.imagesFiles && formData.imagesFiles.length > 0) {
+      for (let i = 0; i < formData.imagesFiles.length; i++) {
+        const image = formData.imagesFiles[i];
+
+        // only files
+        if (image instanceof File) {
+          // format validation
+          if (!allowedTypes.includes(image.type)) {
+            return `Sadece JPEG, PNG, JPG, GIF ve SVG formatları kabul edilmektedir. Hatalı resim: ${image.name}`;
+          }
+
+          // size validation
+          if (image.size > maxSize) {
+            return `Resim boyutu 2MB'dan küçük olmalıdır. Hatalı resim: ${
+              image.name
+            } (${(image.size / (1024 * 1024)).toFixed(2)}MB)`;
+          }
+        }
+      }
+    }
+
+    // special images validation
+    const specialImages = [
+      formData.vehicle_front_view_image,
+      formData.vehicle_back_view_image,
+      formData.vehicle_front_panel_image,
+    ];
+
+    for (const image of specialImages) {
+      // only files
+      if (image instanceof File) {
+        // format validation
+        if (!allowedTypes.includes(image.type)) {
+          return `Sadece JPEG, PNG, JPG, GIF ve SVG formatları kabul edilmektedir. Hatalı resim: ${image.name}`;
+        }
+
+        // size validation
+        if (image.size > maxSize) {
+          return `Resim boyutu 2MB'dan küçük olmalıdır. Hatalı resim: ${
+            image.name
+          } (${(image.size / (1024 * 1024)).toFixed(2)}MB)`;
+        }
+      }
     }
 
     return ""; // No error
@@ -412,7 +532,7 @@ function EditAdvertisement() {
       return (
         <div
           key={Math.random() * 1000}
-          className="col-span-6 md:w-[185px] h-[150px] relative rounded-[25px]"
+          className="col-span-6 md:w-[185px] h-[150px] bg-[#F6F7FA] border border-[#eaebf2] relative rounded-[7px] overflow-hidden max-sm:col-span-4 max-sm:max-h-[110px]"
         >
           <img
             src={image.src}
@@ -420,9 +540,10 @@ function EditAdvertisement() {
             className="object-cover w-full h-full rounded-[7px]"
             style={{ transform: `rotate(${image.flipped}deg)` }}
           />
-          <div className="absolute w-full h-full left-0 top-0">
+          <div className="absolute w-[100%] h-[150px] left-0 top-0 max-sm:h-[110px] max-sm:w-full">
             <div>
               <button
+                type="button"
                 onClick={() => removeImage(index)}
                 className="absolute top-[5px] right-[5px] !text-[35px] text-red z-40 w-[25px] h-[25px] bg-imgActions rounded-full flex items-center justify-center transition-all duration-200 hover:bg-[#ffff66]"
               >
@@ -430,6 +551,7 @@ function EditAdvertisement() {
               </button>
               <div className="flex gap-x-3">
                 <button
+                  type="button"
                   onClick={(e) => {
                     e.preventDefault();
                     rotateImage(index, "clockwise");
@@ -439,6 +561,7 @@ function EditAdvertisement() {
                   ↻
                 </button>
                 <button
+                  type="button"
                   onClick={(e) => {
                     e.preventDefault();
                     rotateImage(index, "counterclockwise");
@@ -465,10 +588,10 @@ function EditAdvertisement() {
       imageSlots.splice(
         index,
         0,
-        <div className="col-span-6">
+        <div className="col-span-6 max-sm:col-span-4">
           <div
             key={`placeholder-${index}`}
-            className="md:w-[185px] h-[150px] relative flex rounded-[7px] items-center justify-center bg-[#F6F7FA] mb-2 border border-[#eaebf2] hover:border-[#3273ec] transition-all duration-200"
+            className="md:w-[185px] h-[150px] relative flex rounded-[7px] items-center justify-center bg-[#F6F7FA] mb-2 border border-[#eaebf2] hover:border-[#3273ec] transition-all duration-200 max-sm:max-h-[110px] max-sm:mb-[2px]"
           >
             <input
               type="file"
@@ -488,7 +611,9 @@ function EditAdvertisement() {
               />
             </div>
           </div>
-          <p className="text-secondary text-center">{placeholder.tag}</p>
+          <p className="text-secondary text-center max-sm:text-[12px]">
+            {placeholder.tag}
+          </p>
         </div>
       );
     }
@@ -498,7 +623,11 @@ function EditAdvertisement() {
   imageSlots.push(
     <div
       key="add-more"
-      className="col-span-6 cursor-pointer md:w-[185px] h-[150px] relative flex rounded-[7px] items-center justify-center bg-[#F6F7FA] hover:bg-[#ebedf3] transition-all duration-300"
+      className={`col-span-6 cursor-pointer md:w-[185px] h-[150px] relative flex rounded-[7px] items-center justify-center bg-[#F6F7FA] hover:bg-[#ebedf3] transition-all duration-100 max-sm:border max-sm:border-[#f1f3f7]  ${
+        formData.imagesFiles.length === 0
+          ? "max-sm:h-[50px] max-sm:col-span-12"
+          : "max-sm:h-[110px] max-sm:col-span-4"
+      }`}
       onClick={() => document.getElementById("file-upload-add-more").click()}
     >
       <input
@@ -516,15 +645,77 @@ function EditAdvertisement() {
         accept="image/*"
         multiple
       />
-      <div className="flex flex-col justify-center items-center gap-2 text-[#4C88F9]">
-        <img src={addMore} alt="Add more" className="w-[40px] m-auto  lg:m-0" />
+      <div
+        className={`flex flex-col justify-center items-center gap-2 text-[#4C88F9] max-sm:text-[14px] ${
+          formData.imagesFiles.length === 0 ? "max-sm:flex-row" : ""
+        }`}
+      >
+        <img
+          src={addMore}
+          alt="Add more"
+          className={`w-[40px] m-auto lg:m-0 ${
+            formData.imagesFiles.length === 0 ? "max-sm:w-[20px]" : ""
+          }`}
+        />
         Fotoğraf Ekle
       </div>
     </div>
   );
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
+
+    // Image validation
+    const errorMessage = validateImageCount(formData.uploadedImages.length);
+    const picSection = document.getElementById("picturesSection");
+    const errorMsg = document.getElementById("error");
+
+    let imageValid = true;
+    if (errorMessage) {
+      setPictureErrorMsg(errorMessage);
+      errorMsg.classList.remove("hidden");
+      picSection.scrollIntoView({ behavior: "smooth" });
+      imageValid = false;
+    } else {
+      errorMsg.classList.add("hidden");
+    }
+
+    // Form validation
+    let formValid = true;
+    try {
+      // validate form data
+      await validationSchema.validate(formData, { abortEarly: false });
+      setErrors({});
+    } catch (validationError) {
+      formValid = false;
+      if (validationError.inner) {
+        const newErrors = {};
+        validationError.inner.forEach((err) => {
+          newErrors[err.path] = err.message;
+        });
+        setErrors(newErrors);
+
+        // scroll to the first error field
+        const firstErrorField = validationError.inner[0]?.path;
+        const firstErrorElement = document.querySelector(
+          `[name="${firstErrorField}"]`
+        );
+        if (firstErrorElement) {
+          firstErrorElement.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+
+          firstErrorElement.focus();
+        }
+      }
+    }
+
+    // if both validations pass, then save announcement
+    if (formValid && imageValid) {
+      await saveAnnouncement();
+    }
+
     async function saveAnnouncement() {
       try {
         // car status map
@@ -535,32 +726,33 @@ function EditAdvertisement() {
 
         // params
         const params = {
-          vehicle_category: formData.banType,
-          fuel_type: formData.fuelType,
-          gear: formData.gear,
-          vehicle_transmission: formData.gearBox,
-          vehicle_year: formData.year,
-          vehicle_prior_owner: formData.howManyDoYouOwn,
-          vehicle_status: carStatusMap[formData.carStatus],
-          mileage: formData.march,
-          mileage_measurement_unit: formData.marchNum,
-          vehicle_color: formData.color,
-          price: formData.price,
-          price_currency: formData.currencyValue.toLocaleLowerCase(),
-          vehicle_engine_volume: formData.engineVolume,
-          engine_power: formData.enginePower,
-          vehicle_market: formData.marketAssembled,
-          number_of_seats: formData.seatNum,
-          loan: formData.credit ? 1 : 0,
-          barter: formData.barter ? 1 : 0,
-          is_crashed: formData.hasStroke ? 1 : 0,
-          is_painted: formData.hasColor ? 1 : 0,
-          for_spare_parts: formData.needRepair ? 1 : 0,
-          vin_code: formData.vinCode,
-          additional_information: formData.moreInfo,
           brand: formData.brand,
-          brand_model: formData.model,
+          brand_model: formData.brand_model,
+          vehicle_category: formData.vehicle_category,
+          fuel_type: formData.fuel_type,
+          gear: formData.gear,
+          vehicle_transmission: formData.vehicle_transmission,
+          vehicle_year: formData.vehicle_year,
+          vehicle_prior_owner: formData.vehicle_prior_owner,
+          vehicle_status: carStatusMap[formData.vehicle_status],
+          mileage: formData.mileage,
+          mileage_measurement_unit: formData.mileage_measurement_unit,
+          vehicle_color: formData.vehicle_color,
+          price: formData.price,
+          price_currency: formData.price_currency.toLocaleLowerCase(),
+          vehicle_engine_volume: formData.vehicle_engine_volume,
+          engine_power: formData.engine_power,
+          vehicle_market: formData.vehicle_market,
+          number_of_seats: formData.number_of_seats,
+          loan: formData.loan ? 1 : 0,
+          barter: formData.barter ? 1 : 0,
+          is_crashed: formData.is_crashed ? 1 : 0,
+          is_painted: formData.is_painted ? 1 : 0,
+          for_spare_parts: formData.for_spare_parts ? 1 : 0,
+          vin_code: formData.vin_code,
+          additional_information: formData.additional_information,
           city: formData.city,
+          name: formData.name,
           pin_code: formData.pin_code,
         };
 
@@ -641,39 +833,25 @@ function EditAdvertisement() {
         }
       }
     }
-
-    // Image validation
-    const errorMessage = validateImageCount(formData.uploadedImages.length);
-    const picSection = document.getElementById("picturesSection");
-    const errorMsg = document.getElementById("error");
-    if (errorMessage) {
-      setPictureErrorMsg(errorMessage);
-      errorMsg.classList.remove("hidden");
-      picSection.scrollIntoView({ behavior: "smooth" });
-      return; // Stop the request from being sent
-    } else {
-      errorMsg.classList.add("hidden");
-      saveAnnouncement();
-    }
   };
 
   return (
-    <form ref={formRef} action="" onSubmit={handleFormSubmit}>
+    <form ref={formRef} action="">
       <div className="container">
         <div>
           <div className="bg-[#f1f3f7] border-y border-[#eaebf2] p-[20px]">
             <h2 className="uppercase font-secondary text-[16px] font-bold leading-8 text-primary">
-              İLANI DÜZENLE
+              YENİ İLAN YARAT
             </h2>
           </div>
-          <ul className="ml-3 flex flex-col space-y-[6px] items-start mt-[30px] mb-[25px] list-outside advertisement-list font-primary text-[14px] ">
+          <ul className="ml-3 flex flex-col space-y-[6px] items-start mt-[30px] mb-[25px] list-outside advertisement-list font-primary text-[14px]">
             <li>Bir araç üç ayda bir kez ücretsiz yayınlanabiliyor.</li>
             <li>
               Üç ay içinde tekrarlanan veya benzer ilanlara (marka/model, renk)
               ödeme yapılır.
             </li>
             <li>
-              İlanınızı sitenin ön saflarında görmek için "Tanıtım" hizmetini
+              İlanınızı sitenin ön saflarında görmek için "Premium" hizmetini
               kullanın.
             </li>
           </ul>
@@ -683,25 +861,63 @@ function EditAdvertisement() {
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
                   Marka
                 </label>
-                <select
-                  name="brand"
-                  id="brand"
-                  className="cursor-not-allowed w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
-                  onChange={handleChange}
-                  value={formData.brand}
-                  placeholder="Select brand"
-                  required
-                  disabled
-                >
-                  <option value="" disabled>
-                    Seç
-                  </option>
-                  {brands.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
+                <div className="w-full relative">
+                  <select
+                    name="brand"
+                    id="brand"
+                    className="cursor-not-allowed w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                    onChange={handleChange}
+                    value={formData.brand}
+                    required
+                    disabled
+                  >
+                    <option value="" disabled>
+                      Seç
                     </option>
-                  ))}
-                </select>
+                    {brands.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.brand && (
+                    <p className="absolute left-[2px] text-red text-[12px]">
+                      {errors.brand}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="col-span-12 md:col-span-6">
+              <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
+                <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
+                  Seri
+                </label>
+                <div className="w-full relative">
+                  <select
+                    name="brand_model"
+                    id="brand_model"
+                    className="cursor-not-allowed w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                    onChange={handleChange}
+                    value={formData.brand_model}
+                    required
+                    disabled
+                  >
+                    <option value={""} disabled>
+                      Seç
+                    </option>
+                    {brandModels.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.brand_model && (
+                    <p className="absolute left-[2px] text-red text-[12px]">
+                      {errors.brand_model}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
             <div className="col-span-12 md:col-span-6">
@@ -709,48 +925,92 @@ function EditAdvertisement() {
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
                   Yakıt tipi
                 </label>
-                <select
-                  name="fuelType"
-                  id="fuelType"
-                  className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
-                  onChange={handleChange}
-                  value={formData.fuelType}
-                  required
-                >
-                  <option value={""} disabled>
-                    Seç
-                  </option>
-                  {fuelTypes.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
+                <div className="w-full relative">
+                  <select
+                    name="fuel_type"
+                    id="fuel_type"
+                    className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                    onChange={handleChange}
+                    value={formData.fuel_type}
+                    required
+                  >
+                    <option value={""} disabled>
+                      Seç
                     </option>
-                  ))}
-                </select>
+                    {fuelTypes.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.fuel_type && (
+                    <p className="absolute left-[2px] text-red text-[12px]">
+                      {errors.fuel_type}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  Model
+                  Çekiş
                 </label>
-                <select
-                  name="model"
-                  id="Model"
-                  className="cursor-not-allowed w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
-                  onChange={handleChange}
-                  value={formData.model}
-                  required
-                  disabled
-                >
-                  <option value={""} disabled>
-                    Seç
-                  </option>
-                  {brandModels.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
+                <div className="w-full relative">
+                  <select
+                    name="gear"
+                    id="gear"
+                    className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                    onChange={handleChange}
+                    value={formData.gear}
+                    required
+                  >
+                    <option value={""} disabled>
+                      Seç
                     </option>
-                  ))}
-                </select>
+                    {gears.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.gear && (
+                    <p className="absolute left-[2px] text-red text-[12px]">
+                      {errors.gear}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="col-span-12 md:col-span-6">
+              <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
+                <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
+                  Kasa Tipi
+                </label>
+                <div className="w-full relative">
+                  <select
+                    name="vehicle_category"
+                    id="vehicle_category"
+                    className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                    onChange={handleChange}
+                    value={formData.vehicle_category}
+                    required
+                  >
+                    <option value={""} disabled>
+                      Seç
+                    </option>
+                    {banTypes.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.vehicle_category && (
+                    <p className="absolute left-[2px] text-red text-[12px]">
+                      {errors.vehicle_category}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
             <div className="col-span-12 md:col-span-6">
@@ -758,91 +1018,56 @@ function EditAdvertisement() {
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
                   Vites
                 </label>
-                <select
-                  name="gear"
-                  id="gear"
-                  className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
-                  onChange={handleChange}
-                  value={formData.gear}
-                  required
-                >
-                  <option value={""} disabled>
-                    Seç
-                  </option>
-                  {gears.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
+                <div className="w-full relative">
+                  <select
+                    name="vehicle_transmission"
+                    id="vehicle_transmission"
+                    className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                    onChange={handleChange}
+                    value={formData.vehicle_transmission}
+                    required
+                  >
+                    <option value="" disabled>
+                      Seç
                     </option>
-                  ))}
-                </select>
+                    {gearBoxs.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.vehicle_transmission && (
+                    <p className="absolute left-[2px] text-red text-[12px]">
+                      {errors.vehicle_transmission}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  Gövde Tipi
-                </label>
-                <select
-                  name="banType"
-                  id="banType"
-                  className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
-                  onChange={handleChange}
-                  value={formData.banType}
-                  required
-                >
-                  <option value={""} disabled>
-                    Seç
-                  </option>
-                  {banTypes.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <div className="col-span-12 md:col-span-6">
-              <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
-                <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  Şanzıman
-                </label>
-                <select
-                  name="gearBox"
-                  id="gearBox"
-                  className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
-                  onChange={handleChange}
-                  value={formData.gearBox}
-                  required
-                >
-                  <option value="" disabled>
-                    Seç
-                  </option>
-                  {gearBoxs.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <div className="col-span-12 md:col-span-6">
-              <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
-                <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  Yürüyüş
+                  Odometre
                 </label>
                 <div className="flex items-center justify-between gap-x-8 md:max-w-[452px] w-full">
-                  <div className="w-1/2 md:w-auto">
+                  <div className="w-1/2 md:w-auto relative">
                     <input
-                      name="march"
-                      type="number"
-                      id="march"
-                      className="w-full py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                      id="mileage"
+                      name="mileage"
+                      type="text"
+                      className="w-full py-[10px] px-[15px] outline-none bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                      onWheel={handleWheel}
                       onChange={handleChange}
-                      value={formData.march}
+                      value={formData.mileage}
                       required
                     />
+                    {errors.mileage && (
+                      <p className="absolute left-[2px] text-red text-[12px]">
+                        {errors.mileage}
+                      </p>
+                    )}
                   </div>
-                  <div className="md:max-w-[177px] flex space-x-4 items-center justify-end">
+                  <div className="relative md:max-w-[177px] flex gap-6 items-center justify-end">
                     <div className="flex items-center gap-x-2">
                       <input
                         required
@@ -850,9 +1075,9 @@ function EditAdvertisement() {
                         onChange={handleChange}
                         id="km"
                         type="radio"
-                        name="marchNum"
+                        name="mileage_measurement_unit"
                         value="km"
-                        checked={formData.marchNum === "km"}
+                        checked={formData.mileage_measurement_unit === "km"}
                       />
                       <label
                         className="text-[14px] font-secondary"
@@ -868,9 +1093,9 @@ function EditAdvertisement() {
                         onChange={handleChange}
                         id="mi"
                         type="radio"
-                        name="marchNum"
+                        name="mileage_measurement_unit"
                         value="mi"
-                        checked={formData.marchNum === "mi"}
+                        checked={formData.mileage_measurement_unit === "mi"}
                       />
                       <label
                         className="text-[14px] font-secondary"
@@ -879,6 +1104,11 @@ function EditAdvertisement() {
                         mil
                       </label>
                     </div>
+                    {errors.mileage_measurement_unit && (
+                      <p className="absolute right-0 top-[31px] text-red text-[12px]">
+                        {errors.mileage_measurement_unit}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -888,23 +1118,30 @@ function EditAdvertisement() {
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
                   Yıl
                 </label>
-                <select
-                  name="year"
-                  id="year"
-                  className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
-                  onChange={handleChange}
-                  value={formData.year}
-                  required
-                >
-                  <option value={""} disabled>
-                    Seç
-                  </option>
-                  {years.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
+                <div className="relative w-full">
+                  <select
+                    name="vehicle_year"
+                    id="vehicle_year"
+                    className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                    onChange={handleChange}
+                    value={formData.vehicle_year}
+                    required
+                  >
+                    <option value={""} disabled>
+                      Seç
                     </option>
-                  ))}
-                </select>
+                    {years.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.vehicle_year && (
+                    <p className="absolute left-[2px] text-red text-[12px]">
+                      {errors.vehicle_year}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
             <div className="col-span-12 md:col-span-6">
@@ -912,48 +1149,62 @@ function EditAdvertisement() {
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
                   Renk
                 </label>
-                <select
-                  name="color"
-                  id="color"
-                  className="cursor-not-allowed w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
-                  onChange={handleChange}
-                  value={formData.color}
-                  required
-                  disabled
-                >
-                  <option value={""} disabled>
-                    Seç
-                  </option>
-                  {colors.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
+                <div className="relative w-full">
+                  <select
+                    name="vehicle_color"
+                    id="vehicle_color"
+                    className="cursor-not-allowed w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                    onChange={handleChange}
+                    value={formData.vehicle_color}
+                    required
+                    disabled
+                  >
+                    <option value={""} disabled>
+                      Seç
                     </option>
-                  ))}
-                </select>
+                    {colors.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.vehicle_color && (
+                    <p className="absolute left-[2px] text-red text-[12px]">
+                      {errors.vehicle_color}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  Hacim (cm.3)
+                  Motor Hacmi, sm³
                 </label>
-                <select
-                  name="engineVolume"
-                  id="engineVolume"
-                  className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
-                  onChange={handleChange}
-                  value={formData.engineVolume}
-                  required
-                >
-                  <option value={""} disabled>
-                    Seç
-                  </option>
-                  {engineVolumes.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
+                <div className="relative w-full">
+                  <select
+                    name="vehicle_engine_volume"
+                    id="vehicle_engine_volume"
+                    className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                    onChange={handleChange}
+                    value={formData.vehicle_engine_volume}
+                    required
+                  >
+                    <option value={""} disabled>
+                      Seç
                     </option>
-                  ))}
-                </select>
+                    {engineVolumes.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.vehicle_engine_volume && (
+                    <p className="absolute left-[2px] text-red text-[12px]">
+                      {errors.vehicle_engine_volume}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
             <div className="col-span-12 md:col-span-6">
@@ -962,45 +1213,33 @@ function EditAdvertisement() {
                   Fiyat
                 </label>
                 <div className="flex items-center justify-between gap-x-4 md:max-w-[452px] w-full">
-                  <div className="w-1/2 md:w-auto">
+                  <div className="relative w-1/2 md:w-auto">
                     <input
-                      name="price"
-                      type="number"
                       id="price"
-                      className="w-full py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                      name="price"
+                      type="text"
+                      className="w-full py-[10px] px-[15px] outline-none bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                      onWheel={handleWheel}
                       onChange={handleChange}
                       value={formData.price}
                       required
                     />
+                    {errors.price && (
+                      <p className="absolute top-[46px] left-[2px] leading-3 text-red text-[12px]">
+                        {errors.price}
+                      </p>
+                    )}
                   </div>
-                  <div className="md:max-w-[220px] flex space-x-4 items-center justify-end">
-                    <div className="flex items-center gap-x-2">
-                      <input
-                        className="w-4 h-4 accent-red"
-                        onChange={handleChange}
-                        id="STG"
-                        type="radio"
-                        name="currencyValue"
-                        value="STG"
-                        checked={formData.currencyValue === "STG"}
-                        required
-                      />
-                      <label
-                        className="text-[14px] font-secondary"
-                        htmlFor="STG"
-                      >
-                        STG
-                      </label>
-                    </div>
-                    <div className="flex items-center gap-x-2">
+                  <div className="relative md:max-w-[220px] flex gap-2 items-center justify-end">
+                    <div className="flex items-center gap-x-1">
                       <input
                         className="w-4 h-4 accent-red"
                         onChange={handleChange}
                         id="USD"
                         type="radio"
-                        name="currencyValue"
+                        name="price_currency"
                         value="USD"
-                        checked={formData.currencyValue === "USD"}
+                        checked={formData.price_currency === "USD"}
                         required
                       />
                       <label
@@ -1010,15 +1249,15 @@ function EditAdvertisement() {
                         USD
                       </label>
                     </div>
-                    <div className="flex items-center gap-x-2">
+                    <div className="flex items-center gap-x-1">
                       <input
                         className="w-4 h-4 accent-red"
                         onChange={handleChange}
                         id="EUR"
                         type="radio"
-                        name="currencyValue"
+                        name="price_currency"
                         value="EUR"
-                        checked={formData.currencyValue === "EUR"}
+                        checked={formData.price_currency === "EUR"}
                         required
                       />
                       <label
@@ -1028,6 +1267,29 @@ function EditAdvertisement() {
                         EUR
                       </label>
                     </div>
+                    <div className="flex items-center gap-x-1">
+                      <input
+                        className="w-4 h-4 accent-red"
+                        onChange={handleChange}
+                        id="STG"
+                        type="radio"
+                        name="price_currency"
+                        value="STG"
+                        checked={formData.price_currency === "STG"}
+                        required
+                      />
+                      <label
+                        className="text-[14px] font-secondary"
+                        htmlFor="STG"
+                      >
+                        STG
+                      </label>
+                    </div>
+                    {errors.price_currency && (
+                      <p className="absolute right-0 top-[32px] text-red text-[12px]">
+                        {errors.price_currency}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -1035,88 +1297,110 @@ function EditAdvertisement() {
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  Güç (bg)
+                  Güç, (bg)
                 </label>
-                <input
-                  className="md:max-w-[452px] w-full py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal focus:outline-0"
-                  type="number"
-                  name="enginePower"
-                  id="enginePower"
-                  value={formData.enginePower}
-                  onChange={handleChange}
-                  required
-                />
+                <div className="relative w-full">
+                  <input
+                    className="md:max-w-[452px] w-full py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal focus:outline-0"
+                    type="text"
+                    name="engine_power"
+                    id="engine_power"
+                    value={formData.engine_power}
+                    onWheel={handleWheel}
+                    onChange={handleChange}
+                    required
+                  />
+                  {errors.engine_power && (
+                    <p className="absolute left-[2px] text-red text-[12px]">
+                      {errors.engine_power}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  Kaç tane sahip oldunuz?
+                  Kaçıncı sahibisiniz ?
                 </label>
-                <select
-                  name="howManyDoYouOwn"
-                  id="howManyDoYouOwn"
-                  className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
-                  onChange={handleChange}
-                  value={formData.howManyDoYouOwn}
-                  required
-                >
-                  <option value="" disabled>
-                    Seç
-                  </option>
-                  {owners.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
+                <div className="relative w-full">
+                  <select
+                    name="vehicle_prior_owner"
+                    id="vehicle_prior_owner"
+                    className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                    onChange={handleChange}
+                    value={formData.vehicle_prior_owner}
+                    required
+                  >
+                    <option value="" disabled>
+                      Seç
                     </option>
-                  ))}
-                </select>
+                    {owners.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.vehicle_prior_owner && (
+                    <p className="absolute left-[2px] text-red text-[12px]">
+                      {errors.vehicle_prior_owner}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal after:content-['*'] after:pl-[3px] after:top-0 after:relative after:text-red  relative min-w-[165px] max-w-[165px]">
-                  Hangi pazar için atandı
+                  Neresi için üretildi ?
                 </label>
-                <select
-                  name="marketAssembled"
-                  id="marketAssembled"
-                  className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
-                  onChange={handleChange}
-                  value={formData.marketAssembled}
-                  required
-                >
-                  <option value="" disabled>
-                    Seç
-                  </option>
-                  {markets.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
+                <div className="relative w-full">
+                  <select
+                    name="vehicle_market"
+                    id="vehicle_market"
+                    className="w-full md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                    onChange={handleChange}
+                    value={formData.vehicle_market}
+                    required
+                  >
+                    <option value="" disabled>
+                      Seç
                     </option>
-                  ))}
-                </select>
+                    {markets.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.vehicle_market && (
+                    <p className="absolute left-[2px] text-red text-[12px]">
+                      {errors.vehicle_market}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0  justify-between md:gap-[10px] md:flex-row flex-col mt-6">
                 <label className="font-primary text-[14px] font-normal min-w-[165px] max-w-[165px]">
-                  Durum
+                  Durumlar
                 </label>
-                <div className="flex flex-col gap-[20px]">
+                <div className=" flex-col gap-[20px]">
                   <div className="flex w-full md:max-w-[452px] gap-x-5 ">
                     <div className="mt-[2px]">
                       <label className="custom-checkbox">
                         <input
-                          checked={formData.needRepair}
+                          checked={formData.for_spare_parts}
                           onChange={handleCheckboxChange}
                           type="checkbox"
-                          name="needRepair"
-                          id="needRepair"
+                          name="for_spare_parts"
+                          id="for_spare_parts"
                         />
                         <span className="checkmark"></span>
                       </label>
                     </div>
                     <div>
-                      <label htmlFor="needRepair">
+                      <label htmlFor="for_spare_parts">
                         <h3 className="font-primary text-[14px] font-normal text-primary ">
                           Kaza veya yedek parça için
                         </h3>
@@ -1130,17 +1414,17 @@ function EditAdvertisement() {
                     <div className="mt-[2px]">
                       <label className="custom-checkbox">
                         <input
-                          checked={formData.hasStroke}
+                          checked={formData.is_crashed}
                           onChange={handleCheckboxChange}
                           type="checkbox"
-                          name="hasStroke"
-                          id="hasStroke"
+                          name="is_crashed"
+                          id="is_crashed"
                         />
                         <span className="checkmark"></span>
                       </label>
                     </div>
                     <div>
-                      <label htmlFor="hasStroke">
+                      <label htmlFor="is_crashed">
                         <h3 className="font-primary text-[14px] font-normal text-primary ">
                           Motor arızası var
                         </h3>
@@ -1155,17 +1439,17 @@ function EditAdvertisement() {
                     <div className="mt-[2px]">
                       <label className="custom-checkbox">
                         <input
-                          checked={formData.hasColor}
+                          checked={formData.is_painted}
                           onChange={handleCheckboxChange}
                           type="checkbox"
-                          name="hasColor"
-                          id="hasColor"
+                          name="is_painted"
+                          id="is_painted"
                         />
                         <span className="checkmark"></span>
                       </label>
                     </div>
                     <div>
-                      <label htmlFor="hasColor">
+                      <label htmlFor="is_painted">
                         <h3 className="font-primary text-[14px] font-normal text-primary ">
                           Boyalıdır
                         </h3>
@@ -1184,19 +1468,18 @@ function EditAdvertisement() {
                 <label className="font-primary text-[14px] font-normal md:min-w-[12%]">
                   Araç Durumu
                 </label>
-                <div className="md:flex-nowrap  flex-wrap gap-y-3 md:gap-y-0  md:min-w-[452px] w-full gap-x-5 flex md:ml-2">
-                  <div className="flex items-center gap-x-2">
+                <div className="relative md:flex-nowrap  flex-wrap gap-y-3 md:gap-y-0  md:min-w-[452px] w-full gap-x-5 flex md:ml-2">
+                  <div className=" flex items-center gap-x-2">
                     <input
                       className="w-4 h-4 accent-red"
                       id="NEW"
                       type="radio"
-                      name="carStatus"
-                      checked={formData.carStatus === "NEW"}
+                      name="vehicle_status"
                       value="NEW"
+                      checked={formData.vehicle_status === "NEW"}
                       onChange={handleChange}
                       required
                     />
-
                     <label
                       className="text-[14px] font-normal text-primary"
                       htmlFor="NEW"
@@ -1206,12 +1489,12 @@ function EditAdvertisement() {
                   </div>
                   <div className="flex items-center gap-x-2">
                     <input
-                      className="w-4 h-4 accent-red"
+                      className="w-4 h-4  accent-red"
                       id="USED"
                       type="radio"
-                      name="carStatus"
-                      checked={formData.carStatus === "USED"}
+                      name="vehicle_status"
                       value="USED"
+                      checked={formData.vehicle_status === "USED"}
                       onChange={handleChange}
                       required
                     />
@@ -1223,6 +1506,11 @@ function EditAdvertisement() {
                       İkinci el
                     </label>
                   </div>
+                  {errors.vehicle_status && (
+                    <p className="absolute left-0 top-6 text-red text-[12px]">
+                      {errors.vehicle_status}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
@@ -1231,19 +1519,18 @@ function EditAdvertisement() {
                 <label className="font-primary text-[14px] font-normal md:min-w-[12%]">
                   Koltuk sayısı
                 </label>
-                <div className="md:flex-nowrap  flex-wrap gap-y-3 md:gap-y-0  md:min-w-[452px] w-full gap-x-5 flex md:ml-2">
+                <div className="relative md:flex-nowrap  flex-wrap gap-y-3 md:gap-y-0  md:min-w-[452px] w-full gap-x-5 flex md:ml-2">
                   <div className="flex items-center gap-x-2">
                     <input
                       className="w-4 h-4 accent-red"
                       id="seatNum1"
                       type="radio"
-                      name="seatNum"
+                      name="number_of_seats"
                       value="1"
+                      checked={formData.number_of_seats === 1}
                       onChange={handleChange}
-                      checked={formData.seatNum == "1"}
                       required
                     />
-
                     <label
                       className="text-[14px] font-normal text-primary"
                       htmlFor="seatNum1"
@@ -1251,18 +1538,17 @@ function EditAdvertisement() {
                       1
                     </label>
                   </div>
-                  <div className="flex items-center gap-x-2">
+                  <div className="flex items-center ml-0 gap-x-2">
                     <input
                       className="w-4 h-4 accent-red"
                       id="seatNum2"
                       type="radio"
-                      name="seatNum"
+                      name="number_of_seats"
                       value="2"
-                      checked={formData.seatNum == "2"}
+                      checked={formData.number_of_seats === 2}
                       onChange={handleChange}
                       required
                     />
-
                     <label
                       className="text-[14px] font-normal text-primary"
                       htmlFor="seatNum2"
@@ -1270,18 +1556,17 @@ function EditAdvertisement() {
                       2
                     </label>
                   </div>
-                  <div className="flex items-center gap-x-2">
+                  <div className="flex items-center ml-0 gap-x-2">
                     <input
                       className="w-4 h-4 accent-red"
                       id="seatNum3"
                       type="radio"
-                      name="seatNum"
+                      name="number_of_seats"
                       value="3"
-                      checked={formData.seatNum == "3"}
+                      checked={formData.number_of_seats === 3}
                       onChange={handleChange}
                       required
                     />
-
                     <label
                       className="text-[14px] font-normal text-primary"
                       htmlFor="seatNum3"
@@ -1289,18 +1574,17 @@ function EditAdvertisement() {
                       3
                     </label>
                   </div>
-                  <div className="flex items-center gap-x-2">
+                  <div className="flex items-center ml-0 gap-x-2">
                     <input
                       className="w-4 h-4 accent-red"
                       id="seatNum4"
                       type="radio"
-                      name="seatNum"
+                      name="number_of_seats"
                       value="4"
+                      checked={formData.number_of_seats === 4}
                       onChange={handleChange}
-                      checked={formData.seatNum == "4"}
                       required
                     />
-
                     <label
                       className="text-[14px] font-normal text-primary"
                       htmlFor="seatNum4"
@@ -1308,18 +1592,17 @@ function EditAdvertisement() {
                       4
                     </label>
                   </div>
-                  <div className="flex items-center gap-x-2">
+                  <div className="flex items-center ml-0 gap-x-2">
                     <input
                       className="w-4 h-4 accent-red"
                       id="seatNum5"
                       type="radio"
-                      name="seatNum"
-                      checked={formData.seatNum == "5"}
+                      name="number_of_seats"
                       value="5"
+                      checked={formData.number_of_seats === 5}
                       onChange={handleChange}
                       required
                     />
-
                     <label
                       className="text-[14px] font-normal text-primary"
                       htmlFor="seatNum5"
@@ -1327,18 +1610,17 @@ function EditAdvertisement() {
                       5
                     </label>
                   </div>
-                  <div className="flex items-center gap-x-2">
+                  <div className="flex items-center ml-0 gap-x-2">
                     <input
                       className="w-4 h-4 accent-red"
                       id="seatNum6"
                       type="radio"
-                      name="seatNum"
+                      name="number_of_seats"
                       value="6"
-                      checked={formData.seatNum == "6"}
+                      checked={formData.number_of_seats === 6}
                       onChange={handleChange}
                       required
                     />
-
                     <label
                       className="text-[14px] font-normal text-primary"
                       htmlFor="seatNum6"
@@ -1346,18 +1628,17 @@ function EditAdvertisement() {
                       6
                     </label>
                   </div>
-                  <div className="flex items-center gap-x-2">
+                  <div className="flex items-center ml-0 gap-x-2">
                     <input
                       className="w-4 h-4 accent-red"
                       id="seatNum7"
                       type="radio"
-                      name="seatNum"
+                      name="number_of_seats"
                       value="7"
-                      checked={formData.seatNum == "7"}
+                      checked={formData.number_of_seats === 7}
                       onChange={handleChange}
                       required
                     />
-
                     <label
                       className="text-[14px] font-normal text-primary"
                       htmlFor="seatNum7"
@@ -1365,18 +1646,17 @@ function EditAdvertisement() {
                       7
                     </label>
                   </div>
-                  <div className="flex items-center gap-x-2">
+                  <div className="flex items-center ml-0 gap-x-2">
                     <input
                       className="w-4 h-4 accent-red"
                       id="seatNum8"
                       type="radio"
-                      name="seatNum"
-                      checked={formData.seatNum == "8"}
+                      name="number_of_seats"
                       value="8"
+                      checked={formData.number_of_seats === 8}
                       onChange={handleChange}
                       required
                     />
-
                     <label
                       className="text-[14px] font-normal text-primary"
                       htmlFor="seatNum8"
@@ -1384,18 +1664,20 @@ function EditAdvertisement() {
                       8
                     </label>
                   </div>
-                  <div className="relative flex items-center ml-0 gap-x-1">
+                  <div className="flex items-center ml-0 gap-x-2">
                     <input
                       className="w-4 h-4 accent-red"
-                      id="seatNum8"
+                      id="seatVal"
                       type="radio"
-                      name="seatNum"
+                      name="number_of_seats"
                       value="0"
-                      checked={formData.seatNum == "0" || formData.seatNum > 8}
+                      checked={
+                        formData.number_of_seats === 0 ||
+                        formData.number_of_seats > 8
+                      }
                       onChange={handleChange}
                       required
                     />
-
                     <label
                       className="text-[14px] font-normal  text-primary"
                       htmlFor="seatVal"
@@ -1403,29 +1685,34 @@ function EditAdvertisement() {
                       Bahsedilmesin
                     </label>
                   </div>
+                  {errors.number_of_seats && (
+                    <p className="absolute left-0 top-6 text-red text-[12px]">
+                      {errors.number_of_seats}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
             <div className="col-span-12 md:col-span-6">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal min-w-[165px] max-w-[165px]"></label>
-                <div className="md:max-w-[452px] w-full space-x-5 flex">
-                  <div className="mt-[2px] ">
+                <div className="md:max-w-[452px] w-full space-x-5 flex items-center">
+                  <div className="mt-[4px] cursor-pointer">
                     <label className="custom-checkbox">
                       <input
-                        checked={formData.credit}
+                        checked={formData.loan}
                         onChange={handleCheckboxChange}
                         type="checkbox"
-                        name="credit"
-                        id="credit"
+                        name="loan"
+                        id="loan"
                       />
                       <span className="checkmark"></span>
                     </label>
                   </div>
                   <div>
-                    <label htmlFor="credit">
-                      <h3 className="font-primary text-[14px] font-normal text-primary ">
-                        Kredi ile
+                    <label htmlFor="loan">
+                      <h3 className="font-primary cursor-pointer text-[14px] font-normal text-primary ">
+                        Kredisi var
                       </h3>
                     </label>
                   </div>
@@ -1433,8 +1720,8 @@ function EditAdvertisement() {
               </div>
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between md:gap-[10px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal min-w-[165px] max-w-[165px] "></label>
-                <div className="md:max-w-[452px] w-full space-x-5 flex">
-                  <div className="mt-[2px] ">
+                <div className="md:max-w-[452px] w-full space-x-5 flex items-center">
+                  <div className="mt-[4px] cursor-pointer">
                     <label className="custom-checkbox">
                       <input
                         checked={formData.barter}
@@ -1448,7 +1735,7 @@ function EditAdvertisement() {
                   </div>
                   <div>
                     <label htmlFor="barter">
-                      <h3 className="font-primary text-[14px] font-normal text-primary ">
+                      <h3 className="font-primary cursor-pointer text-[14px] font-normal text-primary ">
                         Takas yapılabilir
                       </h3>
                     </label>
@@ -1463,28 +1750,35 @@ function EditAdvertisement() {
                 <label className="font-primary text-[14px] font-normal min-w-[165px] max-w-[165px]">
                   VIN kodu
                 </label>
-                <input
-                  type="text"
-                  value={formData.vinCode}
-                  name="vinCode"
-                  id="vinCode"
-                  className="w-full focus:outline-0 md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
-                  onChange={handleChange}
-                  required
-                />
+                <div className="relative w-full">
+                  <input
+                    type="text"
+                    value={formData.vin_code}
+                    name="vin_code"
+                    id="vin_code"
+                    className="w-full focus:outline-0 md:max-w-[452px] py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
+                    onChange={handleChange}
+                    required
+                  />
+                  {errors.vin_code && (
+                    <p className="absolute left-[2px] text-red text-[12px]">
+                      {errors.vin_code}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
             <div className="col-span-12">
               <div className="flex space-y-2 md:space-y-0 md:items-center justify-between lg:gap-[10px] xl:gap-[53mt-[117px]px] md:flex-row flex-col">
                 <label className="font-primary text-[14px] font-normal min-w-[165px] max-w-[165px]">
-                  Ek Bilgiler
+                  Ek bilgiler
                 </label>
                 <div className="w-full min-h-[132px] md:min-w-[452px] ">
                   <textarea
                     type="textarea"
-                    value={formData.moreInfo}
-                    name="moreInfo"
-                    id="moreInfo"
+                    value={formData.additional_information}
+                    name="additional_information"
+                    id="additional_information"
                     className="w-full min-h-[132px]  focus:outline-0 md:min-w-[452px] bg-white  py-[10px] px-[15px] rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal"
                     onChange={handleChange}
                   ></textarea>
@@ -1496,8 +1790,8 @@ function EditAdvertisement() {
             </div>
           </div>
           <div className="mt-6 md:ml-6">
-            <h2 className="uppercase font-secondary text-[26px] font-bold leading-8 text-primary mt-[30px] mb-4">
-              Araç Tedarikçileri
+            <h2 className="font-secondary text-[26px] font-bold leading-8 text-primary mt-[30px] mb-4">
+              Araç Donanımı
             </h2>
             <div className="grid grid-cols-12 gap-y-5">
               {carFeatures.map((feature) => (
@@ -1528,12 +1822,12 @@ function EditAdvertisement() {
             </div>
             <div id="picturesSection" className="grid grid-cols-12">
               <div className="col-span-12">
-                <h2 className="uppercase mb-4 mt-[30px] font-secondary text-[26px] font-bold leading-8 text-primary">
+                <h2 className="mb-4 mt-[30px] font-secondary text-[26px] font-bold leading-8 text-primary">
                   Resimler
                 </h2>
                 <div className="bg-[#f6f7fa] p-4 rounded-lg mb-6">
-                  <p className="text-[14] text-[#ff586d]">Yasaktır</p>
-                  <p className="font-semibold mt-2">
+                  <p className="text-[14px] text-[#ff586d]">Yasaktır</p>
+                  <p className="font-semibold mt-2 text-[#212c3a]">
                     Ekran görüntüleri ve çerçeveli fotoğraflar yasaktır.
                   </p>
                 </div>
@@ -1554,7 +1848,7 @@ function EditAdvertisement() {
           <div className="grid grid-cols-12 mt-[30px] md:ml-6">
             <div className="col-span-12">
               <h2 className="uppercase font-secondary text-[26px] font-bold leading-8 text-primary">
-                İletişim
+                İletİşİm
               </h2>
               <p className="mt-[10px] font-primary text-secondary">
                 İlan yayımlandıktan sonra iletişim bilgileri değiştirilemez.
@@ -1563,26 +1857,34 @@ function EditAdvertisement() {
                 <div className="flex flex-col items-start md:flex-row md:items-center gap-y-3">
                   <label
                     className="md:min-w-[244px] md:max-w-[244px] w-full"
-                    htmlFor="yourName"
+                    htmlFor="name"
                   >
                     Adınız
                   </label>
-                  <input
-                    className="md:max-w-[452px] w-full py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal focus:outline-0"
-                    type="text"
-                    name="userName"
-                    id="yourName"
-                    placeholder="Adınız"
-                    value={formData.userName}
-                    onChange={handleChange}
-                    required
-                  />
+                  <div className="relative w-full">
+                    <input
+                      className="md:max-w-[452px] w-full py-[10px] px-[15px] bg-white rounded-md border border-solid border-[#E4E4E4] font-primary text-[14px] font-normal focus:outline-0"
+                      type="text"
+                      name="name"
+                      id="name"
+                      placeholder="Adınız"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                    />
+                    {errors.name && (
+                      <p className="absolute left-[2px] text-red text-[12px]">
+                        {errors.name}
+                      </p>
+                    )}
+                  </div>
                 </div>
                 <div className="max-w-[696px] mt-30 flex justify-end">
                   <AnimatedButtonWrapper>
                     <button
+                      onClick={handleFormSubmit}
                       className="md:min-w-[452px] min-w-full text-[14px] font-primary text-white py-[18px] px-[20px] outline-none rounded-md font-medium bg-red"
-                      type="submit"
+                      type="button"
                     >
                       <p>Devam Et</p>
                     </button>
@@ -1590,11 +1892,11 @@ function EditAdvertisement() {
                 </div>
                 <div className="text-secondary mb-10">
                   Bir ilan vererek{" "}
-                  <Link to="" className="text-link">
+                  <Link to="/terms-and-conditions" className="text-link">
                     Kullanıcı Sözleşmesini
                   </Link>{" "}
                   ve kibcar.com{" "}
-                  <Link to="" className="text-link">
+                  <Link to="/rules" className="text-link">
                     Kurallarını
                   </Link>{" "}
                   kabul etmiş olursunuz.

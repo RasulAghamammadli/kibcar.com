@@ -9,9 +9,9 @@ import frontView from "../assets/images/front-view.svg";
 import insideView from "../assets/images/inside-view.svg";
 import addMore from "../assets/images/add-more.svg";
 import { IoIosClose } from "react-icons/io";
-import { ToastContainer, toast } from "react-toastify";
 
 // components
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AnimatedButtonWrapper from "../components/AnimatedButtonWrapper";
 import OtpModal from "../components/OtpModal";

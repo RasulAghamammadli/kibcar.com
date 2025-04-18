@@ -27,7 +27,7 @@ function Terms() {
         <div className="px-5 text-[14px] md:text-base leading-[26px]">
           {/* Posting of Advertisements */}
           <section className="my-[10px]">
-            <h2 className="font-bold my-[10px]">1. Genel Koşullar</h2>
+            <h2 className="font-bold my-[20px]">1. Genel Koşullar</h2>
             <p className="my-[10px]">
               <strong>1.1.</strong> Bu anlaşma,{" "}
               <a href="/" className="text-link underline">
@@ -211,7 +211,7 @@ function Terms() {
 
           {/* Images */}
           <section className="my-[10px]">
-            <h2 className="font-bold my-[10px]">
+            <h2 className="font-bold my-[20px]">
               2. Hizmet kullanımı. İlanların yerleştirilmesi
             </h2>
             <p className="my-[10px]">
@@ -495,7 +495,7 @@ function Terms() {
 
           {/* Price */}
           <section className="my-[10px]">
-            <h2 className="font-bold my-[10px]">3. Ücretli hizmetler</h2>
+            <h2 className="font-bold my-[20px]">3. Ücretli hizmetler</h2>
             <p className="my-[10px]">
               <strong>3.1.</strong> Kullanıcılar Servis'te ücretli hizmetler
               sipariş edebilirler.
@@ -567,7 +567,7 @@ function Terms() {
 
           {/* Description */}
           <section className="my-[10px]">
-            <h2 className="font-bold my-[10px]">4. Bonuslar</h2>
+            <h2 className="font-bold my-[20px]">4. Bonuslar</h2>
             <p className="my-[10px]">
               <strong>4.1.</strong> Paket kapsamındaki bonuslar - fatura
               ödendiğinde Paket'in bakiyesine aktarılır. Bonusların etkinlik
@@ -582,7 +582,7 @@ function Terms() {
 
           {/* Means of Communication */}
           <section className="my-[10px]">
-            <h2 className="font-bold my-[10px]">5. İletişim</h2>
+            <h2 className="font-bold my-[20px]">5. İletişim</h2>
             <p className="my-[10px]">
               <strong>5.1.</strong> Yönetim, Kullanıcılara, onlar tarafından
               belirtilen e-posta adreslerine veya telefon numaralarına
@@ -637,7 +637,7 @@ function Terms() {
           </section>
           {/* Amending the ad */}
           <section className="my-[10px]">
-            <h2 className="font-bold my-[10px]">6. Yazılım</h2>
+            <h2 className="font-bold my-[20px]">6. Yazılım</h2>
             <p className="my-[10px]">
               <strong>6.1.</strong> Yönetim, sitenin yerleştirildiği alan
               adının, sitenin kendisinin, mobil eklentilerin, ayrıca tüm
@@ -663,7 +663,7 @@ function Terms() {
           </section>
           {/*Black list */}
           <section className="my-[10px]">
-            <h2 className="font-bold my-[10px]">7. Sorumluluk sınırlaması</h2>
+            <h2 className="font-bold my-[20px]">7. Sorumluluk sınırlaması</h2>
             <p className="my-[10px]">
               <strong>7.1.</strong> Hizmette Kullanıcı tarafından sağlanan tüm
               bilgiler (kişisel veriler de dahil olmak üzere), Kullanıcı
@@ -773,7 +773,7 @@ function Terms() {
           </section>
           {/* Car dealerships and other persons engaged in commercial activities */}
           <section className="my-[10px]">
-            <h2 className="font-bold my-[10px]">
+            <h2 className="font-bold my-[20px]">
               8. Kullanım kurallarının geçerlilik süresi
             </h2>
             <p className="my-[10px]">
@@ -798,7 +798,7 @@ function Terms() {
           </section>
           {/* Technical support service */}
           <section className="my-[10px]">
-            <h2 className="font-bold my-[10px]">9. Diğer koşullar</h2>
+            <h2 className="font-bold my-[20px]">9. Diğer koşullar</h2>
             <p className="my-[10px]">
               <strong>9.1.</strong> Anlaşmanın tarafları, anlaşmazlıklar ortaya
               çıktığında bunları müzakere yoluyla çözmeyi taahhüt ederler. Bu

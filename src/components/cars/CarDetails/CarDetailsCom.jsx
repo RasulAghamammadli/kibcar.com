@@ -83,7 +83,9 @@ function CarDetailsCom({ car }) {
           </p>
           <p className="font-primary text-[14px] text-[#212c3a]">
             {/* {numberOfSeats} */}
-            {car.number_of_seats != null ? car.number_of_seats : "-"}
+            {car.number_of_seats == null || car.number_of_seats == 9
+              ? "-"
+              : car.number_of_seats}
           </p>
           <p className="font-primary text-[14px] text-[#212c3a]">
             {car.vehicle_prior_owner.id === 4

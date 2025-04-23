@@ -965,18 +965,18 @@ function NewAdvertisement() {
   };
 
   // reset all cache
-  // const deleteOtp = async () => {
-  //   try {
-  //     const res = await axios.post(
-  //       `${import.meta.env.VITE_REACT_APP_API_URL}/api/announcements/otp/${
-  //         formData.phone
-  //       }`
-  //     );
-  //     console.log(res.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const deleteOtp = async () => {
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_REACT_APP_API_URL}/api/announcements/otp/${
+          formData.phone
+        }`
+      );
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <form ref={formRef} action="">
@@ -2579,13 +2579,13 @@ function NewAdvertisement() {
                       </button>
                     </AnimatedButtonWrapper>
                   </div>
-                  {/* <button
+                  <button
                   className="py-3 bg-green w-20"
                   type="button"
                   onClick={deleteOtp}
                 >
                   reset limit
-                </button> */}
+                </button>
                   <div className="text-secondary mb-10">
                     Bir ilan vererek{" "}
                     <Link to="/terms-and-conditions" className="text-link">

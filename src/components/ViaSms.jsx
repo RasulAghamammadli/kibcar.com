@@ -63,7 +63,7 @@ const ViaSms = ({ car }) => {
               >
                 {car?.brand?.name} {car?.brand_model?.name}
               </a>{" "}
-              reklamı için ödeme yapıyorsunuz.
+              ilanı için ödeme yapıyorsunuz.
             </p>
             <div className="text-[14px] mt-[10px]">
               <label

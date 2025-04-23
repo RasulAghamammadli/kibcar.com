@@ -100,7 +100,7 @@ function DeleteAdForm({ onCloseModal, showNewModal }) {
           <AnimatedButtonWrapper>
             <button
               onClick={handleCheckPin}
-              className="btn-search text-white rounded-md bg-red hover:bg-[#882111] shadow-none hover:shadow-none px-[10px] py-[12px] w-full font-primary text-[14px] font-normal"
+              className="btn-search text-white rounded-md bg-red hover:bg-[#882111] shadow-none hover:shadow-none px-[10px] py-[12px] w-full font-primary text-[14px] font-normal max-sm:w-full"
             >
               <p>Onayla</p>
             </button>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 // icons
 import car from "../assets/icons/mobile-brand.svg";
@@ -15,6 +16,7 @@ const MobileSelect = ({
   handleChange,
   error,
 }) => {
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [isSelected, setIsSelected] = useState(false);
@@ -46,6 +48,15 @@ const MobileSelect = ({
     }
   }, [isOpen]);
 
+  // edit page
+  const isEditAdvertisement = /^\/edit-advertisement\/\d+$/.test(
+    location.pathname
+  );
+
+  const isDisabledField =
+    isEditAdvertisement &&
+    (name === "brand" || name === "brand_model" || name === "vehicle_color");
+
   return (
     <>
       <div
@@ -58,7 +69,11 @@ const MobileSelect = ({
             src={car}
             alt=""
             className="absolute left-0 top-[9px] cursor-pointer"
-            onClick={() => setIsOpen(true)}
+            onClick={() => {
+              if (!isDisabledField) {
+                setIsOpen(true);
+              }
+            }}
           />
         ) : null}
         <input
@@ -81,8 +96,18 @@ const MobileSelect = ({
               ? "border-b-[#ff586d]"
               : "border-b-[#eaebf2]"
           }
+            ${
+              isDisabledField
+                ? "opacity-50 cursor-not-allowed"
+                : "cursor-pointer"
+            }
           `}
-          onClick={() => setIsOpen(true)}
+          onClick={() => {
+            if (!isDisabledField) {
+              setIsOpen(true);
+            }
+          }}
+          disabled={isDisabledField}
           readOnly
         />
         <label
@@ -90,7 +115,11 @@ const MobileSelect = ({
           className={`absolute text-[#8d94ad] transition-all duration-200 cursor-pointer ${
             formData[name] ? "text-[13px] top-[8px]" : "text-[15px] top-[16px]"
           } ${name === "brand" && formData[name] === "" ? "left-[45px]" : ""}`}
-          onClick={() => setIsOpen(true)}
+          onClick={() => {
+            if (!isDisabledField) {
+              setIsOpen(true);
+            }
+          }}
         >
           {label}
         </label>
@@ -98,17 +127,21 @@ const MobileSelect = ({
           <img
             src={chevronDown}
             alt=""
-            onClick={() => setIsOpen(true)}
+            onClick={() => {
+              if (!isDisabledField) {
+                setIsOpen(true);
+              }
+            }}
             className="absolute right-2 top-[19px] w-4 h-4 cursor-pointer"
           />
-        ) : (
+        ) : !isDisabledField ? (
           <img
             src={clear}
             alt=""
             onClick={handleClear}
             className="absolute right-2 top-[19px] w-4 h-4 cursor-pointer"
           />
-        )}
+        ) : null}
       </div>
       {/* Modal */}
       {isOpen && (

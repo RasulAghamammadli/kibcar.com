@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 // icons
 import clear from "../assets/icons/mobile-cancel.svg";
@@ -12,6 +13,7 @@ const MobileTextInput = ({
   handleInput,
   error,
 }) => {
+  const location = useLocation();
   const [isFocused, setIsFocused] = useState(false);
   const isLabelFloating = isFocused || formData[name];
 
@@ -23,6 +25,11 @@ const MobileTextInput = ({
   const handleWheel = (event) => {
     event.target.blur();
   };
+
+  // edit page
+  const isEditAdvertisement = /^\/edit-advertisement\/\d+$/.test(
+    location.pathname
+  );
 
   return (
     <div className="relative flex flex-col">
@@ -49,7 +56,9 @@ const MobileTextInput = ({
             ${
               error
                 ? "border-b border-b-[#ff586d]"
-                : name === "vin_code" || name === "phone"
+                : name === "vin_code" ||
+                  name === "phone" ||
+                  (name === "name" && isEditAdvertisement)
                 ? "border-b-0"
                 : "border-b border-b-[#eaebf2]"
             }

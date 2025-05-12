@@ -19,9 +19,9 @@ function PaymentCurrency() {
     { id: 3, name: "STG" },
   ];
 
-  useEffect(() => {
-    setSelectedCurrency("USD");
-  }, []);
+  // useEffect(() => {
+  //   setSelectedCurrency("USD");
+  // }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -37,17 +37,21 @@ function PaymentCurrency() {
   }, []);
 
   return (
-    <div className="w-[40%] h-full">
+    <div className="w-[40%] h-full xl:w-[35%]">
       <div ref={detailsRef} className="relative w-full h-full">
         <button
           type="button"
-          className={`flex items-center justify-between flex-nowrap w-full h-full px-[8px] bg-white border rounded-lg btn shadow-none hover:bg-white ${
+          className={`flex items-center justify-between flex-nowrap w-full h-full gap-0 px-[8px] max-xl:px-[10px] bg-white border rounded-lg btn shadow-none hover:bg-white ${
             isOpen ? "border-[#8F93AD]" : "border-gray-300"
           }`}
           onClick={() => setIsOpen(!isOpen)}
         >
-          <p className="font-primary text-[14px] font-normal">
-            {selectedCurrency || "Currency"}
+          <p
+            className={`font-primary text-[14px] font-normal ${
+              selectedCurrency ? "text-black" : "text-gray-400 truncate"
+            }`}
+          >
+            {selectedCurrency || "Para Birimi"}
           </p>
           <img
             src={chivronBottom}

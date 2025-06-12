@@ -3,10 +3,11 @@ import { useEffect, useRef, useState } from "react";
 import { FaFacebook, FaInstagram, FaPhoneAlt } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
 import { HiXMark } from "react-icons/hi2";
+import flag from "../../assets/images/uk-flag.png";
 
 const links = [
   {
-    name: "İngilis Dili",
+    name: "İngilizce",
     href: "/",
   },
   {
@@ -23,7 +24,7 @@ const links = [
   },
   {
     name: "Kiralama",
-    href: "/",
+    href: "/lease",
   },
 ];
 
@@ -158,7 +159,7 @@ function MobileFixedFooter() {
                     </g>
                   </svg>
                 </i>
-                <span className="block mt-1 uppercase">Favori</span>
+                <span className="block mt-1 uppercase">Favorİ</span>
               </NavLink>
             </li>
             <li className="relative w-1/5 text-center">
@@ -232,7 +233,7 @@ function MobileFixedFooter() {
                     />
                   </svg>
                 </i>
-                <span className="block mt-1 uppercase">Galeriler</span>
+                <span className="block mt-1 uppercase">Galerİler</span>
               </NavLink>
             </li>
             <li className="relative w-1/5 text-center">
@@ -274,13 +275,22 @@ function MobileFixedFooter() {
           {links.map((link) => (
             <Link
               onClick={handleMenuLinkClick}
-              className="bg-white py-4"
+              className={`bg-white py-4 ${
+                link.name === "İngilizce"
+                  ? "flex justify-between items-center"
+                  : ""
+              }`}
               key={link.name}
               to={link.href}
             >
               <span className="container font-primary text-[14px] font-normal">
                 {link.name}
               </span>
+              {link.name === "İngilizce" && (
+                <span className="block pr-4 py-1">
+                  <img src={flag} alt="flag" className="w-8 h-4 object-cover"/>
+                </span>
+              )}
             </Link>
           ))}
           <button onClick={handleContact} className="bg-white py-4">

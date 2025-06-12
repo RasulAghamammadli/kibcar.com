@@ -75,7 +75,7 @@ function MobileFooter() {
                   içeriğinden sorumlu değildir.
                 </h2>
                 <p className="font-primary text-[12px] font-normal text-secondary">
-                  2023-2023 Digital Classifieds LLC. TIN: 1305631664
+                  2024-2025 Kibcar.com NUM : 21739
                 </p>
               </div>
             </div>

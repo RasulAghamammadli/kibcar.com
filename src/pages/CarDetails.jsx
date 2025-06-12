@@ -9,6 +9,7 @@ import "react-image-gallery/styles/css/image-gallery.css";
 import DetailsPC from "../components/cars/CarDetails/DetailsPC";
 import DetailsMobile from "../components/cars/CarDetails/DetailsMobile";
 import Spinner from "../components/Spinner";
+import { Helmet } from "react-helmet";
 
 function CarDetails() {
   // slider logic
@@ -69,27 +70,39 @@ function CarDetails() {
     getCar();
   }, [id]);
 
+  console.log(car);
+
   if (car) {
     return (
-      <div className=" lg:pb-[30px] ">
-        {showMobileCom ? (
-          <DetailsMobile
-            car={car}
-            showFullSlider={showFullSlider}
-            setShowFullSlider={setShowFullSlider}
-            carImages={carImages}
-            id={id}
-          />
-        ) : (
-          <DetailsPC
-            car={car}
-            showFullSlider={showFullSlider}
-            setShowFullSlider={setShowFullSlider}
-            carImages={carImages}
-            id={id}
-          />
-        )}
-      </div>
+      <>
+        <Helmet>
+          <title>
+            {car.brand.name} {car.brand_model.name},{" "}
+            {car.engine_volume_liters + " L"}, {car.vehicle_year.name} yıl,{" "}
+            {Number(car.mileage).toLocaleString()}{" "}
+            {car.mileage_measurement_unit === "mi" ? "mil" : "km"}
+          </title>
+        </Helmet>
+        <div className=" lg:pb-[30px] ">
+          {showMobileCom ? (
+            <DetailsMobile
+              car={car}
+              showFullSlider={showFullSlider}
+              setShowFullSlider={setShowFullSlider}
+              carImages={carImages}
+              id={id}
+            />
+          ) : (
+            <DetailsPC
+              car={car}
+              showFullSlider={showFullSlider}
+              setShowFullSlider={setShowFullSlider}
+              carImages={carImages}
+              id={id}
+            />
+          )}
+        </div>
+      </>
     );
   } else {
     return <Spinner />;

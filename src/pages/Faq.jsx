@@ -186,29 +186,119 @@ function Faq() {
                   id="popular-1"
                   isOpen={openAccordion === "popular-1"}
                   onToggle={() => toggleAccordion("popular-1")}
-                  title="Sizinle nasıl iletişime geçebilirim?"
-                  content="Soru için içerik 1"
+                  title="İlanım neden yayınlanmadı?"
+                  content={
+                    <>
+                      Muhtemelen ilan yerleştirme Kurallarından birine veya
+                      birkaçına uymamışsınız.
+                      <br />
+                      Sebep, daha ayrıntılı bir şekilde ilanı yerleştirirken
+                      belirttiğiniz e-posta adresinize gönderildi.
+                    </>
+                  }
                 />
                 <Accordion
                   id="popular-2"
                   isOpen={openAccordion === "popular-2"}
                   onToggle={() => toggleAccordion("popular-2")}
-                  title="Sizinle nasıl iletişime geçebilirim?"
-                  content="Soru için içerik 2"
+                  title="İlana nasıl düzeltme yapabilirim?"
+                  content={
+                    <>
+                      İlanınızın kendi sayfasında düzeltme yapmak için:
+                      <br />
+                      1. Düzeltmek istediğiniz ilanınızı sitede bulun ve
+                      açın.(E-postanıza gönderilen mesajda linki
+                      bulabilirsiniz.)
+                      <br />
+                      2. İlan sayfasının altında <b>Düzenle</b> düğmesini
+                      göreceksiniz. Ona tıklayın.
+                      <br />
+                      3. İlanı yerleştirirken size gönderilen <b>
+                        PIN kodunu
+                      </b>{" "}
+                      girin ve düzenlemeye başlayın.
+                      <br />
+                      4. Gerekli düzenlemeleri yaptıktan sonra{" "}
+                      <b>İlanı Güncelle</b> düğmesine tıklayın.
+                      <br />
+                      5. Kategorisine bağlı olarak fiyatı ve açıklamayı
+                      değiştirebilir, görselleri silebilir veya ekleyebilir ve
+                      diğer bazı düzenlemeleri yapabilirsiniz. Düzenleme
+                      yaptıktan sonra ilanınız incelemeye gönderilecektir.
+                      İnceleme <b>1 saate kadar</b> sürebilir, ancak genellikle
+                      değişiklikler birkaç dakika içinde uygulanır.
+                      <br />
+                      Unutmayın ki,{" "}
+                      <b>
+                        24 saat içinde bir ilana yalnızca 2 kez düzenleme
+                        yapabilirsiniz.
+                      </b>
+                    </>
+                  }
                 />
                 <Accordion
                   id="popular-3"
                   isOpen={openAccordion === "popular-3"}
                   onToggle={() => toggleAccordion("popular-3")}
-                  title="Sizinle nasıl iletişime geçebilirim?"
-                  content="Soru için içerik 2"
+                  title="İlanı nasıl yerleştirebilirim?"
+                  content={
+                    <>
+                      İlanınızı Kibcar.com sitesinin tam (masaüstü) veya mobil
+                      versiyonunda, yayınlayabilirsiniz.
+                      <br />
+                      <b>
+                        Sitenin tam veya mobil versiyonunda ilan yerleştirmek
+                        için:
+                      </b>
+                      <br />
+                      1. Tam versiyonda sağ üst köşedeki <b>Yeni ilan</b>{" "}
+                      düğmesine, mobil versiyonda ise ekranın altındaki Yeni
+                      ilan veya sağ üst köşedeki + düğmesine tıklayın.
+                      <br />
+                      2. Açılan sayfada gerekli alanları doldurarak aracınız
+                      hakkında bilgileri girin. Unutmayın, bu bilgileri
+                      potansiyel alıcılar görecektir.
+                      <br />
+                      3. İlk defa ilan veriyorsanız, ilanınızın incelenmeye
+                      gönderilmesi için İletişim Bilgileri bölümünde belirtilen
+                      telefon numarasını doğrulamanız gerekir.
+                      <br />
+                      4. Neredeyse bitti! Şimdi tek yapmanız gereken{" "}
+                      <b>"İlanı Yerleştir"</b> düğmesine tıklamak !
+                    </>
+                  }
                 />
                 <Accordion
                   id="popular-4"
                   isOpen={openAccordion === "popular-4"}
                   onToggle={() => toggleAccordion("popular-4")}
-                  title="Sizinle nasıl iletişime geçebilirim?"
-                  content="Soru için içerik 2"
+                  title="İlanı nasıl silebilirim?"
+                  content={
+                    <>
+                      İlanınızı sayfadan silmek için:
+                      <br />
+                      1. Silmek istediğiniz ilanınızı sitede bulun ve açın.
+                      <br />
+                      2. İlanı yerleştirirken size gönderilen <b>
+                        PIN kodunu
+                      </b>{" "}
+                      girin ve onaylayın.
+                      <br />
+                      3. İlan sayfasının altında <b>İlanı Sil</b> düğmesini
+                      göreceksiniz. Ona tıklayın.
+                      <br />
+                      4. Eğer PIN kodunuzu kaybettiyseniz, ilanı oluştururken
+                      kullandığınız e-posta adresinize tekrardan ücretsiz olarak
+                      sıfırlama isteye bilirsiniz.
+                      <br />
+                      5. Eğer e-posta hesabınıza erişiminiz yoksa, PIN kodunu{" "}
+                      <b>SMS</b> yolu ile sıfırlamanız gerekir, bu işlem{" "}
+                      <b>100 Türk Lirası</b> ücrete tabidir ve günde en fazla{" "}
+                      <b>iki kez</b> PIN kodu sıfırlanabilir.
+                      <br />
+                      Bu şekilde ilanınızı kolayca silebilirsiniz.
+                    </>
+                  }
                 />
                 {/* ... More accordions ... */}
               </div>

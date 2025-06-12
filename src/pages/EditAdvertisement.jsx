@@ -395,14 +395,14 @@ function EditAdvertisement() {
 
   function validateImageCount(uploadedImages) {
     const minImages = 3;
-    const maxImages = 21;
+    const maxImages = 14;
     const numberOfUploadedImages = uploadedImages;
 
     // max and min
     if (numberOfUploadedImages < minImages) {
-      return `Lütfen en az ${minImages} adet resim ekleyin.`;
+      return `Lütfen en az ${minImages} adet fotoğraf ekleyin.`;
     } else if (numberOfUploadedImages > maxImages) {
-      return `En fazla ${maxImages} resim ekleyebilirsiniz.`;
+      return `En fazla ${maxImages} fotoğraf ekleyebilirsiniz.`;
     }
 
     // special images validation
@@ -417,7 +417,7 @@ function EditAdvertisement() {
       formData.vehicle_front_panel_image === undefined;
 
     if (frontViewMissing || backViewMissing || frontPanelMissing) {
-      return "Ön, arka ve iç görünüm resimlerini eklemeniz gerekiyor.";
+      return "Ön, arka ve iç görünüm fotoğraflarını eklemeniz gerekiyor.";
     }
 
     // photo format and size validation
@@ -439,12 +439,12 @@ function EditAdvertisement() {
         if (image instanceof File) {
           // format validation
           if (!allowedTypes.includes(image.type)) {
-            return `Sadece JPEG, PNG, JPG, GIF ve SVG formatları kabul edilmektedir. Hatalı resim: ${image.name}`;
+            return `Sadece JPEG, PNG, JPG, GIF ve SVG formatları kabul edilmektedir. Hatalı fotoğraf: ${image.name}`;
           }
 
           // size validation
           if (image.size > maxSize) {
-            return `Resim boyutu 2MB'dan küçük olmalıdır. Hatalı resim: ${
+            return `Fotoğraf boyutu 2MB'dan küçük olmalıdır. Hatalı fotoğraf: ${
               image.name
             } (${(image.size / (1024 * 1024)).toFixed(2)}MB)`;
           }
@@ -464,12 +464,12 @@ function EditAdvertisement() {
       if (image instanceof File) {
         // format validation
         if (!allowedTypes.includes(image.type)) {
-          return `Sadece JPEG, PNG, JPG, GIF ve SVG formatları kabul edilmektedir. Hatalı resim: ${image.name}`;
+          return `Sadece JPEG, PNG, JPG, GIF ve SVG formatları kabul edilmektedir. Hatalı fotoğraf: ${image.name}`;
         }
 
         // size validation
         if (image.size > maxSize) {
-          return `Resim boyutu 2MB'dan küçük olmalıdır. Hatalı resim: ${
+          return `Fotoğraf boyutu 2MB'dan küçük olmalıdır. Hatalı fotoğraf: ${
             image.name
           } (${(image.size / (1024 * 1024)).toFixed(2)}MB)`;
         }
@@ -935,10 +935,11 @@ function EditAdvertisement() {
               <div className="flex flex-col">
                 <div className="flex flex-col bg-[#f6f7fa] p-[10px] rounded-[7px] mb-[15px]">
                   <p className="text-[12px] text-[#ff586d] leading-4">
-                    Yasaktır
+                    Dikkat!
                   </p>
                   <p className="font-semibold text-[12px] text-[#212c3a] leading-4">
-                    Ekran görüntüleri ve çerçeveli fotoğraflar yasaktır.
+                    Ekran görüntüsü ya da çerçeveli fotoğraflar yüklenemez.
+                    Lütfen doğrudan araç fotoğraflarını kullanın.
                   </p>
                 </div>
                 <p
@@ -2315,9 +2316,10 @@ function EditAdvertisement() {
                     Resimler
                   </h2>
                   <div className="bg-[#f6f7fa] p-4 rounded-lg mb-6">
-                    <p className="text-[14px] text-[#ff586d]">Yasaktır</p>
+                    <p className="text-[14px] text-[#ff586d]">Dikkat!</p>
                     <p className="font-semibold mt-2 text-[#212c3a]">
-                      Ekran görüntüleri ve çerçeveli fotoğraflar yasaktır.
+                      Ekran görüntüsü ya da çerçeveli fotoğraflar yüklenemez.
+                      Lütfen doğrudan araç fotoğraflarını kullanın.
                     </p>
                   </div>
                   <p

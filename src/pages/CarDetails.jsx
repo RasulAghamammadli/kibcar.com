@@ -70,8 +70,6 @@ function CarDetails() {
     getCar();
   }, [id]);
 
-  console.log(car);
-
   if (car) {
     return (
       <>
